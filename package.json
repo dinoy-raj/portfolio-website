@@ -1,0 +1,8 @@
+{
+  "name": "portfolio-website",
+  "private": true,
+  "description": "Static portfolio site. No dependencies and no build step.",
+  "engines": {
+    "node": "24.x"
+  }
+}
