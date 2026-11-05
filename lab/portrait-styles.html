@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portrait Lab</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Google+Sans+Code:wght@400;500&family=Google+Sans+Flex:wght@400;500;600;700&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root {
+  color-scheme: light;
+  --surface:#fbf6ee; --surface-container-lowest:#ffffff; --surface-container-low:#f6efe6; --surface-container:#f1e9df;
+  --surface-container-high:#ebe2d6; --surface-container-highest:#e4dacd; --on-surface:#1f1a16; --on-surface-variant:#54463d;
+  --outline:#85736a; --outline-variant:#d9c7bc;
+  --primary:#a8330f; --on-primary:#ffffff; --primary-container:#ffdbcf; --on-primary-container:#3b0900;
+  --secondary:#2c6765; --on-secondary:#ffffff; --secondary-container:#bdeeea; --on-secondary-container:#00201f;
+  --tertiary:#7a4e8f; --on-tertiary:#ffffff; --tertiary-container:#f3daff; --on-tertiary-container:#2f0a44;
+  --highlight:#fc9500; --on-highlight:#2b1700;
+  --positive:#1b6d3b; --positive-container:#c3efcf; --on-positive-container:#00210c;
+  --error:#ba1a1a; --on-error:#ffffff; --error-container:#ffdad6; --on-error-container:#410002;
+  --inverse-surface:#362f2b; --inverse-on-surface:#fbeee8; --inverse-primary:#ffb59c; --inverse-muted:#cdbdb3; --inverse-ghost:#463d38;
+  --scrim:rgba(20,12,8,.4); --focus:var(--on-surface);
+  --elevation-0:none; --elevation-1:0 1px 2px rgba(31,26,22,.18),0 1px 3px 1px rgba(31,26,22,.08);
+  --elevation-3:0 4px 8px 3px rgba(31,26,22,.10),0 1px 3px rgba(31,26,22,.20);
+  --font-sans:"Google Sans Flex","Google Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-display:Fraunces,"Iowan Old Style",Georgia,serif;
+  --font-mono:"Google Sans Code","Geist Mono",ui-monospace,Menlo,monospace;
+  --font-icons:"Material Symbols Rounded";
+  --space-0-5:2px; --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-5:20px; --space-6:24px; --space-8:32px; --space-12:48px; --space-16:64px;
+  --shape-xs:4px; --shape-sm:8px; --shape-md:12px; --shape-lg:16px; --shape-lg-increased:20px; --shape-xl:28px; --shape-xl-increased:32px; --shape-xxl:48px; --shape-full:999px;
+  --touch-target:48px; --button-sm:40px; --button-md:56px; --nav-bar:80px; --nav-indicator-w:56px; --fab:56px;
+  --state-hover:.08; --state-focus:.1; --state-pressed:.1; --state-disabled:.38;
+  --spring:cubic-bezier(.34,1.4,.64,1); --ease:cubic-bezier(.2,0,0,1);
+body{margin:0;background:var(--surface);color:var(--on-surface);font-family:var(--font-sans);-webkit-font-smoothing:antialiased}
+.eyebrow{font-family:var(--font-mono);font-size:11px;line-height:16px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase}
+header{max-width:1240px;margin:0 auto;padding:56px 20px 8px}
+header h1{font-family:var(--font-display);font-weight:500;font-size:clamp(36px,5vw,60px);line-height:1.05;letter-spacing:-.02em;margin:10px 0 12px}
+header h1 em{color:var(--primary)}
+header p{max-width:640px;color:var(--on-surface-variant);font-size:15px;line-height:1.55;margin:0}
+.grid{max-width:1240px;margin:0 auto;padding:32px 20px 80px;display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
+.cell{background:var(--surface-container-low);border-radius:var(--shape-xl);padding:20px 20px 18px;display:flex;flex-direction:column;gap:14px}
+.stage{height:340px;display:grid;place-items:center;position:relative;isolation:isolate;overflow:hidden;border-radius:var(--shape-lg)}
+.meta{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.meta h3{margin:0;font-size:17px;font-weight:600;letter-spacing:-.01em}
+.meta .num{color:var(--on-surface-variant)}
+.cell p{margin:-6px 0 0;font-size:13px;line-height:1.45;color:var(--on-surface-variant)}
+.tag{display:inline-block;margin-right:6px;padding:3px 8px;border-radius:999px;background:var(--surface-container-high);font-family:var(--font-mono);font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:var(--on-surface-variant)}
+img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.blob{position:absolute;z-index:-1}
+
+/* 01 editorial mono */
+.c-edit{width:200px;background:#fff;padding:10px 10px 0;box-shadow:var(--elevation-1)}
+.c-edit .ph{height:228px;position:relative;overflow:hidden}
+.c-edit .ph::after{content:"";position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");mix-blend-mode:overlay}
+.c-edit .cap{display:flex;justify-content:space-between;padding:10px 2px 12px;border-bottom:3px solid var(--on-surface);font-family:var(--font-display);font-style:italic;font-size:15px}
+.c-edit .cap span:last-child{font-family:var(--font-mono);font-style:normal;font-size:10px;letter-spacing:1px;align-self:center}
+
+/* 02 brand squircle duotone (current layout) */
+.c-squ{width:190px;height:216px;border-radius:48px;overflow:hidden;position:relative;box-shadow:0 18px 40px -18px rgb(59 9 0/.55)}
+.c-squ .note{position:absolute;bottom:12px;left:0;right:0;text-align:center;color:#fff}
+
+/* 03 halftone circle poster */
+.c-ring{width:176px;height:176px;border-radius:50%;padding:10px;border:2px dashed var(--on-surface);position:relative}
+.c-ring .in{width:100%;height:100%;border-radius:50%;overflow:hidden}
+.c-ring .pill{position:absolute;left:50%;bottom:-12px;transform:translateX(-50%);background:var(--highlight);color:var(--on-highlight);padding:6px 14px;border-radius:999px;white-space:nowrap}
+.c-ring .orbit{position:absolute;inset:-30px;animation:spin 18s linear infinite}
+.c-ring .orbit text{font-family:var(--font-mono);font-size:10.5px;letter-spacing:3.2px;fill:var(--on-surface)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* 04 cartoon sticker */
+.c-stk{width:186px;height:212px;background:#fff;padding:9px;border-radius:26px;transform:rotate(-5deg);box-shadow:0 2px 0 #e7dccf,0 14px 24px -10px rgb(31 26 22/.35);position:relative}
+.c-stk .in{width:100%;height:100%;border-radius:18px;overflow:hidden}
+.c-stk .tape{position:absolute;top:-12px;left:50%;width:84px;height:24px;transform:translateX(-50%) rotate(3deg);background:rgb(252 149 0/.55);backdrop-filter:blur(1px)}
+.c-stk .bub{position:absolute;right:-30px;top:20px;background:var(--on-surface);color:var(--surface);padding:7px 11px;border-radius:16px 16px 16px 4px;transform:rotate(8deg);font-weight:600;font-size:13px}
+
+/* 05 painterly polaroid */
+.c-pol{width:196px;background:#fffdf8;padding:11px 11px 0;box-shadow:0 10px 26px -10px rgb(31 26 22/.4);transform:rotate(3deg)}
+.c-pol .ph{height:206px;overflow:hidden}
+.c-pol .cap{font-family:var(--font-display);font-style:italic;font-size:19px;text-align:center;padding:12px 0 16px;color:#3b2a20}
+
+/* 06 sketch notebook */
+.c-nb{width:220px;height:270px;background:#fffdf7 repeating-linear-gradient(transparent 0 23px,#d9e3ef 23px 24px);border-left:28px solid #fffdf7;box-shadow:inset 1px 0 0 #f0b5a8,var(--elevation-1);position:relative;padding:18px 12px 0 8px}
+.c-nb::before{content:"";position:absolute;left:-28px;top:0;bottom:0;width:28px;background:radial-gradient(circle at 14px 50%,var(--surface-container-low) 5px,transparent 6px) 0 0/28px 32px repeat-y}
+.c-nb .ph{height:196px;mix-blend-mode:multiply}
+.c-nb .hand{font-family:var(--font-display);font-style:italic;font-size:18px;margin-top:6px;color:#2b4a8a}
+.c-nb svg{position:absolute;right:-6px;top:120px}
+
+/* 07 riso ticket */
+.c-tix{width:230px;height:290px;background:#f4eee4;border-radius:14px;position:relative;display:flex;flex-direction:column;
+  -webkit-mask:radial-gradient(circle at 0 214px,#0000 12px,#000 12.5px) left/51% 100% no-repeat,radial-gradient(circle at 100% 214px,#0000 12px,#000 12.5px) right/51% 100% no-repeat;
+  mask:radial-gradient(circle at 0 214px,#0000 12px,#000 12.5px) left/51% 100% no-repeat,radial-gradient(circle at 100% 214px,#0000 12px,#000 12.5px) right/51% 100% no-repeat;box-shadow:var(--elevation-1)}
+.c-tix .ph{height:214px;padding:12px 12px 0}
+.c-tix .ph img{border-radius:6px}
+.c-tix .stub{flex:1;border-top:2px dashed #1f4bd8;margin:0 14px;display:flex;justify-content:space-between;align-items:center;color:#1f4bd8}
+.c-tix .stub b{font-size:22px;font-weight:700;letter-spacing:-.02em;color:#ff4f6d}
+
+/* 08 pixel window */
+.c-win{width:230px;background:#c9c3b8;border:2px solid #1f1a16;box-shadow:6px 6px 0 #1f1a16;font-family:var(--font-mono)}
+.c-win .bar{display:flex;align-items:center;justify-content:space-between;padding:5px 8px;background:var(--secondary);color:#fff;font-size:11px;letter-spacing:1px;border-bottom:2px solid #1f1a16}
+.c-win .bar i{display:inline-block;width:11px;height:11px;background:#fff;border:2px solid #1f1a16;margin-left:4px}
+.c-win .ph{height:226px;margin:8px;border:2px solid #1f1a16;image-rendering:pixelated}
+.c-win .st{display:flex;justify-content:space-between;padding:0 10px 8px;font-size:11px}
+.c-win .hp{display:inline-flex;gap:2px}.c-win .hp span{width:9px;height:9px;background:#ba1a1a}
+
+/* 09 lino stamp */
+.c-stamp{width:200px;height:244px;padding:12px;background:radial-gradient(circle at 10px 10px,#0000 6px,#fbf3ea 6.5px) -10px -10px/20px 20px;filter:drop-shadow(0 6px 10px rgb(59 9 0/.25));position:relative}
+.c-stamp .ph{height:100%;outline:1.5px solid var(--primary);outline-offset:-1px;position:relative}
+.c-stamp .val{position:absolute;right:20px;top:18px;color:#fbf3ea;font-family:var(--font-display);font-size:28px;font-weight:600}
+.c-stamp .cty{position:absolute;left:8px;bottom:8px;color:#fbf3ea;background:var(--primary);padding:3px 8px}
+
+/* 10 iOS contact pop-out */
+.c-ios{display:flex;flex-direction:column;align-items:center;gap:12px}
+.c-ios .av{width:170px;height:200px;position:relative}
+.c-ios .disc{position:absolute;left:0;right:0;bottom:0;height:170px;border-radius:50%;background:linear-gradient(160deg,#ffcf8a,#fc9500 60%,#e36a00)}
+.c-ios .av img{position:absolute;left:-8%;width:116%;height:auto;bottom:0;object-fit:contain}
+.c-ios .av .a{clip-path:circle(85px at 50% calc(100% - 85px))}
+.c-ios .av .b{clip-path:inset(0 0 52% 0)}
+.c-ios .name{font-size:22px;font-weight:600;letter-spacing:-.02em;font-family:-apple-system,var(--font-sans)}
+.c-ios .acts{display:flex;gap:10px}.c-ios .acts span{width:38px;height:38px;border-radius:50%;background:var(--surface-container-high);display:grid;place-items:center;font-size:15px}
+
+/* 11 arch cut-out */
+.c-arch{width:190px;height:250px;position:relative}
+.c-arch .bg{position:absolute;inset:30px 0 0;border-radius:95px 95px 18px 18px;background:var(--secondary);overflow:hidden}
+.c-arch .bg::before{content:"";position:absolute;inset:0;background:repeating-radial-gradient(circle at 50% 110%,transparent 0 14px,rgb(255 255 255/.08) 14px 28px)}
+.c-arch img{position:absolute;bottom:0;left:-6%;width:112%;height:auto}
+.c-arch .a{clip-path:inset(30px 0 0 0 round 95px 95px 18px 18px)}
+.c-arch .b{clip-path:inset(0 0 60% 0)}
+.c-arch .lbl{position:absolute;bottom:12px;left:12px;background:var(--surface);padding:5px 10px;border-radius:999px}
+
+/* 12 ascii terminal */
+.c-term{width:240px;background:#1a1512;border-radius:14px;box-shadow:var(--elevation-3);overflow:hidden}
+.c-term .bar{display:flex;gap:6px;padding:10px 12px}.c-term .bar i{width:10px;height:10px;border-radius:50%;background:#54463d}
+.c-term .bar i:first-child{background:#ff5f57}.c-term .bar i:nth-child(2){background:#febc2e}.c-term .bar i:nth-child(3){background:#28c840}
+.c-term pre{margin:0;padding:0 12px;font:6.2px/6.6px var(--font-mono);color:#ffb347;letter-spacing:.4px;font-weight:500}
+.c-term .pr{padding:10px 12px 12px;font:11px var(--font-mono);color:#cdbdb3}.c-term .pr b{color:#28c840;font-weight:500}
+.c-term .car{display:inline-block;width:7px;height:12px;background:#fc9500;vertical-align:-2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* 13 morph cookie clip, colour original */
+.c-cookie{width:230px;height:230px;position:relative}
+.c-cookie svg{width:100%;height:100%;overflow:visible}
+.c-cookie .lab{position:absolute;bottom:4px;right:-4px;background:var(--on-surface);color:var(--surface);padding:6px 12px;border-radius:999px}
+
+/* 14 trading card */
+.c-trd{width:200px;height:286px;border-radius:14px;padding:8px;background:linear-gradient(135deg,#fc9500,#a8330f 50%,#7a4e8f);box-shadow:var(--elevation-3);position:relative;overflow:hidden}
+.c-trd::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgb(255 255 255/.45) 48%,transparent 60%);transform:translateX(-60%);animation:shine 3.2s ease-in-out infinite}
+@keyframes shine{60%,100%{transform:translateX(60%)}}
+.c-trd .in{height:100%;background:#fff7ec;border-radius:9px;padding:8px;display:flex;flex-direction:column;gap:6px}
+.c-trd .top{display:flex;justify-content:space-between;font-weight:700;font-size:14px}.c-trd .top span{color:var(--primary)}
+.c-trd .ph{height:150px;border-radius:6px;overflow:hidden;border:2px solid #e8c9a6}
+.c-trd .row{display:flex;justify-content:space-between;font-size:11px;border-bottom:1px solid #ecdccb;padding:3px 0}
+.c-trd .row b{font-family:var(--font-mono);font-weight:500}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <span class="eyebrow" style="color:var(--primary)">/ Portrait lab · hero card experiments</span>
+  <h1>Fourteen ways to say <em>hi, I'm Dinoy</em></h1>
+  <p>Card shapes and image treatments for the hero portrait, all made from the one photo in <code>assets/dinoy.jpg</code>. Each treatment was rendered with code, not AI, so the "cartoon" and "painterly" looks are approximations. A true Ghibli-style painting or a real Memoji would need an image model; any of these cards can take that file as a drop-in.</p>
+</header>
+
+<main class="grid">
+
+<section class="cell"><div class="stage" style="background:#f3ece2">
+  <div class="c-edit"><div class="ph"><img src="portraits/mono.webp" alt=""></div><div class="cap"><span>Dinoy, Android dev.</span><span>N°01</span></div></div>
+</div><div class="meta"><h3>Editorial mono</h3><span class="num eyebrow">01</span></div>
+<p>High-contrast black and white with film grain, framed like a magazine contributor photo.</p><div><span class="tag">B&amp;W</span><span class="tag">Print frame</span></div></section>
+
+<section class="cell"><div class="stage">
+  <svg class="blob" width="150" height="150" viewBox="0 0 100 100" style="right:18px;top:20px"><path fill="var(--primary)" d="M50 4l9 17 18-7-2 19 19 6-13 14 13 14-19 6 2 19-18-7-9 17-9-17-18 7 2-19-19-6 13-14L3 39l19-6-2-19 18 7z"/></svg>
+  <svg class="blob" width="54" height="54" viewBox="0 0 100 100" style="left:8px;bottom:44px;z-index:2"><circle cx="50" cy="50" r="46" fill="var(--highlight)"/></svg>
+  <div class="c-squ"><img src="portraits/duotone.webp" alt=""><span class="note eyebrow">Hi, I'm Dinoy</span></div>
+</div><div class="meta"><h3>Brand duotone squircle</h3><span class="num eyebrow">02</span></div>
+<p>Your current layout, with the photo mapped to the rust palette so it belongs to the page instead of sitting on it.</p><div><span class="tag">Duotone</span><span class="tag">Current shape</span></div></section>
+
+<section class="cell"><div class="stage">
+  <div class="c-ring">
+    <svg class="orbit" viewBox="0 0 300 300"><defs><path id="o" d="M150 150m-138 0a138 138 0 1 1 276 0a138 138 0 1 1-276 0"/></defs><text><textPath href="#o">ANDROID DEVELOPER · KOTLIN · COMPOSE · MATERIAL 3 · </textPath></text></svg>
+    <div class="in"><img src="portraits/halftone.webp" alt=""></div><span class="pill eyebrow">Hi, I'm Dinoy</span></div>
+</div><div class="meta"><h3>Halftone orbit</h3><span class="num eyebrow">03</span></div>
+<p>Amber halftone dots in a circle, with a slowly rotating ring of text around it.</p><div><span class="tag">Halftone</span><span class="tag">Circle</span><span class="tag">Motion</span></div></section>
+
+<section class="cell"><div class="stage" style="background:var(--secondary-container)">
+  <div class="c-stk"><span class="tape"></span><div class="in"><img src="portraits/cartoon.webp" alt=""></div><span class="bub">hi! 👋</span></div>
+</div><div class="meta"><h3>Cartoon sticker</h3><span class="num eyebrow">04</span></div>
+<p>Flat cel-shaded colour with inked outlines, presented as a tilted sticker with tape and a speech bubble.</p><div><span class="tag">Cartoon</span><span class="tag">Sticker</span></div></section>
+
+<section class="cell"><div class="stage" style="background:#e9efe4">
+  <div class="c-pol"><div class="ph"><img src="portraits/painterly.webp" alt=""></div><div class="cap">hi, I'm Dinoy ☁︎</div></div>
+</div><div class="meta"><h3>Painterly polaroid</h3><span class="num eyebrow">05</span></div>
+<p>The closest code gets to a Ghibli look: painted texture, warmer colour and a cloudy sky behind the cut-out.</p><div><span class="tag">Painterly</span><span class="tag">Ghibli-ish</span><span class="tag">Polaroid</span></div></section>
+
+<section class="cell"><div class="stage">
+  <div class="c-nb"><div class="ph"><img src="portraits/sketch.webp" alt="" style="object-fit:contain"></div><div class="hand">← that's me, Dinoy</div>
+  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#2b4a8a" stroke-width="2" stroke-linecap="round"><path d="M6 8l4 6M20 4v8M34 8l-4 6"/></svg></div>
+</div><div class="meta"><h3>Pencil sketchbook</h3><span class="num eyebrow">06</span></div>
+<p>A pencil drawing on a lined notebook page with a handwritten note. Suits a "designs before building" story.</p><div><span class="tag">Sketch</span><span class="tag">Notebook</span></div></section>
+
+<section class="cell"><div class="stage" style="background:#dfe6f7">
+  <div class="c-tix" style="filter:drop-shadow(0 6px 12px rgb(31 26 22/.18))"><div class="ph"><img src="portraits/riso.webp" alt=""></div><div class="stub"><span class="eyebrow">Admit one · Dinoy</span><b>№26</b></div></div>
+</div><div class="meta"><h3>Riso ticket</h3><span class="num eyebrow">07</span></div>
+<p>Two-colour risograph print, pink and blue slightly off-register, on a ticket with a tear-off stub.</p><div><span class="tag">Riso</span><span class="tag">Ticket</span></div></section>
+
+<section class="cell"><div class="stage" style="background:#ded7cb">
+  <div class="c-win"><div class="bar"><span>DINOY.EXE</span><span><i></i><i></i></span></div><div class="ph"><img src="portraits/pixel.webp" alt="" style="image-rendering:pixelated"></div>
+  <div class="st"><span>LV.26 DEV</span><span class="hp"><span></span><span></span><span></span><span></span><span style="background:#85736a"></span></span></div></div>
+</div><div class="meta"><h3>8-bit window</h3><span class="num eyebrow">08</span></div>
+<p>Low-res pixel portrait in a retro desktop window with a game-style status bar.</p><div><span class="tag">Pixel art</span><span class="tag">Retro UI</span></div></section>
+
+<section class="cell"><div class="stage" style="background:var(--primary-container)">
+  <div class="c-stamp"><div class="ph"><img src="portraits/lino.webp" alt=""><span class="val">26</span><span class="cty eyebrow">Hi, I'm Dinoy</span></div></div>
+</div><div class="meta"><h3>Linocut stamp</h3><span class="num eyebrow">09</span></div>
+<p>A one-colour block print in rust with a postage-stamp edge. Bold, and holds up at small sizes.</p><div><span class="tag">Linocut</span><span class="tag">Stamp</span></div></section>
+
+<section class="cell"><div class="stage" style="background:#f2f2f7">
+  <div class="c-ios"><div class="av"><div class="disc"></div><img class="a" src="portraits/cutout.webp" alt=""><img class="b" src="portraits/cutout.webp" alt=""></div>
+  <div class="name">Dinoy</div><div class="acts"><span>💬</span><span>📞</span><span>✉️</span></div></div>
+</div><div class="meta"><h3>Contact avatar, pop-out</h3><span class="num eyebrow">10</span></div>
+<p>An iOS-contact-style flat avatar on a gradient disc, with the head breaking out of the circle.</p><div><span class="tag">Flat avatar</span><span class="tag">iOS-ish</span><span class="tag">Pop-out</span></div></section>
+
+<section class="cell"><div class="stage">
+  <div class="c-arch"><div class="bg"></div><img class="a" src="portraits/cutout.webp" alt=""><img class="b" src="portraits/cutout.webp" alt=""><span class="lbl eyebrow">Hi, I'm Dinoy</span></div>
+</div><div class="meta"><h3>Arch window</h3><span class="num eyebrow">11</span></div>
+<p>The cut-out in a teal arch, with hair spilling over the top edge. Calm and architectural.</p><div><span class="tag">Cut-out</span><span class="tag">Arch</span></div></section>
+
+<section class="cell"><div class="stage" style="background:var(--surface-container)">
+  <div class="c-term"><div class="bar"><i></i><i></i><i></i></div><pre aria-hidden="true">
+                         :---=-:.
+                   .:::::---=+==-:::
+               :-=--=-:.:::...:-==--::::::
+            .-+=-===:..-+=:.. ..=+=--....::
+           .-+*=-=+=:..==-.  .:.:--::......:.
+           ==+=*=-:--:-+++----==--:.::...   .
+          .==++=-.-=--=*+. .:=++==-.  ...
+         .-=+=--:.::-+#+:. .-**#*+=-:...
+        .-++==+--=:.:===. -+##%%%#*=-:
+        :++++===*#+.:+#+-.:-=+*#+-:....
+       .---+====-=-.:+*#+-...=#%*: ..-..
+       :==:=+=-.::.:.+*+++--=*%@%*::--=-.
+        :--::-:.::.:=#%%%#*##@@@@#=:=+*=:
+         :.:::..:::-*%@@@@%###%##*=::-+=-
+          :=-..:=-=-*#%%@%%#*%%#+=:...-=-
+           :::..-#%###%%%%%%*##*+=-:..:=:
+           .::-:..-=+##%%%%#==##*==-::--.
+            ..-:.. :##**####*###*+==---:
+             ::-....*%%+==+*#%%@%*+=-:..
+              .-:..+#@@%*=-:--==-:.:....
+               .-=#%%@@%#*+++++=-:.:...:.
+             .=++==+#@@%#**++*+=--::..:::.
+           -++=+++--:=*#***++++=-::  ...:...
+        .=++++=-===-::::-=+++=--:::     ...::.
+      :+*+++++=----==-:::::::-::::.        ..::.
+    :+*++**+==---::-==-----:::..             .:..
+   =**+***++=-----:.::---:::::...   .         ...
+ .+++++=++++==---:....:--:...::... ...         ...
+.=++++=====-:-----....::--:...::.......        ...
+=++++====--=-:.:-::....::--....::.  ...         ...
++++=+-==--::--:..::. ....:-:....:.    ..        ...</pre><div class="pr"><b>~</b> whoami<br>dinoy · android dev <span class="car"></span></div></div>
+</div><div class="meta"><h3>ASCII terminal</h3><span class="num eyebrow">12</span></div>
+<p>The portrait as text characters in a terminal, ending with a <code>whoami</code> prompt. A nerdy option.</p><div><span class="tag">ASCII</span><span class="tag">Terminal</span></div></section>
+
+<section class="cell"><div class="stage">
+  <div class="c-cookie"><svg viewBox="0 0 200 200"><defs><clipPath id="ck"><path id="ckp"/></clipPath></defs>
+    <path id="ckbg" fill="var(--highlight)" transform="translate(10 8)"/>
+    <image href="../assets/dinoy.webp" x="-6" y="-6" width="212" height="242" preserveAspectRatio="xMidYMin slice" clip-path="url(#ck)"/></svg>
+    <span class="lab eyebrow">Hi, I'm Dinoy</span></div>
+</div><div class="meta"><h3>Morphing cookie</h3><span class="num eyebrow">13</span></div>
+<p>The original photo clipped to a Material 3 Expressive cookie shape that slowly breathes, like the shapes elsewhere on the site.</p><div><span class="tag">Original</span><span class="tag">M3 shape</span><span class="tag">Motion</span></div></section>
+
+<section class="cell"><div class="stage" style="background:var(--surface-container)">
+  <div class="c-trd"><div class="in"><div class="top">Dinoy <span>HP 260</span></div><div class="ph"><img src="portraits/duotone.webp" alt="" style="filter:saturate(1.2)"></div>
+  <div class="row">Kotlin <b>★★★★★</b></div><div class="row">Compose <b>★★★★★</b></div><div class="row">Ships apps <b>15+</b></div></div></div>
+</div><div class="meta"><h3>Holo trading card</h3><span class="num eyebrow">14</span></div>
+<p>A collectible card with a foil shine sweep and your stats. Playful, and gives you room for skills.</p><div><span class="tag">Card game</span><span class="tag">Foil</span></div></section>
+
+</main>
+<script>
+// M3-style cookie: n lobes, amplitude a, breathing over time
+(function(){
+  const p=document.getElementById('ckp'), bg=document.getElementById('ckbg');
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function cookie(n,a,rot){let d='';for(let i=0;i<=180;i++){const t=i/180*Math.PI*2;const r=86*(1+a*Math.cos(n*(t+rot)));d+=(i?'L':'M')+(100+r*Math.cos(t)).toFixed(2)+' '+(100+r*Math.sin(t)).toFixed(2)}return d+'Z'}
+  function f(ms){const s=ms/1000;const a=.075+.035*Math.sin(s*1.1);p.setAttribute('d',cookie(9,a,s*.12));bg.setAttribute('d',cookie(6,.09,-s*.18));if(!reduce)requestAnimationFrame(f)}
+  f(0);
+})();
+</script>
+</body>
+</html>
