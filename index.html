@@ -257,6 +257,7 @@ section[id]{scroll-margin-top:96px}
 .foot-links a:focus-visible{outline:2px solid var(--inverse-on-surface);outline-offset:2px}
 .wordmark{font-size:clamp(96px,27vw,380px);line-height:.74;font-weight:700;letter-spacing:-.06em;color:var(--inverse-ghost);text-align:center;margin-top:var(--space-12);user-select:none;white-space:nowrap}
 .fine{display:flex;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap;padding-block:var(--space-5) calc(var(--space-5) + env(safe-area-inset-bottom,0px));color:var(--inverse-muted);font-size:13px}
+.fine a{color:inherit;text-decoration:underline;text-underline-offset:3px}.fine a:hover{color:var(--inverse-on-surface)}.fine a:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:4px}
 
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--space-6) + env(safe-area-inset-bottom,0px));z-index:40;width:min(420px,calc(100% - 32px));animation:rise 420ms var(--spring) both}
 @keyframes rise{from{transform:translate(-50%,12px)}to{transform:translate(-50%,0)}}
@@ -701,7 +702,7 @@ section[id]{scroll-margin-top:96px}
           </div>
           <div class="wordmark" aria-hidden="true">${NAME.toUpperCase()}</div>
         </div>
-        <div class="wrap fine"><span>© 2026 ${NAME}</span><span>Built with Expressive Kit</span></div>
+        <div class="wrap fine"><span>© 2026 ${NAME}</span><a href="https://github.com/dinoy-raj/Material-3-expressive-design-system-skill" target="_blank" rel="noopener">Built with Expressive Kit</a></div>
       </footer>
       ${msg && html`<div class="toast"><${E.Snackbar} message=${msg} action="OK" onAction=${() => setMsg(null)} /></div>`}
     <//>`;
