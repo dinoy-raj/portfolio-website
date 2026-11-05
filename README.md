@@ -16,6 +16,7 @@ Then open http://localhost:8000.
 
 - `index.html`: the page, its styles and its React components
 - `kit/bundle.css`, `kit/bundle.js`: Expressive Kit component styles and components (`window.Expressive`)
+- `assets/apps/`: app icons and screenshots for the My Apps section, taken from each app's own Play Store assets and resized to WebP. Each app's title, description and links live in the `APPS` list in `index.html`
 
 React 18 and htm load from CDNs; fonts and Material Symbols load from Google Fonts.
 
@@ -23,8 +24,6 @@ React 18 and htm load from CDNs; fonts and Material Symbols load from Google Fon
 
 Replace the placeholders in `index.html`:
 
-- the portrait placeholder in the hero
-- the case-study links in Featured Projects
 - the contact form, which needs a backend or form service to send messages
 
 ## Content sources

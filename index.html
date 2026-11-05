@@ -9,7 +9,7 @@
 <style>*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <link rel="stylesheet" href="kit/bundle.css">
 <style>
-/* Expressive Kit, light only. Layout: floating pill nav → poster hero → scroll-lit statement → service rows → 2×2 work → dark talk cards → blogs → contact → dark footer with giant wordmark. */
+/* Expressive Kit, light only. Layout: floating pill nav → poster hero → scroll-lit statement → service rows → apps grid → dark talk cards → blogs → contact → dark footer with giant wordmark. */
 :root {
   color-scheme: light;
   --surface:#fbf6ee; --surface-container-lowest:#ffffff; --surface-container-low:#f6efe6; --surface-container:#f1e9df;
@@ -109,11 +109,15 @@ section[id]{scroll-margin-top:96px}
 .morph svg{width:100%;height:100%;overflow:visible;display:block}
 .hero-base{display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:var(--space-6);margin-top:var(--space-8)}
 .hero-base .year{font-size:clamp(36px,5vw,64px);font-weight:700;letter-spacing:-.04em;line-height:1}
-.portrait{width:clamp(150px,17vw,210px);aspect-ratio:200/228;border-radius:var(--shape-xxl);background:var(--primary-container);color:var(--on-primary-container);position:relative;overflow:hidden;display:grid;place-items:center;transition:border-radius 400ms var(--spring)}
-.portrait:hover{border-radius:50%}
-.portrait .ex-shape{position:absolute}
-.portrait .initial{position:relative;font-family:var(--font-display);font-style:italic;font-size:88px;font-weight:600;line-height:1}
-.portrait .note{position:absolute;bottom:10px;left:0;right:0;text-align:center}
+.portrait{width:clamp(150px,17vw,210px);aspect-ratio:200/228;position:relative;isolation:isolate}
+.portrait .halo{position:absolute;z-index:-1;right:-26%;top:-20%;width:78%!important;height:auto!important;aspect-ratio:1}
+.portrait .spark{position:absolute;z-index:2;left:-14%;bottom:12%;width:30%!important;height:auto!important;aspect-ratio:1}
+.portrait .frame{position:absolute;inset:0;border-radius:var(--shape-xxl);overflow:hidden;background:#0d0b0a;box-shadow:0 18px 40px -18px rgb(59 9 0 / .55);transition:border-radius 400ms var(--spring)}
+.portrait:hover .frame{border-radius:50%}
+.portrait img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 30%;transition:transform 600ms var(--spring)}
+.portrait:hover img{transform:scale(1.06)}
+.portrait .frame::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgb(168 51 15 / .55),transparent 42%);mix-blend-mode:multiply;pointer-events:none}
+.portrait .note{position:absolute;z-index:1;bottom:10px;left:0;right:0;text-align:center;color:#fff}
 .hero-ctas{display:flex;flex-direction:column;align-items:flex-end;gap:var(--space-2);justify-self:end;text-align:right}
 .hero-ctas .ex-row{justify-content:flex-end}
 @media (max-width:720px){
@@ -150,47 +154,43 @@ section[id]{scroll-margin-top:96px}
 .svc .tags span{font-size:13px;font-weight:500;padding:6px 12px;border-radius:var(--shape-full);background:var(--surface);color:var(--on-surface-variant)}
 @media (max-width:760px){.svc{grid-template-columns:auto minmax(0,1fr)}.svc .tags{grid-column:1/-1;justify-content:flex-start}}
 
-/* Work */
-.work{padding-top:clamp(96px,12vw,160px)}
-.work-head{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--space-4);flex-wrap:wrap}
-.work-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-4) var(--space-4);margin-top:var(--space-8)}
-@media (max-width:760px){.work-grid{grid-template-columns:minmax(0,1fr)}}
-.proj{display:flex;flex-direction:column;gap:var(--space-3);text-decoration:none;color:inherit;border-radius:var(--shape-xl)}
-.proj:focus-visible{outline:2px solid var(--focus);outline-offset:4px}
-.proj .media{position:relative;aspect-ratio:16/11;border-radius:var(--shape-xxl);overflow:hidden;display:grid;place-items:center;transition:border-radius 400ms var(--spring)}
-.proj:hover .media{border-radius:var(--shape-xl)}
-.proj .media .blob{position:absolute;width:78%!important;height:auto!important;aspect-ratio:1;opacity:.55}
-.proj .media .blob svg{transition:transform 900ms var(--spring)}
-.proj:hover .media .blob svg{transform:rotate(45deg) scale(1.06)}
-.proj .phones{position:relative;display:flex;gap:var(--space-4);align-items:center;transform:translateY(14%);transition:transform 450ms var(--spring)}
-.proj:hover .phones{transform:translateY(6%)}
-.proj .phones .mock:nth-child(2){transform:translateY(-10%) rotate(4deg)}
-.proj .meta{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--space-3);padding-inline:var(--space-1)}
-.proj h3{font-size:30px;line-height:34px;font-weight:600;letter-spacing:-.025em}
-.proj .chip{font-family:var(--font-mono);font-size:11px;letter-spacing:.8px;text-transform:uppercase;padding:6px 10px;border-radius:var(--shape-full);background:var(--surface-container-high);white-space:nowrap}
-.bg-p{background:var(--primary-container)} .bg-s{background:var(--secondary-container)} .bg-t{background:var(--tertiary-container)} .bg-h{background:var(--highlight)}
-
-/* Mock phone */
-.mock{width:clamp(120px,15vw,176px);aspect-ratio:9/18;background:var(--surface);color:var(--on-surface);border-radius:26px;padding:14px 12px;display:flex;flex-direction:column;gap:9px;box-shadow:var(--elevation-3);overflow:hidden;flex:none}
-.mock .bar{height:6px;width:40%;border-radius:3px;background:var(--surface-container-highest)}
-.mock .row{display:flex;align-items:center;gap:8px;background:var(--surface-container-low);border-radius:var(--shape-md);padding:7px}
-.mock .dot{width:20px;height:20px;border-radius:50%;background:var(--primary-container);flex:none}
-.mock .ln{height:6px;border-radius:3px;background:var(--surface-container-highest);flex:1}
-.mock .pill{height:26px;border-radius:var(--shape-full);background:var(--primary);margin-top:auto;flex:none}
-.mock .search{height:26px;border-radius:var(--shape-full);background:var(--surface-container-high);flex:none}
-.mock .grid7{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
-.mock .grid7 i{aspect-ratio:1;border-radius:50%;background:var(--surface-container-high)}
-.mock .grid7 i.on{background:var(--primary)} .mock .grid7 i.hl{background:var(--highlight)}
-.mock .keys{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:auto}
-.mock .keys i{height:20px;border-radius:var(--shape-full);background:var(--surface-container-high)}
-.mock .pins{display:flex;gap:7px;justify-content:center}
-.mock .pins i{width:8px;height:8px;border-radius:50%;background:var(--on-surface)}
-.mock .pins i.off{background:transparent;box-shadow:inset 0 0 0 1.5px var(--outline)}
-.mock .big{font-size:32px;line-height:34px;font-weight:700;letter-spacing:-1px;text-align:center;font-variant-numeric:tabular-nums}
-.mock .center{display:grid;place-items:center;gap:8px;flex:1;text-align:center}
-.mock .ex-progress svg{height:12px}
-.mock .t{font-size:13px;font-weight:600}
-.mock .s{font-size:10px;color:var(--on-surface-variant)}
+/* Apps */
+.apps{padding-top:clamp(96px,12vw,160px)}
+.apps-head{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--space-4);flex-wrap:wrap}
+.apps-head p{max-width:46ch;margin-top:var(--space-4);font-size:16px;line-height:25px}
+.apps-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-12) var(--space-4);margin-top:var(--space-8)}
+@media (max-width:760px){.apps-grid{grid-template-columns:minmax(0,1fr)}}
+.app{display:flex;flex-direction:column;gap:var(--space-4);min-width:0}
+.app.featured{grid-column:1/-1}
+.app .media{position:relative;aspect-ratio:16/11;border-radius:var(--shape-xxl);overflow:hidden;display:flex;justify-content:center;align-items:flex-start;transition:border-radius 400ms var(--spring)}
+.app.featured .media{aspect-ratio:2/1}
+@media (max-width:760px){.app.featured .media{aspect-ratio:1/1}.app.featured .shots{gap:var(--space-2);padding-top:8%}}
+.app:hover .media{border-radius:var(--shape-xl)}
+.shots{position:relative;display:flex;justify-content:center;align-items:flex-start;width:100%;padding-top:9%;transition:transform 450ms var(--spring)}
+.app:hover .shots{transform:translateY(-3%)}
+.shots img{display:block;width:31%;height:auto;border-radius:clamp(12px,2vw,22px);box-shadow:var(--elevation-3);background:var(--surface-container);flex:none}
+.shots img:nth-child(1){transform:translate(18%,10%) rotate(-6deg)}
+.shots img:nth-child(2){position:relative;z-index:1}
+.shots img:nth-child(3){transform:translate(-18%,10%) rotate(6deg)}
+.app.featured .shots{gap:var(--space-4);padding-top:6%}
+.app.featured .shots img{width:min(19%,190px);transform:none}
+.app.featured .shots img:nth-child(odd){transform:translateY(12%)}
+@media (max-width:760px){.app.featured .shots img{width:30%}.app.featured .shots img:nth-child(4){display:none}}
+.app-meta{display:flex;align-items:center;gap:var(--space-3);padding-inline:var(--space-1)}
+.app-meta .icon{width:56px;height:56px;border-radius:var(--shape-lg);flex:none;box-shadow:var(--elevation-1)}
+.app-meta .name{flex:1;min-width:0}
+.app h3{font-size:28px;line-height:32px;font-weight:600;letter-spacing:-.025em}
+.app-meta .store{font-size:14px;margin-top:2px}
+.app .tags .chip{font-family:var(--font-mono);font-size:11px;letter-spacing:.8px;text-transform:uppercase;display:inline-flex;align-items:center}
+@media (max-width:760px){.app h3{font-size:24px;line-height:28px}}
+.app .tags .chip.live{background:var(--positive-container);color:var(--on-positive-container)}
+.app .tags .chip.wip{background:var(--tertiary-container);color:var(--on-tertiary-container)}
+.app .desc{font-size:16px;line-height:25px;max-width:60ch;padding-inline:var(--space-1)}
+.app .tags{display:flex;flex-wrap:wrap;gap:6px;padding-inline:var(--space-1)}
+.app .tags span{font-size:13px;font-weight:500;padding:6px 12px;border-radius:var(--shape-full);background:var(--surface-container-low);color:var(--on-surface-variant)}
+.app .links{display:flex;flex-wrap:wrap;gap:var(--space-2);padding-inline:var(--space-1)}
+.app .links .link-arrow{font-size:14px;padding:6px 6px 6px 16px}
+.app .links .link-arrow .ex-icon{width:28px;height:28px;font-size:16px}
 
 /* Talks: dark cards */
 .how{padding-top:clamp(96px,12vw,160px)}
@@ -286,11 +286,63 @@ section[id]{scroll-margin-top:96px}
     { name: 'Icons & Visuals', shape: 'burst', icon: 'interests', tone: 'highlight', tags: ['App icons', 'Icon sets', 'Store graphics'] },
   ];
 
-  const WORK = [
-    { id: 'focus', name: 'Focus', type: 'Android · Timer redesign', bg: 'bg-p', shape: 'cookie9', tone: 'primary', mocks: ['timer', 'habits'] },
-    { id: 'links', name: 'Link Manager', type: 'Web · Expressive redesign', bg: 'bg-s', shape: 'clover4', tone: 'secondary', mocks: ['links'] },
-    { id: 'habits', name: 'Habit Tracker', type: 'Android · Prototype', bg: 'bg-t', shape: 'flower8', tone: 'tertiary-container', mocks: ['habits', 'lock'] },
-    { id: 'reel', name: 'Reel Blocker', type: 'Android · Icon set & flow', bg: 'bg-h', shape: 'burst', tone: 'primary-container', mocks: ['block'] },
+  // Real apps, with copy from each app's README / Play Store listing and its own store screenshots (assets/apps).
+  const PLAY = id => 'https://play.google.com/store/apps/details?id=' + id;
+  const APPS = [
+    { id: 'launcher', name: 'Dino Minimalist Launcher', store: 'Minimalist launcher for Android', featured: true, status: 'live', bg: '#efe6d8',
+      desc: 'A minimalist Android launcher designed to help you reduce screen time and boost focus. A clean, text-based home screen with only the apps you pin, custom themes and palettes, fonts, layouts and widgets, and no ads. Several of the apps below began as tools inside it.',
+      tags: ['Launcher', 'Material You', 'Custom themes', 'Widgets'],
+      shots: ['Dark theme', 'Sand theme', 'Light theme', 'Red theme'],
+      links: [['Google Play', PLAY('com.dino.simple')], ['Website', 'https://minimalistlauncher.com']] },
+    { id: 'nano', name: 'Nano Prompt Ground', store: 'Offline AI playground', status: 'live', bg: '#dcefe5',
+      desc: 'Prompt Gemini Nano right on your phone. Private, offline AI with no API key: every answer is generated on the device, with live streaming and the speed of each reply.',
+      tags: ['Gemini Nano', 'ML Kit Prompt API', 'On-device AI'],
+      shots: ['Prompt anything', 'Gemini Nano, right on your phone', 'See the speed of every answer'],
+      links: [['Google Play', PLAY('com.dino.nanoplayground')], ['Source', 'https://github.com/dinoy-raj/gemini-nano-playground']] },
+    { id: 'focus', name: 'Focus', store: 'Pomodoro timer', bg: '#0f4d3a',
+      desc: 'A calm, distraction-free pomodoro timer. Plan your focus sessions, keep them on schedule, and see where your time goes, from the app, your home screen, the notification shade or a dynamic island around your camera.',
+      tags: ['Sessions', 'Statistics', 'Widgets', 'Dynamic island'],
+      shots: ['Every minute counted: weekly statistics', 'With flow, not force: the focus timer', 'Your timer, always near: the dynamic island'] },
+    { id: 'habits', name: 'Habbit Tracker', store: 'Daily habits', bg: '#d4f1dd',
+      desc: 'Build the habits you want and break the ones you don\'t, one square a day. Every habit is a card with a grid of its days: tap to log today, watch the streak grow, and keep it in view with widgets and a dynamic island.',
+      tags: ['Streaks', 'Quit habits', 'Widgets', 'Themes'],
+      shots: ['Every habit has its own story', 'Build habits, one square a day', 'Easy on the eyes, day or night'] },
+    { id: 'reel', name: 'Reel Blocker', store: 'Stop scrolling', bg: '#c6ecd9',
+      desc: 'Counts the Instagram Reels, YouTube Shorts, TikToks, Snapchat Spotlight and Reddit videos you watch, and stops the feed once you hit your daily limit. The rest of each app keeps working, and nothing leaves your phone.',
+      tags: ['Accessibility service', 'Daily limits', 'On-device'],
+      shots: ['See where your time goes', 'Take back your scroll time', 'Limit hit. Reel stopped.'] },
+    { id: 'appblocker', name: 'App Blocker', store: 'Focus & timers', bg: '#fff0bf',
+      desc: 'Keep the apps you choose closed: all the time, on a schedule, or once they have used up their daily time. When a blocked app opens, a gate steps in front of it. Everything stays on the phone.',
+      tags: ['Schedules', 'App timers', 'Hold to unlock'],
+      shots: ['Watch the blocks add up', 'Keep distracting apps closed', 'Hold to get through. Or don\'t.'] },
+    { id: 'mindful', name: 'Mindful Pause', store: 'Screen time', bg: '#2b1055',
+      desc: 'Breathe before you scroll. A gentle pause in front of the apps that pull you in: go back to focus with one tap, or finish a short challenge, like a slow breath or a small puzzle, to open the app for a few minutes.',
+      tags: ['Breathing', 'Challenges', 'On-device'],
+      shots: ['A small challenge first', 'Breathe before you scroll', 'Count every time you turned back'] },
+    { id: 'notifications', name: 'Notification Blocker', store: 'Blocker & filter', bg: '#166a4b',
+      desc: 'Hold back noisy notifications, let what matters through and read the rest later. Held notifications wait in an inbox or arrive as a digest, while calls, alarms and one-time codes still get through.',
+      tags: ['Keyword rules', 'Digest', 'Snooze'],
+      shots: ['Hold the noise, keep what matters', 'Your phone, finally quiet', 'Read it all later, in one place'] },
+    { id: 'countdown', name: 'Count down', store: 'Days until', bg: '#d6ecf5',
+      desc: 'Count the days to trips, birthdays and deadlines. Every event is a colourful card in one stack, opening on the soonest, with reminders and widgets. Once a day has passed, its card keeps counting up.',
+      tags: ['Reminders', 'Groups', 'Widgets'],
+      shots: ['Count down to it. Count up after.', 'Every day that matters, at a glance', 'A dynamic island for your countdown'] },
+    { id: 'meetings', name: 'Meetings', store: 'Sticky note agenda', bg: '#dfe2ff',
+      desc: 'Today\'s meetings as a pile of sticky notes, the next one on top, with reminders and one-tap join. The coming week sits under the board, and highlights show where your time in meetings goes.',
+      tags: ['Calendar', 'One-tap join', 'Highlights'],
+      shots: ['Your week, at a glance', 'Today\'s meetings, pinned up', 'See where your time goes'] },
+    { id: 'timeline', name: 'Timeline Calendar', store: 'Day view', bg: '#2f7bff',
+      desc: 'See your whole day at a glance: every event from the calendars already on your phone, on one clean, live timeline. No account, no sync of its own, and nothing is uploaded.',
+      tags: ['Calendar provider', 'Day view', 'Private'],
+      shots: ['See how your hours fill up', 'Your whole day, at a glance', 'Back-to-back? Stacked neatly'] },
+    { id: 'links', name: 'Link Manager', store: 'Read it later', bg: '#ebe2d6',
+      desc: 'Save links from any app, sort them into your own categories, add a note on why you saved them, and tick off what you have read.',
+      tags: ['Share to save', 'Categories', 'Notes'],
+      shots: ['Share from any app', 'Save it now. Read it later.', 'Calm, day or night'] },
+    { id: 'island', name: 'Dynamic Island', store: 'Live pill', status: 'wip', bg: '#5881ff',
+      desc: 'Turns the camera cutout on your Android phone into a live, interactive pill for music, timers, calls, charging and notifications. Tap to expand it; when two things are live, it splits in two.',
+      tags: ['Overlay', 'Media controls', 'Customisable'],
+      shots: ['Tap to expand', 'Your camera, alive', 'Two things live? Split it'] },
   ];
 
   const LINKS = {
@@ -345,30 +397,6 @@ section[id]{scroll-margin-top:96px}
 
 
   const STATEMENT = 'From idea to Play Store. Small, focused apps that feel *alive* when you touch them, built with clear hierarchy, honest colour and springy motion.';
-
-  function Mock({ kind }) {
-    if (kind === 'timer') return html`<div class="mock" aria-hidden="true">
-      <div class="eyebrow muted" style=${{ fontSize: '9px' }}>Focus · 2 of 4</div>
-      <div class="center"><div style=${{ position: 'relative', display: 'grid', placeItems: 'center' }}>
-        <${E.ShapeAvatar} shape="cookie9" size=${110} tone="primary-container" />
-        <div class="big" style=${{ position: 'absolute' }}>25:00</div></div></div>
-      <${E.WavyProgress} value=${0.62} /><div class="pill"></div></div>`;
-    if (kind === 'habits') return html`<div class="mock" aria-hidden="true">
-      <div class="t">Today</div><div class="bar"></div>
-      <div class="grid7">${Array.from({ length: 28 }, (_, i) => html`<i key=${i} class=${i === 20 ? 'hl' : ([1,2,3,5,6,8,9,10,11,13,15,16,17,18,19].includes(i) ? 'on' : '')}></i>`)}</div>
-      <div class="row"><div class="dot"></div><div class="ln"></div></div>
-      <div class="row"><div class="dot"></div><div class="ln"></div></div><div class="pill"></div></div>`;
-    if (kind === 'links') return html`<div class="mock" aria-hidden="true">
-      <div class="t">Links</div><div class="search"></div>
-      ${[0,1,2,3,4].map(i => html`<div class="row" key=${i}><div class="dot"></div><div class="ln" style=${{ maxWidth: (92 - i * 11) + '%' }}></div></div>`)}</div>`;
-    if (kind === 'block') return html`<div class="mock" aria-hidden="true">
-      <div class="center"><${E.ShapeAvatar} shape="burst" size=${80} tone="highlight" icon="block" />
-        <div class="t">Reels blocked</div><div class="s">Stories and chats still work</div></div><div class="pill"></div></div>`;
-    return html`<div class="mock" aria-hidden="true">
-      <div class="center"><${E.ShapeAvatar} shape="cookie12" size=${64} tone="tertiary-container" icon="lock" />
-        <div class="pins"><i></i><i></i><i class="off"></i><i class="off"></i></div></div>
-      <div class="keys">${Array.from({ length: 12 }, (_, i) => html`<i key=${i}></i>`)}</div></div>`;
-  }
 
   /* M3 Expressive shape library as polar radius functions, so any two shapes can be blended point by point. */
   const SHAPES = {
@@ -459,7 +487,7 @@ section[id]{scroll-margin-top:96px}
       const k = e => { if (e.key === 'Escape' && open) { setOpen(false); btnRef.current && btnRef.current.focus(); } };
       addEventListener('keydown', k); return () => removeEventListener('keydown', k);
     }, [open]);
-    const links = [['Work', '#work'], ['Services', '#services'], ['Talks', '#talks'], ['Blogs', '#blogs'], ['Contact', '#contact']];
+    const links = [['Apps', '#apps'], ['Services', '#services'], ['Talks', '#talks'], ['Blogs', '#blogs'], ['Contact', '#contact']];
     const close = () => setOpen(false);
     return html`<${React.Fragment}>
       <div class=${'nav-scrim' + (open ? ' on' : '')} onClick=${close}></div>
@@ -526,14 +554,20 @@ section[id]{scroll-margin-top:96px}
           </h1>
           <div class="hero-base">
             <div class="year">©2026</div>
-            <div class="portrait" role="img" aria-label="Portrait placeholder">
-              <${E.ShapeAvatar} shape="flower8" tone="primary" size=${260} spin=${true} />
-              <span class="initial" style=${{ color: 'var(--on-primary)' }}>D</span>
-              <span class="eyebrow note" style=${{ color: 'var(--on-primary)' }}>Your photo here</span>
-            </div>
+            <figure class="portrait" style=${{ margin: 0 }}>
+              <${E.ShapeAvatar} className="halo" shape="flower8" tone="primary" size=${160} spin=${true} />
+              <div class="frame">
+                <picture>
+                  <source srcset="assets/dinoy.webp" type="image/webp" />
+                  <img src="assets/dinoy.jpg" width="600" height="684" alt="Portrait of Dinoy" decoding="async" fetchpriority="high" />
+                </picture>
+                <span class="eyebrow note">Hi, I'm Dinoy</span>
+              </div>
+              <${E.ShapeAvatar} className="spark" shape="sunny" tone="highlight" size=${60} spin=${true} />
+            </figure>
             <div class="hero-ctas">
               <div class="ex-row">
-                <a href="#work" tabindex="-1"><${E.Button} icon="arrow_downward">See my work<//></a>
+                <a href="#apps" tabindex="-1"><${E.Button} icon="arrow_downward">See my apps<//></a>
                 <a href="#contact" tabindex="-1"><${E.Button} variant="outlined">Hire me<//></a>
               </div>
               <span class="eyebrow muted">/ Shipping calm apps</span>
@@ -566,19 +600,27 @@ section[id]{scroll-margin-top:96px}
           </div>
         </section>
 
-        <section class="work wrap" id="work">
-          <div class="work-head">
-            <h2 class="sec-title">Featured<br/>Projects</h2>
-            <a class="link-arrow" href="#work" onClick=${e => { e.preventDefault(); setMsg('Link your full work page here'); }}>View all work<span class="ex-icon">arrow_outward</span></a>
+        <section class="apps wrap" id="apps">
+          <div class="apps-head">
+            <div>
+              <h2 class="sec-title">My<br/>Apps</h2>
+              <p class="muted">Android apps I design and build end to end in Kotlin and Jetpack Compose. Screenshots are the apps' own store screens.</p>
+            </div>
+            <a class="link-arrow" href="https://github.com/dinoy-raj" target="_blank" rel="noopener">More on GitHub<span class="ex-icon">arrow_outward</span></a>
           </div>
-          <div class="work-grid">
-            ${WORK.map(w => html`<a class="proj" key=${w.id} href=${'#' + w.id} onClick=${e => { e.preventDefault(); setMsg(w.name + ' case study: add your link here'); }}>
-              <div class=${'media ' + w.bg}>
-                <${E.ShapeAvatar} className="blob" shape=${w.shape} tone=${w.tone} size=${300} />
-                <div class="phones">${w.mocks.map((m, i) => html`<${Mock} key=${i} kind=${m} />`)}</div>
+          <div class="apps-grid">
+            ${APPS.map(a => html`<article class=${'app' + (a.featured ? ' featured' : '')} key=${a.id} aria-labelledby=${'app-' + a.id}>
+              <div class="media" style=${{ background: a.bg }}>
+                <div class="shots">${a.shots.map((alt, i) => html`<img key=${i} src=${'assets/apps/' + a.id + '-' + (i + 1) + '.webp'} alt=${a.name + ': ' + alt} width="540" height=${a.id === 'launcher' ? 1212 : 960} loading="lazy" decoding="async" />`)}</div>
               </div>
-              <div class="meta"><div><h3>${w.name}</h3><div class="muted" style=${{ fontSize: '15px', marginTop: '2px' }}>${w.type}</div></div><span class="chip">2026</span></div>
-            </a>`)}
+              <div class="app-meta">
+                <img class="icon" src=${'assets/apps/' + a.id + '-icon.webp'} alt="" width="56" height="56" loading="lazy" />
+                <div class="name"><h3 id=${'app-' + a.id}>${a.name}</h3><div class="store muted">${a.store}</div></div>
+              </div>
+              <p class="desc muted">${a.desc}</p>
+              <div class="tags">${a.status && html`<span class=${'chip ' + a.status}>${a.status === 'live' ? 'On Google Play' : 'In development'}</span>`}${a.tags.map(t => html`<span key=${t}>${t}</span>`)}</div>
+              ${a.links && html`<div class="links">${a.links.map(([l, h]) => html`<a key=${h} class="link-arrow" href=${h} target="_blank" rel="noopener">${l}<span class="ex-icon">arrow_outward</span></a>`)}</div>`}
+            </article>`)}
           </div>
         </section>
 
@@ -650,7 +692,7 @@ section[id]{scroll-margin-top:96px}
           <div class="foot-grid">
             <h2>Small apps,<br/><span class="em">finished</span> properly.</h2>
             <div><h4>/ Quick links</h4><div class="foot-links">
-              ${[['Home', '#top'], ['About', '#about'], ['Services', '#services'], ['Work', '#work'], ['Talks', '#talks'], ['Blogs', '#blogs'], ['Contact', '#contact']].map(([l, h]) => html`<a key=${h} href=${h}>${l}</a>`)}
+              ${[['Home', '#top'], ['About', '#about'], ['Services', '#services'], ['Apps', '#apps'], ['Talks', '#talks'], ['Blogs', '#blogs'], ['Contact', '#contact']].map(([l, h]) => html`<a key=${h} href=${h}>${l}</a>`)}
             </div></div>
             <div><h4>/ Elsewhere</h4><div class="foot-links foot-ext">
               ${[['GitHub', LINKS.github], ['LinkedIn', LINKS.linkedin], ['Medium', LINKS.medium], ['Sessionize', LINKS.sessionize], ['Google Play', LINKS.play], ['All links', LINKS.linktree]].map(([l, h]) => html`<a key=${l} href=${h} target="_blank" rel="noopener">${l}</a>`)}
