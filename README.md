@@ -24,7 +24,6 @@ React 18 and htm load from CDNs; fonts and Material Symbols load from Google Fon
 Replace the placeholders in `index.html`:
 
 - `EMAIL` (currently `hello@yourdomain.com`)
-- the portrait placeholder in the hero
 - the GitHub, LinkedIn, Play Store and Instagram links
 - the case-study and notes links
 - the contact form, which needs a backend or form service to send messages
