@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portrait Studies</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Google+Sans+Code:wght@400;500&family=Google+Sans+Flex:wght@400;500;600&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root {
+  color-scheme: light;
+  --surface:#fbf6ee; --surface-container-lowest:#ffffff; --surface-container-low:#f6efe6; --surface-container:#f1e9df;
+  --surface-container-high:#ebe2d6; --surface-container-highest:#e4dacd; --on-surface:#1f1a16; --on-surface-variant:#54463d;
+  --outline:#85736a; --outline-variant:#d9c7bc;
+  --primary:#a8330f; --on-primary:#ffffff; --primary-container:#ffdbcf; --on-primary-container:#3b0900;
+  --secondary:#2c6765; --on-secondary:#ffffff; --secondary-container:#bdeeea; --on-secondary-container:#00201f;
+  --tertiary:#7a4e8f; --on-tertiary:#ffffff; --tertiary-container:#f3daff; --on-tertiary-container:#2f0a44;
+  --highlight:#fc9500; --on-highlight:#2b1700;
+  --positive:#1b6d3b; --positive-container:#c3efcf; --on-positive-container:#00210c;
+  --error:#ba1a1a; --on-error:#ffffff; --error-container:#ffdad6; --on-error-container:#410002;
+  --inverse-surface:#362f2b; --inverse-on-surface:#fbeee8; --inverse-primary:#ffb59c; --inverse-muted:#cdbdb3; --inverse-ghost:#463d38;
+  --scrim:rgba(20,12,8,.4); --focus:var(--on-surface);
+  --elevation-0:none; --elevation-1:0 1px 2px rgba(31,26,22,.18),0 1px 3px 1px rgba(31,26,22,.08);
+  --elevation-3:0 4px 8px 3px rgba(31,26,22,.10),0 1px 3px rgba(31,26,22,.20);
+  --font-sans:"Google Sans Flex","Google Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-display:Fraunces,"Iowan Old Style",Georgia,serif;
+  --font-mono:"Google Sans Code","Geist Mono",ui-monospace,Menlo,monospace;
+  --font-icons:"Material Symbols Rounded";
+  --space-0-5:2px; --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-5:20px; --space-6:24px; --space-8:32px; --space-12:48px; --space-16:64px;
+  --shape-xs:4px; --shape-sm:8px; --shape-md:12px; --shape-lg:16px; --shape-lg-increased:20px; --shape-xl:28px; --shape-xl-increased:32px; --shape-xxl:48px; --shape-full:999px;
+  --touch-target:48px; --button-sm:40px; --button-md:56px; --nav-bar:80px; --nav-indicator-w:56px; --fab:56px;
+  --state-hover:.08; --state-focus:.1; --state-pressed:.1; --state-disabled:.38;
+  --spring:cubic-bezier(.34,1.4,.64,1); --ease:cubic-bezier(.2,0,0,1);
+body{margin:0;background:var(--surface);color:var(--on-surface);font-family:var(--font-sans);-webkit-font-smoothing:antialiased}
+.mono{font-family:var(--font-mono);font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase}
+.serif{font-family:var(--font-display)}
+header{max-width:1180px;margin:0 auto;padding:64px 24px 12px}
+header h1{font-family:var(--font-display);font-weight:400;font-size:clamp(34px,4.4vw,54px);letter-spacing:-.02em;line-height:1.05;margin:12px 0 0}
+header h1 em{color:var(--primary)}
+.wrap{max-width:1180px;margin:0 auto;padding:36px 24px 96px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1px;background:var(--outline-variant);border:1px solid var(--outline-variant)}
+.cell{background:var(--surface);padding:28px 28px 24px;display:flex;flex-direction:column;gap:18px}
+.stage{height:380px;display:grid;place-items:center;position:relative}
+.meta{display:flex;gap:14px;align-items:baseline;border-top:1px solid var(--outline-variant);padding-top:14px}
+.meta .n{color:var(--outline)}
+.meta h3{margin:0;font-family:var(--font-display);font-weight:500;font-size:19px;letter-spacing:-.01em}
+.meta p{margin:4px 0 0;font-size:13px;line-height:1.5;color:var(--on-surface-variant)}
+img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 28%}
+.ease{transition:transform 900ms cubic-bezier(.2,0,0,1),filter 900ms cubic-bezier(.2,0,0,1)}
+
+/* A gallery print */
+.a{background:#fff;padding:16px 16px 0;box-shadow:0 1px 0 var(--outline-variant),0 24px 40px -28px rgb(31 26 22/.45);width:228px}
+.a .ph{height:250px;overflow:hidden}
+.a figcaption{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0 16px}
+.a figcaption .serif{font-style:italic;font-size:15px}
+.a figcaption .mono{color:var(--outline);font-size:9.5px}
+.a:hover img{transform:scale(1.03)}
+
+/* B arch */
+.b{width:212px;height:300px;position:relative}
+.b .ph{position:absolute;inset:0;border-radius:106px 106px 6px 6px;overflow:hidden}
+.b .line{position:absolute;inset:-10px;border:1px solid var(--primary);border-radius:116px 116px 10px 10px;pointer-events:none}
+.b .cap{position:absolute;left:0;right:0;bottom:-44px;text-align:center;font-style:italic;font-size:16px}
+
+/* C cameo oval */
+.c{width:206px;height:270px;position:relative}
+.c .ph{position:absolute;inset:0;border-radius:50%;overflow:hidden}
+.c::before,.c::after{content:"";position:absolute;border-radius:50%;border:1px solid var(--on-surface);pointer-events:none}
+.c::before{inset:-9px}.c::after{inset:-14px;border-color:var(--outline-variant)}
+.c .cap{position:absolute;left:50%;bottom:-48px;transform:translateX(-50%);white-space:nowrap;color:var(--on-surface-variant)}
+
+/* D offset hairline */
+.d{width:210px;height:264px;position:relative}
+.d .ph{position:absolute;inset:0;overflow:hidden;border-radius:3px;z-index:1}
+.d .frame{position:absolute;inset:0;transform:translate(16px,16px);border:1px solid var(--primary);border-radius:3px}
+.d .cap{position:absolute;left:0;bottom:-42px;font-style:italic;font-size:16px}
+.d .cap span{font-family:var(--font-mono);font-style:normal;font-size:10px;letter-spacing:1.4px;color:var(--outline);margin-left:10px}
+.d:hover .frame{transform:translate(10px,10px)}.d .frame{transition:transform 600ms var(--ease)}
+
+/* E dark editorial dissolve */
+.e{width:270px;height:340px;background:#0d0b0a;border-radius:28px;overflow:hidden;position:relative;box-shadow:0 30px 50px -30px rgb(31 26 22/.6)}
+.e img{position:absolute;inset:0;-webkit-mask:linear-gradient(to bottom,#000 55%,transparent 92%);mask:linear-gradient(to bottom,#000 55%,transparent 92%)}
+.e .txt{position:absolute;left:22px;right:22px;bottom:20px;color:#f4ece4;display:flex;justify-content:space-between;align-items:flex-end}
+.e .txt .serif{font-size:30px;font-style:italic;line-height:1}
+.e .txt .mono{color:#a99a8f;font-size:9.5px;text-align:right;line-height:1.6}
+
+/* F name overlap */
+.f{width:200px;height:256px;position:relative;margin-bottom:24px;isolation:isolate}
+.f .ph{position:absolute;inset:0;overflow:hidden;border-radius:2px}
+.f .name{position:absolute;left:-30px;bottom:-30px;font-family:var(--font-display);font-style:italic;font-weight:400;font-size:66px;line-height:1;letter-spacing:-.03em;color:var(--on-surface);z-index:-1}
+.f .ph{z-index:1}.f .ph .name{color:#f4ece4;z-index:2}
+.f .name span{color:var(--primary)}
+.f .mono{position:absolute;right:-26px;top:10px;writing-mode:vertical-rl;color:var(--outline)}
+
+/* G circle, mono to colour on hover */
+.g{display:flex;flex-direction:column;align-items:center;gap:22px}
+.g .ring{width:236px;height:236px;border-radius:50%;padding:9px;border:1px solid var(--outline-variant);position:relative}
+.g .ring::after{content:"";position:absolute;inset:-1px;border-radius:50%;border:1px solid var(--primary);clip-path:polygon(50% 50%,100% 0,100% 100%);transform:rotate(-30deg);transition:transform 900ms var(--ease)}
+.g .ph{width:100%;height:100%;border-radius:50%;overflow:hidden}
+.g img{filter:grayscale(1) contrast(1.02)}
+.g:hover img{filter:grayscale(0)}.g:hover .ring::after{transform:rotate(150deg)}
+.g .cap{text-align:center}.g .cap .serif{font-size:20px;font-style:italic}.g .cap .mono{color:var(--outline);margin-top:4px}
+
+/* H refined squircle (current, cleaned up) */
+.h{display:flex;flex-direction:column;align-items:center;gap:18px}
+.h .ph{width:212px;height:242px;border-radius:44px;overflow:hidden;box-shadow:0 1px 0 rgb(255 255 255/.6) inset,0 28px 48px -28px rgb(59 9 0/.55);transition:border-radius 700ms var(--ease)}
+.h:hover .ph{border-radius:106px}
+.h .cap{display:flex;align-items:center;gap:10px}
+.h .dot{width:7px;height:7px;border-radius:50%;background:#2e9e5b;box-shadow:0 0 0 4px rgb(46 158 91/.15)}
+.h .cap .serif{font-size:17px;font-style:italic}
+.h .cap .mono{color:var(--outline)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <span class="mono" style="color:var(--primary)">Portrait studies · round two</span>
+  <h1>Quiet frames for <em>a good photograph</em></h1>
+</header>
+<div class="wrap"><main class="grid">
+
+<section class="cell"><div class="stage">
+  <figure class="a" style="margin:0"><div class="ph"><img class="ease" src="portraits/c_bw.webp" alt=""></div>
+  <figcaption><span class="serif">Dinoy</span><span class="mono">Android developer</span></figcaption></figure>
+</div><div class="meta"><span class="mono n">A</span><div><h3>Gallery print</h3><p>Soft black and white on a white mat, with a small caption underneath, like a gallery print.</p></div></div></section>
+
+<section class="cell"><div class="stage">
+  <div class="b" style="margin-bottom:40px"><div class="ph"><img src="portraits/c_matte.webp" alt=""></div><span class="line"></span><span class="cap serif">Hi, I'm Dinoy</span></div>
+</div><div class="meta"><span class="mono n">B</span><div><h3>Arch</h3><p>The photo in muted colour inside an arch, with a single rust hairline traced around it.</p></div></div></section>
+
+<section class="cell"><div class="stage">
+  <div class="c" style="margin-bottom:40px"><div class="ph"><img src="portraits/c_warm.webp" alt=""></div><span class="cap mono">Dinoy · Est. 2026</span></div>
+</div><div class="meta"><span class="mono n">C</span><div><h3>Cameo</h3><p>A warm sepia oval inside two fine rings, like a portrait miniature.</p></div></div></section>
+
+<section class="cell"><div class="stage">
+  <div class="d" style="margin:0 16px 40px 0"><span class="frame"></span><div class="ph"><img src="portraits/c_bw.webp" alt=""></div><span class="cap serif">Dinoy<span>Android</span></span></div>
+</div><div class="meta"><span class="mono n">D</span><div><h3>Offset hairline</h3><p>A rust outline sits just behind the photo and slides closer when you hover.</p></div></div></section>
+
+<section class="cell"><div class="stage">
+  <div class="e"><img src="portraits/c_matte.webp" alt=""><div class="txt"><span class="serif">Dinoy</span><span class="mono">Android<br>developer</span></div></div>
+</div><div class="meta"><span class="mono n">E</span><div><h3>Dark editorial</h3><p>The photo fades into a dark card, so its black background becomes part of the design.</p></div></div></section>
+
+<section class="cell"><div class="stage">
+  <div class="f"><div class="ph"><img src="portraits/c_warm.webp" alt=""><span class="name" aria-hidden="true">Dinoy<span>.</span></span></div><span class="mono">Portfolio · 2026</span><span class="name">Dinoy<span>.</span></span></div>
+</div><div class="meta"><span class="mono n">F</span><div><h3>Signature</h3><p>Your name in large italic serif, half on the photo and half off. Confident without being loud.</p></div></div></section>
+
+<section class="cell"><div class="stage">
+  <div class="g"><div class="ring"><div class="ph"><img class="ease" src="portraits/c_matte.webp" alt=""></div></div>
+  <div class="cap"><div class="serif">Dinoy</div><div class="mono">Hover for colour</div></div></div>
+</div><div class="meta"><span class="mono n">G</span><div><h3>Monochrome reveal</h3><p>A black-and-white circle that turns to colour on hover, with a thin accent arc that sweeps around.</p></div></div></section>
+
+<section class="cell"><div class="stage">
+  <div class="h"><div class="ph"><img src="portraits/c_matte.webp" alt=""></div>
+  <div class="cap"><span class="dot"></span><span class="serif">Dinoy</span><span class="mono">· Available</span></div></div>
+</div><div class="meta"><span class="mono n">H</span><div><h3>Your card, refined</h3><p>Your current squircle without the shapes or overlay: muted colour, a soft shadow and a calm caption.</p></div></div></section>
+
+</main></div>
+</body>
+</html>
