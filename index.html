@@ -97,21 +97,23 @@ section[id]{scroll-margin-top:96px}
 .nav-scrim{position:fixed;inset:0;z-index:24;background:rgba(20,12,8,.22);opacity:0;pointer-events:none;transition:opacity 280ms var(--ease)}
 .nav-scrim.on{opacity:1;pointer-events:auto}
 /* Progressive blur under the nav: stacked backdrop blurs, each masked to a lower band, so content softens more the closer it gets to the top. Fades in once the page scrolls. */
-.top-blur{position:fixed;inset:0 0 auto;height:calc(env(safe-area-inset-top,0px) + 112px);z-index:23;pointer-events:none;opacity:0;transition:opacity 320ms var(--ease)}
+.top-blur{position:fixed;inset:0 0 auto;height:calc(env(safe-area-inset-top,0px) + 168px);z-index:23;pointer-events:none;opacity:0;transition:opacity 320ms var(--ease)}
 .top-blur.on{opacity:1}
 .top-blur i{position:absolute;inset:0}
-.top-blur i:nth-child(1){backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px);mask:linear-gradient(to top,transparent 0%,#000 20%,#000 40%,transparent 60%);-webkit-mask:linear-gradient(to top,transparent 0%,#000 20%,#000 40%,transparent 60%)}
-.top-blur i:nth-child(2){backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);mask:linear-gradient(to top,transparent 20%,#000 40%,#000 60%,transparent 80%);-webkit-mask:linear-gradient(to top,transparent 20%,#000 40%,#000 60%,transparent 80%)}
-.top-blur i:nth-child(3){backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);mask:linear-gradient(to top,transparent 40%,#000 60%,#000 80%,transparent 100%);-webkit-mask:linear-gradient(to top,transparent 40%,#000 60%,#000 80%,transparent 100%)}
-.top-blur i:nth-child(4){backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);mask:linear-gradient(to top,transparent 60%,#000 80%);-webkit-mask:linear-gradient(to top,transparent 60%,#000 80%)}
-.top-blur i:nth-child(5){backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);mask:linear-gradient(to top,transparent 80%,#000 100%);-webkit-mask:linear-gradient(to top,transparent 80%,#000 100%)}
-.top-blur::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,color-mix(in srgb,var(--surface) 72%,transparent),transparent)}
+/* Six stacked bands, each twice the blur of the one below, so it deepens smoothly toward the top edge. */
+.top-blur i:nth-child(1){backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px);mask:linear-gradient(to top,transparent 0%,#000 17%,transparent 33%);-webkit-mask:linear-gradient(to top,transparent 0%,#000 17%,transparent 33%)}
+.top-blur i:nth-child(2){backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);mask:linear-gradient(to top,transparent 0%,#000 17%,#000 33%,transparent 50%);-webkit-mask:linear-gradient(to top,transparent 0%,#000 17%,#000 33%,transparent 50%)}
+.top-blur i:nth-child(3){backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);mask:linear-gradient(to top,transparent 17%,#000 33%,#000 50%,transparent 67%);-webkit-mask:linear-gradient(to top,transparent 17%,#000 33%,#000 50%,transparent 67%)}
+.top-blur i:nth-child(4){backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);mask:linear-gradient(to top,transparent 33%,#000 50%,#000 67%,transparent 83%);-webkit-mask:linear-gradient(to top,transparent 33%,#000 50%,#000 67%,transparent 83%)}
+.top-blur i:nth-child(5){backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);mask:linear-gradient(to top,transparent 50%,#000 67%,#000 83%,transparent 100%);-webkit-mask:linear-gradient(to top,transparent 50%,#000 67%,#000 83%,transparent 100%)}
+.top-blur i:nth-child(6){backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);mask:linear-gradient(to top,transparent 67%,#000 83%);-webkit-mask:linear-gradient(to top,transparent 67%,#000 83%)}
+.top-blur::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,color-mix(in srgb,var(--surface) 86%,transparent),color-mix(in srgb,var(--surface) 40%,transparent) 45%,transparent)}
 @media (prefers-reduced-motion: reduce){.nav,.nav.open,.nav-panel .rv,.nav.open .nav-panel .rv{transition-duration:0ms!important;transition-delay:0ms!important}}
 
 /* Hero poster */
 .hero{padding-block:calc(env(safe-area-inset-top,0px) + 132px) var(--space-12);position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column}
 .hero h1{font-size:clamp(52px,14.2vw,196px);line-height:.86;font-weight:700;letter-spacing:-.055em;text-transform:uppercase;text-align:center;position:relative}
-.hero h1 .l1,.hero h1 .l2{display:block}
+.hero h1 .l1,.hero h1 .l2{display:block;white-space:nowrap}
 /* Letter becomes shape: the O turns into a ring that stretches into a pill, squares off, then snaps back.
    The rest of the word narrows (font-stretch drives the wdth axis) so the line keeps its width. */
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
@@ -120,7 +122,7 @@ section[id]{scroll-margin-top:96px}
 @keyframes sw-squash{0%,30%,62%,100%{font-stretch:100%}40%,54%{font-stretch:64%}}
 @keyframes sw-o{
   0%,30%{width:.78em;border-radius:999px;border-color:currentColor;transform:rotate(0)}
-  40%,54%{width:2.2em;border-radius:999px;border-color:var(--primary);transform:rotate(0)}
+  40%,54%{width:var(--pill,2.2em);border-radius:999px;border-color:var(--primary);transform:rotate(0)}
   64%,72%{width:.72em;border-radius:.22em;border-color:var(--primary);transform:rotate(90deg)}
   84%,100%{width:.78em;border-radius:999px;border-color:currentColor;transform:rotate(180deg)}
 }
@@ -711,10 +713,32 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
     }, [key]);
   }
 
+  /* Caps how far the O stretches so the line, squeezed to 64%, never outgrows the heading: up to 2.2em. */
+  const PILL_MAX = 2.2, PILL_MIN = 0.78;
+  function fitPill(sw) {
+    const box = sw.closest('h1'); if (!box) return;
+    const probe = sw.cloneNode(true);
+    probe.style.cssText = 'position:absolute;visibility:hidden;left:0;top:0;animation:none;font-stretch:64%';
+    const o = probe.querySelector('.glyph-o'); if (o) o.style.cssText = 'animation:none;width:0;border:0;margin:0';
+    box.appendChild(probe);
+    const text = probe.getBoundingClientRect().width; probe.remove();
+    const fs = parseFloat(getComputedStyle(box).fontSize) || 1;
+    const room = (box.clientWidth * 0.97 - text) / fs - 0.02; // keep a little air at the edges
+    sw.style.setProperty('--pill', Math.max(PILL_MIN, Math.min(PILL_MAX, room)).toFixed(3) + 'em');
+  }
+
   /* A word whose first O is drawn as a shape (see .glyph-o). Text either side stays one run so kerning holds. */
   function ShapeWord({ word, delay = '0s' }) {
+    const ref = useRef(null);
     const i = word.toUpperCase().indexOf('O');
-    return html`<span class="sw" style=${{ '--d': delay }}>${word.slice(0, i)}<span class="glyph-o"></span>${word.slice(i + 1)}</span>`;
+    useEffect(() => {
+      const sw = ref.current, box = sw && sw.closest('h1'); if (!box) return;
+      const fit = () => fitPill(sw);
+      fit(); document.fonts && document.fonts.ready.then(fit);
+      const ro = new ResizeObserver(fit); ro.observe(box);
+      return () => ro.disconnect();
+    }, [word]);
+    return html`<span class="sw" ref=${ref} style=${{ '--d': delay }}>${word.slice(0, i)}<span class="glyph-o"></span>${word.slice(i + 1)}</span>`;
   }
 
   /* A bare living svg, for buttons that style their own svg. */
@@ -747,7 +771,7 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
       f(); addEventListener('scroll', f, { passive: true });
       return () => removeEventListener('scroll', f);
     }, []);
-    return html`<div class=${'top-blur' + (on ? ' on' : '')} aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>`;
+    return html`<div class=${'top-blur' + (on ? ' on' : '')} aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>`;
   }
 
   function Nav() {
