@@ -172,10 +172,10 @@ section[id]{scroll-margin-top:96px}
 .shots img:nth-child(1){transform:translate(18%,10%) rotate(-6deg)}
 .shots img:nth-child(2){position:relative;z-index:1}
 .shots img:nth-child(3){transform:translate(-18%,10%) rotate(6deg)}
-.app.featured .shots{gap:var(--space-4);padding-top:6%}
-.app.featured .shots img{width:min(19%,190px);transform:none}
+.app.featured .shots{gap:var(--space-3);padding-top:6%}
+.app.featured .shots img{width:min(16.5%,180px);transform:none}
 .app.featured .shots img:nth-child(odd){transform:translateY(12%)}
-@media (max-width:760px){.app.featured .shots img{width:30%}.app.featured .shots img:nth-child(4){display:none}}
+@media (max-width:760px){.app.featured .shots img{width:30%}.app.featured .shots img:nth-child(n+4){display:none}}
 .app-meta{display:flex;align-items:center;gap:var(--space-3);padding-inline:var(--space-1)}
 .app-meta .icon{width:56px;height:56px;border-radius:var(--shape-lg);flex:none;box-shadow:var(--elevation-1)}
 .app-meta .name{flex:1;min-width:0}
@@ -364,7 +364,7 @@ section[id]{scroll-margin-top:96px}
     { id: 'launcher', name: 'Dino Minimalist Launcher', store: 'Minimalist launcher for Android', featured: true, status: 'live', bg: '#efe6d8',
       desc: 'A minimalist Android launcher designed to help you reduce screen time and boost focus. A clean, text-based home screen with only the apps you pin, custom themes and palettes, fonts, layouts and widgets, and no ads. Several of the apps below began as tools inside it.',
       tags: ['Launcher', 'Material You', 'Custom themes', 'Widgets'],
-      shots: ['Dark theme', 'Sand theme', 'Light theme', 'Red theme'],
+      shots: ['Nothing theme with dot-matrix clock, day, month and year progress, battery, unlocks and periodic table pinned apps', 'Sand Material You home with weather widget and bento pinned apps', 'Free form layout with music, quick tiles, next event, a sticky note and the snake game widget', 'Search with a quick answer, send-to shortcuts, a search code and the alphabet list', 'Liquid glass home with a weather face, sunrise arc, screen time and glass pinned apps'],
       links: [['Google Play', PLAY('com.dino.simple')], ['Website', 'https://minimalistlauncher.com']] },
     { id: 'nano', name: 'Nano Prompt Ground', store: 'Offline AI playground', status: 'live', bg: '#dcefe5',
       desc: 'Prompt Gemini Nano right on your phone. Private, offline AI with no API key: every answer is generated on the device, with live streaming and the speed of each reply.',
