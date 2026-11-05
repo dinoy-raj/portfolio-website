@@ -16,6 +16,7 @@ Then open http://localhost:8000.
 
 - `index.html`: the page, its styles and its React components
 - `kit/bundle.css`, `kit/bundle.js`: Expressive Kit component styles and components (`window.Expressive`)
+- `assets/apps/`: app icons and screenshots for the My Apps section, taken from each app's own Play Store assets and resized to WebP. Each app's title, description and links live in the `APPS` list in `index.html`
 
 React 18 and htm load from CDNs; fonts and Material Symbols load from Google Fonts.
 
@@ -25,7 +26,7 @@ Replace the placeholders in `index.html`:
 
 - `EMAIL` (currently `hello@yourdomain.com`)
 - the GitHub, LinkedIn, Play Store and Instagram links
-- the case-study and notes links
+- the notes links
 - the contact form, which needs a backend or form service to send messages
 
 ## Deploy
