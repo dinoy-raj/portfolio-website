@@ -1,266 +1,192 @@
 <!doctype html>
 <html><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Doto:wght@600;800&family=Inter+Tight:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=block" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400..600,0..1,0&display=block" rel="stylesheet">
+<!-- Simple Launcher screenshots for the portfolio, matched to the app's promo: Inter, pure black, 5x7 dot-matrix clock, text pinned apps, #121214 widget cards. -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Urbanist:wght@500;600;700&family=Kalam:wght@700&display=block" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{width:360px;height:808px;overflow:hidden}
-body{font-family:'Inter Tight',sans-serif;-webkit-font-smoothing:antialiased}
-.scr{position:relative;width:360px;height:808px;overflow:hidden;display:none}
+html,body{width:360px;height:808px;overflow:hidden;background:#000}
+body{font-family:Inter,sans-serif;-webkit-font-smoothing:antialiased;color:#fff}
+.scr{position:relative;width:360px;height:808px;overflow:hidden;display:none;background:#000}
 .scr.on{display:block}
-.ic{font-family:'Material Symbols Rounded';font-weight:500;font-style:normal;line-height:1;font-size:20px;display:inline-block;font-variation-settings:'FILL' 1}
-.status{position:absolute;top:0;left:0;right:0;height:30px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-size:12px;font-weight:600;z-index:5}
-.status .r{display:flex;gap:4px;align-items:center}.status .ic{font-size:15px}
-.gest{position:absolute;bottom:9px;left:50%;width:108px;height:4px;margin-left:-54px;border-radius:4px;z-index:5}
+.status{position:absolute;top:0;left:0;right:0;height:34px;display:flex;align-items:center;justify-content:space-between;padding:4px 26px 0;font-size:12.5px;font-weight:600;z-index:5}
+.status::after{content:"";position:absolute;left:50%;top:9px;width:92px;height:26px;margin-left:-46px;border-radius:14px;background:#000}
+.gest{position:absolute;bottom:8px;left:50%;width:112px;height:4px;margin-left:-56px;border-radius:4px;background:#fff;opacity:.9}
+.dm{display:block}
+.date{font-size:15.5px;color:#8e8e93;margin-top:12px}
+.pins{font-size:23px;line-height:52px;font-weight:500;letter-spacing:-.2px}
+.card{background:#121214;border:1px solid #1f1f23;border-radius:22px;padding:14px 16px;position:relative;overflow:hidden}
+.lb{font-size:9.5px;font-weight:600;letter-spacing:1.6px;text-transform:uppercase;color:#8e8e93}
+.big{font-size:30px;font-weight:600;letter-spacing:-.8px;line-height:1.1}
+.bar{height:4px;border-radius:4px;background:#2c2c30;overflow:hidden}.bar i{display:block;height:100%;background:#fff;border-radius:4px}
 
-/* 1 · Sand, Material You, weather + bento */
-#s1{background:#efe4d3;color:#3b2a1e}
-#s1 .gest{background:#3b2a1e}
-.clock{position:absolute;left:28px;top:70px;display:flex;gap:12px;align-items:flex-start}
-.clock .hm{font-family:'Space Grotesk';font-weight:700;font-size:64px;line-height:.86;letter-spacing:-2px}
-.clock .hm span{display:block}
-.clock .hm .m{color:#b5652b}
-.clock .side{padding-top:4px;font-size:13px;line-height:1.25;font-weight:500}
-.clock .roll{margin-top:12px;font-family:'Space Grotesk';font-size:12px;line-height:1.35;font-weight:700}
-.clock .roll i{display:block;font-style:normal;opacity:.25}.clock .roll b{color:#b5652b}
-.wx{position:absolute;left:20px;right:20px;top:228px;height:150px;border-radius:30px;background:#e2d0b8;padding:18px 20px;overflow:hidden}
-.wx .top{display:flex;justify-content:space-between;align-items:flex-start}
-.wx .deg{font-family:'Space Grotesk';font-size:56px;font-weight:500;line-height:.9;letter-spacing:-2px}
-.wx .deg sup{font-size:26px;vertical-align:top}
-.wx .loc{font-size:12px;font-weight:600;opacity:.7;margin-top:6px}
-.wx .sun{width:62px;height:62px;border-radius:50%;background:#f0a04b;position:relative;box-shadow:0 0 0 10px rgb(240 160 75 / .22)}
-.wx .cloud{position:absolute;right:16px;top:44px;width:64px;height:30px;border-radius:20px;background:#fff8ee}
-.wx .cloud::before{content:"";position:absolute;left:12px;top:-16px;width:34px;height:34px;border-radius:50%;background:#fff8ee}
-.wx .hrs{display:flex;justify-content:space-between;margin-top:14px;font-size:11px;font-weight:600;text-align:center}
-.wx .hrs div{display:flex;flex-direction:column;gap:3px;align-items:center}.wx .hrs .ic{font-size:16px;color:#b5652b}
-.bento{position:absolute;left:20px;right:20px;top:394px;display:grid;grid-template-columns:1fr 1fr 1fr;grid-auto-rows:84px;gap:8px}
-.bento a{border-radius:24px;background:#fbf4ea;padding:14px;display:flex;flex-direction:column;justify-content:space-between;font-size:14px;font-weight:600;position:relative}
-.bento a .ic{font-size:22px;color:#b5652b}
-.bento .big{grid-column:span 2;grid-row:span 2;background:#3b2a1e;color:#efe4d3}
-.bento .big .ic{color:#f0a04b;font-size:30px}
-.bento .big b{font-family:'Instrument Serif';font-style:italic;font-weight:400;font-size:38px;line-height:1}
-.bento .acc{background:#b5652b;color:#fff}.bento .acc .ic{color:#fff}
-.bento .wide{grid-column:span 3;flex-direction:row;align-items:center;gap:10px;justify-content:flex-start}
-.badge{position:absolute;top:10px;right:10px;min-width:18px;height:18px;border-radius:9px;background:#b5652b;color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;padding:0 5px}
-.search1{position:absolute;left:20px;right:20px;bottom:30px;height:52px;border-radius:26px;background:#3b2a1e;color:#efe4d3;display:flex;align-items:center;gap:10px;padding:0 18px;font-size:14px;font-weight:500}
-.search1 .ic{font-size:20px}.search1 .mic{margin-left:auto;width:34px;height:34px;border-radius:50%;background:#b5652b;display:grid;place-items:center;margin-right:-9px}
+/* 1 · light theme, periodic table pins */
+#s1{background:#f4f4f6;color:#0b0b0c}
+#s1 .status::after{background:#0b0b0c}
+#s1 .gest{background:#0b0b0c}
+#s1 .date{color:#6c6c72}
+.ptab{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ptab a{aspect-ratio:1/.92;border-radius:14px;background:#fff;border:1px solid #e3e3e8;position:relative;padding:10px 11px;display:flex;flex-direction:column;justify-content:space-between}
+.ptab a b{font-size:28px;font-weight:700;letter-spacing:-.6px;line-height:1}
+.ptab a small{font-size:10px;color:#8e8e93}
+.ptab a i{position:absolute;top:8px;right:10px;font-style:normal;font-size:9.5px;color:#a0a0a6}
+.ptab a.hot{background:#0b0b0c;border-color:#0b0b0c;color:#fff}.ptab a.hot small,.ptab a.hot i{color:#8e8e93}
+.ptab a .nb{position:absolute;right:9px;bottom:9px;width:7px;height:7px;border-radius:50%;background:#0b0b0c}
+.lsearch{position:absolute;left:28px;right:28px;bottom:34px;height:52px;border-radius:26px;background:#fff;border:1px solid #e3e3e8;display:flex;align-items:center;gap:10px;padding:0 18px;color:#8e8e93;font-size:15px}
 
-/* 2 · Nothing, dot matrix */
-#s2{background:#000;color:#fff}
-#s2 .gest{background:#fff}
-.nclock{position:absolute;left:24px;right:24px;top:62px;font-family:'Doto';font-weight:800;font-size:104px;line-height:.9;letter-spacing:-2px}
-.nclock .r{color:#d71921}
-.ndate{position:absolute;left:28px;top:166px;font-family:'Space Grotesk';font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#9a9a9a}
-.prog{position:absolute;left:24px;right:24px;top:206px;display:flex;flex-direction:column;gap:14px}
-.prog .row{display:grid;grid-template-columns:52px 1fr 40px;align-items:center;font-family:'Space Grotesk';font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#9a9a9a}
-.prog .row b{color:#fff;font-weight:500;text-align:right}
-.dots{display:grid;grid-template-columns:repeat(26,1fr);gap:3px}
-.dots i{width:6px;height:6px;border-radius:50%;background:#2a2a2a}.dots i.f{background:#fff}.dots i.rd{background:#d71921}
-.ntiles{position:absolute;left:24px;right:24px;top:318px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.nt{height:132px;border-radius:26px;background:#141414;padding:16px;position:relative;font-family:'Space Grotesk'}
-.nt .lb{font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:#8a8a8a}
-.nt .big{font-family:'Doto';font-weight:800;font-size:46px;line-height:1;margin-top:12px}
-.nt svg{position:absolute;right:14px;bottom:14px}
-.ptab{position:absolute;left:24px;right:24px;top:476px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.ptab a{aspect-ratio:1;border-radius:16px;background:#141414;display:flex;flex-direction:column;justify-content:space-between;padding:9px;position:relative;font-family:'Space Grotesk'}
-.ptab a .n{font-size:9px;color:#6a6a6a}
-.ptab a .sym{font-family:'Doto';font-weight:800;font-size:28px;line-height:1;text-align:center}
-.ptab a .nm{font-size:8.5px;letter-spacing:.5px;text-transform:uppercase;color:#9a9a9a;text-align:center}
-.ptab a.red{background:#d71921}.ptab a.red .n,.ptab a.red .nm{color:#ffd3d5}
-.ptab a .dot{position:absolute;top:9px;right:9px;width:6px;height:6px;border-radius:50%;background:#d71921}
-.nmus{position:absolute;left:24px;right:24px;top:652px;height:62px;border-radius:22px;background:#141414;display:flex;align-items:center;gap:12px;padding:0 16px;font-family:'Space Grotesk'}
-.nmus .eq{display:flex;gap:3px;align-items:flex-end;height:26px}.nmus .eq span{display:flex;flex-direction:column-reverse;gap:2px}.nmus .eq i{width:4px;height:4px;border-radius:50%;background:#fff}.nmus .eq span:nth-child(3n) i:last-child{background:#d71921}
-.nmus .tt{font-size:12px;letter-spacing:1px;text-transform:uppercase}.nmus .tt small{display:block;font-size:10px;color:#7a7a7a}.nmus .ic{margin-left:auto;font-size:26px}
-.nfoot{position:absolute;left:24px;right:24px;bottom:34px;display:flex;justify-content:space-between;align-items:center;font-family:'Space Grotesk';font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#7a7a7a}
-.nfoot .ic{font-size:22px;color:#fff}
+/* 3 · widgets */
+.wg{display:grid;grid-template-columns:1.25fr 1fr;gap:10px}
+.wx .ring{position:absolute;right:16px;top:44px;width:26px;height:26px;border-radius:50%;border:2.5px solid #fff}
+.eq{display:flex;gap:4px;align-items:flex-end;height:28px}.eq i{width:5px;background:#fff;border-radius:2px}
+.np{grid-column:span 2}
+.np .row{display:flex;align-items:center;gap:14px;margin-top:12px}
+.np .pp{width:30px;height:30px;border-radius:50%;background:#fff;display:grid;place-items:center}
+.np .pp::before{content:"";width:3px;height:11px;border-left:3px solid #000;border-right:3px solid #000;box-sizing:content-box;padding:0 1.5px;margin-left:0}
+.tri{width:0;height:0;border-top:6px solid transparent;border-bottom:6px solid transparent}
+.tri.l{border-right:8px solid #8e8e93}.tri.r{border-left:8px solid #8e8e93}
 
-/* 3 · Free form widgets */
-#s3{background:#f2f1ee;color:#1c1b1f}
-#s3 .gest{background:#1c1b1f}
-.ff-h{position:absolute;left:24px;top:52px}
-.ff-h .d{font-family:'Instrument Serif';font-size:50px;line-height:1;letter-spacing:-.5px}
-.ff-h .d i{color:#e2552b}
-.ff-h .s{font-size:13px;font-weight:500;color:#747474;margin-top:4px}
-.music{position:absolute;left:20px;width:200px;top:138px;height:204px;border-radius:30px;background:#1c1b1f;color:#fff;padding:16px;transform:rotate(-2deg);box-shadow:0 18px 30px -16px rgb(0 0 0 / .5)}
-.music .art{width:64px;height:64px;border-radius:18px;background:conic-gradient(from 200deg,#ff8a3d,#e2552b,#7b2ff7,#2b8cff,#ff8a3d)}
-.music .t{font-weight:700;font-size:16px;margin-top:12px}.music .a{font-size:12px;color:#a8a8a8}
-.music .bar{height:4px;border-radius:4px;background:#3a3a3a;margin-top:12px;overflow:hidden}.music .bar i{display:block;width:58%;height:100%;background:#fff}
-.music .ctl{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
-.music .ctl .ic{font-size:24px}.music .ctl .pl{width:42px;height:42px;border-radius:14px;background:#ff8a3d;display:grid;place-items:center;color:#1c1b1f}
-.qs{position:absolute;right:20px;top:146px;width:112px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.qs a{height:52px;border-radius:18px;background:#e4e2dd;display:grid;place-items:center}
-.qs a .ic{font-size:22px}.qs a.on{background:#ffd54f}.qs a.on2{background:#1c1b1f;color:#fff}
-.qs .lbl{grid-column:span 2;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#747474;text-align:center;margin-top:-2px}
-.ev{position:absolute;left:20px;right:20px;top:358px;height:86px;border-radius:26px;background:#fff;display:flex;align-items:center;gap:14px;padding:0 18px;box-shadow:0 1px 0 rgb(0 0 0 / .04)}
-.ev .cal{width:52px;height:56px;border-radius:16px;background:#e2552b;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.ev .cal small{font-size:9px;font-weight:700;letter-spacing:1px}.ev .cal b{font-size:22px;line-height:1}
-.ev .tt{font-weight:700;font-size:15px}.ev .tm{font-size:12px;color:#747474;margin-top:2px}
-.ev .in{margin-left:auto;font-size:11px;font-weight:700;background:#fde3d9;color:#a63b17;padding:6px 10px;border-radius:12px}
-.note{position:absolute;left:24px;width:150px;top:466px;height:150px;background:#ffd54f;border-radius:6px 6px 28px 6px;padding:16px;transform:rotate(3deg);box-shadow:0 14px 24px -14px rgb(120 80 0 / .6);font-family:'Instrument Serif';font-size:22px;line-height:1.15;color:#3e2c00}
-.note small{display:block;font-family:'Inter Tight';font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;opacity:.6}
-.note s{opacity:.45}
-.snake{position:absolute;right:20px;width:150px;top:460px;height:166px;border-radius:28px;background:#141414;padding:12px;color:#99ff5e;font-family:'Space Grotesk'}
-.snake .hd{display:flex;justify-content:space-between;font-size:10px;letter-spacing:1px;text-transform:uppercase}
-.snake .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:2px;margin-top:8px}
-.snake .grid i{aspect-ratio:1;border-radius:2px;background:#222}.snake .grid i.s{background:#28d603}.snake .grid i.h{background:#99ff5e}.snake .grid i.f{background:#ff3b30;border-radius:50%}
-.dock3{position:absolute;left:20px;right:20px;bottom:30px;display:flex;justify-content:space-between;font-size:15px;font-weight:600;padding:0 6px}
-.dock3 span{display:flex;align-items:center;gap:6px}.dock3 .ic{font-size:18px;color:#e2552b}
+/* 4 · orange theme, day summary */
+#s4{background:#ff5a1f;color:#2a0b00}
+#s4 .status{color:#2a0b00}#s4 .gest{background:#2a0b00}
+.uclock{font-family:Urbanist;font-weight:700;font-size:78px;letter-spacing:-2.5px;line-height:.9}
+.sum{font-family:Urbanist;font-size:27px;line-height:1.18;font-weight:600;letter-spacing:-.4px}
+.sum span{color:rgb(42 11 0 / .45)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips span{font-family:Urbanist;font-weight:600;font-size:13px;border:1.5px solid rgb(42 11 0 / .3);border-radius:16px;padding:6px 12px}
+.chips span.f{background:#2a0b00;color:#ff5a1f;border-color:#2a0b00}
 
-/* 4 · Search */
-#s4{background:radial-gradient(120% 60% at 20% 0%,#3b4f7a 0%,transparent 60%),radial-gradient(90% 60% at 100% 40%,#5b3f75 0%,transparent 60%),#141824;color:#eef0f7}
-#s4 .gest{background:#eef0f7}
-.s4h{position:absolute;left:22px;right:22px;top:46px}
-.lab{font-size:10.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:#9aa3bd}
-.recent{display:flex;gap:12px;margin-top:10px}
-.recent div{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;font-weight:500;color:#c9cee0}
-.recent b{width:52px;height:52px;border-radius:18px;display:grid;place-items:center;font-size:17px;font-weight:700;color:#fff}
-.answer{position:absolute;left:18px;right:18px;top:150px;border-radius:28px;background:rgb(255 255 255 / .1);border:1px solid rgb(255 255 255 / .14);padding:18px 20px;backdrop-filter:blur(10px)}
-.answer .q{font-size:13px;color:#aab2ca}.answer .a{font-family:'Space Grotesk';font-weight:700;font-size:44px;letter-spacing:-1px;margin-top:2px}
-.answer .a small{font-size:18px;color:#aab2ca;font-weight:500;margin-left:4px}
-.answer .ic{position:absolute;right:18px;top:18px;width:36px;height:36px;border-radius:12px;background:#c9d6ff;color:#1c2540;display:grid;place-items:center;font-size:20px}
-.send{position:absolute;left:18px;right:18px;top:282px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.send a{height:62px;border-radius:20px;background:rgb(255 255 255 / .07);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:10.5px;font-weight:600;color:#c9cee0}
-.send a .ic{font-size:20px;color:#c9d6ff}
-.code{position:absolute;left:18px;right:18px;top:360px;height:58px;border-radius:20px;background:#c9d6ff;color:#1c2540;display:flex;align-items:center;gap:12px;padding:0 16px;font-size:14px;font-weight:600}
-.code kbd{font-family:'Space Grotesk';font-weight:700;background:#1c2540;color:#c9d6ff;border-radius:10px;padding:5px 9px;font-size:13px}
-.code small{margin-left:auto;font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.6}
-.alist{position:absolute;left:22px;right:40px;top:440px;font-size:17px;font-weight:500;line-height:36px}
-.alist .L{font-family:'Space Grotesk';font-size:11px;font-weight:700;color:#9aa3bd;line-height:24px;margin-top:2px}
-.alist .h{color:#c9d6ff;font-weight:700}
-.alpha{position:absolute;right:12px;top:440px;display:flex;flex-direction:column;gap:3px;font-family:'Space Grotesk';font-size:9px;font-weight:700;color:#6c7590;text-align:center}
-.alpha .on{color:#141824;background:#c9d6ff;border-radius:6px;padding:1px 0}
-.sbar{position:absolute;left:16px;right:16px;bottom:28px;height:56px;border-radius:28px;background:#eef0f7;color:#141824;display:flex;align-items:center;gap:10px;padding:0 8px 0 18px;font-size:16px;font-weight:500}
-.sbar .cur{width:2px;height:20px;background:#4a6cf7;margin-left:-8px}
-.sbar .go{margin-left:auto;width:40px;height:40px;border-radius:50%;background:#4a6cf7;color:#fff;display:grid;place-items:center}
-
-/* 5 · Liquid glass */
-#s5{background:radial-gradient(60% 40% at 15% 20%,#ff9a62 0%,transparent 70%),radial-gradient(70% 45% at 95% 35%,#ff5ea8 0%,transparent 70%),radial-gradient(80% 50% at 30% 85%,#4b6bff 0%,transparent 70%),radial-gradient(60% 40% at 90% 95%,#2bd9c8 0%,transparent 70%),#2a1f4a;color:#fff}
-#s5 .gest{background:#fff}
-.glass{background:rgb(255 255 255 / .16);border:1px solid rgb(255 255 255 / .35);backdrop-filter:blur(18px) saturate(1.4);box-shadow:inset 0 1px 0 rgb(255 255 255 / .45),0 20px 40px -24px rgb(0 0 0 / .5)}
-.w5{position:absolute;left:24px;right:24px;top:56px}
-.w5 .deg{font-family:'Space Grotesk';font-weight:500;font-size:120px;line-height:.85;letter-spacing:-6px}
-.w5 .deg sup{font-size:48px;vertical-align:top;letter-spacing:0}
-.w5 .c{font-size:15px;font-weight:600;margin-top:6px}.w5 .c span{opacity:.75;font-weight:500}
-.arc{position:absolute;left:18px;right:18px;top:228px;height:96px;border-radius:28px;padding:14px 18px}
-.arc svg{position:absolute;left:18px;right:18px;top:14px}
-.arc .t{position:absolute;bottom:12px;left:18px;right:18px;display:flex;justify-content:space-between;font-size:11px;font-weight:600}
-.arc .t span{display:flex;align-items:center;gap:4px}.arc .t .ic{font-size:15px}
-.st{position:absolute;left:18px;right:18px;top:340px;height:118px;border-radius:28px;padding:16px 18px;display:flex;justify-content:space-between;align-items:flex-end}
-.st .lb{font-size:10.5px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;opacity:.8}
-.st .v{font-family:'Space Grotesk';font-size:36px;font-weight:700;letter-spacing:-1px;margin-top:4px}
-.st .v small{font-size:13px;font-weight:500;opacity:.8;letter-spacing:0;margin-left:4px}
-.st .bars{display:flex;gap:6px;align-items:flex-end;height:74px}
-.st .bars i{width:12px;border-radius:6px;background:rgb(255 255 255 / .4)}.st .bars i.t{background:#fff}
-.gl{position:absolute;left:18px;right:18px;top:476px;display:flex;flex-direction:column;gap:8px}
-.gl a{height:52px;border-radius:26px;display:flex;align-items:center;gap:12px;padding:0 8px 0 20px;font-size:16px;font-weight:600}
-.gl a .tm{margin-left:auto;font-size:11.5px;font-weight:600;opacity:.75;margin-right:6px}
-.gl a .ic{width:38px;height:38px;border-radius:50%;background:rgb(255 255 255 / .9);color:#2a1f4a;display:grid;place-items:center;font-size:20px}
-.gl a .ic.n{background:none;color:#fff;width:auto}
+/* 5 · focus */
+.chk{display:flex;align-items:center;gap:10px;font-size:13.5px;line-height:30px}
+.chk i{width:18px;height:18px;border-radius:50%;background:#fff;flex:none;position:relative}
+.chk i::after{content:"";position:absolute;left:6px;top:3px;width:4px;height:8px;border:solid #000;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.chk.o i{background:none;border:1.5px solid #6c6c72}.chk.o i::after{display:none}
+.chk.d span{text-decoration:line-through;color:#6c6c72}
+.hb{font-size:12.5px;margin-top:10px}
+.hd{display:flex;gap:5px;margin-top:6px}.hd i{width:13px;height:13px;border-radius:50%;background:#fff}.hd i.e{background:none;border:1.3px solid #4a4a50}
+.sticky{background:#efeee6;color:#1a1a1a;border-radius:3px;padding:8px 12px 9px;font-family:Kalam;font-weight:700;font-size:17px;line-height:1.1;position:relative;box-shadow:0 6px 14px -6px rgb(0 0 0 / .8)}
+.sticky small{display:block;font-size:12px;margin-top:2px;opacity:.75}
+.sticky::before{content:"";position:absolute;top:-5px;left:50%;width:9px;height:9px;margin-left:-4.5px;border-radius:50%;background:#efeee6;border:2px solid #121214}
 </style></head>
 <body>
 
-<!-- 1 -->
+<!-- 1 · Light theme with periodic table pins -->
 <section class="scr" id="s1">
-  <div class="status"><span>10:24</span><span class="r"><i class="ic">signal_cellular_alt</i><i class="ic">wifi</i><i class="ic">battery_5_bar</i></span></div>
-  <div class="clock"><div class="hm"><span>10</span><span class="m">24</span></div>
-    <div class="side">Thu,<br>5 Nov<div class="roll"><i>36</i><i>37</i><b>38</b><i>39</i></div></div></div>
-  <div class="wx">
-    <div class="top"><div><div class="deg">29<sup>°</sup></div><div class="loc">Kochi · Partly cloudy · H 31° L 24°</div></div></div>
-    <div class="sun" style="position:absolute;right:30px;top:20px"></div><div class="cloud"></div>
-    <div class="hrs"><div>Now<i class="ic">partly_cloudy_day</i>29°</div><div>11<i class="ic">sunny</i>30°</div><div>12<i class="ic">sunny</i>31°</div><div>13<i class="ic">cloud</i>30°</div><div>14<i class="ic">rainy</i>27°</div><div>15<i class="ic">thunderstorm</i>26°</div></div>
+  <div class="status"><span>9:41</span><span>82%</span></div>
+  <div style="position:absolute;left:30px;top:96px"><span class="dm" data-t="09:41" data-p="7.2" data-c="#0b0b0c"></span><div class="date">Thursday, 30 October</div></div>
+  <div style="position:absolute;left:28px;right:28px;top:252px">
+    <div class="ptab">
+      <a><i>1</i><b>Ph</b><small>Phone</small></a>
+      <a class="hot"><i>2</i><b>Ms</b><small>Messages</small><span class="nb" style="background:#fff"></span></a>
+      <a><i>3</i><b>Ca</b><small>Camera</small></a>
+      <a><i>4</i><b>Mp</b><small>Maps</small></a>
+      <a><i>5</i><b>Mu</b><small>Music</small></a>
+      <a><i>6</i><b>No</b><small>Notes</small><span class="nb"></span></a>
+      <a><i>7</i><b>Cl</b><small>Calendar</small></a>
+      <a><i>8</i><b>Ml</b><small>Mail</small></a>
+      <a><i>9</i><b>Wa</b><small>Wallet</small></a>
+    </div>
   </div>
-  <div class="bento">
-    <a class="big"><i class="ic">photo_camera</i><b>Camera</b></a>
-    <a><i class="ic">chat</i>WhatsApp<span class="badge">3</span></a>
-    <a class="acc"><i class="ic">headphones</i>Spotify</a>
-    <a><i class="ic">map</i>Maps</a>
-    <a><i class="ic">mail</i>Gmail<span class="badge">12</span></a>
-    <a><i class="ic">menu_book</i>Kindle</a>
-  </div>
-  <div class="search1"><i class="ic">search</i>Search apps, web, contacts<span class="mic"><i class="ic">mic</i></span></div>
+  <div class="lsearch"><svg width="16" height="16" viewBox="0 0 16 16"><circle cx="7" cy="7" r="5.2" fill="none" stroke="#8e8e93" stroke-width="1.8"/><path d="M11 11l3.5 3.5" stroke="#8e8e93" stroke-width="1.8" stroke-linecap="round"/></svg>Search</div>
   <div class="gest"></div>
 </section>
 
-<!-- 2 -->
+<!-- 2 · Classic: only what matters -->
 <section class="scr" id="s2">
-  <div class="status"><span style="font-family:'Space Grotesk'">10:24</span><span class="r"><i class="ic">signal_cellular_alt</i><i class="ic">wifi</i><i class="ic">battery_4_bar</i></span></div>
-  <div class="nclock">10<span class="r">:</span>24</div>
-  <div class="ndate">Thursday · 05 Nov</div>
-  <div class="prog">
-    <div class="row">Day<div class="dots" data-f="11" data-r="0"></div><b>43%</b></div>
-    <div class="row">Month<div class="dots" data-f="4" data-r="0"></div><b>16%</b></div>
-    <div class="row">Year<div class="dots" data-f="22" data-r="1"></div><b>85%</b></div>
-  </div>
-  <div class="ntiles">
-    <div class="nt"><div class="lb">Battery</div><div class="big">82</div>
-      <svg width="54" height="54" viewBox="0 0 54 54" id="ring"></svg></div>
-    <div class="nt"><div class="lb">Unlocks today</div><div class="big">14</div><div class="lb" style="margin-top:8px;color:#d71921">−9 vs yesterday</div></div>
-  </div>
-  <div class="ptab">
-    <a><span class="n">01</span><span class="sym">Ph</span><span class="nm">Phone</span></a>
-    <a class="red"><span class="n">02</span><span class="sym">Ca</span><span class="nm">Camera</span></a>
-    <a><span class="n">03</span><span class="sym">Wa</span><span class="nm">WhatsApp</span><i class="dot"></i></a>
-    <a><span class="n">04</span><span class="sym">Gm</span><span class="nm">Gmail</span></a>
-    <a><span class="n">05</span><span class="sym">Ma</span><span class="nm">Maps</span></a>
-    <a><span class="n">06</span><span class="sym">Sp</span><span class="nm">Spotify</span></a>
-    <a><span class="n">07</span><span class="sym">No</span><span class="nm">Notes</span><i class="dot"></i></a>
-    <a><span class="n">08</span><span class="sym">Ke</span><span class="nm">Keep</span></a>
-  </div>
-  <div class="nmus"><div class="eq"><span><i></i><i></i></span><span><i></i><i></i><i></i><i></i></span><span><i></i><i></i><i></i><i></i><i></i></span><span><i></i><i></i><i></i></span><span><i></i><i></i><i></i><i></i><i></i></span><span><i></i><i></i><i></i><i></i></span><span><i></i><i></i></span><span><i></i><i></i><i></i></span><span><i></i><i></i><i></i><i></i><i></i></span><span><i></i><i></i><i></i></span></div><div class="tt">Midnight City<small>M83</small></div><i class="ic">pause_circle</i></div>
-  <div class="nfoot"><i class="ic">flashlight_on</i><span>Swipe up · Search</span><i class="ic">photo_camera</i></div>
+  <div class="status"><span>9:41</span><span>82%</span></div>
+  <div style="position:absolute;left:30px;top:96px"><span class="dm" data-t="09:41" data-p="7.2" data-c="#fff"></span><div class="date">Thursday, 30 October</div></div>
+  <div class="pins" style="position:absolute;left:30px;top:400px">Phone<br>Messages<br>Camera<br>Maps<br>Music<br>Notes</div>
   <div class="gest"></div>
 </section>
 
-<!-- 3 -->
+<!-- 3 · Widgets -->
 <section class="scr" id="s3">
-  <div class="status"><span>10:24</span><span class="r"><i class="ic">signal_cellular_alt</i><i class="ic">wifi</i><i class="ic">battery_5_bar</i></span></div>
-  <div class="ff-h"><div class="d">Thursday<i>.</i></div><div class="s">5 November · 3 tasks left</div></div>
-  <div class="music"><div class="art"></div><div class="t">Midnight City</div><div class="a">M83 · Hurry Up, We're Dreaming</div>
-    <div class="bar"><i></i></div><div class="ctl"><i class="ic">skip_previous</i><span class="pl"><i class="ic">pause</i></span><i class="ic">skip_next</i></div></div>
-  <div class="qs"><a class="on"><i class="ic">flashlight_on</i></a><a class="on2"><i class="ic">do_not_disturb_on</i></a><a><i class="ic">screen_rotation</i></a><a><i class="ic">notifications_active</i></a><div class="lbl">Quick tiles</div></div>
-  <div class="ev"><div class="cal"><small>NOV</small><b>05</b></div><div><div class="tt">Design review</div><div class="tm">11:30 – 12:00 · Meet</div></div><span class="in">in 1h 6m</span></div>
-  <div class="note"><small>Notes</small><s>Oat milk</s><br>Call mom<br>Ship v4.2 ✦</div>
-  <div class="snake"><div class="hd"><span>Snake</span><span>Score 12</span></div><div class="grid" id="sn"></div></div>
-  <div class="dock3"><span><i class="ic">call</i>Phone</span><span><i class="ic">chat</i>Messages</span><span><i class="ic">photo_camera</i>Camera</span></div>
-  <div class="gest"></div>
-</section>
-
-<!-- 4 -->
-<section class="scr" id="s4">
-  <div class="status"><span>10:24</span><span class="r"><i class="ic">signal_cellular_alt</i><i class="ic">wifi</i><i class="ic">battery_5_bar</i></span></div>
-  <div class="s4h"><div class="lab">Recent</div>
-    <div class="recent"><div><b style="background:#25a35a">Wa</b>WhatsApp</div><div><b style="background:#e2552b">Ph</b>Photos</div><div><b style="background:#4a6cf7">Ma</b>Maps</div><div><b style="background:#8a4bd6">Ke</b>Keep</div><div><b style="background:#1db954">Sp</b>Spotify</div></div></div>
-  <div class="answer"><div class="q">12 × 128</div><div class="a">1,536<small>quick answer</small></div><i class="ic">calculate</i></div>
-  <div class="send"><a><i class="ic">travel_explore</i>Web</a><a><i class="ic">contacts</i>Contacts</a><a><i class="ic">dialpad</i>Dialler</a><a><i class="ic">map</i>Maps</a></div>
-  <div class="code"><kbd>123</kbd>opens WhatsApp<small>Search code</small></div>
-  <div class="alist"><div class="L">C</div><div class="h">Calculator</div><div>Calendar</div><div>Camera</div><div>Chrome</div><div class="L">D</div><div>Drive</div></div>
-  <div class="alpha"><span>A</span><span>B</span><span class="on">C</span><span>D</span><span>F</span><span>G</span><span>K</span><span>M</span><span>N</span><span>P</span><span>S</span><span>W</span><span>Y</span></div>
-  <div class="sbar"><i class="ic" style="color:#4a6cf7">search</i>12*128<span class="cur"></span><span class="go"><i class="ic">arrow_forward</i></span></div>
-  <div class="gest"></div>
-</section>
-
-<!-- 5 -->
-<section class="scr" id="s5">
-  <div class="status"><span>10:24</span><span class="r"><i class="ic">signal_cellular_alt</i><i class="ic">wifi</i><i class="ic">battery_5_bar</i></span></div>
-  <div class="w5"><div class="deg">29<sup>°</sup></div><div class="c">Partly cloudy <span>· Kochi · UV 6 · AQI 42</span></div></div>
-  <div class="arc glass"><svg width="288" height="50" viewBox="0 0 288 50"><path d="M8 48 Q144 -30 280 48" fill="none" stroke="rgb(255 255 255 / .55)" stroke-width="2" stroke-dasharray="3 5"/><circle cx="118" cy="10" r="8" fill="#ffe08a"/><circle cx="118" cy="10" r="14" fill="#ffe08a" opacity=".3"/></svg>
-    <div class="t"><span><i class="ic">wb_twilight</i>6:12</span><span>Golden hour 17:28</span><span>18:04<i class="ic">bedtime</i></span></div></div>
-  <div class="st glass"><div><div class="lb">Screen time</div><div class="v">1h 52m<small>today</small></div><div class="lb" style="text-transform:none;letter-spacing:0;font-weight:600;margin-top:2px">↓ 38% this week</div></div>
-    <div class="bars"><i style="height:60%"></i><i style="height:82%"></i><i style="height:48%"></i><i style="height:70%"></i><i style="height:40%"></i><i style="height:52%"></i><i class="t" style="height:34%"></i></div></div>
-  <div class="gl">
-    <a class="glass"><i class="ic n">photo_camera</i>Camera<span class="tm">4m</span></a>
-    <a class="glass"><i class="ic n">chat</i>Messages<span class="tm">22m</span></a>
-    <a class="glass"><i class="ic n">headphones</i>Spotify<span class="tm">41m</span></a>
-    <a class="glass"><i class="ic n">map</i>Maps<span class="tm">9m</span></a>
+  <div class="status"><span>9:41</span><span>82%</span></div>
+  <div style="position:absolute;left:30px;top:84px"><span class="dm" data-t="09:41" data-p="5.4" data-c="#fff"></span><div class="date" style="font-size:14px;margin-top:9px">Thursday, 30 October</div></div>
+  <div class="wg" style="position:absolute;left:18px;right:18px;top:196px">
+    <div class="card wx" style="height:112px"><div class="lb">Weather · Lisbon</div><div class="big" style="margin-top:12px">18°</div><div style="font-size:11.5px;color:#8e8e93;margin-top:4px">Clear · H 21° L 14°</div><span class="ring"></span></div>
+    <div class="card" style="height:112px"><div class="lb">Battery</div><div class="big" style="margin-top:12px">82%</div><div class="bar" style="margin-top:16px"><i style="width:82%"></i></div></div>
+    <div class="card" style="height:112px"><div class="lb">Day progress</div><div class="big" style="margin-top:12px">64%</div><div class="bar" style="margin-top:16px"><i style="width:64%"></i></div></div>
+    <div class="card" style="height:112px"><div class="lb">Screen time</div><span class="dm" data-t="1h05m" data-p="3.1" data-c="#fff" style="margin-top:14px"></span><div style="font-size:11px;color:#8e8e93;margin-top:10px">−38% vs last week</div></div>
+    <div class="card np" style="height:108px"><div class="lb">Now playing</div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:8px"><div><div style="font-size:17px;font-weight:600">Slow Morning</div><div style="font-size:11.5px;color:#8e8e93;margin-top:2px">Lo-fi Sessions</div></div>
+        <div class="eq"><i style="height:30%"></i><i style="height:55%"></i><i style="height:40%"></i><i style="height:90%"></i><i style="height:60%"></i><i style="height:75%"></i><i style="height:35%"></i></div></div>
+      <div class="row"><span class="tri l"></span><span class="pp"></span><span class="tri r"></span><div class="bar" style="flex:1"><i style="width:34%"></i></div></div></div>
   </div>
+  <div class="pins" style="position:absolute;left:30px;top:592px;font-size:21px;line-height:46px">Phone<br>Messages<br>Camera</div>
+  <div class="gest"></div>
+</section>
+
+<!-- 4 · Orange theme with the day summary -->
+<section class="scr" id="s4">
+  <div class="status"><span>9:41</span><span>82%</span></div>
+  <div style="position:absolute;left:30px;right:30px;top:92px">
+    <div class="uclock">09:41</div>
+    <div style="font-family:Urbanist;font-weight:600;font-size:15px;margin-top:10px">Thursday, 30 October</div>
+  </div>
+  <div style="position:absolute;left:30px;right:26px;top:248px">
+    <div class="lb" style="color:rgb(42 11 0 / .6);margin-bottom:12px">Your day, summarised</div>
+    <div class="sum">Good morning, Dino.<br><span>You have</span> 2 meetings, 3 tasks <span>and</span> 1 habit <span>left today. You're free after</span> 4:30.</div>
+    <div class="chips" style="margin-top:18px"><span class="f">Standup · 9:00</span><span>Design review · 10:30</span><span>Gym at 6</span></div>
+  </div>
+  <div style="position:absolute;left:30px;top:548px;font-family:Urbanist;font-weight:600;font-size:23px;line-height:48px">Phone<br>Messages<br>Camera<br>Music</div>
+  <div class="gest"></div>
+</section>
+
+<!-- 5 · Focus tools on home -->
+<section class="scr" id="s5">
+  <div class="status"><span>9:41</span><span>82%</span></div>
+  <div style="position:absolute;left:30px;top:84px"><span class="dm" data-t="09:41" data-p="5.4" data-c="#fff"></span><div class="date" style="font-size:14px;margin-top:9px">Thursday, 30 October</div></div>
+  <div style="position:absolute;left:18px;right:18px;top:196px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+    <div class="card" style="height:196px"><div class="lb">To-do</div><div style="margin-top:10px">
+      <div class="chk d"><i></i><span>Book flights</span></div><div class="chk d"><i></i><span>Call mum</span></div><div class="chk d"><i></i><span>Finish slides</span></div><div class="chk o"><i></i><span>Gym at 6</span></div></div></div>
+    <div class="card" style="height:196px;text-align:center"><div class="lb" style="text-align:left">Focus timer</div>
+      <div style="position:relative;width:106px;height:106px;margin:12px auto 0"><svg width="106" height="106" viewBox="0 0 106 106" style="position:absolute;inset:0"><circle cx="53" cy="53" r="47" fill="none" stroke="#2c2c30" stroke-width="5"/><circle cx="53" cy="53" r="47" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-dasharray="295.3" stroke-dashoffset="62" transform="rotate(-90 53 53)"/></svg>
+        <span class="dm" data-t="20:53" data-p="2.9" data-c="#fff" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)"></span></div>
+      <div style="font-size:12.5px;font-weight:600;margin-top:10px">Deep work · 1 of 4</div><div style="font-size:10.5px;color:#8e8e93;margin-top:2px">5 min break next</div></div>
+    <div class="card" style="height:222px"><div class="lb">Habits</div>
+      <div class="hb">Read 20 min</div><div class="hd"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="hb">Walk 8k steps</div><div class="hd"><i></i><i></i><i></i><i class="e"></i><i></i><i></i><i></i></div>
+      <div class="hb">No phone in bed</div><div class="hd"><i></i><i></i><i></i><i></i><i></i><i class="e"></i><i class="e"></i></div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:16px"><span class="dm" data-t="12" data-p="3" data-c="#fff"></span><span style="font-size:12.5px;font-weight:600">day streak</span></div></div>
+    <div class="card" style="height:222px;padding:14px 12px"><div class="lb" style="padding-left:4px">Meetings</div>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:16px">
+        <div class="sticky" style="transform:rotate(-2deg)">Standup<small>9:00</small></div>
+        <div class="sticky" style="transform:rotate(1.5deg)">Design review<small>10:30</small></div>
+        <div class="sticky" style="transform:rotate(-1deg)">1:1 with Sam<small>15:00</small></div>
+      </div></div>
+  </div>
+  <div class="pins" style="position:absolute;left:30px;top:648px;font-size:21px;line-height:46px">Phone<br>Messages</div>
   <div class="gest"></div>
 </section>
 
 <script>
-document.querySelectorAll('.dots').forEach(d => { const f = +d.dataset.f, r = +d.dataset.r; for (let i = 0; i < 26; i++) { const e = document.createElement('i'); if (i < f) e.className = r && i === f - 1 ? 'rd' : 'f'; d.appendChild(e); } });
-const ring = document.getElementById('ring'); for (let i = 0; i < 24; i++) { const a = i / 24 * 2 * Math.PI - Math.PI / 2; const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle'); c.setAttribute('cx', 27 + 22 * Math.cos(a)); c.setAttribute('cy', 27 + 22 * Math.sin(a)); c.setAttribute('r', 2.4); c.setAttribute('fill', i < 20 ? '#fff' : '#333'); ring.appendChild(c); }
-const sn = document.getElementById('sn'), body = [[2,3],[3,3],[4,3],[5,3],[5,4],[5,5],[5,6],[6,6],[7,6],[8,6],[8,7]], head = [8,8], food = [3,9];
-for (let y = 0; y < 12; y++) for (let x = 0; x < 12; x++) { const e = document.createElement('i'); if (x === head[1] && y === head[0]) e.className = 'h'; else if (body.some(([a, b]) => a === y && b === x)) e.className = 's'; else if (y === food[0] && x === food[1]) e.className = 'f'; sn.appendChild(e); }
+/* 5x7 dot-matrix glyphs, the launcher's clock face. */
+const G = {
+  '0': ['01110','10001','10001','10001','10001','10001','01110'],
+  '1': ['00100','01100','00100','00100','00100','00100','01111'],
+  '2': ['01110','10001','00001','00010','00100','01000','11111'],
+  '3': ['11110','00001','00001','01110','00001','00001','11110'],
+  '4': ['00010','00110','01010','10010','11111','00010','00010'],
+  '5': ['11111','10000','11110','00001','00001','10001','01110'],
+  '6': ['00110','01000','10000','11110','10001','10001','01110'],
+  '7': ['11111','00001','00010','00100','01000','01000','01000'],
+  '8': ['01110','10001','10001','01110','10001','10001','01110'],
+  '9': ['01110','10001','10001','01111','00001','00010','01100'],
+  ':': ['000','010','111','010','111','010','000'],
+  'h': ['10000','10000','10110','11001','10001','10001','10001'],
+  'm': ['00000','00000','11010','10101','10101','10101','10101'],
+  ' ': ['00','00','00','00','00','00','00'],
+};
+document.querySelectorAll('.dm').forEach(el => {
+  const t = el.dataset.t, p = +el.dataset.p, c = el.dataset.c, r = p * 0.36;
+  let x = 0, dots = '';
+  [...t].forEach((ch, k) => {
+    if (ch === 'm' || ch === 'h') x += p * .6;
+    const g = G[ch]; g.forEach((row, y) => [...row].forEach((b, i) => { if (b === '1') dots += `<circle cx="${(x + i * p + p / 2).toFixed(2)}" cy="${(y * p + p / 2).toFixed(2)}" r="${r.toFixed(2)}"/>`; }));
+    x += g[0].length * p + p;
+  });
+  x -= p;
+  el.innerHTML = `<svg width="${x}" height="${7 * p}" viewBox="0 0 ${x} ${7 * p}" fill="${c}">${dots}</svg>`;
+});
 const n = new URLSearchParams(location.search).get('s') || '1'; document.getElementById('s' + n).classList.add('on');
 </script>
 </body></html>

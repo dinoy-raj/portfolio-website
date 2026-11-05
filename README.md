@@ -17,7 +17,7 @@ Then open http://localhost:8000.
 - `index.html`: the page, its styles and its React components
 - `kit/bundle.css`, `kit/bundle.js`: Expressive Kit component styles and components (`window.Expressive`)
 - `assets/apps/`: app icons and screenshots for the My Apps section, taken from each app's own Play Store assets and resized to WebP. Each app's title, description and links live in the `APPS` list in `index.html`
-- `design/launcher-shots/`: the source for the launcher's five screenshots, drawn in HTML from features in [Simple-Launcher](https://github.com/dinoy-raj/Simple-Launcher). Run `node design/launcher-shots/render.js "$PWD/design/launcher-shots"` to render them to PNG at 540×1212, then convert them to `assets/apps/launcher-1..5.webp`
+- `design/launcher-shots/`: the source for the launcher's five screenshots, drawn in HTML to match the Simple Launcher promo video (Inter, dot-matrix clock, text pinned apps, widget cards). Run `node design/launcher-shots/render.js "$PWD/design/launcher-shots"` to render them to PNG at 540×1212, then convert them to `assets/apps/launcher-1..5.webp`
 
 React 18 and htm load from CDNs; fonts and Material Symbols load from Google Fonts.
 
