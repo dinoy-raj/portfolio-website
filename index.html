@@ -208,6 +208,36 @@ section[id]{scroll-margin-top:96px}
 .apps-end{display:flex;flex-direction:column;align-items:center;gap:var(--space-4);text-align:center;margin-top:clamp(64px,8vw,112px)}
 .apps-end p{font-size:16px;line-height:25px;max-width:40ch}
 
+/* Page change, home ⇄ all apps. View Transitions: the five home app cards and the "Apps" title morph
+   into place on the other page while the rest of the page sinks away and the new one rises in. */
+.nav{view-transition-name:nav}
+.top-blur{view-transition-name:top-blur}
+.apps .sec-title,.all-apps .sec-title{view-transition-name:apps-title;width:fit-content}
+::view-transition-group(*){animation-duration:620ms;animation-timing-function:cubic-bezier(.2,.9,.1,1)}
+::view-transition-group(nav),::view-transition-group(top-blur){animation:none}
+::view-transition-old(root){animation:vt-sink 380ms cubic-bezier(.4,0,1,1) both}
+::view-transition-new(root){animation:vt-rise 620ms cubic-bezier(.2,.9,.1,1) 80ms both}
+html[data-nav=back]::view-transition-old(root){animation:vt-drop 380ms cubic-bezier(.4,0,1,1) both}
+html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bezier(.2,.9,.1,1) 80ms both}
+::view-transition-old(apps-title),::view-transition-new(apps-title){height:100%;width:auto;object-fit:contain;object-position:left top}
+::view-transition-old(apps-title){animation:vt-fade-out 220ms var(--ease) both}
+::view-transition-new(apps-title){animation:vt-fade-in 360ms var(--ease) 120ms both}
+@keyframes vt-sink{to{opacity:0;transform:scale(.94) translateY(-24px);filter:blur(6px)}}
+@keyframes vt-rise{from{opacity:0;transform:translateY(72px)}}
+@keyframes vt-drop{to{opacity:0;transform:translateY(72px)}}
+@keyframes vt-grow{from{opacity:0;transform:scale(.94) translateY(-24px);filter:blur(6px)}}
+@keyframes vt-fade-out{to{opacity:0}}
+@keyframes vt-fade-in{from{opacity:0}}
+/* Browsers without View Transitions: the incoming page still rises in. */
+@supports not (view-transition-name:a){
+  main[data-enter=fwd]{animation:vt-rise 620ms cubic-bezier(.2,.9,.1,1) both}
+  main[data-enter=back]{animation:vt-grow 620ms cubic-bezier(.2,.9,.1,1) both}
+}
+@media (prefers-reduced-motion:reduce){
+  ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}
+  main[data-enter]{animation:none!important}
+}
+
 /* Talks: accordion stage. One talk open in its tone, the rest collapse to dark vertical spines; hover or focus springs one open. */
 .how{padding-top:clamp(96px,12vw,160px)}
 .how-head{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--space-4);flex-wrap:wrap}
@@ -766,7 +796,7 @@ section[id]{scroll-margin-top:96px}
   }
 
   function AppCard({ a }) {
-    return html`<article class=${'app' + (a.featured ? ' featured' : '')} aria-labelledby=${'app-' + a.id}>
+    return html`<article class=${'app' + (a.featured ? ' featured' : '')} aria-labelledby=${'app-' + a.id} style=${{ viewTransitionName: 'app-' + a.id }}>
               <div class="media" style=${{ background: a.bg }}>
                 <div class="shots">${a.shots.map((alt, i) => html`<img key=${i} src=${'assets/apps/' + a.id + '-' + (i + 1) + '.webp'} alt=${a.name + ': ' + alt} width="540" height=${a.id === 'launcher' ? 1212 : 960} loading="lazy" decoding="async" />`)}</div>
               </div>
@@ -780,8 +810,8 @@ section[id]{scroll-margin-top:96px}
             </article>`;
   }
 
-  function AllApps() {
-    return html`<main id="top" class="all-apps wrap">
+  function AllApps({ enter }) {
+    return html`<main id="top" class="all-apps wrap" data-enter=${enter}>
       <a class="link-arrow back" href="#apps"><span class="ex-icon" aria-hidden="true">arrow_back</span>Back to home</a>
       <div class="apps-head">
         <div>
@@ -859,25 +889,35 @@ section[id]{scroll-margin-top:96px}
 
   function App() {
     const [route, setRoute] = useState(() => location.hash === ALL_APPS ? 'all' : 'home');
+    const [enter, setEnter] = useState(null);
+    const routeRef = useRef(route);
     useEffect(() => {
-      const on = () => setRoute(location.hash === ALL_APPS ? 'all' : 'home');
+      const on = () => {
+        const next = location.hash === ALL_APPS ? 'all' : 'home';
+        if (next === routeRef.current) return;
+        routeRef.current = next;
+        const dir = next === 'all' ? 'fwd' : 'back';
+        // Render the other page synchronously, then start the apps page at the top or, going home, land on the section in the URL.
+        const swap = () => {
+          ReactDOM.flushSync(() => { setRoute(next); setEnter(dir); });
+          const el = next === 'home' && location.hash && document.getElementById(location.hash.slice(1));
+          el ? el.scrollIntoView({ behavior: 'instant' }) : scrollTo({ top: 0, behavior: 'instant' });
+        };
+        if (!document.startViewTransition || matchMedia('(prefers-reduced-motion: reduce)').matches) return swap();
+        const root = document.documentElement;
+        root.dataset.nav = dir;
+        document.startViewTransition(swap).finished.finally(() => { if (root.dataset.nav === dir) delete root.dataset.nav; });
+      };
       addEventListener('hashchange', on); return () => removeEventListener('hashchange', on);
     }, []);
-    const first = useRef(true);
-    useEffect(() => {
-      document.title = route === 'all' ? 'All apps · ' + BASE_TITLE : BASE_TITLE;
-      if (first.current) { first.current = false; return; }
-      // Switching views: start the apps page at the top; going home, land on the section in the URL.
-      const el = route === 'home' && location.hash && document.getElementById(location.hash.slice(1));
-      el ? el.scrollIntoView({ behavior: 'instant' }) : scrollTo({ top: 0, behavior: 'instant' });
-    }, [route]);
+    useEffect(() => { document.title = route === 'all' ? 'All apps · ' + BASE_TITLE : BASE_TITLE; }, [route]);
     const [msg, setMsg] = useState(null);
     useEffect(() => { if (!msg) return; const t = setTimeout(() => setMsg(null), 3400); return () => clearTimeout(t); }, [msg]);
 
     return html`<${React.Fragment}>
       <${TopBlur} />
       <${Nav} />
-      ${route === 'all' ? html`<${AllApps} />` : html`<main id="top">
+      ${route === 'all' ? html`<${AllApps} enter=${enter} />` : html`<main id="top" data-enter=${enter}>
         <section class="hero wrap">
           <h1>Android<span class="l2">Developer</span>
             <${MorphShape} className="float f1" seq=${['sunny', 'cookie9', 'flower8', 'clover4', 'cookie12']} fill="var(--highlight)" speed=${22} />
