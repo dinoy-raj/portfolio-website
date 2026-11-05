@@ -97,15 +97,17 @@ section[id]{scroll-margin-top:96px}
 .nav-scrim{position:fixed;inset:0;z-index:24;background:rgba(20,12,8,.22);opacity:0;pointer-events:none;transition:opacity 280ms var(--ease)}
 .nav-scrim.on{opacity:1;pointer-events:auto}
 /* Progressive blur under the nav: stacked backdrop blurs, each masked to a lower band, so content softens more the closer it gets to the top. Fades in once the page scrolls. */
-.top-blur{position:fixed;inset:0 0 auto;height:calc(env(safe-area-inset-top,0px) + 112px);z-index:23;pointer-events:none;opacity:0;transition:opacity 320ms var(--ease)}
+.top-blur{position:fixed;inset:0 0 auto;height:calc(env(safe-area-inset-top,0px) + 168px);z-index:23;pointer-events:none;opacity:0;transition:opacity 320ms var(--ease)}
 .top-blur.on{opacity:1}
 .top-blur i{position:absolute;inset:0}
-.top-blur i:nth-child(1){backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px);mask:linear-gradient(to top,transparent 0%,#000 20%,#000 40%,transparent 60%);-webkit-mask:linear-gradient(to top,transparent 0%,#000 20%,#000 40%,transparent 60%)}
-.top-blur i:nth-child(2){backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);mask:linear-gradient(to top,transparent 20%,#000 40%,#000 60%,transparent 80%);-webkit-mask:linear-gradient(to top,transparent 20%,#000 40%,#000 60%,transparent 80%)}
-.top-blur i:nth-child(3){backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);mask:linear-gradient(to top,transparent 40%,#000 60%,#000 80%,transparent 100%);-webkit-mask:linear-gradient(to top,transparent 40%,#000 60%,#000 80%,transparent 100%)}
-.top-blur i:nth-child(4){backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);mask:linear-gradient(to top,transparent 60%,#000 80%);-webkit-mask:linear-gradient(to top,transparent 60%,#000 80%)}
-.top-blur i:nth-child(5){backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);mask:linear-gradient(to top,transparent 80%,#000 100%);-webkit-mask:linear-gradient(to top,transparent 80%,#000 100%)}
-.top-blur::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,color-mix(in srgb,var(--surface) 72%,transparent),transparent)}
+/* Six stacked bands, each twice the blur of the one below, so it deepens smoothly toward the top edge. */
+.top-blur i:nth-child(1){backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px);mask:linear-gradient(to top,transparent 0%,#000 17%,transparent 33%);-webkit-mask:linear-gradient(to top,transparent 0%,#000 17%,transparent 33%)}
+.top-blur i:nth-child(2){backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);mask:linear-gradient(to top,transparent 0%,#000 17%,#000 33%,transparent 50%);-webkit-mask:linear-gradient(to top,transparent 0%,#000 17%,#000 33%,transparent 50%)}
+.top-blur i:nth-child(3){backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);mask:linear-gradient(to top,transparent 17%,#000 33%,#000 50%,transparent 67%);-webkit-mask:linear-gradient(to top,transparent 17%,#000 33%,#000 50%,transparent 67%)}
+.top-blur i:nth-child(4){backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);mask:linear-gradient(to top,transparent 33%,#000 50%,#000 67%,transparent 83%);-webkit-mask:linear-gradient(to top,transparent 33%,#000 50%,#000 67%,transparent 83%)}
+.top-blur i:nth-child(5){backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);mask:linear-gradient(to top,transparent 50%,#000 67%,#000 83%,transparent 100%);-webkit-mask:linear-gradient(to top,transparent 50%,#000 67%,#000 83%,transparent 100%)}
+.top-blur i:nth-child(6){backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);mask:linear-gradient(to top,transparent 67%,#000 83%);-webkit-mask:linear-gradient(to top,transparent 67%,#000 83%)}
+.top-blur::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,color-mix(in srgb,var(--surface) 86%,transparent),color-mix(in srgb,var(--surface) 40%,transparent) 45%,transparent)}
 @media (prefers-reduced-motion: reduce){.nav,.nav.open,.nav-panel .rv,.nav.open .nav-panel .rv{transition-duration:0ms!important;transition-delay:0ms!important}}
 
 /* Hero poster */
@@ -769,7 +771,7 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
       f(); addEventListener('scroll', f, { passive: true });
       return () => removeEventListener('scroll', f);
     }, []);
-    return html`<div class=${'top-blur' + (on ? ' on' : '')} aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>`;
+    return html`<div class=${'top-blur' + (on ? ' on' : '')} aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>`;
   }
 
   function Nav() {
