@@ -9,7 +9,7 @@
 <style>*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <link rel="stylesheet" href="kit/bundle.css">
 <style>
-/* Expressive Kit, light only. Layout: floating pill nav → poster hero → scroll-lit statement → service rows → apps grid → dark talk cards → blogs → contact → dark footer with giant wordmark. */
+/* Expressive Kit, light only. Layout: floating pill nav → poster hero → scroll-lit statement → service rows → apps grid → talks accordion + event tickets → blogs → contact → dark footer with giant wordmark. */
 :root {
   color-scheme: light;
   --surface:#fbf6ee; --surface-container-lowest:#ffffff; --surface-container-low:#f6efe6; --surface-container:#f1e9df;
@@ -198,27 +198,71 @@ section[id]{scroll-margin-top:96px}
 .apps-end{display:flex;flex-direction:column;align-items:center;gap:var(--space-4);text-align:center;margin-top:clamp(64px,8vw,112px)}
 .apps-end p{font-size:16px;line-height:25px;max-width:40ch}
 
-/* Talks: dark cards */
+/* Talks: accordion stage. One talk open in its tone, the rest collapse to dark vertical spines; hover or focus springs one open. */
 .how{padding-top:clamp(96px,12vw,160px)}
-.how-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-3);margin-top:var(--space-8)}
-@media (max-width:1000px){.how-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:560px){.how-grid{grid-template-columns:minmax(0,1fr)}}
 .how-head{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--space-4);flex-wrap:wrap}
-.how-card{text-decoration:none;background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--shape-xl);padding:var(--space-6);min-height:300px;display:flex;flex-direction:column;justify-content:space-between;gap:var(--space-8);transition:border-radius 300ms var(--spring),transform 300ms var(--spring)}
-.how-card:hover{border-radius:var(--shape-xxl);transform:translateY(-4px)}
-.how-card:focus-visible{outline:2px solid var(--focus);outline-offset:4px}
-.how-card p{font-size:19px;line-height:27px;letter-spacing:-.01em}
-.how-card .foot{display:flex;align-items:center;gap:var(--space-3)}
-.how-card .foot b{display:block;font-size:15px;font-weight:600}
-.how-card .foot span{font-size:13px;color:var(--inverse-muted)}
-.events{margin-top:var(--space-8)}
-.events h3{font-size:15px;font-weight:600;margin-bottom:var(--space-3)}
-.events ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:var(--space-2)}
-.events li{display:flex;flex-direction:column;gap:2px;padding:10px 16px;border-radius:var(--shape-lg-increased);background:var(--surface-container-high)}
-.events li b{font-size:14px;font-weight:600}
-.events li span{font-family:var(--font-mono);font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--on-surface-variant)}
-.events li.up{background:var(--primary-container);color:var(--on-primary-container)}
-.events li.up span{color:var(--on-primary-container)}
+.t-highlight{--bg:var(--highlight);--fg:var(--on-highlight);--acc:#ffd8a3}
+.t-primary-container{--bg:var(--primary-container);--fg:var(--on-primary-container);--acc:var(--primary)}
+.t-tertiary-container{--bg:var(--tertiary-container);--fg:var(--on-tertiary-container);--acc:var(--tertiary)}
+.t-secondary-container{--bg:var(--secondary-container);--fg:var(--on-secondary-container);--acc:var(--secondary)}
+.t-muted{--bg:var(--surface-container-high);--fg:var(--on-surface);--acc:var(--outline)}
+.acc{display:flex;gap:var(--space-3);height:420px;margin-top:var(--space-8)}
+.acc-card{position:relative;flex:1 1 0;min-width:0;overflow:hidden;text-decoration:none;border-radius:var(--shape-xl);background:var(--inverse-surface);color:var(--inverse-on-surface);transition:flex-grow 650ms var(--spring),background-color 400ms var(--ease),color 400ms var(--ease),border-radius 400ms var(--spring)}
+.acc-card.on{flex-grow:3.4;background:var(--bg);color:var(--fg);border-radius:var(--shape-xxl)}
+.acc-card:focus-visible{outline:2px solid var(--focus);outline-offset:4px}
+.acc-card .rail{position:absolute;inset:var(--space-6);display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;transition:opacity 250ms}
+.acc-card .rail b{writing-mode:vertical-rl;transform:rotate(180deg);font-size:22px;font-weight:600;letter-spacing:-.01em;white-space:nowrap}
+.acc-card .rail .eyebrow{color:var(--inverse-muted)}
+.acc-card.on .rail{opacity:0}
+.acc-card .body{position:absolute;inset:0;padding:var(--space-8);width:min(560px,100%);display:flex;flex-direction:column;justify-content:space-between;gap:var(--space-6);opacity:0;transform:translateY(16px);visibility:hidden;transition:opacity 300ms var(--ease),transform 500ms var(--spring),visibility 0s 300ms}
+.acc-card.on .body{opacity:1;transform:none;visibility:visible;transition-delay:180ms,180ms,0s}
+.acc-card .body .eyebrow{opacity:.75}
+.acc-card .body h3{font-size:clamp(26px,2.8vw,40px);line-height:1.08;font-weight:600;letter-spacing:-.03em}
+.acc-card .body .meta{display:flex;align-items:center;gap:var(--space-3)}
+.acc-card .body .meta b{display:block;font-size:16px;font-weight:600}
+.acc-card .body .meta span.sub{font-size:13px;opacity:.75}
+.acc-card .go{width:56px;height:56px;border-radius:50%;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-size:26px;transition:transform 300ms var(--spring)}
+.acc-card:hover .go{transform:rotate(45deg)}
+.acc-card .bigshape{position:absolute;right:-80px;top:-80px;width:340px;height:340px;opacity:0;transition:opacity 400ms,transform 1200ms var(--spring);pointer-events:none}
+.acc-card .bigshape path{fill:var(--acc)}
+.acc-card.on .bigshape{opacity:.35;transform:rotate(45deg)}
+@media (max-width:760px){
+  .acc{flex-direction:column;height:auto}
+  .acc-card{flex:none;height:88px;transition:height 550ms var(--spring),background-color 400ms var(--ease),color 400ms var(--ease),border-radius 400ms var(--spring)}
+  .acc-card.on{height:360px}
+  .acc-card .rail{flex-direction:row-reverse;justify-content:flex-end;align-items:center;gap:var(--space-4);inset:0 var(--space-6)}
+  .acc-card .rail b{writing-mode:horizontal-tb;transform:none;font-size:19px;white-space:normal}
+  .acc-card .body{padding:var(--space-6)}
+}
+
+/* Where I'm speaking: conference tickets with notched edges and a perforated stub. Upcoming events in colour, past ones in sand. */
+.events{margin-top:var(--space-12)}
+.events h3.events-title{font-size:15px;font-weight:600;margin-bottom:var(--space-4)}
+.tix{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-3) var(--space-4)}
+@media (max-width:1000px){.tix{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.tix{grid-template-columns:minmax(0,1fr)}}
+.tix-item{display:grid;grid-template-columns:minmax(0,1fr) 84px;transition:transform 400ms var(--spring)}
+.tix-item:hover{transform:rotate(-1.2deg) translateY(-3px)}
+.tix-item:nth-child(even):hover{transform:rotate(1.2deg) translateY(-3px)}
+.tix-item .main,.tix-item .stub{background:var(--bg);color:var(--fg);padding:var(--space-4) var(--space-5)}
+.tix-item .main{border-radius:var(--shape-lg-increased) 0 0 var(--shape-lg-increased);display:flex;flex-direction:column;gap:var(--space-3);min-width:0;
+  -webkit-mask:radial-gradient(circle 11px at 100% 0,#0000 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 11px at 100% 100%,#0000 98%,#000) bottom/100% 51% no-repeat;
+  mask:radial-gradient(circle 11px at 100% 0,#0000 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 11px at 100% 100%,#0000 98%,#000) bottom/100% 51% no-repeat}
+.tix-item .stub{border-radius:0 var(--shape-lg-increased) var(--shape-lg-increased) 0;padding-inline:var(--space-2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center;
+  background-image:linear-gradient(var(--fg) 50%,transparent 0);background-size:1.5px 8px;background-repeat:repeat-y;background-position:0 0;
+  -webkit-mask:radial-gradient(circle 11px at 0 0,#0000 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 11px at 0 100%,#0000 98%,#000) bottom/100% 51% no-repeat;
+  mask:radial-gradient(circle 11px at 0 0,#0000 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 11px at 0 100%,#0000 98%,#000) bottom/100% 51% no-repeat}
+.tix-item .row{display:flex;justify-content:space-between;gap:var(--space-3);font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;opacity:.7}
+.tix-item .row .live{display:inline-flex;align-items:center;gap:6px;opacity:1}
+.tix-item .row .live::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.tix-item h4{margin:0;font-size:18px;line-height:1.2;font-weight:600;letter-spacing:-.015em}
+.tix-item .fields{display:grid;grid-template-columns:repeat(2,auto);justify-content:start;gap:2px var(--space-6)}
+.tix-item .fields span{font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;opacity:.65}
+.tix-item .fields b{font-size:13px;font-weight:600}
+.tix-item .mon{font-family:var(--font-mono);font-size:11px;letter-spacing:1.2px;text-transform:uppercase;opacity:.75}
+.tix-item .yr{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:34px;line-height:1}
+.tix-item .bars{width:56px;height:22px;margin-top:var(--space-2);background:repeating-linear-gradient(90deg,var(--fg) 0 2px,transparent 2px 4px,var(--fg) 4px 7px,transparent 7px 9px,var(--fg) 9px 10px,transparent 10px 13px);opacity:.85}
+@media (prefers-reduced-motion: reduce){.acc-card,.acc-card *,.tix-item{transition-duration:1ms!important}}
 
 /* Blogs */
 .notes{padding-top:clamp(96px,12vw,160px)}
@@ -462,6 +506,38 @@ section[id]{scroll-margin-top:96px}
     { name: 'Mobile Developers Week', when: 'Dec 2025', where: 'Abu Dhabi' },
     { name: 'DevFest Dubai', when: 'Dec 2025', where: 'Dubai' },
   ];
+
+
+  /* Talks as an accordion: the open card shows the full title in its tone; hover, focus or a first tap opens another, and a tap on the open card goes to Sessionize. */
+  function TalksStage() {
+    const [open, setOpen] = useState(0);
+    return html`<div class="acc">
+      ${TALKS.map((t, i) => html`<a key=${t.title} class=${'acc-card t-' + t.tone + (open === i ? ' on' : '')} href=${LINKS.sessionize} target="_blank" rel="noopener"
+          onMouseEnter=${() => setOpen(i)} onFocus=${() => setOpen(i)} onClick=${e => { if (open !== i) { e.preventDefault(); setOpen(i); } }} aria-label=${t.text}>
+        <svg class="bigshape" viewBox="-1 -1 2 2" aria-hidden="true"><path d=${morphPath(t.shape, t.shape, 0)} /></svg>
+        <div class="rail" aria-hidden="true"><span class="eyebrow">0${i + 1}</span><b>${t.title}</b></div>
+        <div class="body" aria-hidden=${open === i ? 'false' : 'true'}>
+          <span class="eyebrow">${t.sub}</span>
+          <h3>${t.text}</h3>
+          <div class="meta"><span class="go"><span class="ex-icon">arrow_outward</span></span><div><b>${t.title}</b><span class="sub">View on Sessionize</span></div></div>
+        </div>
+      </a>`)}
+    </div>`;
+  }
+
+  /* A speaking event as a conference ticket; the stub carries the month and year. */
+  function EventTicket({ ev }) {
+    const [mon, yr] = ev.when.split(' ');
+    const tone = ev.up ? (ev.name.startsWith('droidcon') ? 'highlight' : 'primary-container') : 'muted';
+    return html`<div class=${'tix-item t-' + tone}>
+      <div class="main">
+        <div class="row">${ev.up ? html`<span class="live">Upcoming</span>` : html`<span>Speaker</span>`}<span>Admit one</span></div>
+        <h4>${ev.name}</h4>
+        <div class="fields"><span>When</span><span>Where</span><b>${ev.when}</b><b>${ev.where}</b></div>
+      </div>
+      <div class="stub" aria-hidden="true"><span class="mon">${mon}</span><span class="yr">'${yr.slice(2)}</span><span class="bars"></span></div>
+    </div>`;
+  }
 
   const BLOGS = [
     { href: 'https://proandroiddev.com/android-adaptive-themed-icons-guide-8e690263f7aa', eyebrow: 'ProAndroidDev · Apr 2025', title: 'Crafting multi-tone themed app icons in Android', blurb: 'A step-by-step guide to adaptive and themed icons.' },
@@ -796,15 +872,10 @@ section[id]{scroll-margin-top:96px}
             <h2 class="sec-title">Talks</h2>
             <a class="link-arrow" href=${LINKS.sessionize} target="_blank" rel="noopener">All talks on Sessionize<span class="ex-icon">arrow_outward</span></a>
           </div>
-          <div class="how-grid">
-            ${TALKS.map(c => html`<a class="how-card" key=${c.title} href=${LINKS.sessionize} target="_blank" rel="noopener">
-              <p>${c.text}</p>
-              <div class="foot"><${E.ShapeAvatar} shape=${c.shape} icon=${c.icon} tone=${c.tone} size=${48} /><div><b>${c.title}</b><span>${c.sub}</span></div></div>
-            </a>`)}
-          </div>
+          <${TalksStage} />
           <div class="events">
-            <h3>Where I'm speaking</h3>
-            <ul>${EVENTS.map(ev => html`<li key=${ev.name + ev.when} class=${ev.up ? 'up' : ''}><b>${ev.name}</b><span>${ev.up ? 'Upcoming · ' : ''}${ev.when} · ${ev.where}</span></li>`)}</ul>
+            <h3 class="events-title">Where I'm speaking</h3>
+            <div class="tix">${EVENTS.map(ev => html`<${EventTicket} key=${ev.name + ev.when} ev=${ev} />`)}</div>
           </div>
         </section>
 
