@@ -25,9 +25,12 @@ Replace the placeholders in `index.html`:
 
 - `EMAIL` (currently `hello@yourdomain.com`)
 - the portrait placeholder in the hero
-- the GitHub, LinkedIn, Play Store and Instagram links
-- the case-study and notes links
+- the case-study links in Featured Projects
 - the contact form, which needs a backend or form service to send messages
+
+## Content sources
+
+Social links, talks and blogs live in the `LINKS`, `TALKS`, `EVENTS` and `BLOGS` constants near the top of the script in `index.html`. They mirror [Linktree](https://linktr.ee/dinoyraj), [Sessionize](https://sessionize.com/dinoy/) and [Medium](https://dinoyraj.medium.com/); update them there when those change.
 
 ## Deploy
 

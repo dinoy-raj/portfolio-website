@@ -9,7 +9,7 @@
 <style>*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <link rel="stylesheet" href="kit/bundle.css">
 <style>
-/* Expressive Kit, light only. Layout: floating pill nav → poster hero → scroll-lit statement → service rows → 2×2 work → dark principle cards → notes → contact → dark footer with giant wordmark. */
+/* Expressive Kit, light only. Layout: floating pill nav → poster hero → scroll-lit statement → service rows → 2×2 work → dark talk cards → blogs → contact → dark footer with giant wordmark. */
 :root {
   color-scheme: light;
   --surface:#fbf6ee; --surface-container-lowest:#ffffff; --surface-container-low:#f6efe6; --surface-container:#f1e9df;
@@ -192,19 +192,29 @@ section[id]{scroll-margin-top:96px}
 .mock .t{font-size:13px;font-weight:600}
 .mock .s{font-size:10px;color:var(--on-surface-variant)}
 
-/* How I work: dark cards */
+/* Talks: dark cards */
 .how{padding-top:clamp(96px,12vw,160px)}
 .how-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-3);margin-top:var(--space-8)}
 @media (max-width:1000px){.how-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.how-grid{grid-template-columns:minmax(0,1fr)}}
-.how-card{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--shape-xl);padding:var(--space-6);min-height:300px;display:flex;flex-direction:column;justify-content:space-between;gap:var(--space-8);transition:border-radius 300ms var(--spring),transform 300ms var(--spring)}
+.how-head{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--space-4);flex-wrap:wrap}
+.how-card{text-decoration:none;background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--shape-xl);padding:var(--space-6);min-height:300px;display:flex;flex-direction:column;justify-content:space-between;gap:var(--space-8);transition:border-radius 300ms var(--spring),transform 300ms var(--spring)}
 .how-card:hover{border-radius:var(--shape-xxl);transform:translateY(-4px)}
+.how-card:focus-visible{outline:2px solid var(--focus);outline-offset:4px}
 .how-card p{font-size:19px;line-height:27px;letter-spacing:-.01em}
 .how-card .foot{display:flex;align-items:center;gap:var(--space-3)}
 .how-card .foot b{display:block;font-size:15px;font-weight:600}
 .how-card .foot span{font-size:13px;color:var(--inverse-muted)}
+.events{margin-top:var(--space-8)}
+.events h3{font-size:15px;font-weight:600;margin-bottom:var(--space-3)}
+.events ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:var(--space-2)}
+.events li{display:flex;flex-direction:column;gap:2px;padding:10px 16px;border-radius:var(--shape-lg-increased);background:var(--surface-container-high)}
+.events li b{font-size:14px;font-weight:600}
+.events li span{font-family:var(--font-mono);font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--on-surface-variant)}
+.events li.up{background:var(--primary-container);color:var(--on-primary-container)}
+.events li.up span{color:var(--on-primary-container)}
 
-/* Notes */
+/* Blogs */
 .notes{padding-top:clamp(96px,12vw,160px)}
 .notes-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-3);margin-top:var(--space-8)}
 @media (max-width:900px){.notes-grid{grid-template-columns:minmax(0,1fr)}}
@@ -226,6 +236,7 @@ section[id]{scroll-margin-top:96px}
 .contact .left{display:flex;flex-direction:column;justify-content:space-between;gap:var(--space-8)}
 .contact .left p{font-size:17px;line-height:26px;max-width:40ch;margin-top:var(--space-4)}
 .socials{display:flex;gap:var(--space-2);flex-wrap:wrap}
+.socials a{text-decoration:none}
 .form-card{background:var(--primary-container);color:var(--on-primary-container);border-radius:var(--shape-xl);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-4);--field-ground:var(--primary-container)}
 .form-card .ex-field-label{color:var(--on-primary-container)}
 .mail-row{display:inline-flex;align-items:center;gap:var(--space-2);background:var(--surface-container-high);border-radius:var(--shape-full);padding:4px 4px 4px 18px;max-width:100%;align-self:flex-start}
@@ -234,8 +245,9 @@ section[id]{scroll-margin-top:96px}
 /* Footer */
 .footer{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--shape-xxl) var(--shape-xxl) 0 0;overflow:hidden}
 .footer .wrap{padding-block:var(--space-16) 0}
-.foot-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,.8fr);gap:var(--space-8)}
-@media (max-width:820px){.foot-grid{grid-template-columns:minmax(0,1fr)}}
+.foot-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr) minmax(0,.8fr);gap:var(--space-8)}
+@media (max-width:1000px){.foot-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.foot-grid h2{grid-column:1/-1}}
+@media (max-width:560px){.foot-grid{grid-template-columns:minmax(0,1fr)}}
 .foot-grid h2{font-size:clamp(40px,5vw,64px);line-height:1;font-weight:700;letter-spacing:-.045em}
 .foot-grid h2 .em{color:var(--inverse-primary)}
 .foot-grid h4{margin:0 0 var(--space-4);font-size:20px;font-weight:600}
@@ -281,12 +293,56 @@ section[id]{scroll-margin-top:96px}
     { id: 'reel', name: 'Reel Blocker', type: 'Android · Icon set & flow', bg: 'bg-h', shape: 'burst', tone: 'primary-container', mocks: ['block'] },
   ];
 
-  const HOW = [
-    { text: 'One hero per screen. I decide the single thing each screen exists to show, then make everything else quieter.', title: 'Hierarchy first', sub: 'Before any pixels', shape: 'sunny', icon: 'filter_1', tone: 'highlight' },
-    { text: 'Light and dark from day one, tested at 4.5:1. Dark mode is designed, never inverted.', title: 'Both themes', sub: 'Accessible by default', shape: 'cookie6', icon: 'contrast', tone: 'primary-container' },
-    { text: 'Buttons that morph when pressed, springs that overshoot a little. Motion that tells you something happened.', title: 'Expressive motion', sub: 'Feel, not decoration', shape: 'flower5', icon: 'animation', tone: 'tertiary-container' },
-    { text: 'Every app starts from my own kit of tokens and components, so it ships faster and stays consistent.', title: 'Built on a system', sub: '22 components and counting', shape: 'clover4', icon: 'widgets', tone: 'secondary-container' },
+  const LINKS = {
+    github: 'https://github.com/Dinoy-Raj',
+    linkedin: 'https://www.linkedin.com/in/dinoy-raj/',
+    play: 'https://play.google.com/store/apps/dev?id=8799251775499093729',
+    instagram: 'https://www.instagram.com/dinoy__raj',
+    x: 'https://x.com/dinoy_raj',
+    youtube: 'https://www.youtube.com/channel/UCcc4xZ8XmqN6IGtndij-Flw',
+    medium: 'https://dinoyraj.medium.com/',
+    sessionize: 'https://sessionize.com/dinoy/',
+    linktree: 'https://linktr.ee/dinoyraj',
+  };
+
+  const SOCIALS = [
+    { label: 'GitHub', icon: 'code', href: LINKS.github },
+    { label: 'LinkedIn', icon: 'work', href: LINKS.linkedin },
+    { label: 'Google Play', icon: 'shop', href: LINKS.play },
+    { label: 'Medium', icon: 'edit_note', href: LINKS.medium },
+    { label: 'Sessionize', icon: 'mic', href: LINKS.sessionize },
+    { label: 'X', icon: 'tag', href: LINKS.x },
+    { label: 'Instagram', icon: 'photo_camera', href: LINKS.instagram },
+    { label: 'YouTube', icon: 'smart_display', href: LINKS.youtube },
+    { label: 'All links (Linktree)', icon: 'link', href: LINKS.linktree },
   ];
+
+  const TALKS = [
+    { text: 'Agentic Android: Exposing and Consuming Capabilities with App Functions', title: 'App Functions', sub: 'Android 16 · Agentic OS', shape: 'sunny', icon: 'smart_toy', tone: 'highlight' },
+    { text: 'Supercharging Android Apps with On-Device AI: Gemini Nano & Prompt API', title: 'On-Device AI', sub: 'Gemini Nano in production', shape: 'cookie6', icon: 'auto_awesome', tone: 'primary-container' },
+    { text: 'Beyond the Grid: Crafting a Custom Android Launcher from Scratch', title: 'Custom launchers', sub: 'Jetpack Compose', shape: 'flower5', icon: 'apps', tone: 'tertiary-container' },
+    { text: 'Building Private Brain on Android: Offline RAG with Vector Databases & MediaPipe', title: 'Offline RAG', sub: 'MediaPipe · Vector DBs', shape: 'clover4', icon: 'memory', tone: 'secondary-container' },
+  ];
+
+  const EVENTS = [
+    { name: 'droidcon India', when: 'Nov 2026', where: 'Bengaluru', up: true },
+    { name: 'DevFest Dar es Salaam', when: 'Nov 2026', where: 'Tanzania', up: true },
+    { name: 'Droidcon & Fluttercon Kenya', when: 'Nov 2026', where: 'Nairobi' },
+    { name: 'DevFest Atlanta', when: 'Oct 2026', where: 'Atlanta' },
+    { name: 'droidcon Uganda', when: 'Oct 2026', where: 'Kampala' },
+    { name: 'droidcon Lisbon', when: 'Oct 2026', where: 'Lisbon' },
+    { name: 'DevFest Vicenza', when: 'Jun 2026', where: 'Italy' },
+    { name: 'FOSSASIA Summit', when: 'Mar 2026', where: 'Bangkok' },
+    { name: 'DevFest Mumbai', when: 'Dec 2025', where: 'Mumbai' },
+    { name: 'Mobile Developers Week', when: 'Dec 2025', where: 'Abu Dhabi' },
+    { name: 'DevFest Dubai', when: 'Dec 2025', where: 'Dubai' },
+  ];
+
+  const BLOGS = [
+    { href: 'https://proandroiddev.com/android-adaptive-themed-icons-guide-8e690263f7aa', eyebrow: 'ProAndroidDev · Apr 2025', title: 'Crafting multi-tone themed app icons in Android', blurb: 'A step-by-step guide to adaptive and themed icons.' },
+    { href: 'https://proandroiddev.com/android-localization-list-formatter-in-android-05659d848a61', eyebrow: 'ProAndroidDev · Mar 2024', title: 'List Formatter in Android', blurb: 'Internationalization and localization, part 1.' },
+  ];
+
 
   const STATEMENT = 'From idea to Play Store. Small, focused apps that feel *alive* when you touch them, built with clear hierarchy, honest colour and springy motion.';
 
@@ -403,7 +459,7 @@ section[id]{scroll-margin-top:96px}
       const k = e => { if (e.key === 'Escape' && open) { setOpen(false); btnRef.current && btnRef.current.focus(); } };
       addEventListener('keydown', k); return () => removeEventListener('keydown', k);
     }, [open]);
-    const links = [['Work', '#work'], ['Services', '#services'], ['How I work', '#how'], ['Contact', '#contact']];
+    const links = [['Work', '#work'], ['Services', '#services'], ['Talks', '#talks'], ['Blogs', '#blogs'], ['Contact', '#contact']];
     const close = () => setOpen(false);
     return html`<${React.Fragment}>
       <div class=${'nav-scrim' + (open ? ' on' : '')} onClick=${close}></div>
@@ -526,36 +582,43 @@ section[id]{scroll-margin-top:96px}
           </div>
         </section>
 
-        <section class="how wrap" id="how">
-          <h2 class="sec-title">How I work</h2>
+        <section class="how wrap" id="talks">
+          <div class="how-head">
+            <h2 class="sec-title">Talks</h2>
+            <a class="link-arrow" href=${LINKS.sessionize} target="_blank" rel="noopener">All talks on Sessionize<span class="ex-icon">arrow_outward</span></a>
+          </div>
           <div class="how-grid">
-            ${HOW.map(c => html`<article class="how-card" key=${c.title}>
+            ${TALKS.map(c => html`<a class="how-card" key=${c.title} href=${LINKS.sessionize} target="_blank" rel="noopener">
               <p>${c.text}</p>
               <div class="foot"><${E.ShapeAvatar} shape=${c.shape} icon=${c.icon} tone=${c.tone} size=${48} /><div><b>${c.title}</b><span>${c.sub}</span></div></div>
-            </article>`)}
+            </a>`)}
+          </div>
+          <div class="events">
+            <h3>Where I'm speaking</h3>
+            <ul>${EVENTS.map(ev => html`<li key=${ev.name + ev.when} class=${ev.up ? 'up' : ''}><b>${ev.name}</b><span>${ev.up ? 'Upcoming · ' : ''}${ev.when} · ${ev.where}</span></li>`)}</ul>
           </div>
         </section>
 
-        <section class="notes wrap" id="notes">
-          <h2 class="sec-title">Notes</h2>
+        <section class="notes wrap" id="blogs">
+          <h2 class="sec-title">Blogs</h2>
           <div class="notes-grid">
-            <a class="note bg-p" href="#notes" onClick=${e => { e.preventDefault(); setMsg('Link this note to your blog post'); }}>
+            <a class="note bg-p" href=${BLOGS[0].href} target="_blank" rel="noopener">
               <div class="art" aria-hidden="true">
                 <${E.ShapeAvatar} shape="cookie9" tone="primary" size=${230} spin=${true} />
-                <span style=${{ position: 'relative', fontSize: '56px', fontWeight: 700, color: 'var(--on-primary)', letterSpacing: '-2px' }}>25:00</span>
+                <span class="ex-icon" style=${{ position: 'relative', fontSize: '72px', color: 'var(--on-primary)' }}>android</span>
               </div>
-              <div class="txt"><span class="eyebrow muted">Case note · Focus</span><h3>Designing a timer around one number</h3><p class="muted">Why the countdown is the only loud thing on the screen.</p></div>
+              <div class="txt"><span class="eyebrow muted">${BLOGS[0].eyebrow}</span><h3>${BLOGS[0].title}</h3><p class="muted">${BLOGS[0].blurb}</p></div>
             </a>
-            <a class="note bg-s" href="#notes" onClick=${e => { e.preventDefault(); setMsg('Link this note to your blog post'); }}>
+            <a class="note bg-s" href=${BLOGS[1].href} target="_blank" rel="noopener">
               <div class="art" aria-hidden="true">
                 <${E.ShapeAvatar} shape="clover4" tone="secondary" size=${160} style=${{}} />
                 <${E.ShapeAvatar} shape="flower5" tone="highlight" size=${90} />
               </div>
-              <div class="txt"><span class="eyebrow muted">Design system</span><h3>Distilling M3 Expressive into a kit</h3><p class="muted">What I kept from 100 reference screens, and what I dropped.</p></div>
+              <div class="txt"><span class="eyebrow muted">${BLOGS[1].eyebrow}</span><h3>${BLOGS[1].title}</h3><p class="muted">${BLOGS[1].blurb}</p></div>
             </a>
             <div class="note dark">
-              <h3>Notes on building small apps, one screen at a time.</h3>
-              <a class="link-arrow" href="#notes" onClick=${e => { e.preventDefault(); setMsg('Link your blog here'); }}>Read all notes<span class="ex-icon">arrow_outward</span></a>
+              <h3>Writing on Android, Kotlin and Jetpack Compose.</h3>
+              <a class="link-arrow" href=${LINKS.medium} target="_blank" rel="noopener">Read all on Medium<span class="ex-icon">arrow_outward</span></a>
             </div>
           </div>
         </section>
@@ -568,10 +631,7 @@ section[id]{scroll-margin-top:96px}
               <div class="mail-row" style=${{ marginTop: '24px' }}><span class="addr">${EMAIL}</span><${E.IconButton} icon="content_copy" label="Copy email address" variant="filled" onClick=${copy} /></div>
             </div>
             <div class="socials">
-              <${E.IconButton} icon="code" label="GitHub" variant="tonal" onClick=${() => setMsg('Add your GitHub link')} />
-              <${E.IconButton} icon="work" label="LinkedIn" variant="tonal" onClick=${() => setMsg('Add your LinkedIn link')} />
-              <${E.IconButton} icon="shop" label="Google Play" variant="tonal" onClick=${() => setMsg('Add your Play Store developer page')} />
-              <${E.IconButton} icon="photo_camera" label="Instagram" variant="tonal" onClick=${() => setMsg('Add your Instagram link')} />
+              ${SOCIALS.map(l => html`<a key=${l.label} class="ex-press ex-iconbtn v-tonal" href=${l.href} target="_blank" rel="noopener" aria-label=${l.label} title=${l.label}><span class="ex-icon" aria-hidden="true">${l.icon}</span></a>`)}
             </div>
           </div>
           <form class="form-card" onSubmit=${submit}>
@@ -590,7 +650,10 @@ section[id]{scroll-margin-top:96px}
           <div class="foot-grid">
             <h2>Small apps,<br/><span class="em">finished</span> properly.</h2>
             <div><h4>/ Quick links</h4><div class="foot-links">
-              ${[['Home', '#top'], ['About', '#about'], ['Services', '#services'], ['Work', '#work'], ['Contact', '#contact']].map(([l, h]) => html`<a key=${h} href=${h}>${l}</a>`)}
+              ${[['Home', '#top'], ['About', '#about'], ['Services', '#services'], ['Work', '#work'], ['Talks', '#talks'], ['Blogs', '#blogs'], ['Contact', '#contact']].map(([l, h]) => html`<a key=${h} href=${h}>${l}</a>`)}
+            </div></div>
+            <div><h4>/ Elsewhere</h4><div class="foot-links foot-ext">
+              ${[['GitHub', LINKS.github], ['LinkedIn', LINKS.linkedin], ['Medium', LINKS.medium], ['Sessionize', LINKS.sessionize], ['Google Play', LINKS.play], ['All links', LINKS.linktree]].map(([l, h]) => html`<a key=${l} href=${h} target="_blank" rel="noopener">${l}</a>`)}
             </div></div>
             <div><h4>/ Contact</h4><div style=${{ fontFamily: 'var(--font-mono)', fontSize: '14px', wordBreak: 'break-all' }}>${EMAIL}</div></div>
           </div>
