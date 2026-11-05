@@ -96,6 +96,16 @@ section[id]{scroll-margin-top:96px}
 .nav.open .nav-panel .rv{opacity:1;transform:none;transition:opacity 260ms var(--ease) calc(110ms + var(--i)*45ms),transform 520ms var(--spring) calc(110ms + var(--i)*45ms)}
 .nav-scrim{position:fixed;inset:0;z-index:24;background:rgba(20,12,8,.22);opacity:0;pointer-events:none;transition:opacity 280ms var(--ease)}
 .nav-scrim.on{opacity:1;pointer-events:auto}
+/* Progressive blur under the nav: stacked backdrop blurs, each masked to a lower band, so content softens more the closer it gets to the top. Fades in once the page scrolls. */
+.top-blur{position:fixed;inset:0 0 auto;height:calc(env(safe-area-inset-top,0px) + 112px);z-index:23;pointer-events:none;opacity:0;transition:opacity 320ms var(--ease)}
+.top-blur.on{opacity:1}
+.top-blur i{position:absolute;inset:0}
+.top-blur i:nth-child(1){backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px);mask:linear-gradient(to top,transparent 0%,#000 20%,#000 40%,transparent 60%);-webkit-mask:linear-gradient(to top,transparent 0%,#000 20%,#000 40%,transparent 60%)}
+.top-blur i:nth-child(2){backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);mask:linear-gradient(to top,transparent 20%,#000 40%,#000 60%,transparent 80%);-webkit-mask:linear-gradient(to top,transparent 20%,#000 40%,#000 60%,transparent 80%)}
+.top-blur i:nth-child(3){backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);mask:linear-gradient(to top,transparent 40%,#000 60%,#000 80%,transparent 100%);-webkit-mask:linear-gradient(to top,transparent 40%,#000 60%,#000 80%,transparent 100%)}
+.top-blur i:nth-child(4){backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);mask:linear-gradient(to top,transparent 60%,#000 80%);-webkit-mask:linear-gradient(to top,transparent 60%,#000 80%)}
+.top-blur i:nth-child(5){backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);mask:linear-gradient(to top,transparent 80%,#000 100%);-webkit-mask:linear-gradient(to top,transparent 80%,#000 100%)}
+.top-blur::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,color-mix(in srgb,var(--surface) 72%,transparent),transparent)}
 @media (prefers-reduced-motion: reduce){.nav,.nav.open,.nav-panel .rv,.nav.open .nav-panel .rv{transition-duration:0ms!important;transition-delay:0ms!important}}
 
 /* Hero poster */
@@ -597,6 +607,17 @@ section[id]{scroll-margin-top:96px}
     </span>`;
   }
 
+  /* Shows the progressive top blur once the page has scrolled. */
+  function TopBlur() {
+    const [on, setOn] = useState(false);
+    useEffect(() => {
+      const f = () => setOn(scrollY > 8);
+      f(); addEventListener('scroll', f, { passive: true });
+      return () => removeEventListener('scroll', f);
+    }, []);
+    return html`<div class=${'top-blur' + (on ? ' on' : '')} aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>`;
+  }
+
   function Nav() {
     const [open, setOpen] = useState(false);
     const panelRef = useRef(null), btnRef = useRef(null), navRef = useRef(null);
@@ -722,6 +743,7 @@ section[id]{scroll-margin-top:96px}
     useEffect(() => { if (!msg) return; const t = setTimeout(() => setMsg(null), 3400); return () => clearTimeout(t); }, [msg]);
 
     return html`<${React.Fragment}>
+      <${TopBlur} />
       <${Nav} />
       <main id="top">
         <section class="hero wrap">
