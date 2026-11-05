@@ -24,10 +24,11 @@ React 18 and htm load from CDNs; fonts and Material Symbols load from Google Fon
 
 Replace the placeholders in `index.html`:
 
-- `EMAIL` (currently `hello@yourdomain.com`)
-- the GitHub, LinkedIn, Play Store and Instagram links
-- the notes links
 - the contact form, which needs a backend or form service to send messages
+
+## Content sources
+
+Social links, talks and blogs live in the `LINKS`, `TALKS`, `EVENTS` and `BLOGS` constants near the top of the script in `index.html`. They mirror [Linktree](https://linktr.ee/dinoyraj), [Sessionize](https://sessionize.com/dinoy/) and [Medium](https://dinoyraj.medium.com/); update them there when those change.
 
 ## Deploy
 
