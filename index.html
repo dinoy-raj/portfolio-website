@@ -96,6 +96,16 @@ section[id]{scroll-margin-top:96px}
 .nav.open .nav-panel .rv{opacity:1;transform:none;transition:opacity 260ms var(--ease) calc(110ms + var(--i)*45ms),transform 520ms var(--spring) calc(110ms + var(--i)*45ms)}
 .nav-scrim{position:fixed;inset:0;z-index:24;background:rgba(20,12,8,.22);opacity:0;pointer-events:none;transition:opacity 280ms var(--ease)}
 .nav-scrim.on{opacity:1;pointer-events:auto}
+/* Progressive blur under the nav: stacked backdrop blurs, each masked to a lower band, so content softens more the closer it gets to the top. Fades in once the page scrolls. */
+.top-blur{position:fixed;inset:0 0 auto;height:calc(env(safe-area-inset-top,0px) + 112px);z-index:23;pointer-events:none;opacity:0;transition:opacity 320ms var(--ease)}
+.top-blur.on{opacity:1}
+.top-blur i{position:absolute;inset:0}
+.top-blur i:nth-child(1){backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px);mask:linear-gradient(to top,transparent 0%,#000 20%,#000 40%,transparent 60%);-webkit-mask:linear-gradient(to top,transparent 0%,#000 20%,#000 40%,transparent 60%)}
+.top-blur i:nth-child(2){backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);mask:linear-gradient(to top,transparent 20%,#000 40%,#000 60%,transparent 80%);-webkit-mask:linear-gradient(to top,transparent 20%,#000 40%,#000 60%,transparent 80%)}
+.top-blur i:nth-child(3){backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);mask:linear-gradient(to top,transparent 40%,#000 60%,#000 80%,transparent 100%);-webkit-mask:linear-gradient(to top,transparent 40%,#000 60%,#000 80%,transparent 100%)}
+.top-blur i:nth-child(4){backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);mask:linear-gradient(to top,transparent 60%,#000 80%);-webkit-mask:linear-gradient(to top,transparent 60%,#000 80%)}
+.top-blur i:nth-child(5){backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);mask:linear-gradient(to top,transparent 80%,#000 100%);-webkit-mask:linear-gradient(to top,transparent 80%,#000 100%)}
+.top-blur::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,color-mix(in srgb,var(--surface) 72%,transparent),transparent)}
 @media (prefers-reduced-motion: reduce){.nav,.nav.open,.nav-panel .rv,.nav.open .nav-panel .rv{transition-duration:0ms!important;transition-delay:0ms!important}}
 
 /* Hero poster */
@@ -173,10 +183,10 @@ section[id]{scroll-margin-top:96px}
 .shots img:nth-child(1){transform:translate(18%,10%) rotate(-6deg)}
 .shots img:nth-child(2){position:relative;z-index:1}
 .shots img:nth-child(3){transform:translate(-18%,10%) rotate(6deg)}
-.app.featured .shots{gap:var(--space-4);padding-top:6%}
-.app.featured .shots img{width:min(19%,190px);transform:none}
+.app.featured .shots{gap:var(--space-3);padding-top:6%}
+.app.featured .shots img{width:min(16.5%,180px);transform:none}
 .app.featured .shots img:nth-child(odd){transform:translateY(12%)}
-@media (max-width:760px){.app.featured .shots img{width:30%}.app.featured .shots img:nth-child(4){display:none}}
+@media (max-width:760px){.app.featured .shots img{width:30%}.app.featured .shots img:nth-child(n+4){display:none}}
 .app-meta{display:flex;align-items:center;gap:var(--space-3);padding-inline:var(--space-1)}
 .app-meta .icon{width:56px;height:56px;border-radius:var(--shape-lg);flex:none;box-shadow:var(--elevation-1)}
 .app-meta .name{flex:1;min-width:0}
@@ -284,10 +294,16 @@ section[id]{scroll-margin-top:96px}
 .contact{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:var(--space-12) var(--space-8);padding-block:clamp(96px,12vw,160px);align-items:stretch}
 @media (max-width:900px){.contact{grid-template-columns:minmax(0,1fr)}}
 .contact .left{display:flex;flex-direction:column;justify-content:space-between;gap:var(--space-12);min-width:0}
-.avail{display:inline-flex;align-items:center;gap:10px;align-self:flex-start;height:36px;padding:0 16px 0 12px;border-radius:var(--shape-full);background:var(--positive-container);color:var(--on-positive-container);font-size:14px;font-weight:600}
-.avail i{position:relative;width:10px;height:10px;border-radius:50%;background:var(--positive)}
-.avail i::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--positive);animation:ping 1.8s var(--ease) infinite}
-@keyframes ping{from{transform:scale(1);opacity:.55}to{transform:scale(2.8);opacity:0}}
+.avail{display:inline-flex;align-items:center;gap:10px;align-self:flex-start;height:44px;padding:0 20px 0 7px;border-radius:var(--shape-full);background:var(--positive-container);color:var(--on-positive-container);font-size:15px;font-weight:600;letter-spacing:-.01em;transition:border-radius 380ms var(--spring),padding 380ms var(--spring)}
+.avail:hover{border-radius:14px;padding-right:24px}
+.avail .dot{position:relative;flex:none;width:32px;height:32px;display:grid;place-items:center}
+.avail .dot svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.avail .dot .ring{position:absolute;inset:0;animation:avail-ping 2.2s var(--ease) infinite}
+.avail .dot .ring path{fill:var(--positive);opacity:.35}
+.avail .dot .ex-icon{position:relative;font-size:17px;color:var(--positive-container);font-variation-settings:'FILL' 1;transition:transform 420ms var(--spring)}
+.avail:hover .dot .ex-icon{transform:scale(1.15) rotate(-12deg)}
+.avail b{font-weight:700}
+@keyframes avail-ping{0%{transform:scale(.8);opacity:1}80%,100%{transform:scale(1.7);opacity:0}}
 .talk-title{font-size:clamp(68px,10.5vw,148px);line-height:.88;font-weight:700;letter-spacing:-.055em;margin-top:var(--space-6)}
 .talk-title .l2{display:flex;align-items:center;gap:.08em}
 .talk-title .em{font-size:1.08em;padding-right:.04em}
@@ -357,7 +373,7 @@ section[id]{scroll-margin-top:96px}
 .send:hover .go{border-radius:16px;transform:rotate(-12deg)}
 .send:hover .go .ex-icon{transform:translateX(3px) rotate(-45deg)}
 .form-card .fine-print{font-size:13px;text-align:center;opacity:.75}
-@media (prefers-reduced-motion: reduce){.avail i::after{animation:none}}
+@media (prefers-reduced-motion: reduce){.avail .dot .ring{animation:none;opacity:0}}
 /* Footer */
 .footer{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--shape-xxl) var(--shape-xxl) 0 0;overflow:hidden}
 .footer .wrap{padding-block:var(--space-16) 0}
@@ -409,7 +425,7 @@ section[id]{scroll-margin-top:96px}
     { id: 'launcher', name: 'Dino Minimalist Launcher', store: 'Minimalist launcher for Android', featured: true, status: 'live', bg: '#efe6d8',
       desc: 'A minimalist Android launcher designed to help you reduce screen time and boost focus. A clean, text-based home screen with only the apps you pin, custom themes and palettes, fonts, layouts and widgets, and no ads. Several of the apps below began as tools inside it.',
       tags: ['Launcher', 'Material You', 'Custom themes', 'Widgets'],
-      shots: ['Dark theme', 'Sand theme', 'Light theme', 'Red theme'],
+      shots: ['Light theme with periodic table pinned apps', 'Dark home with the dot-matrix clock and only the pinned apps', 'Widgets: weather, battery, day progress, screen time and now playing', 'Orange theme in Urbanist with the day summary', 'Focus tools on home: to-do, focus timer, habits and meetings'],
       links: [['Google Play', PLAY('com.dino.simple')], ['Website', 'https://minimalistlauncher.com']] },
     { id: 'nano', name: 'Nano Prompt Ground', store: 'Offline AI playground', status: 'live', bg: '#dcefe5',
       desc: 'Prompt Gemini Nano right on your phone. Private, offline AI with no API key: every answer is generated on the device, with live streaming and the speed of each reply.',
@@ -514,7 +530,7 @@ section[id]{scroll-margin-top:96px}
     return html`<div class="acc">
       ${TALKS.map((t, i) => html`<a key=${t.title} class=${'acc-card t-' + t.tone + (open === i ? ' on' : '')} href=${LINKS.sessionize} target="_blank" rel="noopener"
           onMouseEnter=${() => setOpen(i)} onFocus=${() => setOpen(i)} onClick=${e => { if (open !== i) { e.preventDefault(); setOpen(i); } }} aria-label=${t.text}>
-        <svg class="bigshape" viewBox="-1 -1 2 2" aria-hidden="true"><path d=${morphPath(t.shape, t.shape, 0)} /></svg>
+        <${ShapeSvg} className="bigshape" view=${1} seq=${FAMILY[t.shape] || [t.shape]} speed=${i % 2 ? -10 : 10} hold=${1800} morph=${1200} />
         <div class="rail" aria-hidden="true"><span class="eyebrow">0${i + 1}</span><b>${t.title}</b></div>
         <div class="body" aria-hidden=${open === i ? 'false' : 'true'}>
           <span class="eyebrow">${t.sub}</span>
@@ -562,71 +578,133 @@ section[id]{scroll-margin-top:96px}
     pebble: t => 0.94 + 0.12 * Math.cos(3 * t),
   };
   const N = 144;
-  const MAX = {};
-  Object.keys(SHAPES).forEach(k => { let m = 0; for (let i = 0; i < N; i++) m = Math.max(m, SHAPES[k](i / N * 2 * Math.PI)); MAX[k] = m; });
-  function morphPath(a, b, p) {
-    const fa = SHAPES[a], fb = SHAPES[b]; let d = '';
-    for (let i = 0; i < N; i++) {
-      const t = i / N * 2 * Math.PI;
-      const r = (1 - p) * fa(t) / MAX[a] + p * fb(t) / MAX[b];
-      const x = r * Math.cos(t - Math.PI / 2), y = r * Math.sin(t - Math.PI / 2);
-      d += (i ? 'L' : 'M') + x.toFixed(4) + ' ' + y.toFixed(4);
-    }
+  const RADII = {};
+  /* Normalised radii for a shape, sampled once, so blends and live morphs are just array lerps. */
+  function radii(name) {
+    if (RADII[name]) return RADII[name];
+    const f = SHAPES[name] || SHAPES.circle, a = new Float32Array(N); let m = 0;
+    for (let i = 0; i < N; i++) { a[i] = f(i / N * 2 * Math.PI); m = Math.max(m, a[i]); }
+    for (let i = 0; i < N; i++) a[i] /= m;
+    return (RADII[name] = a);
+  }
+  const COS = new Float32Array(N), SIN = new Float32Array(N);
+  for (let i = 0; i < N; i++) { const t = i / N * 2 * Math.PI - Math.PI / 2; COS[i] = Math.cos(t); SIN[i] = Math.sin(t); }
+  function pathOf(r) {
+    let d = '';
+    for (let i = 0; i < N; i++) d += (i ? 'L' : 'M') + (r[i] * COS[i]).toFixed(3) + ' ' + (r[i] * SIN[i]).toFixed(3);
     return d + 'Z';
   }
+  function morphPath(a, b, p) {
+    const ra = radii(a), rb = radii(b), r = new Float32Array(N);
+    for (let i = 0; i < N; i++) r[i] = (1 - p) * ra[i] + p * rb[i];
+    return pathOf(r);
+  }
   const easeInOut = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+  const backOut = p => 1 + 2.2 * Math.pow(p - 1, 3) + 1.2 * Math.pow(p - 1, 2);
   const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* A shape that keeps rotating and morphs through a sequence: hold, then blend into the next. */
-  function MorphShape({ seq, fill, speed = 24, hold = 1400, morph = 900, className }) {
-    const pathRef = useRef(null);
+  /* One shared frame loop for every visible shape. */
+  const LIVE = new Set(); let liveRaf = 0;
+  function liveLoop(now) { liveRaf = 0; LIVE.forEach(f => f(now)); if (LIVE.size) liveRaf = requestAnimationFrame(liveLoop); }
+  function liveAdd(f) { LIVE.add(f); if (!liveRaf) liveRaf = requestAnimationFrame(liveLoop); }
+
+  /* Each M3 shape morphs through a few close relatives so its footprint stays familiar. */
+  const FAMILY = {
+    circle: ['circle', 'cookie12', 'sunny'], cookie4: ['cookie4', 'clover4', 'cookie9'], cookie6: ['cookie6', 'flower5', 'cookie12'],
+    cookie9: ['cookie9', 'flower8', 'cookie6'], cookie12: ['cookie12', 'sunny', 'cookie9'], clover4: ['clover4', 'cookie4', 'pebble'],
+    flower5: ['flower5', 'cookie6', 'burst'], flower8: ['flower8', 'burst', 'cookie9'], sunny: ['sunny', 'cookie12', 'flower8'],
+    burst: ['burst', 'flower8', 'cookie12'], pebble: ['pebble', 'clover4', 'cookie6'],
+  };
+  let liveSeed = 0;
+
+  /* Keeps a path rotating and morphing through seq: hold, then blend into the next shape.
+     When seq changes (a button toggles) it blends from wherever it is to the new first shape, with an optional springy turn. */
+  function useLiveShape(pathRef, seq, { speed = 18, hold = 1600, morph = 1000, snap = 460, kick = 0 } = {}) {
+    const st = useRef(null);
+    const opts = useRef(null); opts.current = { speed, hold, morph };
+    const key = seq.join('|');
+    if (!st.current) {
+      const r = radii(seq[0]);
+      st.current = { seq, idx: 0, cur: r.slice(), from: r, to: r, phase: 'hold', dur: morph, t0: 0, ang: (liveSeed++ * 47) % 360, last: 0, kick: 0, k0: 0, dirty: true };
+    }
     useEffect(() => {
       const el = pathRef.current; if (!el) return;
-      if (reduced()) { el.setAttribute('d', morphPath(seq[0], seq[0], 0)); return; }
-      let raf = 0, start = performance.now(), visible = true;
-      const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible && !raf) raf = requestAnimationFrame(tick); });
+      const s = st.current;
+      if (reduced()) { el.setAttribute('d', pathOf(radii(seq[0]))); return; }
+      s.t0 = performance.now() - Math.random() * hold;
+      const tick = now => {
+        const o = opts.current, dt = s.last ? Math.min(64, now - s.last) : 0; s.last = now;
+        s.ang = (s.ang + o.speed * dt / 1000) % 360;
+        if (s.phase === 'hold' && now - s.t0 >= o.hold && s.seq.length > 1) {
+          s.idx = (s.idx + 1) % s.seq.length; s.from = s.cur.slice(); s.to = radii(s.seq[s.idx]); s.phase = 'morph'; s.dur = o.morph; s.t0 = now;
+        }
+        if (s.phase === 'morph') {
+          const p = Math.min(1, (now - s.t0) / s.dur), e = easeInOut(p);
+          for (let i = 0; i < N; i++) s.cur[i] = s.from[i] + (s.to[i] - s.from[i]) * e;
+          if (p >= 1) { s.phase = 'hold'; s.t0 = now; }
+          s.dirty = true;
+        }
+        if (s.dirty) { el.setAttribute('d', pathOf(s.cur)); s.dirty = false; }
+        let extra = 0;
+        if (s.kick) { const p = Math.min(1, (now - s.k0) / 620); extra = s.kick * backOut(p); if (p >= 1) { s.ang = (s.ang + s.kick) % 360; s.kick = 0; extra = 0; } }
+        el.setAttribute('transform', 'rotate(' + (s.ang + extra).toFixed(2) + ')');
+      };
+      s.tick = tick;
+      const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { s.last = 0; liveAdd(tick); } else LIVE.delete(tick); });
       io.observe(el.ownerSVGElement);
-      const cycle = hold + morph;
-      function tick(now) {
-        raf = 0; const t = Math.max(0, now - start);
-        const k = Math.floor(t / cycle), local = t - k * cycle;
-        const a = seq[k % seq.length], b = seq[(k + 1) % seq.length];
-        const p = local < hold ? 0 : easeInOut((local - hold) / morph);
-        el.setAttribute('d', morphPath(a, b, p));
-        el.setAttribute('transform', 'rotate(' + ((t / 1000 * speed) % 360).toFixed(2) + ')');
-        if (visible) raf = requestAnimationFrame(tick);
-      }
-      raf = requestAnimationFrame(tick);
-      return () => { cancelAnimationFrame(raf); io.disconnect(); };
+      return () => { LIVE.delete(tick); io.disconnect(); };
     }, []);
-    return html`<span class=${'morph ' + (className || '')} aria-hidden="true"><svg viewBox="-1.1 -1.1 2.2 2.2"><path ref=${pathRef} style=${{ fill }} d=${morphPath(seq[0], seq[0], 0)} /></svg></span>`;
+    const first = useRef(true);
+    useEffect(() => {
+      if (first.current) { first.current = false; return; }
+      const el = pathRef.current, s = st.current; if (!el) return;
+      s.seq = seq; s.idx = 0;
+      if (reduced()) { s.cur = radii(seq[0]).slice(); el.setAttribute('d', pathOf(s.cur)); return; }
+      const now = performance.now();
+      if (s.kick) s.ang = (s.ang + s.kick) % 360;
+      s.from = s.cur.slice(); s.to = radii(seq[0]); s.phase = 'morph'; s.dur = snap; s.t0 = now;
+      s.kick = kick; s.k0 = now;
+      if (s.tick) liveAdd(s.tick);
+    }, [key]);
   }
 
-  /* Tween a path between two shapes once (used by the menu button). */
-  function useShapeTween(pathRef, from, to, on, ms = 420, turn = 90) {
+  /* A bare living svg, for buttons that style their own svg. */
+  function ShapeSvg({ seq, view = 1.1, fill, className, ...o }) {
+    const ref = useRef(null);
+    useLiveShape(ref, seq, o);
+    return html`<svg class=${className} viewBox=${-view + ' ' + -view + ' ' + 2 * view + ' ' + 2 * view} aria-hidden="true"><path ref=${ref} style=${fill ? { fill } : undefined} d=${pathOf(radii(seq[0]))} /></svg>`;
+  }
+
+  /* Free-floating decorative shape. */
+  function MorphShape({ className, ...o }) {
+    return html`<span class=${'morph ' + (className || '')} aria-hidden="true"><${ShapeSvg} ...${o} /></span>`;
+  }
+
+  /* Living drop-in for the kit's ShapeAvatar: same tones and icon, but it keeps turning and morphing. The icon stays upright. */
+  function LiveShape({ shape = 'cookie9', seq, tone = 'primary-container', icon, size = 40, className, speed, hold, morph }) {
+    const s = seq || FAMILY[shape] || [shape];
+    const dir = useRef(liveSeed % 2 ? -1 : 1).current;
+    return html`<span class=${'ex-shape t-' + tone + (className ? ' ' + className : '')} style=${{ width: size, height: size }} aria-hidden="true">
+      <${ShapeSvg} seq=${s} view=${1} speed=${speed != null ? speed : dir * 16} hold=${hold || 1700} morph=${morph || 1100} />
+      ${icon && html`<span class="ex-shape-c"><span class="ex-icon is-filled" style=${{ fontSize: Math.round(size * 0.5) }} aria-hidden="true">${icon}</span></span>`}
+    </span>`;
+  }
+
+  /* Shows the progressive top blur once the page has scrolled. */
+  function TopBlur() {
+    const [on, setOn] = useState(false);
     useEffect(() => {
-      const el = pathRef.current; if (!el) return;
-      const [a, b] = on ? [from, to] : [to, from];
-      if (reduced()) { el.setAttribute('d', morphPath(b, b, 0)); el.setAttribute('transform', 'rotate(' + (on ? turn : 0) + ')'); return; }
-      let raf, t0 = performance.now();
-      const back = p => 1 + 2.2 * Math.pow(p - 1, 3) + 1.2 * Math.pow(p - 1, 2);
-      const step = now => {
-        const p = Math.min(1, (now - t0) / ms), e = easeInOut(p);
-        el.setAttribute('d', morphPath(a, b, e));
-        const r = on ? back(p) * turn : (1 - back(p)) * turn;
-        el.setAttribute('transform', 'rotate(' + r.toFixed(2) + ')');
-        if (p < 1) raf = requestAnimationFrame(step);
-      };
-      raf = requestAnimationFrame(step);
-      return () => cancelAnimationFrame(raf);
-    }, [on]);
+      const f = () => setOn(scrollY > 8);
+      f(); addEventListener('scroll', f, { passive: true });
+      return () => removeEventListener('scroll', f);
+    }, []);
+    return html`<div class=${'top-blur' + (on ? ' on' : '')} aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>`;
   }
 
   function Nav() {
     const [open, setOpen] = useState(false);
-    const panelRef = useRef(null), btnRef = useRef(null), btnPath = useRef(null), navRef = useRef(null);
+    const panelRef = useRef(null), btnRef = useRef(null), navRef = useRef(null);
     const [panelH, setPanelH] = useState(0);
-    useShapeTween(btnPath, 'cookie4', 'cookie9', open);
     useEffect(() => {
       const measure = () => panelRef.current && setPanelH(panelRef.current.scrollHeight);
       measure(); addEventListener('resize', measure);
@@ -644,7 +722,7 @@ section[id]{scroll-margin-top:96px}
         <div class="nav-row">
           <a class="nav-name" href="#top" onClick=${close}>${NAME}</a>
           <button ref=${btnRef} type="button" class="menu-btn" aria-expanded=${open} aria-controls="nav-panel" aria-label=${open ? 'Close menu' : 'Open menu'} onClick=${() => setOpen(!open)}>
-            <svg viewBox="-1.15 -1.15 2.3 2.3" aria-hidden="true"><path ref=${btnPath} d=${morphPath('cookie4', 'cookie4', 0)} /></svg>
+            <${ShapeSvg} view=${1.15} seq=${open ? ['cookie9', 'flower8'] : ['cookie4', 'cookie6', 'clover4']} speed=${open ? 40 : 14} hold=${1500} morph=${800} kick=${open ? 90 : -90} />
             <span class="ex-icon i-more" aria-hidden="true">more_horiz</span>
             <span class="ex-icon i-close" aria-hidden="true">close</span>
           </button>
@@ -653,7 +731,7 @@ section[id]{scroll-margin-top:96px}
           <nav aria-label="Sections">
             ${links.map(([l, h], i) => html`<a key=${h} class="lnk rv" style=${{ '--i': i }} href=${h} onClick=${close}>
               <span><span class="num">0${i + 1}</span>${l}</span>
-              <span class="go"><svg viewBox="-1.1 -1.1 2.2 2.2" aria-hidden="true"><path d=${morphPath('cookie6', 'cookie6', 0)} /></svg><span class="ex-icon" aria-hidden="true">arrow_outward</span></span>
+              <span class="go"><${ShapeSvg} seq=${['cookie6', 'flower5', 'cookie9']} speed=${30} hold=${900} morph=${700} /><span class="ex-icon" aria-hidden="true">arrow_outward</span></span>
             </a>`)}
           </nav>
           <div class="nav-foot rv" style=${{ '--i': links.length }}>
@@ -728,8 +806,6 @@ section[id]{scroll-margin-top:96px}
   function Contact({ setMsg }) {
     const [copied, setCopied] = useState(false);
     const [need, setNeed] = useState([]);
-    const copyPath = useRef(null);
-    useShapeTween(copyPath, 'cookie9', 'flower5', copied, 520, 120);
     useEffect(() => { if (!copied) return; const t = setTimeout(() => setCopied(false), 2200); return () => clearTimeout(t); }, [copied]);
     const copy = () => {
       const fail = () => setMsg('Copy blocked here. Select the address instead.');
@@ -740,7 +816,7 @@ section[id]{scroll-margin-top:96px}
     return html`<section class="contact wrap" id="contact">
       <div class="left">
         <div>
-          <span class="avail"><i aria-hidden="true"></i>Available for new projects</span>
+          <span class="avail"><span class="dot" aria-hidden="true"><span class="ring"><${ShapeSvg} seq=${['sunny', 'cookie12']} speed=${-24} hold=${900} morph=${700} /></span><${ShapeSvg} seq=${['cookie9', 'flower8', 'burst', 'clover4', 'cookie12']} fill="var(--positive)" speed=${48} hold=${800} morph=${650} /><span class="ex-icon">bolt</span></span><span><b>Available</b> for new projects</span></span>
           <h2 class="talk-title">Let's<span class="l2"><span class="em">talk.</span><span class="badge" aria-hidden="true"><${MorphShape} seq=${['cookie9', 'flower8', 'burst', 'clover4', 'cookie12']} fill="var(--highlight)" speed=${18} hold=${1200} /><span class="ex-icon">waving_hand</span></span></span></h2>
           <p class="lede">Have an app idea or a design that needs to feel more <b>alive</b>? Tell me about it and I'll reply <b>within two days</b>.</p>
           <div class="mail">
@@ -748,7 +824,7 @@ section[id]{scroll-margin-top:96px}
             <div class="mail-big">
               <a href=${'mailto:' + EMAIL}>${EMAIL}</a>
               <button type="button" class=${'copy-btn' + (copied ? ' done' : '')} onClick=${copy} aria-label=${copied ? 'Email address copied' : 'Copy email address'} title="Copy email address">
-                <svg viewBox="-1.1 -1.1 2.2 2.2" aria-hidden="true"><path ref=${copyPath} d=${morphPath('cookie9', 'cookie9', 0)} /></svg>
+                <${ShapeSvg} seq=${copied ? ['flower5', 'burst'] : ['cookie9', 'cookie12', 'sunny']} speed=${copied ? 60 : -16} hold=${copied ? 700 : 1600} morph=${800} kick=${copied ? 120 : -120} />
                 <span class="ex-icon" aria-hidden="true">${copied ? 'check' : 'content_copy'}</span>
               </button>
             </div>
@@ -799,6 +875,7 @@ section[id]{scroll-margin-top:96px}
     useEffect(() => { if (!msg) return; const t = setTimeout(() => setMsg(null), 3400); return () => clearTimeout(t); }, [msg]);
 
     return html`<${React.Fragment}>
+      <${TopBlur} />
       <${Nav} />
       ${route === 'all' ? html`<${AllApps} />` : html`<main id="top">
         <section class="hero wrap">
@@ -809,7 +886,7 @@ section[id]{scroll-margin-top:96px}
           <div class="hero-base">
             <div class="year">©2026</div>
             <figure class="portrait" style=${{ margin: 0 }}>
-              <${E.ShapeAvatar} className="halo" shape="flower8" tone="primary" size=${160} spin=${true} />
+              <${LiveShape} className="halo" shape="flower8" tone="primary" size=${160} />
               <div class="frame">
                 <picture>
                   <source srcset="assets/dinoy.webp" type="image/webp" />
@@ -817,7 +894,7 @@ section[id]{scroll-margin-top:96px}
                 </picture>
                 <span class="eyebrow note">Hi, I'm Dinoy</span>
               </div>
-              <${E.ShapeAvatar} className="spark" shape="sunny" tone="highlight" size=${60} spin=${true} />
+              <${LiveShape} className="spark" shape="sunny" tone="highlight" size=${60} />
             </figure>
             <div class="hero-ctas">
               <div class="ex-row">
@@ -830,7 +907,7 @@ section[id]{scroll-margin-top:96px}
         </section>
 
         <section class="intro wrap" id="about">
-          <h2>Hey! <${E.ShapeAvatar} shape="cookie12" tone="tertiary-container" icon="waving_hand" size=${84} /></h2>
+          <h2>Hey! <${LiveShape} shape="cookie12" tone="tertiary-container" icon="waving_hand" size=${84} /></h2>
           <div class="intro-grid">
             <p class="lead">I'm ${NAME}, an Android developer who designs the apps <span class="em">before</span> building them.</p>
             <div class="body muted">
@@ -847,7 +924,7 @@ section[id]{scroll-margin-top:96px}
           <h2 class="sec-title">Services</h2>
           <div class="services">
             ${SERVICES.map(s => html`<div class="svc" key=${s.name}>
-              <${E.ShapeAvatar} shape=${s.shape} icon=${s.icon} tone=${s.tone} size=${52} />
+              <${LiveShape} shape=${s.shape} icon=${s.icon} tone=${s.tone} size=${52} />
               <h3>${s.name}</h3>
               <div class="tags">${s.tags.map(t => html`<span key=${t}>${t}</span>`)}</div>
             </div>`)}
@@ -884,15 +961,15 @@ section[id]{scroll-margin-top:96px}
           <div class="notes-grid">
             <a class="note bg-p" href=${BLOGS[0].href} target="_blank" rel="noopener">
               <div class="art" aria-hidden="true">
-                <${E.ShapeAvatar} shape="cookie9" tone="primary" size=${230} spin=${true} />
+                <${LiveShape} shape="cookie9" tone="primary" size=${230} />
                 <span class="ex-icon" style=${{ position: 'relative', fontSize: '72px', color: 'var(--on-primary)' }}>android</span>
               </div>
               <div class="txt"><span class="eyebrow muted">${BLOGS[0].eyebrow}</span><h3>${BLOGS[0].title}</h3><p class="muted">${BLOGS[0].blurb}</p></div>
             </a>
             <a class="note bg-s" href=${BLOGS[1].href} target="_blank" rel="noopener">
               <div class="art" aria-hidden="true">
-                <${E.ShapeAvatar} shape="clover4" tone="secondary" size=${160} style=${{}} />
-                <${E.ShapeAvatar} shape="flower5" tone="highlight" size=${90} />
+                <${LiveShape} shape="clover4" tone="secondary" size=${160} />
+                <${LiveShape} shape="flower5" tone="highlight" size=${90} />
               </div>
               <div class="txt"><span class="eyebrow muted">${BLOGS[1].eyebrow}</span><h3>${BLOGS[1].title}</h3><p class="muted">${BLOGS[1].blurb}</p></div>
             </a>
