@@ -31,4 +31,6 @@ Replace the placeholders in `index.html`:
 
 ## Deploy
 
-Works on GitHub Pages as is: Settings → Pages → deploy from the `main` branch, root folder.
+Deployed on Vercel (project `dinoport`, domains dinoyraj.com and www.dinoyraj.com). Every push to `main` triggers a production deployment; pushes to other branches get preview URLs.
+
+`vercel.json` sets the framework to "Other", so Vercel serves the folder as static files with no install or build step.
