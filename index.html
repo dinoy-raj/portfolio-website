@@ -191,6 +191,11 @@ section[id]{scroll-margin-top:96px}
 .app .links{display:flex;flex-wrap:wrap;gap:var(--space-2);padding-inline:var(--space-1)}
 .app .links .link-arrow{font-size:14px;padding:6px 6px 6px 16px}
 .app .links .link-arrow .ex-icon{width:28px;height:28px;font-size:16px}
+.all-apps{padding-top:clamp(112px,12vw,160px);padding-bottom:clamp(96px,12vw,160px)}
+.link-arrow.back{padding:8px 18px 8px 8px;margin-bottom:var(--space-8)}
+.link-arrow.back:hover .ex-icon{transform:translateX(-3px)}
+.apps-end{display:flex;flex-direction:column;align-items:center;gap:var(--space-4);text-align:center;margin-top:clamp(64px,8vw,112px)}
+.apps-end p{font-size:16px;line-height:25px;max-width:40ch}
 
 /* Talks: dark cards */
 .how{padding-top:clamp(96px,12vw,160px)}
@@ -539,7 +544,56 @@ section[id]{scroll-margin-top:96px}
     </p></section>`;
   }
 
+  function AppCard({ a }) {
+    return html`<article class=${'app' + (a.featured ? ' featured' : '')} aria-labelledby=${'app-' + a.id}>
+              <div class="media" style=${{ background: a.bg }}>
+                <div class="shots">${a.shots.map((alt, i) => html`<img key=${i} src=${'assets/apps/' + a.id + '-' + (i + 1) + '.webp'} alt=${a.name + ': ' + alt} width="540" height=${a.id === 'launcher' ? 1212 : 960} loading="lazy" decoding="async" />`)}</div>
+              </div>
+              <div class="app-meta">
+                <img class="icon" src=${'assets/apps/' + a.id + '-icon.webp'} alt="" width="56" height="56" loading="lazy" />
+                <div class="name"><h3 id=${'app-' + a.id}>${a.name}</h3><div class="store muted">${a.store}</div></div>
+              </div>
+              <p class="desc muted">${a.desc}</p>
+              <div class="tags">${a.status && html`<span class=${'chip ' + a.status}>${a.status === 'live' ? 'On Google Play' : 'In development'}</span>`}${a.tags.map(t => html`<span key=${t}>${t}</span>`)}</div>
+              ${a.links && html`<div class="links">${a.links.map(([l, h]) => html`<a key=${h} class="link-arrow" href=${h} target="_blank" rel="noopener">${l}<span class="ex-icon">arrow_outward</span></a>`)}</div>`}
+            </article>`;
+  }
+
+  function AllApps() {
+    return html`<main id="top" class="all-apps wrap">
+      <a class="link-arrow back" href="#apps"><span class="ex-icon" aria-hidden="true">arrow_back</span>Back to home</a>
+      <div class="apps-head">
+        <div>
+          <h1 class="sec-title">All<br/>Apps</h1>
+          <p class="muted">All ${APPS.length} Android apps I've designed and built in Kotlin and Jetpack Compose. Screenshots are the apps' own store screens.</p>
+        </div>
+        <a class="link-arrow" href=${LINKS.play} target="_blank" rel="noopener">Google Play profile<span class="ex-icon">arrow_outward</span></a>
+      </div>
+      <div class="apps-grid">${APPS.map(a => html`<${AppCard} key=${a.id} a=${a} />`)}</div>
+      <div class="apps-end">
+        <p class="muted">Install them, read the reviews and get updates on Google Play.</p>
+        <a class="link-arrow" href=${LINKS.play} target="_blank" rel="noopener">See all on Google Play<span class="ex-icon">arrow_outward</span></a>
+      </div>
+    </main>`;
+  }
+
+  const ALL_APPS = '#all-apps';
+  const BASE_TITLE = document.title;
+
   function App() {
+    const [route, setRoute] = useState(() => location.hash === ALL_APPS ? 'all' : 'home');
+    useEffect(() => {
+      const on = () => setRoute(location.hash === ALL_APPS ? 'all' : 'home');
+      addEventListener('hashchange', on); return () => removeEventListener('hashchange', on);
+    }, []);
+    const first = useRef(true);
+    useEffect(() => {
+      document.title = route === 'all' ? 'All apps · ' + BASE_TITLE : BASE_TITLE;
+      if (first.current) { first.current = false; return; }
+      // Switching views: start the apps page at the top; going home, land on the section in the URL.
+      const el = route === 'home' && location.hash && document.getElementById(location.hash.slice(1));
+      el ? el.scrollIntoView({ behavior: 'instant' }) : scrollTo({ top: 0, behavior: 'instant' });
+    }, [route]);
     const [msg, setMsg] = useState(null);
     useEffect(() => { if (!msg) return; const t = setTimeout(() => setMsg(null), 3400); return () => clearTimeout(t); }, [msg]);
     const copy = () => { try { navigator.clipboard.writeText(EMAIL).then(() => setMsg('Email address copied'), () => setMsg('Copy blocked here. Select the address instead.')); } catch (e) { setMsg('Copy blocked here. Select the address instead.'); } };
@@ -547,7 +601,7 @@ section[id]{scroll-margin-top:96px}
 
     return html`<${React.Fragment}>
       <${Nav} />
-      <main id="top">
+      ${route === 'all' ? html`<${AllApps} />` : html`<main id="top">
         <section class="hero wrap">
           <h1>Android<span class="l2">Developer</span>
             <${MorphShape} className="float f1" seq=${['sunny', 'cookie9', 'flower8', 'clover4', 'cookie12']} fill="var(--highlight)" speed=${22} />
@@ -607,21 +661,10 @@ section[id]{scroll-margin-top:96px}
               <h2 class="sec-title">My<br/>Apps</h2>
               <p class="muted">Android apps I design and build end to end in Kotlin and Jetpack Compose. Screenshots are the apps' own store screens.</p>
             </div>
-            <a class="link-arrow" href=${LINKS.play} target="_blank" rel="noopener">View all<span class="ex-icon">arrow_outward</span></a>
+            <a class="link-arrow" href=${ALL_APPS}>View all apps<span class="ex-icon">arrow_forward</span></a>
           </div>
           <div class="apps-grid">
-            ${APPS.slice(0, 5).map(a => html`<article class=${'app' + (a.featured ? ' featured' : '')} key=${a.id} aria-labelledby=${'app-' + a.id}>
-              <div class="media" style=${{ background: a.bg }}>
-                <div class="shots">${a.shots.map((alt, i) => html`<img key=${i} src=${'assets/apps/' + a.id + '-' + (i + 1) + '.webp'} alt=${a.name + ': ' + alt} width="540" height=${a.id === 'launcher' ? 1212 : 960} loading="lazy" decoding="async" />`)}</div>
-              </div>
-              <div class="app-meta">
-                <img class="icon" src=${'assets/apps/' + a.id + '-icon.webp'} alt="" width="56" height="56" loading="lazy" />
-                <div class="name"><h3 id=${'app-' + a.id}>${a.name}</h3><div class="store muted">${a.store}</div></div>
-              </div>
-              <p class="desc muted">${a.desc}</p>
-              <div class="tags">${a.status && html`<span class=${'chip ' + a.status}>${a.status === 'live' ? 'On Google Play' : 'In development'}</span>`}${a.tags.map(t => html`<span key=${t}>${t}</span>`)}</div>
-              ${a.links && html`<div class="links">${a.links.map(([l, h]) => html`<a key=${h} class="link-arrow" href=${h} target="_blank" rel="noopener">${l}<span class="ex-icon">arrow_outward</span></a>`)}</div>`}
-            </article>`)}
+            ${APPS.slice(0, 5).map(a => html`<${AppCard} key=${a.id} a=${a} />`)}
           </div>
         </section>
 
@@ -686,7 +729,7 @@ section[id]{scroll-margin-top:96px}
             <button type="submit" class="ex-press ex-btn v-filled size-md full">Send message</button>
           </form>
         </section>
-      </main>
+      </main>`}
 
       <footer class="footer">
         <div class="wrap">
