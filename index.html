@@ -606,10 +606,10 @@ section[id]{scroll-margin-top:96px}
               <h2 class="sec-title">My<br/>Apps</h2>
               <p class="muted">Android apps I design and build end to end in Kotlin and Jetpack Compose. Screenshots are the apps' own store screens.</p>
             </div>
-            <a class="link-arrow" href="https://github.com/dinoy-raj" target="_blank" rel="noopener">More on GitHub<span class="ex-icon">arrow_outward</span></a>
+            <a class="link-arrow" href=${LINKS.play} target="_blank" rel="noopener">View all<span class="ex-icon">arrow_outward</span></a>
           </div>
           <div class="apps-grid">
-            ${APPS.map(a => html`<article class=${'app' + (a.featured ? ' featured' : '')} key=${a.id} aria-labelledby=${'app-' + a.id}>
+            ${APPS.slice(0, 5).map(a => html`<article class=${'app' + (a.featured ? ' featured' : '')} key=${a.id} aria-labelledby=${'app-' + a.id}>
               <div class="media" style=${{ background: a.bg }}>
                 <div class="shots">${a.shots.map((alt, i) => html`<img key=${i} src=${'assets/apps/' + a.id + '-' + (i + 1) + '.webp'} alt=${a.name + ': ' + alt} width="540" height=${a.id === 'launcher' ? 1212 : 960} loading="lazy" decoding="async" />`)}</div>
               </div>
