@@ -150,7 +150,7 @@ section[id]{scroll-margin-top:96px}
 .statement p{max-width:24ch;margin:0 auto;text-align:center;font-size:clamp(28px,3.6vw,46px);line-height:1.18;font-weight:600;letter-spacing:-.025em}
 .statement .w{color:var(--outline-variant);transition:color 250ms var(--ease)}
 .statement .w.on{color:var(--on-surface)}
-.statement .w.acc.on{color:var(--primary);font-family:var(--font-display);font-style:italic;font-weight:500}
+.statement .w.hl.on{color:var(--primary);font-family:var(--font-display);font-style:italic;font-weight:500}
 
 /* Services */
 .services{display:flex;flex-direction:column;gap:var(--space-0-5);margin-top:var(--space-8)}
@@ -761,7 +761,7 @@ section[id]{scroll-margin-top:96px}
       return () => { removeEventListener('scroll', on); removeEventListener('resize', on); };
     }, []);
     return html`<section class="statement wrap" aria-label="Statement"><p ref=${ref} aria-label=${STATEMENT.replace(/\*/g, '')}>
-      ${words.map((w, i) => html`<span key=${i} aria-hidden="true" class=${'w' + (w.acc ? ' acc' : '') + (i < lit ? ' on' : '')}>${w.t}${' '}</span>`)}
+      ${words.map((w, i) => html`<span key=${i} aria-hidden="true" class=${'w' + (w.acc ? ' hl' : '') + (i < lit ? ' on' : '')}>${w.t}${' '}</span>`)}
     </p></section>`;
   }
 
