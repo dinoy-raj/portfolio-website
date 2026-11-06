@@ -41,7 +41,14 @@ Clicking an app card opens its page, with its features, permissions, a privacy p
 - `/<slug>/privacypolicy`
 - `/<slug>/termsofservice`
 
-App pages and legal pages are drawn by React on load; only the home page is pre-rendered. The policy and terms text is generated per app by `privacyDoc` and `termsDoc` in `index.html`, dated by `LEGAL_DATE`. These are path routes handled in the page, so the host must serve `index.html` for them: `vercel.json` has the rewrites. Plain GitHub Pages does not, so deep links there return 404.
+App pages and legal pages are drawn by React on load; only the home page is pre-rendered. The policy and terms text is generated per app by `privacyDoc` and `termsDoc` in `index.html`, dated by `LEGAL_DATE`. These are path routes handled in the page, so the host must serve `index.html` for them: `vercel.json` rewrites exactly these slugs (any other path gets `404.html`), so add a new app's slug there and to `sitemap.xml`. Each route sets its own title, description and canonical URL. Plain GitHub Pages does not, so deep links there return 404.
+## SEO
+
+- `<head>` in `index.html` carries the title, description, canonical, Open Graph / Twitter tags (`assets/og.jpg`, 1200×630) and favicons (`favicon.svg`, `apple-touch-icon.png`)
+- `robots.txt`, `sitemap.xml` and `llms.txt` sit at the root; bump `<lastmod>` in the sitemap when the page changes meaningfully
+- The JSON-LD block (`seo:jsonld` in `<head>`) describes Dinoy as a Person with links to every profile; update its `sameAs` list when `LINKS` changes
+- The hero letters and the icons inside headings are drawn from `data-t` / `data-icon` attributes with CSS, so they stay out of the indexed heading text
+- `vercel.json` redirects `www.dinoyraj.com` to the apex domain and noindexes `design/`
 
 ## Before publishing
 
