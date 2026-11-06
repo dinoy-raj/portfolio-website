@@ -11,6 +11,10 @@ writes them to assets/fonts/ under content-hashed names (served with a one-year
 immutable cache, see vercel.json), and rewrites the block between
 <!-- fonts:start --> and <!-- fonts:end --> in index.html.
 
+Families in LATE (Fraunces, which nothing in the first screen uses) go into a
+<template id="late-fonts"> that index.html adds to the page after the first
+paint, so their files don't compete with the hero for bandwidth.
+
 To add an icon, add its name to ICONS (alphabetical order) and run the script.
 """
 import hashlib, io, os, re, urllib.request
@@ -34,6 +38,7 @@ AXES = {
 LATIN = ("U+0020-007E,U+00A0-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2013-2014,"
          "U+2018-201E,U+2022,U+2026,U+2039-203A,U+20AC,U+2122")
 SUBSETS = {"latin", "math", "symbols"}
+LATE = {"fraunces"}  # declared only after the first paint (index.html copies #late-fonts into <head>)
 PRELOAD = "google-sans-flex-latin"  # draws the hero heading, the LCP element
 OUT = "assets/fonts"
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
@@ -63,7 +68,7 @@ def main():
     for f in os.listdir(OUT):
         if f.endswith(".woff2"):
             os.remove(os.path.join(OUT, f))
-    faces, names = [], {}
+    faces, late, names = [], [], {}
     for sub, block in blocks:
         if sub not in SUBSETS and sub != "icons":
             continue
@@ -80,12 +85,13 @@ def main():
         block = block.replace(url, "/assets/fonts/" + names[url])
         if sub == "latin":
             block = re.sub(r"unicode-range:[^;]*;", "unicode-range: " + LATIN.replace(",", ", ") + ";", block)
-        faces.append(re.sub(r"\s*\n\s*", " ", block).replace("{ ", "{").replace("; }", ";}"))
+        (late if family in LATE else faces).append(re.sub(r"\s*\n\s*", " ", block).replace("{ ", "{").replace("; }", ";}"))
     preload = next(n for n in names.values() if n.startswith(PRELOAD + "-"))
     html = open("index.html", encoding="utf-8").read()
     new = ("<!-- fonts:start -->\n"
            f'<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/{preload}" crossorigin>\n'
-           "<style>\n" + "\n".join(faces) + "\n</style>\n<!-- fonts:end -->")
+           "<style>\n" + "\n".join(faces) + "\n</style>\n"
+           '<template id="late-fonts"><style>\n' + "\n".join(late) + "\n</style></template>\n<!-- fonts:end -->")
     html, n = re.subn(r"<!-- fonts:start -->.*?<!-- fonts:end -->", lambda m: new, html, flags=re.S)
     assert n == 1, "fonts:start / fonts:end markers not found in index.html"
     open("index.html", "w", encoding="utf-8").write(html)
