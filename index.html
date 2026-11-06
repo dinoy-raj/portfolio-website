@@ -442,6 +442,18 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
 .wordmark{font-size:clamp(96px,27vw,380px);line-height:.74;font-weight:700;letter-spacing:-.06em;color:var(--inverse-ghost);text-align:center;margin-top:var(--space-12);user-select:none;white-space:nowrap}
 .fine{display:flex;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap;padding-block:var(--space-5) calc(var(--space-5) + env(safe-area-inset-bottom,0px));color:var(--inverse-muted);font-size:13px}
 .fine a{color:inherit;text-decoration:underline;text-underline-offset:3px}.fine a:hover{color:var(--inverse-on-surface)}.fine a:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:4px}
+.fine{align-items:center}
+.fine a.kit{display:inline-flex;align-items:center;gap:9px;height:40px;padding:0 14px 0 5px;border-radius:999px;background:rgba(255,181,156,.1);box-shadow:inset 0 0 0 1px rgba(255,181,156,.24);color:var(--inverse-on-surface);text-decoration:none;font-size:13.5px;letter-spacing:-.01em;white-space:nowrap;transition:border-radius 380ms var(--spring),padding 380ms var(--spring),background-color 200ms var(--ease)}
+.fine a.kit:hover{color:var(--inverse-on-surface);border-radius:14px;padding-right:18px;background:rgba(255,181,156,.16)}
+.fine a.kit b{font-weight:700;color:var(--inverse-primary)}
+.fine a.kit .em{color:var(--inverse-on-surface);font-size:15px}
+.kit-dot{position:relative;flex:none;width:30px;height:30px;display:grid;place-items:center}
+.kit-dot svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.kit-dot svg path{fill:var(--inverse-primary)}
+.kit-dot .ex-icon{position:relative;font-size:16px;color:var(--inverse-surface);font-variation-settings:'FILL' 1;transition:transform 420ms var(--spring)}
+.fine a.kit:hover .kit-dot .ex-icon{transform:scale(1.15) rotate(-12deg)}
+.kit-go{font-size:16px;color:var(--inverse-primary);transition:transform 380ms var(--spring)}
+.fine a.kit:hover .kit-go{transform:translate(2px,-2px)}
 
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--space-6) + env(safe-area-inset-bottom,0px));z-index:40;width:min(420px,calc(100% - 32px));animation:rise 420ms var(--spring) both}
 @keyframes rise{from{transform:translate(-50%,12px)}to{transform:translate(-50%,0)}}
@@ -1087,7 +1099,7 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
           </div>
           <div class="wordmark" aria-hidden="true">${NAME.toUpperCase()}</div>
         </div>
-        <div class="wrap fine"><span>© 2026 ${NAME}</span><a href="https://github.com/dinoy-raj/Material-3-expressive-design-system-skill" target="_blank" rel="noopener">Built with Expressive Kit</a></div>
+        <div class="wrap fine"><span>© 2026 ${NAME}</span><a class="kit" href="https://github.com/dinoy-raj/Material-3-expressive-design-system-skill" target="_blank" rel="noopener"><span class="kit-dot" aria-hidden="true"><${ShapeSvg} seq=${['cookie9', 'flower8', 'burst', 'clover4', 'cookie12']} speed=${36} hold=${900} morph=${700} /><span class="ex-icon">auto_awesome</span></span><span>Built with <b>Expressive</b> <span class="em">Kit</span></span><span class="ex-icon kit-go" aria-hidden="true">arrow_outward</span></a></div>
       </footer>
       ${msg && html`<div class="toast"><${E.Snackbar} message=${msg} action="OK" onAction=${() => setMsg(null)} /></div>`}
     <//>`;
