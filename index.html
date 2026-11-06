@@ -452,7 +452,7 @@ section[id]{scroll-margin-top:96px}
   transition:height 360ms cubic-bezier(.3,0,.2,1),width 360ms cubic-bezier(.3,0,.2,1),border-radius 300ms cubic-bezier(.3,0,.2,1)}
 .nav.open{width:min(400px,calc(100% - 32px));border-radius:28px;
   transition:height 560ms cubic-bezier(.3,1.25,.45,1),width 560ms cubic-bezier(.3,1.25,.45,1),border-radius 420ms cubic-bezier(.2,0,0,1)}
-.nav-row{height:60px;display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);padding:0 10px 0 16px}
+.nav-row{cursor:pointer;-webkit-tap-highlight-color:transparent;height:60px;display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);padding:0 10px 0 16px}
 .nav-name{font-weight:700;font-size:20px;letter-spacing:-.02em;text-decoration:none;border-radius:6px}
 .nav-name:focus-visible{outline:2px solid var(--island-ink);outline-offset:4px}
 .menu-btn{position:relative;width:44px;height:44px;display:grid;place-items:center;background:none;border:0;padding:0;cursor:pointer;color:var(--on-surface);-webkit-tap-highlight-color:transparent;border-radius:50%}
@@ -1468,12 +1468,19 @@ window.__boot = function () {
     }, [open]);
     const links = [['Apps', '#apps'], ['Services', '#services'], ['Talks', '#talks'], ['Blogs', '#blogs'], ['Contact', '#contact']];
     const close = () => setOpen(false);
+    // The whole bar is a tap target for the menu, not just the round button (whose click bubbles up here; it stays the keyboard control).
+    // Closed, a tap on the name opens the menu too; open, it closes the menu and follows its link to the top.
+    // Enter on the focused name (a click with detail 0) still just follows the link.
+    const onRow = e => {
+      if (e.target.closest('.nav-name')) { if (open || !e.detail) return close(); e.preventDefault(); }
+      setOpen(!open);
+    };
     return html`<${React.Fragment}>
       <div class=${'nav-scrim' + (open ? ' on' : '')} onClick=${close}></div>
       <header ref=${navRef} class=${'nav' + (open ? ' open' : '')} style=${{ height: open ? 60 + panelH + 'px' : '60px' }}>
-        <div class="nav-row">
-          <a class="nav-name" href="#top" onClick=${close}>${NAME}</a>
-          <button ref=${btnRef} type="button" class="menu-btn" aria-expanded=${open} aria-controls="nav-panel" aria-label=${open ? 'Close menu' : 'Open menu'} onClick=${() => setOpen(!open)}>
+        <div class="nav-row" onClick=${onRow}>
+          <a class="nav-name" href="#top">${NAME}</a>
+          <button ref=${btnRef} type="button" class="menu-btn" aria-expanded=${open} aria-controls="nav-panel" aria-label=${open ? 'Close menu' : 'Open menu'}>
             <${ShapeSvg} view=${1.15} seq=${open ? ['cookie9', 'flower8'] : ['cookie4', 'cookie6', 'clover4']} speed=${open ? 40 : 14} hold=${1500} morph=${800} kick=${open ? 90 : -90} />
             <span class="ex-icon i-more" aria-hidden="true">more_horiz</span>
             <span class="ex-icon i-close" aria-hidden="true">close</span>
