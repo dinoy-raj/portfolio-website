@@ -1,0 +1,37 @@
+# Dinoy Raj
+
+> Dinoy Raj is an Android developer and conference speaker. He designs and builds focused Android apps in Kotlin and Jetpack Compose on top of Expressive Kit, his own Material 3 Expressive design system, and speaks about on-device AI, custom launchers and agentic Android.
+
+Site: https://dinoyraj.com/ (a single page with sections for services, apps, talks, blogs and contact).
+Contact: dinoykraj@gmail.com
+
+## Apps
+
+- [Dino Minimalist Launcher](https://play.google.com/store/apps/details?id=com.dino.simple): a minimalist, text-based Android launcher to reduce screen time. Website: https://minimalistlauncher.com
+- [Nano Prompt Ground](https://play.google.com/store/apps/details?id=com.dino.nanoplayground): prompt Gemini Nano offline on an Android phone. Source: https://github.com/dinoy-raj/gemini-nano-playground
+- [All apps on Google Play](https://play.google.com/store/apps/dev?id=8799251775499093729): also Focus (pomodoro timer), Habbit Tracker, Reel Blocker, App Blocker, Mindful Pause, Notification Blocker, Count down, Meetings, Timeline Calendar, Link Manager and Dynamic Island (in progress).
+
+## Services
+
+- Android apps (Kotlin, Jetpack Compose, Play Store release)
+- App redesigns (Material 3 Expressive, dark theme, motion)
+- Design systems (tokens, components, guidelines)
+- Icons and visuals (app icons, icon sets, store graphics)
+
+## Talks
+
+- [Talks on Sessionize](https://sessionize.com/dinoy/): Agentic Android with App Functions; On-device AI with Gemini Nano and the Prompt API; Crafting a custom Android launcher from scratch; Offline RAG on Android with vector databases and MediaPipe.
+- Speaker at droidcon India, DevFest Dar es Salaam, Droidcon & Fluttercon Kenya, DevFest Atlanta, droidcon Uganda, droidcon Lisbon, DevFest Vicenza, FOSSASIA Summit, DevFest Mumbai, Mobile Developers Week Abu Dhabi and DevFest Dubai.
+
+## Writing
+
+- [Crafting multi-tone themed app icons in Android](https://proandroiddev.com/android-adaptive-themed-icons-guide-8e690263f7aa) (ProAndroidDev)
+- [List Formatter in Android](https://proandroiddev.com/android-localization-list-formatter-in-android-05659d848a61) (ProAndroidDev)
+- [All posts on Medium](https://dinoyraj.medium.com/)
+
+## Elsewhere
+
+- [GitHub](https://github.com/Dinoy-Raj)
+- [LinkedIn](https://www.linkedin.com/in/dinoy-raj/)
+- [X](https://x.com/dinoy_raj)
+- [YouTube](https://www.youtube.com/channel/UCcc4xZ8XmqN6IGtndij-Flw)
