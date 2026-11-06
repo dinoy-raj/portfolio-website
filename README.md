@@ -21,6 +21,14 @@ Then open http://localhost:8000.
 
 React 18 and htm load from CDNs; fonts and Material Symbols load from Google Fonts.
 
+## SEO
+
+- `<head>` in `index.html` carries the title, description, canonical, Open Graph / Twitter tags (`assets/og.jpg`, 1200×630) and favicons (`favicon.svg`, `apple-touch-icon.png`)
+- `robots.txt`, `sitemap.xml` and `llms.txt` sit at the root; bump `<lastmod>` in the sitemap when the page changes meaningfully
+- The JSON-LD block and the no-JS fallback inside `#root` are generated from the data constants. After editing `APPS`, `TALKS`, `EVENTS`, `BLOGS`, `SERVICES` or `LINKS`, run `node tools/prerender.js`
+- The Material Symbols font loads only the icons listed in its `icon_names=` link in `<head>`. Add a name there (alphabetically) when you use a new icon, or it shows as text
+- `vercel.json` redirects `www.dinoyraj.com` to the apex domain and sets basic security and cache headers
+
 ## Before publishing
 
 Replace the placeholders in `index.html`:

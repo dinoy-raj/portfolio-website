@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /design/
+Disallow: /tools/
+
+Sitemap: https://dinoyraj.com/sitemap.xml
