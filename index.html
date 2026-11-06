@@ -7,6 +7,16 @@
 <meta name="description" content="Dinoy, Android developer. Focused Android apps built with Kotlin, Jetpack Compose and Material 3 Expressive.">
 <meta name="theme-color" content="#fbf6ee">
 <style>*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preload" as="image" href="assets/dinoy.webp" imagesrcset="assets/dinoy-420.webp 420w, assets/dinoy.webp 600w" imagesizes="210px" fetchpriority="high">
+<!-- Fraunces and the code font swap in. Google Sans Flex blocks so the hero heading never reflows; the icon font blocks so ligature names never flash. Add any new icon to icon_names (alphabetical). -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Google+Sans+Code:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wdth,wght@25..151,400..1000&display=block">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0&icon_names=android,apps,arrow_back,arrow_downward,arrow_drop_down,arrow_drop_up,arrow_forward,arrow_outward,auto_awesome,bolt,category,check,close,code,content_copy,edit_note,interests,link,memory,mic,more_horiz,photo_camera,search,shop,smart_display,smart_toy,tag,waving_hand,work&display=block">
 <link rel="stylesheet" href="kit/bundle.css">
 <style>
 /* Expressive Kit, light only. Layout: floating pill nav → poster hero → scroll-lit statement → service rows → apps grid → talks accordion + event tickets → blogs → contact → dark footer with giant wordmark. */
@@ -163,7 +173,7 @@ section[id]{scroll-margin-top:96px}
 /* Scroll-lit statement */
 .statement{padding-block:var(--space-16) clamp(96px,14vw,180px)}
 .statement p{max-width:24ch;margin:0 auto;text-align:center;font-size:clamp(28px,3.6vw,46px);line-height:1.18;font-weight:600;letter-spacing:-.025em}
-.statement .w{color:var(--outline-variant);transition:color 250ms var(--ease)}
+.statement .w{color:var(--outline);transition:color 250ms var(--ease)}
 .statement .w.on{color:var(--on-surface)}
 .statement .w.hl.on{color:var(--primary);font-family:var(--font-display);font-style:italic;font-weight:500}
 
@@ -307,12 +317,12 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
   background-image:linear-gradient(var(--fg) 50%,transparent 0);background-size:1.5px 8px;background-repeat:repeat-y;background-position:0 0;
   -webkit-mask:radial-gradient(circle 11px at 0 0,#0000 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 11px at 0 100%,#0000 98%,#000) bottom/100% 51% no-repeat;
   mask:radial-gradient(circle 11px at 0 0,#0000 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 11px at 0 100%,#0000 98%,#000) bottom/100% 51% no-repeat}
-.tix-item .row{display:flex;justify-content:space-between;gap:var(--space-3);font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;opacity:.7}
+.tix-item .row{display:flex;justify-content:space-between;gap:var(--space-3);font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;opacity:.82}
 .tix-item .row .live{display:inline-flex;align-items:center;gap:6px;opacity:1}
 .tix-item .row .live::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
 .tix-item h4{margin:0;font-size:18px;line-height:1.2;font-weight:600;letter-spacing:-.015em}
 .tix-item .fields{display:grid;grid-template-columns:repeat(2,auto);justify-content:start;gap:2px var(--space-6)}
-.tix-item .fields span{font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;opacity:.65}
+.tix-item .fields span{font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;opacity:.82}
 .tix-item .fields b{font-size:13px;font-weight:600}
 .tix-item .mon{font-family:var(--font-mono);font-size:11px;letter-spacing:1.2px;text-transform:uppercase;opacity:.75}
 .tix-item .yr{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:34px;line-height:1}
@@ -427,12 +437,13 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
 @media (max-width:560px){.foot-grid{grid-template-columns:minmax(0,1fr)}}
 .foot-grid h2{font-size:clamp(40px,5vw,64px);line-height:1;font-weight:700;letter-spacing:-.045em}
 .foot-grid h2 .em{color:var(--inverse-primary)}
-.foot-grid h4{margin:0 0 var(--space-4);font-size:20px;font-weight:600}
+.foot-grid h3{margin:0 0 var(--space-4);font-size:20px;font-weight:600}
 .foot-links{display:flex;flex-wrap:wrap;gap:var(--space-2)}
 .foot-links a{text-decoration:none;background:var(--surface);color:var(--on-surface);padding:8px 16px;border-radius:var(--shape-full);font-weight:600;font-size:14px;transition:border-radius 220ms var(--ease)}
 .foot-links a:active{border-radius:var(--shape-md)}
 .foot-links a:focus-visible{outline:2px solid var(--inverse-on-surface);outline-offset:2px}
 .wordmark{font-size:clamp(96px,27vw,380px);line-height:.74;font-weight:700;letter-spacing:-.06em;color:var(--inverse-ghost);text-align:center;margin-top:var(--space-12);user-select:none;white-space:nowrap}
+.wordmark::before{content:attr(data-text)}
 .fine{display:flex;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap;padding-block:var(--space-5) calc(var(--space-5) + env(safe-area-inset-bottom,0px));color:var(--inverse-muted);font-size:13px}
 .fine a{color:inherit;text-decoration:underline;text-underline-offset:3px}.fine a:hover{color:var(--inverse-on-surface)}.fine a:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:4px}
 
@@ -574,9 +585,9 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
     const [open, setOpen] = useState(0);
     return html`<div class="acc">
       ${TALKS.map((t, i) => html`<a key=${t.title} class=${'acc-card t-' + t.tone + (open === i ? ' on' : '')} href=${LINKS.sessionize} target="_blank" rel="noopener"
-          onMouseEnter=${() => setOpen(i)} onFocus=${() => setOpen(i)} onClick=${e => { if (open !== i) { e.preventDefault(); setOpen(i); } }} aria-label=${t.text}>
+          onMouseEnter=${() => setOpen(i)} onFocus=${() => setOpen(i)} onClick=${e => { if (open !== i) { e.preventDefault(); setOpen(i); } }}>
         <${ShapeSvg} className="bigshape" view=${1} seq=${FAMILY[t.shape] || [t.shape]} speed=${i % 2 ? -10 : 10} hold=${1800} morph=${1200} />
-        <div class="rail" aria-hidden="true"><span class="eyebrow">0${i + 1}</span><b>${t.title}</b></div>
+        <div class="rail" aria-hidden=${open === i ? 'true' : 'false'}><span class="eyebrow">0${i + 1}</span><b>${t.title}</b></div>
         <div class="body" aria-hidden=${open === i ? 'false' : 'true'}>
           <span class="eyebrow">${t.sub}</span>
           <h3>${t.text}</h3>
@@ -833,7 +844,7 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
       calc(); addEventListener('scroll', on, { passive: true }); addEventListener('resize', on);
       return () => { removeEventListener('scroll', on); removeEventListener('resize', on); };
     }, []);
-    return html`<section class="statement wrap" aria-label="Statement"><p ref=${ref} aria-label=${STATEMENT.replace(/\*/g, '')}>
+    return html`<section class="statement wrap" aria-label="Statement"><p ref=${ref}><span class="sr-only">${STATEMENT.replace(/\*/g, '')}</span>
       ${words.map((w, i) => html`<span key=${i} aria-hidden="true" class=${'w' + (w.acc ? ' hl' : '') + (i < lit ? ' on' : '')}>${w.t}${' '}</span>`)}
     </p></section>`;
   }
@@ -841,7 +852,7 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
   function AppCard({ a }) {
     return html`<article class=${'app' + (a.featured ? ' featured' : '')} aria-labelledby=${'app-' + a.id} style=${{ viewTransitionName: 'app-' + a.id }}>
               <div class="media" style=${{ background: a.bg }}>
-                <div class="shots">${a.shots.map((alt, i) => html`<img key=${i} src=${'assets/apps/' + a.id + '-' + (i + 1) + '.webp'} alt=${a.name + ': ' + alt} width="540" height=${a.id === 'launcher' ? 1212 : 960} loading="lazy" decoding="async" />`)}</div>
+                <div class="shots">${a.shots.map((alt, i) => html`<img key=${i} src=${'assets/apps/' + a.id + '-' + (i + 1) + '.webp'} srcset=${'assets/apps/' + a.id + '-' + (i + 1) + '-270.webp 270w, assets/apps/' + a.id + '-' + (i + 1) + '.webp 540w'} sizes="(max-width: 760px) 31vw, 180px" alt=${a.name + ': ' + alt} width="540" height=${a.id === 'launcher' ? 1212 : 960} loading="lazy" decoding="async" />`)}</div>
               </div>
               <div class="app-meta">
                 <img class="icon" src=${'assets/apps/' + a.id + '-icon.webp'} alt="" width="56" height="56" loading="lazy" />
@@ -849,7 +860,7 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
               </div>
               <p class="desc muted">${a.desc}</p>
               <div class="tags">${a.status && html`<span class=${'chip ' + a.status}>${a.status === 'live' ? 'On Google Play' : 'In development'}</span>`}${a.tags.map(t => html`<span key=${t}>${t}</span>`)}</div>
-              ${a.links && html`<div class="links">${a.links.map(([l, h]) => html`<a key=${h} class="link-arrow" href=${h} target="_blank" rel="noopener">${l}<span class="ex-icon">arrow_outward</span></a>`)}</div>`}
+              ${a.links && html`<div class="links">${a.links.map(([l, h]) => html`<a key=${h} class="link-arrow" href=${h} target="_blank" rel="noopener" aria-label=${l + ' (' + a.name + ')'}>${l}<span class="ex-icon" aria-hidden="true">arrow_outward</span></a>`)}</div>`}
             </article>`;
   }
 
@@ -972,7 +983,7 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
               <${LiveShape} className="halo" shape="flower8" tone="primary" size=${160} />
               <div class="frame">
                 <picture>
-                  <source srcset="assets/dinoy.webp" type="image/webp" />
+                  <source srcset="assets/dinoy-420.webp 420w, assets/dinoy.webp 600w" sizes="210px" type="image/webp" />
                   <img src="assets/dinoy.jpg" width="600" height="684" alt="Portrait of Dinoy" decoding="async" fetchpriority="high" />
                 </picture>
                 <span class="eyebrow note">Hi, I'm Dinoy</span>
@@ -1070,15 +1081,15 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
         <div class="wrap">
           <div class="foot-grid">
             <h2>Small apps,<br/><span class="em">finished</span> properly.</h2>
-            <div><h4>/ Quick links</h4><div class="foot-links">
+            <div><h3>/ Quick links</h3><div class="foot-links">
               ${[['Home', '#top'], ['About', '#about'], ['Services', '#services'], ['Apps', '#apps'], ['Talks', '#talks'], ['Blogs', '#blogs'], ['Contact', '#contact']].map(([l, h]) => html`<a key=${h} href=${h}>${l}</a>`)}
             </div></div>
-            <div><h4>/ Elsewhere</h4><div class="foot-links foot-ext">
+            <div><h3>/ Elsewhere</h3><div class="foot-links foot-ext">
               ${[['GitHub', LINKS.github], ['LinkedIn', LINKS.linkedin], ['Medium', LINKS.medium], ['Sessionize', LINKS.sessionize], ['Google Play', LINKS.play], ['All links', LINKS.linktree]].map(([l, h]) => html`<a key=${l} href=${h} target="_blank" rel="noopener">${l}</a>`)}
             </div></div>
-            <div><h4>/ Contact</h4><div style=${{ fontFamily: 'var(--font-mono)', fontSize: '14px', wordBreak: 'break-all' }}>${EMAIL}</div></div>
+            <div><h3>/ Contact</h3><div style=${{ fontFamily: 'var(--font-mono)', fontSize: '14px', wordBreak: 'break-all' }}>${EMAIL}</div></div>
           </div>
-          <div class="wordmark" aria-hidden="true">${NAME.toUpperCase()}</div>
+          <div class="wordmark" aria-hidden="true" data-text=${NAME.toUpperCase()}></div>
         </div>
         <div class="wrap fine"><span>© 2026 ${NAME}</span><a href="https://github.com/dinoy-raj/Material-3-expressive-design-system-skill" target="_blank" rel="noopener">Built with Expressive Kit</a></div>
       </footer>

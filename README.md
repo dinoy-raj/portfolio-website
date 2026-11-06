@@ -21,6 +21,10 @@ Then open http://localhost:8000.
 
 React 18 and htm load from CDNs; fonts and Material Symbols load from Google Fonts.
 
+Material Symbols is loaded as a subset: only the icons listed in `icon_names=` in the `<head>` of `index.html` are downloaded. When you use a new icon, add its name to that list (kept alphabetical), or it will show as plain text.
+
+App screenshots have a half-width `-270.webp` copy for `srcset`. When you add or replace a screenshot, make that copy too: `convert assets/apps/NAME-1.webp -resize 270x -quality 82 assets/apps/NAME-1-270.webp`.
+
 ## Before publishing
 
 Replace the placeholders in `index.html`:
