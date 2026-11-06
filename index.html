@@ -96,8 +96,15 @@ section[id]{scroll-margin-top:96px}
 .nav-panel a.lnk:hover .go svg,.nav-panel a.lnk:focus-visible .go svg{transform:scale(1) rotate(45deg);opacity:1}
 .nav-panel .num{font-family:var(--font-mono);font-size:11px;color:var(--island-muted);margin-right:12px;letter-spacing:.5px}
 .nav-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px;padding:12px 8px 2px 10px;border-top:1px solid var(--island-line)}
-.nav-foot .status{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--island-muted)}
-.nav-foot .status i{width:8px;height:8px;border-radius:50%;background:#7fd9a3;box-shadow:0 0 0 4px rgba(127,217,163,.18)}
+.nav-foot .status{--live:#7fd9a3;display:inline-flex;align-items:center;gap:9px;height:40px;padding:0 14px 0 5px;border-radius:999px;background:rgba(127,217,163,.1);box-shadow:inset 0 0 0 1px rgba(127,217,163,.22);color:var(--island-ink);font-size:13.5px;letter-spacing:-.01em;white-space:nowrap}
+.nav-foot .status b{font-weight:700;color:var(--live)}
+.nav-foot .status .em{color:var(--island-ink);font-size:15px}
+.nav-foot .status .dot{position:relative;flex:none;width:30px;height:30px;display:grid;place-items:center}
+.nav-foot .status .dot svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.nav-foot .status .ring{position:absolute;inset:0;animation:avail-ping 2.2s var(--ease) infinite}
+.nav-foot .status .ring path{fill:var(--live);opacity:.35}
+.nav-foot .status .ex-icon{position:relative;font-size:16px;color:var(--island);font-variation-settings:'FILL' 1}
+@media (prefers-reduced-motion: reduce){.nav-foot .status .ring{animation:none;opacity:0}}
 .nav-foot a{background:var(--island-ink);color:var(--island);text-decoration:none;font-weight:600;font-size:14px;height:40px;padding:0 18px;display:inline-flex;align-items:center;gap:6px;border-radius:999px;transition:border-radius 220ms var(--ease)}
 .nav-foot a:active{border-radius:12px}
 .nav-foot a:focus-visible{outline:2px solid var(--island-ink);outline-offset:3px}
@@ -447,6 +454,18 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
 .wordmark::before{content:attr(data-text)} /* decorative: drawn from an attribute so it is not read as low-contrast text */
 .fine{display:flex;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap;padding-block:var(--space-5) calc(var(--space-5) + env(safe-area-inset-bottom,0px));color:var(--inverse-muted);font-size:13px}
 .fine a{color:inherit;text-decoration:underline;text-underline-offset:3px}.fine a:hover{color:var(--inverse-on-surface)}.fine a:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:4px}
+.fine{align-items:center}
+.fine a.kit{display:inline-flex;align-items:center;gap:9px;height:40px;padding:0 14px 0 5px;border-radius:999px;background:rgba(255,181,156,.1);box-shadow:inset 0 0 0 1px rgba(255,181,156,.24);color:var(--inverse-on-surface);text-decoration:none;font-size:13.5px;letter-spacing:-.01em;white-space:nowrap;transition:border-radius 380ms var(--spring),padding 380ms var(--spring),background-color 200ms var(--ease)}
+.fine a.kit:hover{color:var(--inverse-on-surface);border-radius:14px;padding-right:18px;background:rgba(255,181,156,.16)}
+.fine a.kit b{font-weight:700;color:var(--inverse-primary)}
+.fine a.kit .em{color:var(--inverse-on-surface);font-size:15px}
+.kit-dot{position:relative;flex:none;width:30px;height:30px;display:grid;place-items:center}
+.kit-dot svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.kit-dot svg path{fill:var(--inverse-primary)}
+.kit-dot .ex-icon{position:relative;font-size:16px;color:var(--inverse-surface);font-variation-settings:'FILL' 1;transition:transform 420ms var(--spring)}
+.fine a.kit:hover .kit-dot .ex-icon{transform:scale(1.15) rotate(-12deg)}
+.kit-go{font-size:16px;color:var(--inverse-primary);transition:transform 380ms var(--spring)}
+.fine a.kit:hover .kit-go{transform:translate(2px,-2px)}
 
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--space-6) + env(safe-area-inset-bottom,0px));z-index:40;width:min(420px,calc(100% - 32px));animation:rise 420ms var(--spring) both}
 @keyframes rise{from{transform:translate(-50%,12px)}to{transform:translate(-50%,0)}}
@@ -823,7 +842,7 @@ addEventListener('DOMContentLoaded', function () {
             </a>`)}
           </nav>
           <div class="nav-foot rv" style=${{ '--i': links.length }}>
-            <span class="status"><i aria-hidden="true"></i>Available for work</span>
+            <span class="status"><span class="dot" aria-hidden="true"><span class="ring"><${ShapeSvg} seq=${['sunny', 'cookie12']} speed=${-24} hold=${900} morph=${700} /></span><${ShapeSvg} seq=${['cookie9', 'flower8', 'burst', 'clover4', 'cookie12']} fill="var(--live)" speed=${48} hold=${800} morph=${650} /><span class="ex-icon">bolt</span></span><span><b>Available</b> for <span class="em">work</span></span></span>
             <a href="#contact" onClick=${close}>Say hello<span class="ex-icon" style=${{ fontSize: '18px' }} aria-hidden="true">waving_hand</span></a>
           </div>
         </div>
@@ -1095,7 +1114,7 @@ addEventListener('DOMContentLoaded', function () {
           </div>
           <div class="wordmark" aria-hidden="true" data-text=${NAME.toUpperCase()}></div>
         </div>
-        <div class="wrap fine"><span>© 2026 ${NAME}</span><a href="https://github.com/dinoy-raj/Material-3-expressive-design-system-skill" target="_blank" rel="noopener">Built with Expressive Kit</a></div>
+        <div class="wrap fine"><span>© 2026 ${NAME}</span><a class="kit" href="https://github.com/dinoy-raj/Material-3-expressive-design-system-skill" target="_blank" rel="noopener"><span class="kit-dot" aria-hidden="true"><${ShapeSvg} seq=${['cookie9', 'flower8', 'burst', 'clover4', 'cookie12']} speed=${36} hold=${900} morph=${700} /><span class="ex-icon">auto_awesome</span></span><span>Built with <b>Expressive</b> <span class="em">Kit</span></span><span class="ex-icon kit-go" aria-hidden="true">arrow_outward</span></a></div>
       </footer>
       ${msg && html`<div class="toast"><${E.Snackbar} message=${msg} action="OK" onAction=${() => setMsg(null)} /></div>`}
     <//>`;
