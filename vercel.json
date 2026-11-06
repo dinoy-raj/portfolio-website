@@ -6,6 +6,9 @@
   "outputDirectory": ".",
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/:path*", "has": [{ "type": "host", "value": "www.dinoyraj.com" }], "destination": "https://dinoyraj.com/:path*", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -27,6 +30,10 @@
     {
       "source": "/(favicon.svg|favicon.ico|apple-touch-icon.png)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=2592000" }]
+    },
+    {
+      "source": "/design/(.*)",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
     }
   ]
 }

@@ -33,6 +33,14 @@ node design/prerender.js http://localhost:8765/
 
 It needs Playwright. If the markup goes stale React still renders the current page; it just has to redraw instead of hydrating.
 
+## SEO
+
+- `<head>` in `index.html` carries the title, description, canonical, Open Graph / Twitter tags (`assets/og.jpg`, 1200×630) and favicons (`favicon.svg`, `apple-touch-icon.png`)
+- `robots.txt`, `sitemap.xml` and `llms.txt` sit at the root; bump `<lastmod>` in the sitemap when the page changes meaningfully
+- The JSON-LD block (`seo:jsonld` in `<head>`) describes Dinoy as a Person with links to every profile; update its `sameAs` list when `LINKS` changes
+- The hero letters and the icons inside headings are drawn from `data-t` / `data-icon` attributes with CSS, so they stay out of the indexed heading text
+- `vercel.json` redirects `www.dinoyraj.com` to the apex domain and noindexes `design/`
+
 ## Before publishing
 
 Replace the placeholders in `index.html`:
