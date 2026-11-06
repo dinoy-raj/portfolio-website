@@ -211,6 +211,9 @@ section[id]{scroll-margin-top:96px}
    The rest of the word narrows (font-stretch drives the wdth axis) so the line keeps its width. */
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .sw{animation:sw-squash 12.8s var(--ease) infinite;animation-delay:var(--d,0s)}
+.sw-t::before{content:attr(data-t)}
+/* Icons drawn from data-icon stay out of headings' indexed text (e.g. no "Hey! waving_hand"). */
+.ex-icon[data-icon]::before{content:attr(data-icon)}
 .glyph-o{display:inline-block;box-sizing:border-box;width:.78em;height:.72em;border:.13em solid currentColor;border-radius:999px;margin:0 .015em -.012em .005em;vertical-align:baseline;animation:sw-o 12.8s var(--ease) infinite;animation-delay:var(--d,0s)}
 @keyframes sw-squash{0%,30%,62%,100%{font-stretch:100%}40%,54%{font-stretch:64%}}
 @keyframes sw-o{
@@ -894,7 +897,8 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
     sw.style.setProperty('--pill', Math.max(PILL_MIN, Math.min(PILL_MAX, room)).toFixed(3) + 'em');
   }
 
-  /* A word whose first O is drawn as a shape (see .glyph-o). Text either side stays one run so kerning holds. */
+  /* A word whose first O is drawn as a shape (see .glyph-o). Text either side stays one run so kerning holds.
+     The letters are CSS generated content (.sw-t), so the indexed heading reads only the sr-only text, not "Andrid Develper". */
   function ShapeWord({ word, delay = '0s' }) {
     const ref = useRef(null);
     const i = word.toUpperCase().indexOf('O');
@@ -905,7 +909,7 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
       const ro = new ResizeObserver(fit); ro.observe(box);
       return () => ro.disconnect();
     }, [word]);
-    return html`<span class="sw" ref=${ref} style=${{ '--d': delay }}>${word.slice(0, i)}<span class="glyph-o"></span>${word.slice(i + 1)}</span>`;
+    return html`<span class="sw" ref=${ref} style=${{ '--d': delay }}><span class="sw-t" data-t=${word.slice(0, i)}></span><span class="glyph-o"></span><span class="sw-t" data-t=${word.slice(i + 1)}></span></span>`;
   }
 
   /* A bare living svg, for buttons that style their own svg. */
@@ -926,7 +930,7 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
     const dir = useRef(liveSeed % 2 ? -1 : 1).current;
     return html`<span class=${'ex-shape t-' + tone + (className ? ' ' + className : '')} style=${{ width: size, height: size }} aria-hidden="true">
       <${ShapeSvg} seq=${s} view=${1} speed=${speed != null ? speed : dir * 16} hold=${hold || 1700} morph=${morph || 1100} />
-      ${icon && html`<span class="ex-shape-c"><span class="ex-icon is-filled" style=${{ fontSize: Math.round(size * 0.5) }} aria-hidden="true">${icon}</span></span>`}
+      ${icon && html`<span class="ex-shape-c"><span class="ex-icon is-filled" data-icon=${icon} style=${{ fontSize: Math.round(size * 0.5) }} aria-hidden="true"></span></span>`}
     </span>`;
   }
 
@@ -1057,7 +1061,7 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
       <div class="left">
         <div>
           <span class="avail"><span class="dot" aria-hidden="true"><span class="ring"><${ShapeSvg} seq=${['sunny', 'cookie12']} speed=${-24} hold=${900} morph=${700} /></span><${ShapeSvg} seq=${['cookie9', 'flower8', 'burst', 'clover4', 'cookie12']} fill="var(--positive)" speed=${48} hold=${800} morph=${650} /><span class="ex-icon">bolt</span></span><span><b>Available</b> for new projects</span></span>
-          <h2 class="talk-title">Let's<span class="l2"><span class="em">talk.</span><span class="badge" aria-hidden="true"><${MorphShape} seq=${['cookie9', 'flower8', 'burst', 'clover4', 'cookie12']} fill="var(--highlight)" speed=${18} hold=${1200} /><span class="ex-icon">waving_hand</span></span></span></h2>
+          <h2 class="talk-title">Let's<span class="l2"><span class="em">talk.</span><span class="badge" aria-hidden="true"><${MorphShape} seq=${['cookie9', 'flower8', 'burst', 'clover4', 'cookie12']} fill="var(--highlight)" speed=${18} hold=${1200} /><span class="ex-icon" data-icon="waving_hand"></span></span></span></h2>
           <p class="lede">Have an app idea or a design that needs to feel more <b>alive</b>? Tell me about it and I'll reply <b>within two days</b>.</p>
           <div class="mail">
             <span class="eyebrow">Or write directly</span>
