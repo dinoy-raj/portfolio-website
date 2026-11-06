@@ -16,10 +16,22 @@ Then open http://localhost:8000.
 
 - `index.html`: the page, its styles and its React components
 - `kit/bundle.css`, `kit/bundle.js`: Expressive Kit component styles and components (`window.Expressive`)
-- `assets/apps/`: app icons and screenshots for the My Apps section, taken from each app's own Play Store assets and resized to WebP. Each app's title, description and links live in the `APPS` list in `index.html`; its page slug, features, permissions and data note live in `DETAILS` right below it
+- `kit/vendor/`: React 18.3.1, ReactDOM 18.3.1 and htm 3.1.1, served from this site rather than CDNs
+- `assets/apps/`: app icons and screenshots for the My Apps section, taken from each app's own Play Store assets and resized to WebP. Each screenshot `name-N.webp` (540 px wide) has a `name-N-270.webp` copy for phones, picked through `srcset`. Each app's title, description and links live in the `APPS` list in `index.html`; its page slug, features, permissions and data note live in `DETAILS` right below it
 - `design/launcher-shots/`: the source for the launcher's five screenshots, drawn in HTML to match the Simple Launcher promo video (Inter, dot-matrix clock, text pinned apps, widget cards). Run `node design/launcher-shots/render.js "$PWD/design/launcher-shots"` to render them to PNG at 540×1212, then convert them to `assets/apps/launcher-1..5.webp`
 
-React 18 and htm load from CDNs; fonts and Material Symbols load from Google Fonts.
+Fonts and Material Symbols load from Google Fonts. The icon font is cut down to the icons the page uses through `icon_names` in the `<head>` of `index.html`, so a new icon must be added to that list (alphabetical order) or it will not show.
+
+## Pre-rendered HTML
+
+`#root` in `index.html` holds the home page already rendered to HTML, between the `prerender:start` and `prerender:end` markers. It paints before any script loads, and React hydrates it in place. After changing the page's content, regenerate it:
+
+```bash
+python3 -m http.server 8765 &
+node design/prerender.js http://localhost:8765/
+```
+
+It needs Playwright. If the markup goes stale React still renders the current page; it just has to redraw instead of hydrating.
 
 ## App pages
 
@@ -29,7 +41,7 @@ Clicking an app card opens its page, with its features, permissions, a privacy p
 - `/<slug>/privacypolicy`
 - `/<slug>/termsofservice`
 
-The policy and terms text is generated per app by `privacyDoc` and `termsDoc` in `index.html`, dated by `LEGAL_DATE`. These are path routes handled in the page, so the host must serve `index.html` for them: `vercel.json` has the rewrites. Plain GitHub Pages does not, so deep links there return 404.
+App pages and legal pages are drawn by React on load; only the home page is pre-rendered. The policy and terms text is generated per app by `privacyDoc` and `termsDoc` in `index.html`, dated by `LEGAL_DATE`. These are path routes handled in the page, so the host must serve `index.html` for them: `vercel.json` has the rewrites. Plain GitHub Pages does not, so deep links there return 404.
 
 ## Before publishing
 
