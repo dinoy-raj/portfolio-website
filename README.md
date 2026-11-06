@@ -17,7 +17,7 @@ Then open http://localhost:8000.
 - `index.html`: the page, its styles and its React components
 - `kit/bundle.css`, `kit/bundle.js`: Expressive Kit component styles and components (`window.Expressive`)
 - `kit/vendor/`: React 18.3.1, ReactDOM 18.3.1 and htm 3.1.1, served from this site rather than CDNs
-- `assets/apps/`: app icons and screenshots for the My Apps section, taken from each app's own Play Store assets and resized to WebP. Each screenshot `name-N.webp` (540 px wide) has a `name-N-270.webp` copy for phones, picked through `srcset`. Each app's title, description and links live in the `APPS` list in `index.html`
+- `assets/apps/`: app icons and screenshots for the My Apps section, taken from each app's own Play Store assets and resized to WebP. Each screenshot `name-N.webp` (540 px wide) has a `name-N-270.webp` copy for phones, picked through `srcset`. Each app's title, description and links live in the `APPS` list in `index.html`; its page slug, features, permissions and data note live in `DETAILS` right below it
 - `design/launcher-shots/`: the source for the launcher's five screenshots, drawn in HTML to match the Simple Launcher promo video (Inter, dot-matrix clock, text pinned apps, widget cards). Run `node design/launcher-shots/render.js "$PWD/design/launcher-shots"` to render them to PNG at 540×1212, then convert them to `assets/apps/launcher-1..5.webp`
 
 Fonts and Material Symbols load from Google Fonts. The icon font is cut down to the icons the page uses through `icon_names` in the `<head>` of `index.html`, so a new icon must be added to that list (alphabetical order) or it will not show.
@@ -33,6 +33,15 @@ node design/prerender.js http://localhost:8765/
 
 It needs Playwright. If the markup goes stale React still renders the current page; it just has to redraw instead of hydrating.
 
+## App pages
+
+Clicking an app card opens its page, with its features, permissions, a privacy policy and terms of service:
+
+- `/<slug>`, for example `/simplelauncher`
+- `/<slug>/privacypolicy`
+- `/<slug>/termsofservice`
+
+App pages and legal pages are drawn by React on load; only the home page is pre-rendered. The policy and terms text is generated per app by `privacyDoc` and `termsDoc` in `index.html`, dated by `LEGAL_DATE`. These are path routes handled in the page, so the host must serve `index.html` for them: `vercel.json` rewrites exactly these slugs (any other path gets `404.html`), so add a new app's slug there and to `sitemap.xml`. Each route sets its own title, description and canonical URL. Plain GitHub Pages does not, so deep links there return 404.
 ## SEO
 
 - `<head>` in `index.html` carries the title, description, canonical, Open Graph / Twitter tags (`assets/og.jpg`, 1200×630) and favicons (`favicon.svg`, `apple-touch-icon.png`)
@@ -46,6 +55,7 @@ It needs Playwright. If the markup goes stale React still renders the current pa
 Replace the placeholders in `index.html`:
 
 - the contact form, which needs a backend or form service to send messages
+- review each app's permissions and data note in `DETAILS`, and the policy and terms text, against what the app really does
 
 ## Content sources
 
