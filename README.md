@@ -15,12 +15,21 @@ Then open http://localhost:8000.
 ## Structure
 
 - `index.html`: the page, its styles and its React components
-- `kit/bundle.css`, `kit/bundle.js`: Expressive Kit component styles and components (`window.Expressive`)
+- `kit/bundle.js`: Expressive Kit components (`window.Expressive`). The kit's component styles are inlined in a `<style>` in the `<head>` of `index.html` so they don't block the first paint
+- `assets/fonts/`: self-hosted fonts (Google Sans Flex, Fraunces, Google Sans Code: latin and latin-ext cuts; Material Symbols Rounded: only the icons the page uses), declared by the `@font-face` rules in the `<head>` of `index.html`
 - `kit/vendor/`: React 18.3.1, ReactDOM 18.3.1 and htm 3.1.1, served from this site rather than CDNs
 - `assets/apps/`: app icons and screenshots for the My Apps section, taken from each app's own Play Store assets and resized to WebP. Each screenshot `name-N.webp` (540 px wide) has a `name-N-270.webp` copy for phones, picked through `srcset`. Each app's title, description and links live in the `APPS` list in `index.html`; its page slug, features, permissions and data note live in `DETAILS` right below it
 - `design/launcher-shots/`: the source for the launcher's five screenshots, drawn in HTML to match the Simple Launcher promo video (Inter, dot-matrix clock, text pinned apps, widget cards). Run `node design/launcher-shots/render.js "$PWD/design/launcher-shots"` to render them to PNG at 540×1212, then convert them to `assets/apps/launcher-1..5.webp`
 
-Fonts and Material Symbols load from Google Fonts. The icon font is cut down to the icons the page uses through `icon_names` in the `<head>` of `index.html`, so a new icon must be added to that list (alphabetical order) or it will not show.
+Fonts are served from this site, not from Google Fonts, so no third-party request blocks the first paint. The icon font is cut down to the icons the page uses, so a new icon will not show until the font is regenerated: add the icon to the alphabetical `icon_names` list in this URL, fetch the CSS with a desktop Chrome user agent, save the `woff2` it points to in `assets/fonts/` under a new name (fonts are cached for a year), and point the preload and `@font-face` in `index.html` at it:
+
+```
+https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0..1,0&icon_names=air,android,apps,arrow_back,arrow_downward,arrow_forward,arrow_outward,auto_awesome,bar_chart,battery_charging_full,block,bolt,calendar_month,call,category,check,close,code,content_copy,contrast,counter_1,crop_portrait,date_range,do_not_disturb_on,donut_small,edit_note,event,event_note,folder,format_list_bulleted,front_hand,gavel,grid_view,hourglass_bottom,inbox,insights,interests,keyboard_return,link,local_fire_department,lock,memory,mic,more_horiz,music_note,notifications,notifications_active,notifications_paused,open_in_full,palette,photo_camera,rule,schedule,self_improvement,share,shield_lock,shop,smart_display,smart_toy,snooze,speed,stacks,sticky_note_2,stream,style,support_agent,tag,task_alt,text_fields,timer,touch_app,trending_up,tune,video_call,view_day,waving_hand,widgets,wifi_off,work&display=swap
+```
+
+## Caching
+
+`vercel.json` caches `/kit/` and `/assets/fonts/` for a year as immutable. The script tags in `index.html` carry a `?v=` query (the React/htm version, or the first 8 hex characters of `sha256sum kit/bundle.js`); change it whenever you change one of those files, or visitors keep the old copy.
 
 ## Pre-rendered HTML
 
