@@ -41,7 +41,7 @@
     }
   ],
   "rewrites": [
-    { "source": "/:app(simplelauncher|nanopromptground|focus|habittracker|reelblocker|appblocker|mindfulpause|notificationblocker|countdown|meetings|timelinecalendar|linkmanager|dynamicisland)", "destination": "/index.html" },
-    { "source": "/:app(simplelauncher|nanopromptground|focus|habittracker|reelblocker|appblocker|mindfulpause|notificationblocker|countdown|meetings|timelinecalendar|linkmanager|dynamicisland)/:page(privacypolicy|termsofservice)", "destination": "/index.html" }
+    { "source": "/:app(simplelauncher|nanopromptground|focus|habittracker|reelblocker|appblocker|mindfulpause|notificationblocker|countdown|meetings|timelinecalendar|linkmanager|dynamicisland)", "destination": "/" },
+    { "source": "/:app(simplelauncher|nanopromptground|focus|habittracker|reelblocker|appblocker|mindfulpause|notificationblocker|countdown|meetings|timelinecalendar|linkmanager|dynamicisland)/:page(privacypolicy|termsofservice)", "destination": "/" }
   ]
 }
