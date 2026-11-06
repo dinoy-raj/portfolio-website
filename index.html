@@ -86,8 +86,15 @@ section[id]{scroll-margin-top:96px}
 .nav-panel a.lnk:hover .go svg,.nav-panel a.lnk:focus-visible .go svg{transform:scale(1) rotate(45deg);opacity:1}
 .nav-panel .num{font-family:var(--font-mono);font-size:11px;color:var(--island-muted);margin-right:12px;letter-spacing:.5px}
 .nav-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px;padding:12px 8px 2px 10px;border-top:1px solid var(--island-line)}
-.nav-foot .status{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--island-muted)}
-.nav-foot .status i{width:8px;height:8px;border-radius:50%;background:#7fd9a3;box-shadow:0 0 0 4px rgba(127,217,163,.18)}
+.nav-foot .status{--live:#7fd9a3;display:inline-flex;align-items:center;gap:9px;height:40px;padding:0 14px 0 5px;border-radius:999px;background:rgba(127,217,163,.1);box-shadow:inset 0 0 0 1px rgba(127,217,163,.22);color:var(--island-ink);font-size:13.5px;letter-spacing:-.01em;white-space:nowrap}
+.nav-foot .status b{font-weight:700;color:var(--live)}
+.nav-foot .status .em{color:var(--island-ink);font-size:15px}
+.nav-foot .status .dot{position:relative;flex:none;width:30px;height:30px;display:grid;place-items:center}
+.nav-foot .status .dot svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.nav-foot .status .ring{position:absolute;inset:0;animation:avail-ping 2.2s var(--ease) infinite}
+.nav-foot .status .ring path{fill:var(--live);opacity:.35}
+.nav-foot .status .ex-icon{position:relative;font-size:16px;color:var(--island);font-variation-settings:'FILL' 1}
+@media (prefers-reduced-motion: reduce){.nav-foot .status .ring{animation:none;opacity:0}}
 .nav-foot a{background:var(--island-ink);color:var(--island);text-decoration:none;font-weight:600;font-size:14px;height:40px;padding:0 18px;display:inline-flex;align-items:center;gap:6px;border-radius:999px;transition:border-radius 220ms var(--ease)}
 .nav-foot a:active{border-radius:12px}
 .nav-foot a:focus-visible{outline:2px solid var(--island-ink);outline-offset:3px}
@@ -808,7 +815,7 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
             </a>`)}
           </nav>
           <div class="nav-foot rv" style=${{ '--i': links.length }}>
-            <span class="status"><i aria-hidden="true"></i>Available for work</span>
+            <span class="status"><span class="dot" aria-hidden="true"><span class="ring"><${ShapeSvg} seq=${['sunny', 'cookie12']} speed=${-24} hold=${900} morph=${700} /></span><${ShapeSvg} seq=${['cookie9', 'flower8', 'burst', 'clover4', 'cookie12']} fill="var(--live)" speed=${48} hold=${800} morph=${650} /><span class="ex-icon">bolt</span></span><span><b>Available</b> for <span class="em">work</span></span></span>
             <a href="#contact" onClick=${close}>Say hello<span class="ex-icon" style=${{ fontSize: '18px' }} aria-hidden="true">waving_hand</span></a>
           </div>
         </div>
