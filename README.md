@@ -21,6 +21,14 @@ Then open http://localhost:8000.
 
 React 18 and htm load from CDNs; fonts and Material Symbols load from Google Fonts.
 
+## SEO
+
+- `<head>` in `index.html` carries the title, description, canonical, Open Graph/Twitter tags and JSON-LD (`ProfilePage`, `WebSite`, `Person` with `sameAs` links). Update `sameAs` when `LINKS` changes.
+- `#root` holds a static copy of the page for crawlers that don't run JavaScript. React replaces it on load. When you change apps, talks, events or blogs, update that copy too.
+- `robots.txt` and `sitemap.xml` sit at the root. Bump `<lastmod>` when content changes.
+- `assets/og.png` (social card) and the PNG icons are rendered from `design/og/og.html`: `node design/og/render.js "$PWD"`
+- `vercel.json` sets security headers, asset caching and `noindex` on `/design/*`.
+
 ## Before publishing
 
 Replace the placeholders in `index.html`:

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<!-- Source for assets/og.png (1200x630 social card) and the PNG icons. Render with: node design/og/render.js "$PWD" -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500&family=Google+Sans+Code:wght@500&family=Google+Sans+Flex:wght@700&display=block">
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:"Google Sans Flex",system-ui,sans-serif;color:#1f1a16}
+.card{width:1200px;height:630px;background:#fbf6ee;position:relative;overflow:hidden;padding:72px 80px;display:flex;flex-direction:column;justify-content:space-between}
+.eyebrow{font-family:"Google Sans Code",monospace;font-size:22px;letter-spacing:2.4px;text-transform:uppercase;color:#54463d}
+h1{margin:0;font-size:132px;line-height:.95;letter-spacing:-.05em;font-weight:700;max-width:8.5ch}
+.em{font-family:Fraunces,Georgia,serif;font-style:italic;font-weight:500;color:#a8330f;letter-spacing:-.01em}
+.foot{display:flex;gap:16px;align-items:center;font-size:28px;font-weight:700}
+.pill{background:#1f1a16;color:#fbf6ee;border-radius:999px;padding:12px 26px}
+.chip{background:#ebe2d6;border-radius:999px;padding:12px 24px;font-weight:600;font-size:24px}
+.portrait{position:absolute;right:80px;top:96px;width:360px;height:410px;border-radius:48px;overflow:hidden;box-shadow:0 8px 24px -8px rgba(20,12,8,.35)}
+.portrait img{width:100%;height:100%;object-fit:cover}
+.blob{position:absolute;border-radius:50%}
+.b1{width:200px;height:200px;background:#fc9500;right:390px;top:-60px}
+.b2{width:120px;height:120px;background:#ffdbcf;right:40px;bottom:40px}
+.icon{width:512px;height:512px;background:#a8330f;color:#fbf6ee;display:grid;place-items:center;border-radius:0}
+.icon span{font-family:Fraunces,Georgia,serif;font-style:italic;font-weight:500;font-size:400px;line-height:1;margin-top:-40px}
+body.i .card{display:none}body:not(.i) .icon{display:none}
+</style></head>
+<body>
+<div class="card">
+  <div class="blob b1"></div><div class="blob b2"></div>
+  <div class="eyebrow">dinoyraj.com</div>
+  <h1>Android <span class="em">Developer</span></h1>
+  <div class="foot"><span class="pill">Dinoy Raj</span><span class="chip">Kotlin</span><span class="chip">Jetpack Compose</span><span class="chip">Material 3</span></div>
+  <div class="portrait"><img src="../../assets/dinoy.webp" alt=""></div>
+</div>
+<div class="icon"><span>d</span></div>
+<script>if (location.search === '?icon') document.body.classList.add('i');</script>
+</body></html>
