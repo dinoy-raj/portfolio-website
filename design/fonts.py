@@ -23,7 +23,7 @@ ICONS = "air,android,apps,arrow_back,arrow_downward,arrow_forward,arrow_outward,
 TEXT_CSS = ("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600"
             "&family=Google+Sans+Code:wght@400;500&family=Google+Sans+Flex:wdth,wght@62..100,400..700&display=swap")
 ICON_CSS = ("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0..1,0"
-            "&icon_names=" + ",".join(sorted(ICONS)) + "&display=block")
+            "&icon_names=" + ",".join(sorted(ICONS)) + "&display=swap")  # icons hide while loading (html.fl in index.html)
 
 # Axis ranges the page uses. Google serves the full design space (Flex: width 25–151, weight 1–1000).
 AXES = {
