@@ -15,12 +15,17 @@ Then open http://localhost:8000.
 ## Structure
 
 - `index.html`: the page, its styles and its React components
-- `kit/bundle.css`, `kit/bundle.js`: Expressive Kit component styles and components (`window.Expressive`)
+- `kit/bundle.css`, `kit/bundle.js`: Expressive Kit component styles and components (`window.Expressive`). `bundle.css` is inlined in a `<style>` in the `<head>` of `index.html` so no stylesheet blocks the first paint; after editing `kit/bundle.css`, paste it into that block too
 - `kit/vendor/`: React 18.3.1, ReactDOM 18.3.1 and htm 3.1.1, served from this site rather than CDNs
 - `assets/apps/`: app icons and screenshots for the My Apps section, taken from each app's own Play Store assets and resized to WebP. Each screenshot `name-N.webp` (540 px wide) has a `name-N-270.webp` copy for phones, picked through `srcset`. Each app's title, description and links live in the `APPS` list in `index.html`; its page slug, features, permissions and data note live in `DETAILS` right below it
 - `design/launcher-shots/`: the source for the launcher's five screenshots, drawn in HTML to match the Simple Launcher promo video (Inter, dot-matrix clock, text pinned apps, widget cards). Run `node design/launcher-shots/render.js "$PWD/design/launcher-shots"` to render them to PNG at 540×1212, then convert them to `assets/apps/launcher-1..5.webp`
 
-Fonts and Material Symbols load from Google Fonts. The icon font is cut down to the icons the page uses through `icon_names` in the `<head>` of `index.html`, so a new icon must be added to that list (alphabetical order) or it will not show.
+Fonts are self-hosted in `assets/fonts/` (no requests to Google at page load). `design/fonts.py` downloads Fraunces, Google Sans Code, Google Sans Flex and Material Symbols Rounded from Google Fonts, trims each variable font to the axis ranges the page uses and to Latin characters, and rewrites the `fonts:start` / `fonts:end` block in `index.html` (the `@font-face` rules and a preload for the hero font). File names carry a content hash, so `vercel.json` caches them for a year. The icon font holds only the icons the page uses: to add an icon, add its name to `ICONS` in `design/fonts.py` (alphabetical order) and run it, or the icon will not show:
+
+```bash
+pip install fonttools brotli
+python3 design/fonts.py
+```
 
 ## Pre-rendered HTML
 
