@@ -697,6 +697,8 @@ section[id]{scroll-margin-top:96px}
 .legal-app{display:inline-flex;align-items:center;gap:var(--space-3);font-weight:600;font-size:16px}
 .legal-app img{width:40px;height:40px;border-radius:28%;box-shadow:var(--elevation-1)}
 .legal-head h1{font-size:clamp(44px,7vw,80px);line-height:1;font-weight:700;letter-spacing:-.045em;margin:var(--space-5) 0 var(--space-4)}
+.legal-intro{max-width:760px;margin-top:var(--space-12);font-size:16px;line-height:26px;color:var(--on-surface-variant);text-wrap:pretty}
+.legal-intro+.legal-body{margin-top:var(--space-6)}
 .legal-body{margin-top:var(--space-12);display:flex;flex-direction:column}
 .legal-body section{padding:var(--space-6) 0;border-top:1px solid var(--outline-variant)}
 .legal-body h2{display:flex;align-items:baseline;gap:var(--space-3);font-size:22px;line-height:28px;font-weight:600;letter-spacing:-.015em}
@@ -1699,7 +1701,37 @@ window.__boot = function () {
     ];
   }
 
+  /* App-specific terms that replace the shared template. intro sits above the numbered sections. */
+  const TERMS = {
+    nano: {
+      intro: `These Terms of Service (“Terms”) govern your use of the Nano Prompt Ground Android app (the “App”), published on Google Play by ${DEV} (“we”, “us”). By downloading, installing or using the App you agree to these Terms. If you do not agree, do not use the App.`,
+      sections: [
+        ['What the App does', 'The App lets you experiment with Gemini Nano, Google\'s on-device generative AI model, through the ML Kit GenAI Prompt API and Android AICore. Prompts are processed locally on your device. The App does not send your prompts or responses to us or to any server operated by us.'],
+        ['Eligibility and licence', 'You must be old enough to accept these Terms where you live, or have permission from a parent or guardian. We grant you a personal, non-exclusive, non-transferable, revocable licence to use the App on devices you own or control, in line with the Google Play Terms of Service. The App\'s source code is available under the Apache License 2.0, which governs your rights to that code.'],
+        ['Price', 'The App is free. It has no advertising, in-app purchases or subscriptions.'],
+        ['Device requirements and third-party services', 'Gemini Nano is only available on supported devices running Android 13 or later with Android AICore. We do not guarantee the App will work on any particular device. The model is provided by Google and is downloaded and updated through AICore and Google Play services, under Google\'s own terms. These include the Google Terms of Service and the Generative AI Prohibited Use Policy. Nano Prompt Ground is an independent project and is not affiliated with or endorsed by Google. “Gemini”, “Android” and “Google Play” are trademarks of Google LLC.'],
+        ['AI-generated content', 'Responses are generated automatically and may be inaccurate, incomplete, biased or offensive. They do not reflect our views. Do not rely on them as professional advice of any kind, including medical, legal or financial advice. You are responsible for the prompts you enter and for how you use any response.'],
+        ['Acceptable use', 'You agree not to use the App to:', ['break any law or infringe anyone\'s rights', 'create unlawful, harassing, hateful or exploitative content', 'generate spam, malware or fraudulent content', 'violate Google\'s Generative AI Prohibited Use Policy', 'interfere with the App\'s normal operation']],
+        ['Your content and privacy', 'You keep all rights to the text you enter. Because processing happens on your device, we do not receive, store or have access to your prompts or responses. The App requires no account and contains no analytics or advertising SDKs. You can clear the model\'s cache of recent prompts from within the App at any time.', ['Your use of the app is also covered by its privacy policy.']],
+        ['Intellectual property', 'The App\'s name, icon and store materials belong to the developer, apart from the third-party trademarks noted above. Open-source components are used under their respective licences.'],
+        ['Disclaimer of warranties', 'To the fullest extent permitted by law, the App is provided “as is” and “as available”, without warranties of any kind, express or implied. We do not warrant that the App will be uninterrupted or error-free, or that the model will be available on your device.'],
+        ['Limitation of liability', 'To the fullest extent permitted by law, we are not liable for any indirect, incidental, special or consequential damages, or for any loss of data or profits, arising from your use of the App or of AI-generated content. Nothing in these Terms limits liability that cannot be limited by law. Nothing in them affects your mandatory consumer rights under the laws of your country of residence, including in the EEA and UK.'],
+        ['Changes', 'We may update, change or discontinue the App or these Terms at any time. Updated Terms will be posted at this URL with a new effective date. If you continue to use the App after an update, you accept the updated Terms.'],
+        ['Termination', 'You may stop using the App at any time by uninstalling it. Your licence ends automatically if you breach these Terms. Sections 5, 9 and 10 survive termination.'],
+        ['Governing law', 'These Terms are governed by the laws of the developer\'s country of establishment. This does not remove any mandatory protections under the laws of your country of residence.'],
+        ['Contact', 'Questions about these Terms can be raised at https://github.com/dinoy-raj/gemini-nano-playground/issues or sent to the developer email on the App\'s Google Play listing.'],
+      ],
+    },
+  };
+
+  // Turns bare https:// URLs in a paragraph into links; trailing punctuation stays outside the link.
+  function linkify(text) {
+    return text.split(/(https:\/\/[^\s]+[^\s.,;:)])/).map((part, i) => i % 2
+      ? html`<a key=${i} href=${part} target="_blank" rel="noopener">${part}</a>` : part);
+  }
+
   function termsDoc(a) {
+    if (TERMS[a.id]) return TERMS[a.id].sections;
     return [
       ['Agreement', `These terms govern your use of ${a.name} (“the app”), developed by ${DEV} (“I”, “me”). By downloading or using the app you agree to them. If you do not agree, please do not use the app.`],
       ['Licence', `I grant you a personal, non-exclusive, non-transferable and revocable licence to use the app on Android devices you own or control, for personal, non-commercial purposes, in line with these terms and the Google Play Terms of Service.`],
@@ -1727,12 +1759,13 @@ window.__boot = function () {
         <h1>${privacy ? 'Privacy policy' : 'Terms of service'}</h1>
         <p class="eyebrow muted">Effective ${LEGAL_DATE}</p>
       </header>
+      ${!privacy && TERMS[a.id] ? html`<p class="legal-intro">${TERMS[a.id].intro}</p>` : null}
       <article class="legal-body">
         ${sections.map(([h, ...blocks], i) => html`<section key=${h}>
           <h2><span class="n" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>${h}</h2>
           ${blocks.map((b, j) => Array.isArray(b)
             ? html`<ul key=${j}>${b.map(li => html`<li key=${li}>${li === 'Your use of the app is also covered by its privacy policy.' ? html`Your use of the app is also covered by its <a href=${'/' + a.slug + '/privacypolicy'}>privacy policy</a>.` : li}</li>`)}</ul>`
-            : html`<p key=${j}>${b}</p>`)}
+            : html`<p key=${j}>${linkify(b)}</p>`)}
         </section>`)}
       </article>
       <div class="legal-next">
