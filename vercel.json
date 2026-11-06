@@ -6,45 +6,38 @@
   "outputDirectory": ".",
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/:path*", "has": [{ "type": "host", "value": "www.dinoyraj.com" }], "destination": "https://dinoyraj.com/:path*", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "SAMEORIGIN"
-        },
-        {
-          "key": "Content-Security-Policy",
-          "value": "frame-ancestors 'self'"
-        }
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" }
       ]
     },
     {
       "source": "/assets/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=604800, stale-while-revalidate=86400"
-        }
-      ]
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=2592000, stale-while-revalidate=86400" }]
+    },
+    {
+      "source": "/kit/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }]
+    },
+    {
+      "source": "/(favicon.svg|favicon.ico|apple-touch-icon.png)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=2592000" }]
     },
     {
       "source": "/design/(.*)",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex"
-        }
-      ]
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
     }
+  ],
+  "rewrites": [
+    { "source": "/:app(simplelauncher|nanopromptground|focus|habittracker|reelblocker|appblocker|mindfulpause|notificationblocker|countdown|meetings|timelinecalendar|linkmanager|dynamicisland)", "destination": "/index.html" },
+    { "source": "/:app(simplelauncher|nanopromptground|focus|habittracker|reelblocker|appblocker|mindfulpause|notificationblocker|countdown|meetings|timelinecalendar|linkmanager|dynamicisland)/:page(privacypolicy|termsofservice)", "destination": "/index.html" }
   ]
 }
