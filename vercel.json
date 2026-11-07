@@ -7,6 +7,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
+    { "source": "/", "has": [{ "type": "host", "value": "www.dinoyraj.com" }], "destination": "https://dinoyraj.com/", "permanent": true },
     { "source": "/:path*", "has": [{ "type": "host", "value": "www.dinoyraj.com" }], "destination": "https://dinoyraj.com/:path*", "permanent": true }
   ],
   "headers": [
