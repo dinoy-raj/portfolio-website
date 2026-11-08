@@ -2058,9 +2058,10 @@ window.__boot = function () {
 
   const app = html`<${App} />`, root = document.getElementById('root');
   if (window.__prerender) return window.__prerender(app); // design/prerender.js renders the page to HTML through this hook instead of mounting it
-  // The pre-rendered markup is the home page: hydrate it there, and draw any other route (an app page, its legal pages, all apps) fresh.
+  // Every page ships pre-rendered markup for its own route (index.html the home page, /<slug>/index.html and its legal pages theirs; see design/prerender.js).
+  // Hydrate it when it matches the route, and draw anything else (all apps, a stale or missing page) fresh.
   // Hydrate in a transition so React splits the work into short tasks instead of one long one that blocks input.
-  if (root.firstElementChild && parseRoute().page === 'home') React.startTransition(function () { ReactDOM.hydrateRoot(root, app); });
+  if (root.firstElementChild && (root.dataset.route || 'home') === routeKey(parseRoute())) React.startTransition(function () { ReactDOM.hydrateRoot(root, app); });
   else { root.textContent = ''; ReactDOM.createRoot(root).render(app); }
 };
 </script>

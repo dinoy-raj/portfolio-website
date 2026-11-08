@@ -40,9 +40,5 @@
       "source": "/design/(.*)",
       "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
     }
-  ],
-  "rewrites": [
-    { "source": "/:app(simplelauncher|nanopromptground|focus|habittracker|reelblocker|appblocker|mindfulpause|notificationblocker|countdown|meetings|timelinecalendar|linkmanager|dynamicisland)", "destination": "/" },
-    { "source": "/:app(simplelauncher|nanopromptground|focus|habittracker|reelblocker|appblocker|mindfulpause|notificationblocker|countdown|meetings|timelinecalendar|linkmanager|dynamicisland)/:page(privacypolicy|termsofservice)", "destination": "/" }
   ]
 }
