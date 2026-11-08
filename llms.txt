@@ -2,7 +2,7 @@
 
 > Dinoy Raj is an Android developer and conference speaker. He designs and builds focused Android apps in Kotlin and Jetpack Compose on top of Expressive Kit, his own Material 3 Expressive design system, and speaks about on-device AI, custom launchers and agentic Android.
 
-Site: https://dinoyraj.com/ (a single page with sections for services, apps, talks, blogs and contact).
+Site: https://dinoyraj.com/ (home page with services, apps, talks, blogs and contact). Talks and events: https://dinoyraj.com/talks. Each app has its own page, e.g. https://dinoyraj.com/simplelauncher and https://dinoyraj.com/nanopromptground, with its privacy policy and terms at /privacypolicy and /termsofservice under it.
 Contact: dinoykraj@gmail.com
 
 ## Apps
