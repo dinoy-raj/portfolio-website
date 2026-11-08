@@ -814,7 +814,7 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
 
 /* Where I'm speaking: conference tickets with notched edges and a perforated stub. Upcoming events in colour, past ones in sand. */
 .events{margin-top:var(--space-12)}
-.events .events-title{font-size:15px;font-weight:600;margin-bottom:var(--space-4)}
+.events h3.events-title{font-size:15px;font-weight:600;margin-bottom:var(--space-4)}
 .tix{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-3) var(--space-4)}
 @media (max-width:1000px){.tix{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:620px){.tix{grid-template-columns:minmax(0,1fr)}}
@@ -1823,7 +1823,7 @@ window.__boot = function () {
       <h2 class="sr-only">Talk topics</h2>
       <${TalksStage} />
       <section class="events" aria-labelledby="tp-events">
-        <h2 class="events-title" id="tp-events">Where I'm speaking</h2>
+        <h3 class="events-title" id="tp-events">Where I'm speaking</h3>
         <div class="tix">${EVENTS.map(ev => html`<${EventTicket} key=${ev.name + ev.when} ev=${ev} />`)}</div>
       </section>
       <section class="ap-legal" aria-label="Related apps and booking">
@@ -2098,7 +2098,7 @@ window.__boot = function () {
         <section class="how wrap" id="talks">
           <div class="how-head">
             <h2 class="sec-title">Talks</h2>
-            <a class="link-arrow" href="/talks">All talks and events<span class="ex-icon">arrow_forward</span></a>
+            <a class="link-arrow" href=${LINKS.sessionize} target="_blank" rel="noopener">All talks on Sessionize<span class="ex-icon">arrow_outward</span></a>
           </div>
           <${TalksStage} />
           <div class="events">
