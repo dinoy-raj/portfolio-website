@@ -1086,6 +1086,7 @@ window.__boot = function () {
     { id: 'launcher', name: 'Dino Minimalist Launcher', store: 'Minimalist launcher for Android', featured: true, status: 'live', bg: '#efe6d8',
       desc: 'A minimalist Android launcher designed to help you reduce screen time and boost focus. A clean, text-based home screen with only the apps you pin, custom themes and palettes, fonts, layouts and widgets, and no ads. Several of the apps below began as tools inside it.',
       tags: ['Launcher', 'Material You', 'Custom themes', 'Widgets'],
+      seo: 'A minimalist, text-based Android launcher by Dinoy Raj that helps you reduce screen time and boost focus: only the apps you pin, custom themes, fonts, layouts and widgets, and no ads.',
       shots: ['Light theme with periodic table pinned apps', 'Dark home with the dot-matrix clock and only the pinned apps', 'Widgets: weather, battery, day progress, screen time and now playing', 'Orange theme in Urbanist with the day summary', 'Focus tools on home: to-do, focus timer, habits and meetings'],
       links: [['Google Play', PLAY('com.dino.simple')], ['Website', 'https://minimalistlauncher.com']] },
     { id: 'nano', name: 'Nano Prompt Ground', store: 'Offline AI playground', status: 'live', bg: '#dcefe5',
@@ -2193,7 +2194,7 @@ window.__boot = function () {
     if (r.page === 'talks') return { path: '/talks', title: 'Talks by Dinoy Raj | On-Device AI, Launchers & Agentic Android',
       desc: 'Conference talks by Android developer Dinoy Raj on Gemini Nano and on-device AI, offline RAG with MediaPipe, App Functions, custom Android launchers and Kotlin Multiplatform, at droidcon, DevFest and FOSSASIA.' };
     if (r.page === 'talk') return { path: '/talks/' + t.slug, title: t.text + ' | Dinoy Raj', desc: t.seo, type: 'article' };
-    if (r.page === 'app') return { path: '/' + a.slug, title: a.name + ': ' + a.store + (/android/i.test(a.store) ? '' : ' for Android') + ' | Dinoy Raj', desc: a.desc };
+    if (r.page === 'app') return { path: '/' + a.slug, title: a.name + ': ' + a.store + (/android/i.test(a.store) ? '' : ' for Android') + ' | Dinoy Raj', desc: a.seo || a.desc }; // seo: a search-result version of desc, where desc leans on the page around it
     if (r.page === 'privacy') return { path: '/' + a.slug + '/privacypolicy', title: 'Privacy policy · ' + a.name, index: false,
       desc: 'Privacy policy for ' + a.name + ', an Android app by Dinoy Raj: what it collects, what it doesn\'t, and the permissions it uses.' };
     if (r.page === 'terms') return { path: '/' + a.slug + '/termsofservice', title: 'Terms of service · ' + a.name, index: false,
@@ -2218,7 +2219,7 @@ window.__boot = function () {
   const APP_CATEGORY = { nano: 'DeveloperApplication', habits: 'HealthApplication', mindful: 'HealthApplication', focus: 'ProductivityApplication', meetings: 'BusinessApplication', timeline: 'BusinessApplication', countdown: 'LifestyleApplication', links: 'ProductivityApplication' };
   const crumbs = list => ({ '@type': 'BreadcrumbList', itemListElement: [['Dinoy Raj', '/'], ...list].map(([name, path], i) => ({ '@type': 'ListItem', position: i + 1, name, item: SITE + path })) });
   const appNode = a => ({
-    '@type': 'MobileApplication', '@id': SITE + '/' + a.slug + '#app', name: a.name, url: SITE + '/' + a.slug, description: a.desc,
+    '@type': 'MobileApplication', '@id': SITE + '/' + a.slug + '#app', name: a.name, url: SITE + '/' + a.slug, description: a.seo || a.desc,
     operatingSystem: 'Android', applicationCategory: APP_CATEGORY[a.id] || 'UtilitiesApplication', image: SITE + '/assets/apps/' + a.id + '-icon.webp',
     screenshot: a.shots.map((_, i) => SITE + appImg(a, i + 1)), author: { '@id': SITE + '/#person' }, keywords: a.tags.join(', '),
     ...(a.links && a.links.find(([l]) => l === 'Google Play') ? { installUrl: a.links.find(([l]) => l === 'Google Play')[1] } : {}),
