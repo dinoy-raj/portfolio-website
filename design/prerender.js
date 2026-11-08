@@ -1,27 +1,109 @@
-// Renders the home page to static HTML inside #root in index.html, so it paints before any script loads.
-// React hydrates that markup in place instead of redrawing it. Re-run after changing the page's content:
-//   python3 -m http.server 8765 &   then   node design/prerender.js http://localhost:8765/
-// Needs Playwright (pre-installed in Claude Code cloud sessions; elsewhere: npm i -g playwright).
+// Renders every page of the site to static HTML, so each address paints before any script loads and search engines get the
+// full page with its own title, description, canonical URL and structured data. The routes, heads and JSON-LD come from the
+// app script in index.html (ROUTES, routeHead, routeJsonLd), exposed as window.__site.
+// index.html is both the template and the home page; every other route is written next to it as <path>.html, which Vercel
+// serves at <path> (cleanUrls). React hydrates the markup in place: #root's data-route names the route it was rendered for.
+// Also rewrites sitemap.xml. Re-run after changing any page's content:
+//   node design/prerender.js
+// Needs Playwright (pre-installed in Claude Code cloud sessions; elsewhere: npm i -g playwright). Files are served straight from
+// disk through request interception, so no local server is needed; react-dom/server comes from cdnjs.
 const { chromium } = require('playwright');
 const fs = require('fs'), path = require('path');
-const START = '<!-- prerender:start -->', END = '<!-- prerender:end -->';
+const ROOT = path.join(__dirname, '..');
+const ORIGIN = 'http://site.test', SITE = 'https://dinoyraj.com';
 const SERVER = 'https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom-server-legacy.browser.production.min.js';
+const TYPES = { '.js': 'text/javascript', '.css': 'text/css', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.ico': 'image/x-icon', '.woff2': 'font/woff2', '.svg': 'image/svg+xml' };
+const OG_IMAGE = SITE + '/assets/og.jpg';
+
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+function headHtml(h) {
+  const url = SITE + h.path, social = h.social || h.desc, type = h.type || 'website';
+  return [
+    `<title>${esc(h.title)}</title>`,
+    `<meta name="description" content="${esc(h.desc)}">`,
+    `<meta name="author" content="Dinoy Raj">`,
+    `<meta name="robots" content="${h.index === false ? 'noindex, follow' : 'index, follow, max-image-preview:large'}">`,
+    `<link rel="canonical" href="${url}">`,
+    `<meta property="og:type" content="${type}">`,
+    `<meta property="og:site_name" content="Dinoy Raj">`,
+    `<meta property="og:title" content="${esc(h.title)}">`,
+    `<meta property="og:description" content="${esc(social)}">`,
+    `<meta property="og:url" content="${url}">`,
+    `<meta property="og:locale" content="en_US">`,
+    `<meta property="og:image" content="${OG_IMAGE}">`,
+    `<meta property="og:image:secure_url" content="${OG_IMAGE}">`,
+    `<meta property="og:image:type" content="image/jpeg">`,
+    `<meta property="og:image:width" content="1200">`,
+    `<meta property="og:image:height" content="630">`,
+    `<meta property="og:image:alt" content="Dinoy Raj, Android Developer and Speaker">`,
+    ...(type === 'profile' ? [`<meta property="profile:first_name" content="Dinoy">`, `<meta property="profile:last_name" content="Raj">`, `<meta property="profile:username" content="dinoyraj">`] : []),
+    ...(type === 'article' ? [`<meta property="article:author" content="${SITE}/about">`] : []),
+    `<meta name="twitter:card" content="summary_large_image">`,
+    `<meta name="twitter:site" content="@dinoy_raj">`,
+    `<meta name="twitter:creator" content="@dinoy_raj">`,
+    `<meta name="twitter:title" content="${esc(h.title)}">`,
+    `<meta name="twitter:description" content="${esc(social)}">`,
+    `<meta name="twitter:image" content="${OG_IMAGE}">`,
+    `<meta name="twitter:image:alt" content="Dinoy Raj, Android Developer and Speaker">`,
+    // The hero portrait is the home page's LCP element; other pages don't show it.
+    ...(h.preload ? [`<link rel="preload" as="image" href="/assets/dinoy.webp" imagesrcset="/assets/dinoy-420.webp 420w, /assets/dinoy.webp 600w" imagesizes="210px" type="image/webp" fetchpriority="high">`] : []),
+  ].join('\n');
+}
+
+function between(src, start, end, body) {
+  const a = src.indexOf(start), z = src.indexOf(end, a);
+  if (a < 0 || z < 0) throw new Error('markers not found: ' + start);
+  return src.slice(0, a + start.length) + body + src.slice(z);
+}
+
 (async () => {
-  const url = (process.argv[2] || 'http://localhost:8765/').replace(/#.*$/, '');
-  const file = path.join(__dirname, '..', 'index.html');
+  const file = path.join(ROOT, 'index.html');
+  const template = fs.readFileSync(file, 'utf8');
   const b = await chromium.launch();
   const p = await b.newPage();
+  await p.route(ORIGIN + '/**', route => {
+    const req = route.request(), u = new URL(req.url());
+    if (req.resourceType() === 'document') return route.fulfill({ status: 200, contentType: 'text/html', body: template });
+    const f = path.join(ROOT, decodeURIComponent(u.pathname));
+    if (!f.startsWith(ROOT) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) return route.fulfill({ status: 404, body: '' });
+    route.fulfill({ status: 200, contentType: TYPES[path.extname(f)] || 'application/octet-stream', body: fs.readFileSync(f) });
+  });
   // The page hands its root element to this hook instead of mounting it, so the HTML is React's first render, untouched by effects.
   await p.addInitScript(() => { window.__prerender = el => { window.__app = el; }; });
-  await p.goto(url, { waitUntil: 'networkidle' });
-  await p.waitForFunction(() => window.__app);
-  await p.addScriptTag({ url: SERVER });
-  const markup = await p.evaluate(() => ReactDOMServer.renderToString(window.__app));
+
+  const render = async route => {
+    await p.goto(ORIGIN + route, { waitUntil: 'load' });
+    await p.waitForFunction(() => window.__app && window.__site);
+    await p.addScriptTag({ url: SERVER });
+    return p.evaluate(() => ({ markup: ReactDOMServer.renderToString(window.__app), key: __site.key(), head: __site.head(), jsonld: __site.jsonld(), routes: __site.routes }));
+  };
+
+  const home = await render('/');
+  const pages = [];
+  for (const route of home.routes) {
+    const r = route === '/' ? home : await render(route);
+    let out = between(template, '<!-- seo:head: written per page by design/prerender.js from routeHead() in the app script -->\n', '\n<!-- /seo:head -->', headHtml(r.head));
+    out = between(out, '<!-- seo:jsonld -->\n', '<!-- /seo:jsonld -->', r.jsonld ? '<script type="application/ld+json">\n' + JSON.stringify(r.jsonld, null, 1).replace(/</g, '\\u003c') + '\n</script>\n' : '');
+    // No whitespace inside #root: hydration matches child nodes one for one.
+    out = between(out, '<!-- prerender:start -->', '<!-- prerender:end -->', `<div id="root" data-route="${esc(r.key)}">${r.markup}</div>`);
+    const dest = route === '/' ? file : path.join(ROOT, route.slice(1) + '.html');
+    fs.mkdirSync(path.dirname(dest), { recursive: true });
+    fs.writeFileSync(dest, out);
+    pages.push({ route, head: r.head });
+    console.log('Pre-rendered ' + route + ' (' + r.markup.length + ' characters) -> ' + path.relative(ROOT, dest));
+  }
   await b.close();
-  const src = fs.readFileSync(file, 'utf8');
-  const a = src.indexOf(START), z = src.indexOf(END);
-  if (a < 0 || z < a) throw new Error('prerender markers not found in index.html');
-  // No whitespace inside #root: hydration matches child nodes one for one.
-  fs.writeFileSync(file, src.slice(0, a + START.length) + '<div id="root">' + markup + '</div>' + src.slice(z));
-  console.log('Pre-rendered ' + markup.length + ' characters into index.html');
-})();
+
+  const today = new Date().toISOString().slice(0, 10);
+  const urls = pages.filter(x => x.head.index !== false).map(({ route }) => `  <url>
+    <loc>${SITE + route}</loc>
+    <lastmod>${today}</lastmod>${route === '/' ? '\n    <image:image><image:loc>' + SITE + '/assets/dinoy.jpg</image:loc></image:image>' : ''}
+  </url>`);
+  fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+${urls.join('\n')}
+</urlset>
+`);
+  console.log('Wrote sitemap.xml with ' + urls.length + ' URLs');
+})().catch(e => { console.error(e); process.exit(1); });

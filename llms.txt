@@ -2,7 +2,15 @@
 
 > Dinoy Raj is an Android developer and conference speaker. He designs and builds focused Android apps in Kotlin and Jetpack Compose on top of Expressive Kit, his own Material 3 Expressive design system, and speaks about on-device AI, custom launchers and agentic Android.
 
-Site: https://dinoyraj.com/ (a single page with sections for services, apps, talks, blogs and contact).
+Site: https://dinoyraj.com/
+Based in Thiruvananthapuram, Kerala, India.
+
+## Pages
+
+- [Home](https://dinoyraj.com/): services, featured apps, talks, blogs and contact
+- [About Dinoy Raj](https://dinoyraj.com/about): background, what he works on, speaking
+- [All apps](https://dinoyraj.com/apps): every Android app, each with its own page (e.g. https://dinoyraj.com/simplelauncher, https://dinoyraj.com/nanopromptground)
+- [Talks](https://dinoyraj.com/talks): every session with its abstract and takeaways, and every event
 Contact: dinoykraj@gmail.com
 
 ## Apps
@@ -20,7 +28,15 @@ Contact: dinoykraj@gmail.com
 
 ## Talks
 
-- [Talks on Sessionize](https://sessionize.com/dinoy/): Agentic Android with App Functions; On-device AI with Gemini Nano and the Prompt API; Crafting a custom Android launcher from scratch; Offline RAG on Android with vector databases and MediaPipe.
+- [Agentic Android with App Functions](https://dinoyraj.com/talks/agentic-android-app-functions)
+- [On-device AI with Gemini Nano and the Prompt API](https://dinoyraj.com/talks/on-device-ai-gemini-nano-prompt-api)
+- [Crafting a custom Android launcher from scratch](https://dinoyraj.com/talks/custom-android-launcher)
+- [Offline RAG on Android with vector databases and MediaPipe](https://dinoyraj.com/talks/offline-rag-android-mediapipe)
+- [A production AI search with Gemini Nano](https://dinoyraj.com/talks/gemini-nano-ai-search-production)
+- [Open on-device LLMs and LoRA with MediaPipe](https://dinoyraj.com/talks/mediapipe-llm-lora-android)
+- [Shared GraphQL architecture in Kotlin Multiplatform](https://dinoyraj.com/talks/graphql-kotlin-multiplatform)
+- [Compose Multiplatform design systems with Storytale](https://dinoyraj.com/talks/storytale-compose-multiplatform-design-systems)
+- [Speaker profile on Sessionize](https://sessionize.com/dinoy/)
 - Speaker at droidcon India, DevFest Dar es Salaam, Droidcon & Fluttercon Kenya, DevFest Atlanta, droidcon Uganda, droidcon Lisbon, DevFest Vicenza, FOSSASIA Summit, DevFest Mumbai, Mobile Developers Week Abu Dhabi and DevFest Dubai.
 
 ## Writing
