@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /design/
 
 Sitemap: https://dinoyraj.com/sitemap.xml
