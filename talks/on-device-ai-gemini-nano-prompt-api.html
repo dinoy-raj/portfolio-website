@@ -9,14 +9,14 @@
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <!-- seo:head: written per page by design/prerender.js from routeHead() in the app script -->
-<title>Supercharging Android Apps with On-Device AI: Gemini Nano &amp; Prompt API | Dinoy Raj</title>
+<title>On-Device AI on Android: Gemini Nano &amp; Prompt API | Dinoy Raj</title>
 <meta name="description" content="On-device AI on Android talk by Dinoy Raj: Gemini Nano, the ML Kit Prompt API, GenAI APIs and MediaPipe LLM Inference in production apps.">
 <meta name="author" content="Dinoy Raj">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://dinoyraj.com/talks/on-device-ai-gemini-nano-prompt-api">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Dinoy Raj">
-<meta property="og:title" content="Supercharging Android Apps with On-Device AI: Gemini Nano &amp; Prompt API | Dinoy Raj">
+<meta property="og:title" content="On-Device AI on Android: Gemini Nano &amp; Prompt API | Dinoy Raj">
 <meta property="og:description" content="On-device AI on Android talk by Dinoy Raj: Gemini Nano, the ML Kit Prompt API, GenAI APIs and MediaPipe LLM Inference in production apps.">
 <meta property="og:url" content="https://dinoyraj.com/talks/on-device-ai-gemini-nano-prompt-api">
 <meta property="og:locale" content="en_US">
@@ -30,7 +30,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@dinoy_raj">
 <meta name="twitter:creator" content="@dinoy_raj">
-<meta name="twitter:title" content="Supercharging Android Apps with On-Device AI: Gemini Nano &amp; Prompt API | Dinoy Raj">
+<meta name="twitter:title" content="On-Device AI on Android: Gemini Nano &amp; Prompt API | Dinoy Raj">
 <meta name="twitter:description" content="On-device AI on Android talk by Dinoy Raj: Gemini Nano, the ML Kit Prompt API, GenAI APIs and MediaPipe LLM Inference in production apps.">
 <meta name="twitter:image" content="https://dinoyraj.com/assets/og.jpg">
 <meta name="twitter:image:alt" content="Dinoy Raj, Android Developer and Speaker">
@@ -137,7 +137,7 @@ html.fl .ex-icon{color:transparent}
    "@type": "WebPage",
    "@id": "https://dinoyraj.com/talks/on-device-ai-gemini-nano-prompt-api#page",
    "url": "https://dinoyraj.com/talks/on-device-ai-gemini-nano-prompt-api",
-   "name": "Supercharging Android Apps with On-Device AI: Gemini Nano & Prompt API | Dinoy Raj",
+   "name": "On-Device AI on Android: Gemini Nano & Prompt API | Dinoy Raj",
    "description": "On-device AI on Android talk by Dinoy Raj: Gemini Nano, the ML Kit Prompt API, GenAI APIs and MediaPipe LLM Inference in production apps.",
    "isPartOf": {
     "@id": "https://dinoyraj.com/#website"
@@ -859,7 +859,7 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
 .tix-item .row{display:flex;justify-content:space-between;gap:var(--space-3);font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;opacity:.86}
 .tix-item .row .live{display:inline-flex;align-items:center;gap:6px;opacity:1}
 .tix-item .row .live::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
-.tix-item h4{margin:0;font-size:18px;line-height:1.2;font-weight:600;letter-spacing:-.015em}
+.tix-item h3{margin:0;font-size:18px;line-height:1.2;font-weight:600;letter-spacing:-.015em;text-wrap:wrap}
 .tix-item .fields{display:grid;grid-template-columns:repeat(2,auto);justify-content:start;gap:2px var(--space-6)}
 .tix-item .fields span{font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;opacity:.86}
 .tix-item .fields b{font-size:13px;font-weight:600}
@@ -1085,7 +1085,7 @@ window.__boot = function () {
     { id: 'launcher', name: 'Dino Minimalist Launcher', store: 'Minimalist launcher for Android', featured: true, status: 'live', bg: '#efe6d8',
       desc: 'A minimalist Android launcher designed to help you reduce screen time and boost focus. A clean, text-based home screen with only the apps you pin, custom themes and palettes, fonts, layouts and widgets, and no ads. Several of the apps below began as tools inside it.',
       tags: ['Launcher', 'Material You', 'Custom themes', 'Widgets'],
-      seo: 'A minimalist, text-based Android launcher by Dinoy Raj that helps you reduce screen time and boost focus: only the apps you pin, custom themes, fonts, layouts and widgets, and no ads.',
+      seo: 'A minimalist, text-based Android launcher by Dinoy Raj to reduce screen time and boost focus: only the apps you pin, custom themes, fonts, widgets and no ads.',
       shots: ['Light theme with periodic table pinned apps', 'Dark home with the dot-matrix clock and only the pinned apps', 'Widgets: weather, battery, day progress, screen time and now playing', 'Orange theme in Urbanist with the day summary', 'Focus tools on home: to-do, focus timer, habits and meetings'],
       links: [['Google Play', PLAY('com.dino.simple')], ['Website', 'https://minimalistlauncher.com']] },
     { id: 'nano', name: 'Nano Prompt Ground', store: 'Offline AI playground', status: 'live', bg: '#dcefe5',
@@ -1095,38 +1095,47 @@ window.__boot = function () {
       links: [['Google Play', PLAY('com.dino.nanoplayground')], ['Source', 'https://github.com/dinoy-raj/gemini-nano-playground']] },
     { id: 'focus', name: 'Focus', store: 'Pomodoro timer', bg: '#0f4d3a',
       desc: 'A calm, distraction-free pomodoro timer. Plan your focus sessions, keep them on schedule, and see where your time goes, from the app, your home screen, the notification shade or a dynamic island around your camera.',
+      seo: 'A calm pomodoro timer for Android: plan focus sessions, keep them on schedule and see where your time goes, from the app, widgets or a dynamic island.',
       tags: ['Sessions', 'Statistics', 'Widgets', 'Dynamic island'],
       shots: ['Every minute counted: weekly statistics', 'With flow, not force: the focus timer', 'Your timer, always near: the dynamic island'] },
     { id: 'habits', name: 'Habbit Tracker', store: 'Daily habits', bg: '#d4f1dd',
       desc: 'Build the habits you want and break the ones you don\'t, one square a day. Every habit is a card with a grid of its days: tap to log today, watch the streak grow, and keep it in view with widgets and a dynamic island.',
+      seo: 'Build habits and break bad ones, one square a day: an Android habit tracker with a grid for every habit, streaks, widgets and a dynamic island.',
       tags: ['Streaks', 'Quit habits', 'Widgets', 'Themes'],
       shots: ['Every habit has its own story', 'Build habits, one square a day', 'Easy on the eyes, day or night'] },
     { id: 'reel', name: 'Reel Blocker', store: 'Stop scrolling', bg: '#c6ecd9',
       desc: 'Counts the Instagram Reels, YouTube Shorts, TikToks, Snapchat Spotlight and Reddit videos you watch, and stops the feed once you hit your daily limit. The rest of each app keeps working, and nothing leaves your phone.',
+      seo: 'Stop endless scrolling on Android: counts the Instagram Reels, YouTube Shorts and TikToks you watch and stops the feed at your daily limit, all on-device.',
       tags: ['Accessibility service', 'Daily limits', 'On-device'],
       shots: ['See where your time goes', 'Take back your scroll time', 'Limit hit. Reel stopped.'] },
     { id: 'appblocker', name: 'App Blocker', store: 'Focus & timers', bg: '#fff0bf',
       desc: 'Keep the apps you choose closed: all the time, on a schedule, or once they have used up their daily time. When a blocked app opens, a gate steps in front of it. Everything stays on the phone.',
+      seo: 'Block distracting Android apps all the time, on a schedule or once their daily time is up. A gate steps in when a blocked app opens; all on-device.',
       tags: ['Schedules', 'App timers', 'Hold to unlock'],
       shots: ['Watch the blocks add up', 'Keep distracting apps closed', 'Hold to get through. Or don\'t.'] },
     { id: 'mindful', name: 'Mindful Pause', store: 'Screen time', bg: '#2b1055',
       desc: 'Breathe before you scroll. A gentle pause in front of the apps that pull you in: go back to focus with one tap, or finish a short challenge, like a slow breath or a small puzzle, to open the app for a few minutes.',
+      seo: 'Breathe before you scroll: a gentle pause in front of distracting Android apps, with a slow breath or small puzzle to open one for a few minutes.',
       tags: ['Breathing', 'Challenges', 'On-device'],
       shots: ['A small challenge first', 'Breathe before you scroll', 'Count every time you turned back'] },
     { id: 'notifications', name: 'Notification Blocker', store: 'Blocker & filter', bg: '#166a4b',
       desc: 'Hold back noisy notifications, let what matters through and read the rest later. Held notifications wait in an inbox or arrive as a digest, while calls, alarms and one-time codes still get through.',
+      seo: 'Block noisy Android notifications and read them later in an inbox or a digest, while calls, alarms and one-time codes still get through.',
       tags: ['Keyword rules', 'Digest', 'Snooze'],
       shots: ['Hold the noise, keep what matters', 'Your phone, finally quiet', 'Read it all later, in one place'] },
     { id: 'countdown', name: 'Count down', store: 'Days until', bg: '#d6ecf5',
       desc: 'Count the days to trips, birthdays and deadlines. Every event is a colourful card in one stack, opening on the soonest, with reminders and widgets. Once a day has passed, its card keeps counting up.',
+      seo: 'Count the days to trips, birthdays and deadlines on Android: colourful event cards with reminders and widgets that count up once the day has passed.',
       tags: ['Reminders', 'Groups', 'Widgets'],
       shots: ['Count down to it. Count up after.', 'Every day that matters, at a glance', 'A dynamic island for your countdown'] },
     { id: 'meetings', name: 'Meetings', store: 'Sticky note agenda', bg: '#dfe2ff',
       desc: 'Today\'s meetings as a pile of sticky notes, the next one on top, with reminders and one-tap join. The coming week sits under the board, and highlights show where your time in meetings goes.',
+      seo: 'Today\'s meetings as sticky notes on Android, the next one on top, with reminders, one-tap join, the week ahead and where your meeting time goes.',
       tags: ['Calendar', 'One-tap join', 'Highlights'],
       shots: ['Your week, at a glance', 'Today\'s meetings, pinned up', 'See where your time goes'] },
     { id: 'timeline', name: 'Timeline Calendar', store: 'Day view', bg: '#2f7bff',
       desc: 'See your whole day at a glance: every event from the calendars already on your phone, on one clean, live timeline. No account, no sync of its own, and nothing is uploaded.',
+      seo: 'See your whole day on one live timeline: every event from the calendars already on your Android phone. No account, no sync of its own, nothing uploaded.',
       tags: ['Calendar provider', 'Day view', 'Private'],
       shots: ['See how your hours fill up', 'Your whole day, at a glance', 'Back-to-back? Stacked neatly'] },
     { id: 'links', name: 'Link Manager', store: 'Read it later', bg: '#ebe2d6',
@@ -1135,6 +1144,7 @@ window.__boot = function () {
       shots: ['Share from any app', 'Save it now. Read it later.', 'Calm, day or night'] },
     { id: 'island', name: 'Dynamic Island', store: 'Live pill', status: 'wip', bg: '#5881ff',
       desc: 'Turns the camera cutout on your Android phone into a live, interactive pill for music, timers, calls, charging and notifications. Tap to expand it; when two things are live, it splits in two.',
+      seo: 'Turn your Android phone\'s camera cutout into a live, interactive pill for music, timers, calls, charging and notifications. Tap it to expand.',
       tags: ['Overlay', 'Media controls', 'Customisable'],
       shots: ['Tap to expand', 'Your camera, alive', 'Two things live? Split it'] },
   ];
@@ -1307,7 +1317,7 @@ window.__boot = function () {
   /* Talks. The first four (home: true) sit in the home page accordion; every talk also has a page of its own at /talks/<slug>.
      Abstracts and takeaways follow the sessions on Sessionize. takeaways: [icon, title, text]. app: the related app's id. */
   const TALKS = [
-    { slug: 'agentic-android-app-functions', home: true, text: 'Agentic Android: Exposing and Consuming Capabilities with App Functions', title: 'App Functions', sub: 'Android 16 · Agentic OS', shape: 'sunny', icon: 'smart_toy', tone: 'highlight',
+    { slug: 'agentic-android-app-functions', home: true, text: 'Agentic Android: Exposing and Consuming Capabilities with App Functions', seoTitle: 'Agentic Android with App Functions', title: 'App Functions', sub: 'Android 16 · Agentic OS', shape: 'sunny', icon: 'smart_toy', tone: 'highlight',
       seo: 'Android App Functions talk by Dinoy Raj: expose app capabilities to AI agents with androidx.appfunctions and call them from a custom Android launcher.',
       abstract: [
         'Android 16 changes how the OS talks to installed apps. With the android.app.appfunctions package, Android moves away from the rigid deep links of App Actions and Slices toward an agentic model: apps are no longer just destinations to open, but headless toolboxes of capabilities that system agents can call directly.',
@@ -1319,7 +1329,7 @@ window.__boot = function () {
         ['stacks', 'Schema and serialization', 'Defining structured parameters that system agents can easily index and call.'],
         ['apps', 'Live launcher demo', 'Querying the on-device index and running App Functions from a custom Android launcher.']],
       app: 'launcher' },
-    { slug: 'on-device-ai-gemini-nano-prompt-api', home: true, text: 'Supercharging Android Apps with On-Device AI: Gemini Nano & Prompt API', title: 'On-Device AI', sub: 'Gemini Nano in production', shape: 'cookie6', icon: 'auto_awesome', tone: 'primary-container',
+    { slug: 'on-device-ai-gemini-nano-prompt-api', home: true, text: 'Supercharging Android Apps with On-Device AI: Gemini Nano & Prompt API', seoTitle: 'On-Device AI on Android: Gemini Nano & Prompt API', title: 'On-Device AI', sub: 'Gemini Nano in production', shape: 'cookie6', icon: 'auto_awesome', tone: 'primary-container',
       seo: 'On-device AI on Android talk by Dinoy Raj: Gemini Nano, the ML Kit Prompt API, GenAI APIs and MediaPipe LLM Inference in production apps.',
       abstract: [
         'Mobile AI is moving on-device, driven by the need for privacy, low latency and offline use. This session shows how to build intelligent Android apps that run entirely on the phone with Gemini Nano, the ML Kit Prompt API, the ML Kit GenAI APIs and the MediaPipe LLM Inference API.',
@@ -1331,7 +1341,7 @@ window.__boot = function () {
         ['tune', 'Production considerations', 'Model size, device compatibility, privacy and performance lessons from shipping AI features at scale.'],
         ['stacks', 'Beyond Gemini', 'MediaPipe, LiteRT and custom models for specialised on-device tasks.']],
       presented: 'Presented at droidcon Uganda 2025, Kampala, on 10 November 2025.', app: 'nano' },
-    { slug: 'custom-android-launcher', home: true, text: 'Beyond the Grid: Crafting a Custom Android Launcher from Scratch', title: 'Custom launchers', sub: 'Jetpack Compose', shape: 'flower5', icon: 'apps', tone: 'tertiary-container',
+    { slug: 'custom-android-launcher', home: true, text: 'Beyond the Grid: Crafting a Custom Android Launcher from Scratch', seoTitle: 'Crafting a Custom Android Launcher from Scratch', title: 'Custom launchers', sub: 'Jetpack Compose', shape: 'flower5', icon: 'apps', tone: 'tertiary-container',
       seo: 'How to build a custom Android launcher: a talk by Dinoy Raj, creator of Dino Minimalist Launcher, on PackageManager, broadcasts, permissions and OEM quirks.',
       abstract: [
         'As the creator of Dino Minimalist Launcher, a text-based launcher for Android, I have worked through the unusual challenges of replacing one of Android\'s most fundamental components. This talk demystifies building a custom launcher: the app that sits between the user and the Android system.',
@@ -1342,7 +1352,7 @@ window.__boot = function () {
         ['rule', 'Navigating the maze', 'Permissions such as QUERY_ALL_PACKAGES, Play policy, OEM quirks and Android version fragmentation.'],
         ['touch_app', 'The accessibility "hack"', 'How Accessibility Services can power features like an app blocker, and the ethics and pitfalls of doing so.']],
       app: 'launcher' },
-    { slug: 'offline-rag-android-mediapipe', home: true, text: 'Building Private Brain on Android: Offline RAG with Vector Databases & MediaPipe', title: 'Offline RAG', sub: 'MediaPipe · Vector DBs', shape: 'clover4', icon: 'memory', tone: 'secondary-container',
+    { slug: 'offline-rag-android-mediapipe', home: true, text: 'Building Private Brain on Android: Offline RAG with Vector Databases & MediaPipe', seoTitle: 'Offline RAG on Android with MediaPipe', title: 'Offline RAG', sub: 'MediaPipe · Vector DBs', shape: 'clover4', icon: 'memory', tone: 'secondary-container',
       seo: 'Offline RAG on Android talk by Dinoy Raj: local vector search with ObjectBox or Couchbase Lite, Gemma through the MediaPipe LLM Inference API, and LoRA vs RAG.',
       abstract: [
         'Privacy-conscious users and business needs are pushing toward local-first AI. Running a large language model on the device is a good start; the real challenge is making that model smart with your own private data, without the cloud. This session sets up offline Retrieval-Augmented Generation (RAG) on Android.',
@@ -1353,7 +1363,7 @@ window.__boot = function () {
         ['stream', 'Real-time context injection', 'Feeding local data into Gemma through the MediaPipe LLM Inference API.'],
         ['rule', 'LoRA vs RAG', 'When fine-tuning pays off and when retrieval is the better choice.'],
         ['speed', 'Performance optimisation', 'Keeping on-device retrieval and generation fast.']] },
-    { slug: 'gemini-nano-ai-search-production', text: '0ms Latency Dreams vs. NPU Reality: Engineering a Production-Ready AI Search with Gemini Nano', title: 'AI search in production', sub: 'Case study · ML Kit Prompt API', icon: 'speed', tone: 'primary-container',
+    { slug: 'gemini-nano-ai-search-production', text: '0ms Latency Dreams vs. NPU Reality: Engineering a Production-Ready AI Search with Gemini Nano', seoTitle: 'Production AI Search with Gemini Nano on Android', title: 'AI search in production', sub: 'Case study · ML Kit Prompt API', icon: 'speed', tone: 'primary-container',
       seo: 'Production case study by Dinoy Raj: an AI search parser on Gemini Nano with the ML Kit Prompt API, cut from 18.3 s to under 1 s with prompt design and prefix caching.',
       abstract: [
         '"Hello World" demos make on-device AI look effortless; shipping it in a production travel app shows a different reality. Traditional search filters are predictable, but they miss the nuance of what people actually mean.',
@@ -1365,7 +1375,7 @@ window.__boot = function () {
         ['stream', 'Streaming for speed', 'Kotlin Flows and generateContentStream for a UI that feels instant.'],
         ['insights', 'A production reality check', 'Fragmented availability, inconsistent behaviour, and the hybrid fallback built from user feedback.']],
       app: 'nano' },
-    { slug: 'mediapipe-llm-lora-android', text: 'Build Your Pocket Brain: Open On-Device LLMs via MediaPipe on Android', title: 'Pocket Brain', sub: 'MediaPipe · LoRA', icon: 'memory', tone: 'tertiary-container',
+    { slug: 'mediapipe-llm-lora-android', text: 'Build Your Pocket Brain: Open On-Device LLMs via MediaPipe on Android', seoTitle: 'Open On-Device LLMs via MediaPipe on Android', title: 'Pocket Brain', sub: 'MediaPipe · LoRA', icon: 'memory', tone: 'tertiary-container',
       seo: 'Talk by Dinoy Raj on running open LLMs like Gemma on Android with the MediaPipe LLM Inference API, and fine-tuning them with LoRA for your app.',
       abstract: [
         'MediaPipe\'s LLM Inference API leads the way for Android developers. Beyond running pre-trained models such as Gemma on the device, this session dives into customisation with Low-Rank Adaptation (LoRA), a parameter-efficient fine-tuning (PEFT) technique.',
@@ -1375,7 +1385,7 @@ window.__boot = function () {
         ['tune', 'Setup and configuration', 'Configuring MediaPipe LLM Inference, its options and multimodal prompting.'],
         ['auto_awesome', 'LoRA fine-tuning', 'Adapting Gemma-2B or Phi-2 to a specific use case, cost-effectively.'],
         ['shield_lock', 'Deployment and ethics', 'Deployment workflows, GPU-accelerated LoRA inference and responsible AI practice.']] },
-    { slug: 'graphql-kotlin-multiplatform', text: 'Write Once, Query Everywhere: Designing a Shared GraphQL Architecture in Kotlin Multiplatform', title: 'GraphQL in KMP', sub: 'Kotlin Multiplatform · Apollo', icon: 'share', tone: 'secondary-container',
+    { slug: 'graphql-kotlin-multiplatform', text: 'Write Once, Query Everywhere: Designing a Shared GraphQL Architecture in Kotlin Multiplatform', seoTitle: 'Shared GraphQL Architecture in Kotlin Multiplatform', title: 'GraphQL in KMP', sub: 'Kotlin Multiplatform · Apollo', icon: 'share', tone: 'secondary-container',
       seo: 'Kotlin Multiplatform talk by Dinoy Raj: a shared GraphQL data layer with Apollo Kotlin for Android, iOS and desktop, with caching, auth and Flow.',
       abstract: [
         'As Kotlin Multiplatform grows, the challenge moves from sharing small utilities to sharing complex data layers across Android, iOS, desktop and web. GraphQL gives a type-safe, efficient API, and with Apollo Kotlin\'s multiplatform support all of the networking and data logic can be shared.',
@@ -1385,7 +1395,7 @@ window.__boot = function () {
         ['code', 'Type safety', 'Apollo code generation as the single source of truth for the API schema on every platform.'],
         ['tune', 'Best practices', 'Caching, authentication headers and reactive queries with Kotlin Coroutines and Flow.'],
         ['bolt', 'Real-world hurdles', 'Platform-specific configuration and network performance for a consistent experience.']] },
-    { slug: 'storytale-compose-multiplatform-design-systems', text: 'Beyond @Preview: Building & Cataloging Compose Multiplatform Design Systems with Storytale', title: 'Storytale', sub: 'Compose Multiplatform · Design systems', icon: 'palette', tone: 'highlight',
+    { slug: 'storytale-compose-multiplatform-design-systems', text: 'Beyond @Preview: Building & Cataloging Compose Multiplatform Design Systems with Storytale', seoTitle: 'Compose Multiplatform Design Systems with Storytale', title: 'Storytale', sub: 'Compose Multiplatform · Design systems', icon: 'palette', tone: 'highlight',
       seo: 'Talk by Dinoy Raj on Storytale, the JetBrains Gradle plugin that brings a Storybook-style component gallery to Compose Multiplatform design systems.',
       abstract: [
         'As a design system grows, developers juggle previews, sample screens, test fixtures, documentation and ever more complex app flows just to answer one question: what does this component look like in all its important states?',
@@ -1399,7 +1409,8 @@ window.__boot = function () {
   TALKS.forEach(t => { t.shape = t.shape || 'cookie9'; });
   const HOME_TALKS = TALKS.filter(t => t.home);
 
-  // addr: the full place, for structured data only (the tickets show `where`).
+  // addr: the full place, for structured data only (the tickets show `where`). date: the exact day as YYYY-MM-DD, also for
+  // structured data only (startDate); without it the JSON-LD falls back to the month, which Google flags as incomplete.
   const EVENTS = [
     { name: 'droidcon India', when: 'Nov 2026', where: 'Bengaluru', addr: 'Bengaluru, India', up: true },
     { name: 'DevFest Dar es Salaam', when: 'Nov 2026', where: 'Tanzania', addr: 'Dar es Salaam, Tanzania', up: true },
@@ -1451,13 +1462,14 @@ window.__boot = function () {
     return html`<div class=${'tix-item t-' + tone}>
       <div class="main">
         <div class="row">${ev.up ? html`<span class="live">Upcoming</span>` : html`<span>Speaker</span>`}<span>Admit one</span></div>
-        <h4>${ev.name}</h4>
+        <h3>${ev.name}</h3>
         <div class="fields"><span>When</span><span>Where</span><b>${ev.when}</b><b>${ev.where}</b></div>
       </div>
       <div class="stub" aria-hidden="true"><span class="mon">${mon}</span><span class="yr">'${yr.slice(2)}</span><span class="bars"></span></div>
     </div>`;
   }
 
+  // published: the exact day as YYYY-MM-DD, for structured data only (datePublished); left out when unknown.
   const BLOGS = [
     { href: 'https://proandroiddev.com/android-adaptive-themed-icons-guide-8e690263f7aa', eyebrow: 'ProAndroidDev · Apr 2025', title: 'Crafting multi-tone themed app icons in Android', blurb: 'A step-by-step guide to adaptive and themed icons.' },
     { href: 'https://proandroiddev.com/android-localization-list-formatter-in-android-05659d848a61', eyebrow: 'ProAndroidDev · Mar 2024', title: 'List Formatter in Android', blurb: 'Internationalization and localization, part 1.' },
@@ -1767,11 +1779,12 @@ window.__boot = function () {
       <a class="link-arrow back" href="#apps"><span class="ex-icon" aria-hidden="true">arrow_back</span>Back to home</a>
       <div class="apps-head">
         <div>
-          <h1 class="sec-title">All<br/>Apps</h1>
+          <h1 class="sec-title">All<br/> Apps</h1>
           <p class="muted">All ${APPS.length} Android apps I've designed and built in Kotlin and Jetpack Compose. Screenshots are the apps' own store screens.</p>
         </div>
         <a class="link-arrow" href=${LINKS.play} target="_blank" rel="noopener">Google Play profile<span class="ex-icon">arrow_outward</span></a>
       </div>
+      <h2 class="sr-only">Apps</h2>
       <div class="apps-grid">${APPS.map(a => html`<${AppCard} key=${a.id} a=${a} />`)}</div>
       <div class="apps-end">
         <p class="muted">Install them, read the reviews and get updates on Google Play.</p>
@@ -2164,7 +2177,7 @@ window.__boot = function () {
 
   function Missing({ enter }) {
     return html`<main id="top" class="all-apps wrap" data-enter=${enter}>
-      <h1 class="sec-title">Not<br/>found</h1>
+      <h1 class="sec-title">Not<br/> found</h1>
       <p class="muted" style=${{ margin: '24px 0 32px', fontSize: '16px' }}>There's no page at this address.</p>
       <a class="link-arrow" href="/apps">See all apps<span class="ex-icon">arrow_forward</span></a>
     </main>`;
@@ -2188,7 +2201,7 @@ window.__boot = function () {
       <div class="left">
         <div>
           <span class="avail"><span class="dot" aria-hidden="true"><span class="ring"><${ShapeSvg} seq=${['sunny', 'cookie12']} speed=${-24} hold=${900} morph=${700} /></span><${ShapeSvg} seq=${['cookie9', 'flower8', 'burst', 'clover4', 'cookie12']} fill="var(--positive)" speed=${48} hold=${800} morph=${650} /><span class="ex-icon">bolt</span></span><span><b>Available</b> for new projects</span></span>
-          <h2 class="talk-title">Let's<span class="l2"><span class="em">talk.</span><span class="badge" aria-hidden="true"><${MorphShape} seq=${['cookie9', 'flower8', 'burst', 'clover4', 'cookie12']} fill="var(--highlight)" speed=${18} hold=${1200} /><span class="ex-icon" data-icon="waving_hand"></span></span></span></h2>
+          <h2 class="talk-title">Let's <span class="l2"><span class="em">talk.</span><span class="badge" aria-hidden="true"><${MorphShape} seq=${['cookie9', 'flower8', 'burst', 'clover4', 'cookie12']} fill="var(--highlight)" speed=${18} hold=${1200} /><span class="ex-icon" data-icon="waving_hand"></span></span></span></h2>
           <p class="lede">Have an app idea or a design that needs to feel more <b>alive</b>? Tell me about it and I'll reply <b>within two days</b>.</p>
           <div class="mail">
             <span class="eyebrow">Or write directly</span>
@@ -2252,12 +2265,12 @@ window.__boot = function () {
   function routeHead(r) {
     const a = r.app, t = r.talk;
     if (r.page === 'all') return { path: '/apps', title: 'Android Apps by Dinoy Raj | Kotlin & Jetpack Compose',
-      desc: 'All ' + APPS.length + ' Android apps designed and built by Dinoy Raj in Kotlin and Jetpack Compose: a minimalist launcher, an offline Gemini Nano playground, a pomodoro timer, a habit tracker and screen-time blockers.' };
+      desc: 'All ' + APPS.length + ' Android apps by Dinoy Raj, built in Kotlin and Jetpack Compose: a minimalist launcher, an offline Gemini Nano playground, a pomodoro timer and screen-time tools.' };
     if (r.page === 'about') return { path: '/about', title: 'About Dinoy Raj | Android Developer & Speaker, India',
-      desc: 'Dinoy Raj is a senior Android developer and conference speaker from Thiruvananthapuram, Kerala, India, building apps in Kotlin and Jetpack Compose and speaking about on-device AI and custom launchers.' };
+      desc: 'Dinoy Raj is a senior Android developer and speaker from Thiruvananthapuram, India, building apps in Kotlin and Jetpack Compose and speaking about on-device AI.' };
     if (r.page === 'talks') return { path: '/talks', title: 'Talks by Dinoy Raj | On-Device AI, Launchers & Agentic Android',
-      desc: 'Conference talks by Android developer Dinoy Raj on Gemini Nano and on-device AI, offline RAG with MediaPipe, App Functions, custom Android launchers and Kotlin Multiplatform, at droidcon, DevFest and FOSSASIA.' };
-    if (r.page === 'talk') return { path: '/talks/' + t.slug, title: t.text + ' | Dinoy Raj', desc: t.seo, type: 'article' };
+      desc: 'Conference talks by Android developer Dinoy Raj on Gemini Nano and on-device AI, offline RAG, App Functions, custom launchers and Kotlin Multiplatform.' };
+    if (r.page === 'talk') return { path: '/talks/' + t.slug, title: (t.seoTitle || t.text) + ' | Dinoy Raj', desc: t.seo, type: 'article' };
     if (r.page === 'app') return { path: '/' + a.slug, title: a.name + ': ' + a.store + (/android/i.test(a.store) ? '' : ' for Android') + ' | Dinoy Raj', desc: a.seo || a.desc }; // seo: a search-result version of desc, where desc leans on the page around it
     if (r.page === 'privacy') return { path: '/' + a.slug + '/privacypolicy', title: 'Privacy policy · ' + a.name, index: false,
       desc: 'Privacy policy for ' + a.name + ', an Android app by Dinoy Raj: what it collects, what it doesn\'t, and the permissions it uses.' };
@@ -2289,13 +2302,16 @@ window.__boot = function () {
     screenshot: a.shots.map((_, i) => SITE + appImg(a, i + 1)), author: { '@id': SITE + '/#person' }, publisher: { '@id': SITE + '/#person' }, keywords: a.tags.join(', '),
     ...(a.links && a.links.find(([l]) => l === 'Google Play') ? { installUrl: a.links.find(([l]) => l === 'Google Play')[1] } : {}),
     ...(a.links && a.links.find(([l]) => l === 'Google Play') ? { downloadUrl: a.links.find(([l]) => l === 'Google Play')[1] } : {}),
+    ...(a.links && a.links.find(([l]) => l === 'Google Play') ? { offers: { '@type': 'Offer', price: 0, priceCurrency: 'USD', availability: 'https://schema.org/InStock' } } : {}), // free on Google Play
     ...(a.links ? { sameAs: a.links.map(([, h]) => h) } : {}), // its Play Store listing, website and source
     ...(a.status === 'wip' ? { releaseNotes: 'In development' } : {}),
   });
   // Speaking appearances as schema.org Events with Dinoy as performer (schema.org has no speaking-engagement type).
   const eventId = ev => SITE + '/#event-' + slugify(ev.name + ' ' + ev.when);
+  // Google wants startDate as a full YYYY-MM-DD date: give an event its exact day (date: '2026-11-14') once known. Until then the
+  // month (YYYY-MM, valid ISO 8601) stands in, since startDate is required and an Event without one is worse than a coarse date.
   const eventNode = ev => ({
-    '@type': 'Event', '@id': eventId(ev), name: ev.name, startDate: isoMonth(ev.when),
+    '@type': 'Event', '@id': eventId(ev), name: ev.name, startDate: ev.date || isoMonth(ev.when),
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode', eventStatus: 'https://schema.org/EventScheduled',
     location: { '@type': 'Place', name: ev.where, address: ev.addr || ev.where }, performer: { '@id': SITE + '/#person' }, url: LINKS.sessionize,
   });
@@ -2313,7 +2329,7 @@ window.__boot = function () {
         { '@type': 'ItemList', '@id': SITE + '/#talks', name: 'Talks by Dinoy Raj', url: SITE + '/talks', itemListElement: TALKS.map((t, i) => ({ '@type': 'ListItem', position: i + 1, item: talkNode(t) })) },
         { '@type': 'ItemList', '@id': SITE + '/#apps', name: 'Android apps by Dinoy Raj', url: SITE + '/apps', itemListElement: APPS.map((a, i) => ({ '@type': 'ListItem', position: i + 1, url: SITE + '/' + a.slug, item: appNode(a) })) },
         ...BLOGS.map(b => ({ '@type': 'BlogPosting', '@id': b.href, url: b.href, headline: b.title, description: b.blurb,
-          datePublished: isoMonth(b.eyebrow.split(' · ')[1]), author: { '@id': SITE + '/#person' }, publisher: { '@type': 'Organization', name: b.eyebrow.split(' · ')[0] } })));
+          ...(b.published ? { datePublished: b.published } : {}), author: { '@id': SITE + '/#person' }, publisher: { '@type': 'Organization', name: b.eyebrow.split(' · ')[0] } })));
     }
     else if (r.page === 'about') graph.push(page('AboutPage', { mainEntity: { '@id': SITE + '/#person' }, breadcrumb: crumbs([['About', '/about']]) }));
     else if (r.page === 'all') graph.push(page('CollectionPage', { breadcrumb: crumbs([['Apps', '/apps']]),
@@ -2443,7 +2459,7 @@ window.__boot = function () {
         <section class="apps wrap" id="apps">
           <div class="apps-head">
             <div>
-              <h2 class="sec-title">My<br/>Apps</h2>
+              <h2 class="sec-title">My<br/> Apps</h2>
               <p class="muted">Android apps I design and build end to end in Kotlin and Jetpack Compose. Screenshots are the apps' own store screens.</p>
             </div>
             <a class="link-arrow" href="/apps">View all apps<span class="ex-icon">arrow_forward</span></a>

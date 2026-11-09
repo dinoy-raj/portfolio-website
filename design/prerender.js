@@ -52,6 +52,19 @@ function headHtml(h) {
   ].join('\n');
 }
 
+const HEAD_MARK = ['<!-- seo:head: written per page by design/prerender.js from routeHead() in the app script -->\n', '\n<!-- /seo:head -->'];
+const JSONLD_MARK = ['<!-- seo:jsonld -->\n', '<!-- /seo:jsonld -->'];
+const ROOT_MARK = ['<!-- prerender:start -->', '<!-- prerender:end -->'];
+
+// What a page says: its head, structured data and markup. The app script and styles around them are shared by every page, so a
+// change there is not a change to the page's content and must not move its sitemap lastmod.
+function content(src) {
+  return [HEAD_MARK, JSONLD_MARK, ROOT_MARK].map(([start, end]) => {
+    const a = src.indexOf(start), z = src.indexOf(end, a);
+    return a < 0 || z < 0 ? null : src.slice(a + start.length, z);
+  }).join('\u0000');
+}
+
 function between(src, start, end, body) {
   const a = src.indexOf(start), z = src.indexOf(end, a);
   if (a < 0 || z < 0) throw new Error('markers not found: ' + start);
@@ -92,25 +105,32 @@ function between(src, start, end, body) {
   const pages = [];
   for (const route of home.routes) {
     const r = route === '/' ? home : await render(route);
-    let out = between(template, '<!-- seo:head: written per page by design/prerender.js from routeHead() in the app script -->\n', '\n<!-- /seo:head -->', headHtml(r.head));
-    out = between(out, '<!-- seo:jsonld -->\n', '<!-- /seo:jsonld -->', r.jsonld ? '<script type="application/ld+json">\n' + JSON.stringify(r.jsonld, null, 1).replace(/</g, '\\u003c') + '\n</script>\n' : '');
+    let out = between(template, ...HEAD_MARK, headHtml(r.head));
+    out = between(out, ...JSONLD_MARK, r.jsonld ? '<script type="application/ld+json">\n' + JSON.stringify(r.jsonld, null, 1).replace(/</g, '\\u003c') + '\n</script>\n' : '');
     // No whitespace inside #root: hydration matches child nodes one for one.
-    out = between(out, '<!-- prerender:start -->', '<!-- prerender:end -->', `<div id="root" data-route="${esc(r.key)}">${r.markup}</div>`);
+    out = between(out, ...ROOT_MARK, `<div id="root" data-route="${esc(r.key)}">${r.markup}</div>`);
     if (route !== '/') out = out.replace(/^<!doctype html>\n/i, m => m + GENERATED + '\n');
     const dest = route === '/' ? file : path.join(ROOT, route.slice(1) + '.html');
     fs.mkdirSync(path.dirname(dest), { recursive: true });
+    // index.html is overwritten on the first pass, so the home page compares against the template read before it.
+    const before = route === '/' ? template : fs.existsSync(dest) ? fs.readFileSync(dest, 'utf8') : '';
+    const changed = content(before) !== content(out);
     fs.writeFileSync(dest, out);
-    pages.push({ route, head: r.head });
+    pages.push({ route, head: r.head, changed });
     console.log('Pre-rendered ' + route + ' (' + r.markup.length + ' characters) -> ' + path.relative(ROOT, dest));
   }
   await b.close();
 
-  const today = new Date().toISOString().slice(0, 10);
-  const urls = pages.filter(x => x.head.index !== false).map(({ route }) => `  <url>
+  // lastmod is the day a page's content last changed, not the build date: Google ignores lastmod that changes on every build.
+  // An unchanged page keeps the date it already has in sitemap.xml.
+  const today = new Date().toISOString().slice(0, 10), prev = {};
+  const sitemap = path.join(ROOT, 'sitemap.xml');
+  if (fs.existsSync(sitemap)) for (const m of fs.readFileSync(sitemap, 'utf8').matchAll(/<loc>([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g)) prev[m[1]] = m[2];
+  const urls = pages.filter(x => x.head.index !== false).map(({ route, changed }) => `  <url>
     <loc>${SITE + route}</loc>
-    <lastmod>${today}</lastmod>${route === '/' ? '\n    <image:image><image:loc>' + SITE + '/assets/dinoy.jpg</image:loc></image:image>' : ''}
+    <lastmod>${!changed && prev[SITE + route] ? prev[SITE + route] : today}</lastmod>${route === '/' ? '\n    <image:image><image:loc>' + SITE + '/assets/dinoy.jpg</image:loc></image:image>' : ''}
   </url>`);
-  fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
+  fs.writeFileSync(sitemap, `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${urls.join('\n')}
 </urlset>
