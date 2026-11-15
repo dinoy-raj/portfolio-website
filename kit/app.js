@@ -343,42 +343,62 @@ window.__boot = function () {
 
   // addr: the full place, for structured data only (the tickets show `where`). date: the exact day as YYYY-MM-DD, also for
   // structured data only (startDate); without it the JSON-LD falls back to the month, which Google flags as incomplete.
-  // talks: what was presented there, as TALKS slugs (linked from the talk's page) or plain titles for sessions without a page.
+  // talks: what was presented there, as TALKS slugs (linked from the talk's page) or plain titles for sessions without a page;
+  // ['slug', 'YYYY-MM-DD', 'room'] adds the session's day and room. up: still to come (shown as Upcoming).
   // online: a virtual event (where: 'Online').
   const EVENTS = [
     { name: 'droidcon India', when: 'Nov 2026', where: 'Bengaluru', addr: 'Bengaluru, India', up: true, date: '2026-11-20', org: 'droidcon', site: 'https://india.droidcon.com/' },
-    { name: 'DevFest Dar es Salaam', when: 'Nov 2026', where: 'Tanzania', addr: 'Confucius Institute at UDSM, Dar es Salaam, Tanzania', up: true, date: '2026-11-07', org: 'GDG Dar es Salaam', talks: ['Bridge the Breakpoint Gap: Training Product Designers for Foldables, Postures, and Multi-Window UX'], site: 'https://gdg.community.dev/events/details/google-gdg-dar-es-salaam-presents-devfest-dar-es-salaam-2026-kickoff-workshop/' },
+    { name: 'DevFest Dar es Salaam', when: 'Nov 2026', where: 'Tanzania', addr: 'Confucius Institute at UDSM, Dar es Salaam, Tanzania', date: '2026-11-07', org: 'GDG Dar es Salaam', talks: ['Bridge the Breakpoint Gap: Training Product Designers for Foldables, Postures, and Multi-Window UX'], site: 'https://gdg.community.dev/events/details/google-gdg-dar-es-salaam-presents-devfest-dar-es-salaam-2026-kickoff-workshop/' },
     { name: 'Droidcon & Fluttercon Kenya', when: 'Nov 2026', where: 'Nairobi', addr: 'PrideInn Azure Hotel, Westlands, Nairobi, Kenya', date: '2026-11-05', end: '2026-11-06', org: 'droidcon Kenya', talks: ['agentic-android-app-functions'], site: 'https://droidcon.co.ke/' },
-    { name: 'DevFest Atlanta', when: 'Oct 2026', where: 'Atlanta', addr: 'Morehouse College, 830 Westview Drive SW, Atlanta, GA 30314, United States', date: '2026-10-30', end: '2026-10-31', org: 'GDG Atlanta', talks: ['mediapipe-llm-lora-android'], site: 'https://gdg.community.dev/gdg-atlanta/' },
-    { name: 'droidcon Uganda', when: 'Oct 2026', where: 'Kampala', addr: 'National ICT & Innovation Hub, Nakawa, Kampala, Uganda', date: '2026-10-28', end: '2026-10-29', org: 'droidcon Uganda', talks: ['custom-android-launcher', 'agentic-android-app-functions'], site: 'https://www.uganda.droidcon.com/' },
-    { name: 'droidcon Lisbon', when: 'Oct 2026', where: 'Lisbon', addr: 'Lisbon, Portugal', date: '2026-10-20', end: '2026-10-21', talks: ['storytale-compose-multiplatform-design-systems'], org: 'FIKA IT Solutions', site: 'https://lisbon.droidcon.com/' },
+    { name: 'DevFest Atlanta', when: 'Oct 2026', where: 'Atlanta', addr: 'Morehouse College, 830 Westview Drive SW, Atlanta, GA 30314, United States', date: '2026-10-30', end: '2026-10-31', org: 'GDG Atlanta', talks: [['mediapipe-llm-lora-android', '2026-10-30', 'SMECC Meeting Rooms B']], site: 'https://gdg.community.dev/gdg-atlanta/' },
+    { name: 'droidcon Uganda', when: 'Oct 2026', where: 'Kampala', addr: 'National ICT & Innovation Hub, Nakawa, Kampala, Uganda', date: '2026-10-28', end: '2026-10-29', org: 'droidcon Uganda', talks: ['custom-android-launcher', ['agentic-android-app-functions', '2026-10-29', 'Auditorium']], site: 'https://www.uganda.droidcon.com/' },
+    { name: 'droidcon Lisbon', when: 'Oct 2026', where: 'Lisbon', addr: 'Lisbon, Portugal', date: '2026-10-20', end: '2026-10-21', talks: [['storytale-compose-multiplatform-design-systems', '2026-10-20', 'Track 3']], org: 'FIKA IT Solutions', site: 'https://lisbon.droidcon.com/' },
     { name: 'DevFest Vicenza', when: 'Jun 2026', where: 'Italy', addr: 'Vicenza, Italy', date: '2026-06-06', talks: ['offline-rag-android-mediapipe'], org: 'GDG Vicenza', site: 'https://devfestvicenza.it/' },
     { name: 'FOSSASIA Summit', when: 'Mar 2026', where: 'Bangkok', addr: 'True Digital Park, Bangkok, Thailand', date: '2026-03-08', end: '2026-03-10', org: 'FOSSASIA', site: 'https://fossasia.org/' },
     { name: 'DevFest Mumbai', when: 'Dec 2025', where: 'Mumbai', addr: 'Mumbai, India', date: '2025-12-20', talks: ['custom-android-launcher'], org: 'GDG Mumbai' },
-    { name: 'Mobile Developers Week', when: 'Dec 2025', where: 'Abu Dhabi', addr: 'Abu Dhabi Energy Centre, Abu Dhabi, United Arab Emirates', date: '2025-12-13', end: '2025-12-15', talks: ['mediapipe-llm-lora-android'], org: 'Omnes Technologies', site: 'https://www.mobiledevelopersweek.com/' },
+    { name: 'Mobile Developers Week', when: 'Dec 2025', where: 'Abu Dhabi', addr: 'Abu Dhabi Energy Centre, Abu Dhabi, United Arab Emirates', date: '2025-12-13', end: '2025-12-15', talks: [['mediapipe-llm-lora-android', '2025-12-15', 'Vertex']], org: 'Omnes Technologies', site: 'https://www.mobiledevelopersweek.com/' },
     { name: 'DevFest Dubai', when: 'Dec 2025', where: 'Dubai', addr: 'Abu Dhabi Energy Centre, Abu Dhabi, United Arab Emirates', date: '2025-12-13', end: '2025-12-15', org: 'GDG Dubai', site: 'https://gdg.community.dev/events/details/google-gdg-dubai-presents-devfest-dubai-2025-end-of-year-showdown/' },
   ];
   // Also on Sessionize; the talks page lists them with the ones above, newest first.
   const MORE_EVENTS = [
     { name: 'DevFest Chennai', when: 'Oct 2026', where: 'Chennai', addr: 'Chennai, India', date: '2026-10-17', talks: ['From Receipts to Smart Search: Productionizing Gemini Nano on Android'], org: 'GDG Chennai', site: 'https://gdg.community.dev/gdg-chennai/' },
     { name: 'Made for Dev by Global AI', when: 'Jun 2026', where: 'Online', online: true, talks: ['mediapipe-llm-lora-android'], org: 'Global AI Community', site: 'https://github.com/GlobalAICommunity/made-for-dev' },
-    { name: 'TechMang', when: 'Jan 2026', where: 'Mangaluru', addr: 'Mangaluru, India', date: '2026-01-31', talks: ['on-device-ai-gemini-nano-prompt-api', 'mediapipe-llm-lora-android'], org: 'Hackerspace Mangaluru', site: 'https://hackersmang.org/' },
+    { name: 'TechMang', when: 'Jan 2026', where: 'Mangaluru', addr: 'Mangaluru, India', date: '2026-01-31', talks: [['on-device-ai-gemini-nano-prompt-api', '2026-01-31', 'AI Talks · Track 1'], ['mediapipe-llm-lora-android', '2026-01-31', 'AI Talks · Track 2']], org: 'Hackerspace Mangaluru', site: 'https://hackersmang.org/' },
     { name: 'DevFest Bujumbura', when: 'Dec 2025', where: 'Burundi', addr: "King's Conference Center, Kinindo, Bujumbura, Burundi", date: '2025-12-20', talks: ['mediapipe-llm-lora-android', 'on-device-ai-gemini-nano-prompt-api'], org: 'GDG Bujumbura', site: 'https://gdg.community.dev/events/details/google-gdg-bujumbura-presents-devfest-bujumbura-2025/' },
     { name: 'IndeHub Zoho Apptics', when: 'Nov 2025', where: 'Chennai', addr: 'Zoho Corporation, Estancia IT Park, Chengalpattu, Tamil Nadu, India', date: '2025-11-22', org: 'IndeHub', site: 'https://luma.com/w2y3tkr1' },
-    { name: 'droidcon Uganda', when: 'Nov 2025', where: 'Kampala', addr: 'Kampala, Uganda', date: '2025-11-10', end: '2025-11-11', talks: ['on-device-ai-gemini-nano-prompt-api'], org: 'droidcon Uganda', site: 'https://www.uganda.droidcon.com/' },
+    { name: 'droidcon Uganda', when: 'Nov 2025', where: 'Kampala', addr: 'Kampala, Uganda', date: '2025-11-10', end: '2025-11-11', talks: [['on-device-ai-gemini-nano-prompt-api', '2025-11-10', 'Auditorium']], org: 'droidcon Uganda', site: 'https://www.uganda.droidcon.com/' },
   ];
   const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const evTime = ev => { const [m, y] = ev.when.split(' '); return +y * 12 + MONTHS.indexOf(m); };
   const isoMonth = when => { const [m, y] = when.split(' '); return y + '-' + String(MONTHS.indexOf(m) + 1).padStart(2, '0'); };
   const slugify = t => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   const ALL_EVENTS = [...EVENTS, ...MORE_EVENTS].sort((x, y) => evTime(y) - evTime(x));
-  const talkEvents = t => ALL_EVENTS.filter(ev => (ev.talks || []).includes(t.slug));
+  // Every event has its own page at /events/<name-year>, e.g. /events/droidcon-india-2026.
+  const eventPath = ev => '/events/' + slugify(ev.name + ' ' + ev.when.split(' ')[1]);
+  const evSessions = ev => (ev.talks || []).map(x => { const [k, day, room] = [].concat(x), t = TALKS.find(t => t.slug === k); return { t, title: t ? t.text : k, day, room }; });
+  const talkEvents = t => ALL_EVENTS.filter(ev => evSessions(ev).some(x => x.t === t));
+  const MONTHS_LONG = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const dayParts = d => { const [y, m, dd] = d.split('-'); return [+dd, MONTHS_LONG[m - 1], y]; };
+  const fmtDay = d => dayParts(d).join(' ');
+  // "20 November 2026", "5–6 November 2026", "30 November – 1 December 2026", or the month when the day isn't known.
+  function evDates(ev) {
+    if (!ev.date) { const [m, y] = ev.when.split(' '); return MONTHS_LONG[MONTHS.indexOf(m)] + ' ' + y; }
+    if (!ev.end || ev.end === ev.date) return fmtDay(ev.date);
+    const [d1, m1, y1] = dayParts(ev.date), [d2, m2, y2] = dayParts(ev.end);
+    return m1 === m2 && y1 === y2 ? d1 + '–' + d2 + ' ' + m2 + ' ' + y2 : d1 + ' ' + m1 + (y1 === y2 ? '' : ' ' + y1) + ' – ' + fmtDay(ev.end);
+  }
+  const evPlace = ev => ev.online ? 'online' : 'in ' + (ev.addr || ev.where).split(', ').slice(-2).join(', ');
+  const quoteList = xs => xs.map(x => '“' + x + '”').join(' and ');
+  function evSummary(ev) {
+    const titles = evSessions(ev).map(x => x.title);
+    return (ev.up ? 'Dinoy Raj speaks at ' : 'Dinoy Raj spoke at ') + ev.name + ' ' + evPlace(ev) + ', ' + evDates(ev) + '.'
+      + (titles.length ? (titles.length > 1 ? ' Sessions: ' : ' Session: ') + quoteList(titles) + '.' : '');
+  }
 
 
-  /* Talks as an accordion: the open card shows the full title in its tone; hover, focus or a first tap opens another, and a tap on the open card goes to Sessionize. */
   /* Talks as an exclusive <details> accordion (name="talks"): the browser handles the keyboard, the expanded state and closing the
      other cards. Pointing at a card with a mouse opens it too (not a tap, whose emulated mouse events would open it before the
-     click toggles it shut). The open card's link covers it, so a click anywhere on it goes to Sessionize. */
+     click toggles it shut). The open card's link covers it, so a click anywhere on it opens the talk's page. */
   function TalksStage() {
     const [open, setOpen] = useState(0);
     return html`<div class="acc">
@@ -390,24 +410,24 @@ window.__boot = function () {
         <div class="body">
           <span class="eyebrow">${t.sub}</span>
           <h3>${t.text}</h3>
-          <a class="meta" href=${LINKS.sessionize} target="_blank" rel="noopener"><span class="go" aria-hidden="true"><span class="ex-icon">arrow_outward</span></span><span><b>${t.title}</b><span class="sub">View on Sessionize</span></span></a>
+          <a class="meta" href=${'/talks/' + t.slug}><span class="go" aria-hidden="true"><span class="ex-icon">arrow_forward</span></span><span><b>${t.title}</b><span class="sub">Abstract, events and slides</span></span></a>
         </div>
       </details>`)}
     </div>`;
   }
 
-  /* A speaking event as a conference ticket; the stub carries the month and year. */
+  /* A speaking event as a conference ticket that opens the event's page; the stub carries the month and year. */
   function EventTicket({ ev }) {
     const [mon, yr] = ev.when.split(' ');
     const tone = ev.up ? (ev.name.startsWith('droidcon') ? 'highlight' : 'primary-container') : 'muted';
-    return html`<div class=${'tix-item t-' + tone}>
+    return html`<a class=${'tix-item t-' + tone} href=${eventPath(ev)} aria-label=${ev.name + ', ' + evDates(ev) + ', ' + ev.where}>
       <div class="main">
         <div class="row">${ev.up ? html`<span class="live">Upcoming</span>` : html`<span>Speaker</span>`}<span>Admit one</span></div>
         <h3>${ev.name}</h3>
         <div class="fields"><span>When</span><span>Where</span><b>${ev.when}</b><b>${ev.where}</b></div>
       </div>
       <div class="stub" aria-hidden="true"><span class="mon">${mon}</span><span class="yr">'${yr.slice(2)}</span><span class="bars"></span></div>
-    </div>`;
+    </a>`;
   }
 
   // published: the exact day as YYYY-MM-DD, for structured data only (datePublished); left out when unknown.
@@ -837,7 +857,7 @@ window.__boot = function () {
   }
 
   function ExtLinks({ links }) {
-    return links.map(([l, h]) => html`<a key=${h} class="link-arrow" href=${h} target=${h.startsWith('http') ? '_blank' : undefined} rel=${h.startsWith('http') ? 'noopener' : undefined}>${l}<span class="ex-icon" aria-hidden="true">arrow_outward</span></a>`);
+    return links.map(([l, h]) => html`<a key=${h} class="link-arrow" href=${h} target=${h.startsWith('http') ? '_blank' : undefined} rel=${h.startsWith('http') ? 'noopener' : undefined}>${l}<span class="ex-icon" aria-hidden="true">${h[0] === '/' ? 'arrow_forward' : 'arrow_outward'}</span></a>`);
   }
 
   function Features({ items }) {
@@ -923,7 +943,7 @@ window.__boot = function () {
       </section>
 
       <section class="ap-sec" aria-labelledby="tk-events">
-        <h2 id="tk-events">Where I've spoken</h2>
+        <div class="sec-head"><h2 id="tk-events">Where I've spoken</h2><a class="link-arrow" href="/events">View all events<span class="ex-icon">arrow_forward</span></a></div>
         <div class="tix">${ALL_EVENTS.map(ev => html`<${EventTicket} key=${ev.name + ev.when} ev=${ev} />`)}</div>
       </section>
     </main>`;
@@ -948,7 +968,7 @@ window.__boot = function () {
         </div>
         <div class="ap-side">
           <div class="tags">${t.sub.split(' · ').concat('Speaker: Dinoy Raj').map(x => html`<span key=${x}>${x}</span>`)}</div>
-          <div class="links"><${ExtLinks} links=${[['Sessionize', LINKS.sessionize], ['Invite me', invite]]} /></div>
+          <div class="links"><${ExtLinks} links=${[...(t.slides ? [['Slides', t.slides]] : []), ['Invite me', invite]]} /></div>
         </div>
       </div>
 
@@ -958,14 +978,108 @@ window.__boot = function () {
       </section>
 
       ${events.length > 0 && html`<section class="ap-sec" aria-labelledby="tk-at">
-        <h2 id="tk-at">Presented at</h2>
+        <div class="sec-head"><h2 id="tk-at">Presented at</h2><a class="link-arrow" href="/events">View all events<span class="ex-icon">arrow_forward</span></a></div>
         <div class="tix">${events.map(ev => html`<${EventTicket} key=${ev.name + ev.when} ev=${ev} />`)}</div>
+      </section>`}
+
+      ${t.slides && html`<section class="ap-sec" aria-labelledby="tk-slides">
+        <h2 id="tk-slides">Slides</h2>
+        <${Slides} t=${t} />
       </section>`}
 
       <${PageCards} cards=${[
         app ? ['/' + app.slug, 'android', app.name, 'The app behind the talk', 'bg-p'] : ['/talks', 'mic', 'More talks', 'Every session and event', 'bg-p'],
         [invite, 'support_agent', 'Book this talk', 'For your conference, meetup or team', 'bg-s'],
         app ? ['/talks', 'mic', 'More talks', 'Every session and event'] : ['/about', 'waving_hand', 'About Dinoy Raj', 'Android developer and speaker'],
+      ]} />
+    </main>`;
+  }
+
+  /* A talk's deck: the SlideShare player when slidesEmbed is set, loaded only when scrolled near, and a link to the deck. */
+  function Slides({ t }) {
+    return html`<div class="slides">
+      ${t.slidesEmbed && html`<div class="slides-frame"><iframe src=${t.slidesEmbed} title=${'Slides: ' + t.text} loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`}
+      <a class="link-arrow" href=${t.slides} target="_blank" rel="noopener">Open the slides<span class="ex-icon" aria-hidden="true">arrow_outward</span></a>
+    </div>`;
+  }
+
+  /* Every event: what's coming up, then everywhere I've spoken. */
+  function EventsPage({ enter }) {
+    const up = ALL_EVENTS.filter(ev => ev.up), past = ALL_EVENTS.filter(ev => !ev.up);
+    const countries = new Set(ALL_EVENTS.filter(ev => !ev.online).map(ev => (ev.addr || ev.where).split(', ').pop())).size;
+    return html`<main id="top" class="app-page wrap" data-enter=${enter}>
+      <a class="link-arrow back" href="/talks"><span class="ex-icon" aria-hidden="true">arrow_back</span>All talks</a>
+      <header class="ap-hero">
+        <${LiveShape} shape="cookie9" tone="primary-container" icon="event" size=${112} />
+        <div class="ap-title">
+          <span class="eyebrow muted">Dinoy Raj · Speaker</span>
+          <h1>Events</h1>
+        </div>
+      </header>
+      <div class="ap-intro">
+        <p class="ap-lede">${ALL_EVENTS.length} conferences and meetups in ${countries} countries: droidcon, DevFest, FOSSASIA Summit, Mobile Developers Week and more. Each one has its own page with the dates, the venue and the sessions I gave there.</p>
+        <div class="ap-side">
+          <div class="links"><${ExtLinks} links=${[['All talks', '/talks'], ['Invite me to speak', 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Speaking invitation')]]} /></div>
+        </div>
+      </div>
+      ${up.length > 0 && html`<section class="ap-sec" aria-labelledby="ev-up">
+        <h2 id="ev-up">Upcoming</h2>
+        <div class="tix">${up.map(ev => html`<${EventTicket} key=${ev.name + ev.when} ev=${ev} />`)}</div>
+      </section>`}
+      <section class="ap-sec" aria-labelledby="ev-past">
+        <h2 id="ev-past">Where I've spoken</h2>
+        <div class="tix">${past.map(ev => html`<${EventTicket} key=${ev.name + ev.when} ev=${ev} />`)}</div>
+      </section>
+    </main>`;
+  }
+
+  /* One event: when and where, who runs it, and each session I gave there with its day, room and slides. */
+  function EventPage({ ev, enter }) {
+    const sessions = evSessions(ev), yr = ev.when.split(' ')[1], decks = sessions.filter(x => x.t && x.t.slides);
+    const invite = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Speaking invitation');
+    const facts = [['calendar_month', 'When', evDates(ev)], ['event', 'Where', ev.online ? 'Online' : ev.addr || ev.where], ['support_agent', 'Organizer', ev.org || ev.name], ['mic', 'Format', ev.online ? 'Online' : 'In person']];
+    const first = sessions.find(x => x.t) && sessions.find(x => x.t).t;
+    return html`<main id="top" class="app-page wrap" data-enter=${enter}>
+      <a class="link-arrow back" href="/events"><span class="ex-icon" aria-hidden="true">arrow_back</span>All events</a>
+      <header class="ap-hero">
+        <${LiveShape} shape=${ev.name.startsWith('droidcon') || ev.name.startsWith('Droidcon') ? 'cookie12' : 'flower5'} tone=${ev.up ? 'highlight' : 'primary-container'} icon="event" size=${112} />
+        <div class="ap-title">
+          <span class="eyebrow muted">${ev.up ? 'Upcoming' : 'Event'} · ${ev.where}</span>
+          <h1>${ev.name} ${yr}</h1>
+        </div>
+      </header>
+      <div class="ap-intro">
+        <div class="ap-copy"><p class="ap-lede">${evSummary(ev).replace(/^Dinoy Raj s/, 'I s').replace(' Session: ', ' My session: ').replace(' Sessions: ', ' My sessions: ')}</p></div>
+        <div class="ap-side">
+          <div class="tags">${[ev.where, evDates(ev), ev.org].filter(Boolean).map(x => html`<span key=${x}>${x}</span>`)}</div>
+          <div class="links"><${ExtLinks} links=${[...(ev.site ? [['Event website', ev.site]] : []), ['Invite me', invite]]} /></div>
+        </div>
+      </div>
+
+      <section class="ap-sec" aria-labelledby="ev-details">
+        <h2 id="ev-details">Details</h2>
+        <dl class="ev-facts">${facts.map(([icon, k, v]) => html`<div key=${k}><dt><span class="ex-icon" aria-hidden="true">${icon}</span>${k}</dt><dd>${v}</dd></div>`)}</dl>
+      </section>
+
+      ${sessions.length > 0 && html`<section class="ap-sec" aria-labelledby="ev-sessions">
+        <h2 id="ev-sessions">${sessions.length > 1 ? 'My sessions' : 'My session'}</h2>
+        <div class="talk-list">${sessions.map((x, i) => {
+          const when = [x.day && fmtDay(x.day), x.room].filter(Boolean).join(' · ') || (x.t ? x.t.sub : 'Session');
+          const body = html`<span class="ex-icon" aria-hidden="true">${x.t ? x.t.icon : 'mic'}</span><span><b>${x.title}</b><span>${when}</span></span>`;
+          return x.t ? html`<a key=${x.title} class=${'legal-card' + (i ? ' bg-s' : ' bg-p')} href=${'/talks/' + x.t.slug}>${body}<span class="ex-icon go" aria-hidden="true">arrow_forward</span></a>`
+            : html`<div key=${x.title} class=${'legal-card' + (i ? ' bg-s' : ' bg-p')}>${body}</div>`;
+        })}</div>
+      </section>`}
+
+      ${decks.map(x => html`<section key=${x.t.slug} class="ap-sec" aria-labelledby=${'ev-slides-' + x.t.slug}>
+        <h2 id=${'ev-slides-' + x.t.slug}>Slides${decks.length > 1 ? ': ' + x.t.title : ''}</h2>
+        <${Slides} t=${x.t} />
+      </section>`)}
+
+      <${PageCards} cards=${[
+        first ? ['/talks/' + first.slug, first.icon, first.title, 'The talk: abstract and takeaways', 'bg-p'] : ['/talks', 'mic', 'Talks', 'Every session I give', 'bg-p'],
+        [invite, 'support_agent', 'Invite me to speak', 'For your conference, meetup or team', 'bg-s'],
+        ['/events', 'event', 'All events', 'Everywhere I have spoken'],
       ]} />
     </main>`;
   }
@@ -1191,24 +1305,25 @@ window.__boot = function () {
     </section>`;
   }
 
-  /* Routes: "/" is home, "/apps" every app, "/about", "/talks" and "/talks/<slug>" one talk, "/<slug>" an app,
+  /* Routes: "/" is home, "/apps" every app, "/about", "/talks" and "/talks/<slug>" one talk, "/events" and "/events/<name-year>" one event, "/<slug>" an app,
      and "/<slug>/privacypolicy" and "/<slug>/termsofservice" its legal pages. design/prerender.js writes each to its own HTML file. */
   const LEGAL = { privacypolicy: 'privacy', termsofservice: 'terms' };
-  const DEPTH = { home: 0, all: 1, about: 1, talks: 1, missing: 1, app: 2, talk: 2, privacy: 3, terms: 3 };
-  const PAGES = { apps: 'all', about: 'about', talks: 'talks' };
+  const DEPTH = { home: 0, all: 1, about: 1, talks: 1, events: 1, missing: 1, app: 2, talk: 2, event: 2, privacy: 3, terms: 3 };
+  const PAGES = { apps: 'all', about: 'about', talks: 'talks', events: 'events' };
   function parseRoute() {
     const parts = location.pathname.split('/').filter(Boolean).map(p => p.toLowerCase());
     if (!parts.length) return { page: 'home' };
     if (parts[0] === 'talks' && parts.length === 2) { const talk = TALKS.find(t => t.slug === parts[1]); return talk ? { page: 'talk', talk } : { page: 'missing' }; }
+    if (parts[0] === 'events' && parts.length === 2) { const ev = ALL_EVENTS.find(e => eventPath(e) === '/events/' + parts[1]); return ev ? { page: 'event', ev } : { page: 'missing' }; }
     if (PAGES[parts[0]]) return parts.length === 1 ? { page: PAGES[parts[0]] } : { page: 'missing' };
     const app = APPS.find(a => a.slug === parts[0]);
     if (!app || parts.length > 2) return { page: 'missing' };
     if (parts.length === 1) return { page: 'app', app };
     return LEGAL[parts[1]] ? { page: LEGAL[parts[1]], app } : { page: 'missing' };
   }
-  const routeKey = r => r.page + (r.app ? ':' + r.app.slug : '') + (r.talk ? ':' + r.talk.slug : '');
+  const routeKey = r => r.page + (r.app ? ':' + r.app.slug : '') + (r.talk ? ':' + r.talk.slug : '') + (r.ev ? ':' + eventPath(r.ev).slice(8) : '');
   const SITE = 'https://dinoyraj.com';
-  const ROUTES = ['/', '/apps', '/about', '/talks', ...TALKS.map(t => '/talks/' + t.slug),
+  const ROUTES = ['/', '/apps', '/about', '/talks', ...TALKS.map(t => '/talks/' + t.slug), '/events', ...ALL_EVENTS.map(eventPath),
     ...APPS.flatMap(a => ['/' + a.slug, '/' + a.slug + '/privacypolicy', '/' + a.slug + '/termsofservice'])];
 
   /* Title, description and canonical path of each page. index: false keeps the near-identical legal pages out of search results. */
@@ -1221,6 +1336,9 @@ window.__boot = function () {
     if (r.page === 'talks') return { path: '/talks', title: 'Talks by Dinoy Raj | On-Device AI, Launchers & Agentic Android',
       desc: 'Conference talks by Android developer Dinoy Raj on Gemini Nano and on-device AI, offline RAG, App Functions, custom launchers and Kotlin Multiplatform.' };
     if (r.page === 'talk') return { path: '/talks/' + t.slug, title: (t.seoTitle || t.text) + ' | Dinoy Raj', desc: t.seo, type: 'article' };
+    if (r.page === 'events') return { path: '/events', title: 'Events by Dinoy Raj | droidcon, DevFest & FOSSASIA Talks',
+      desc: 'Every conference and meetup where Android developer Dinoy Raj has spoken: droidcon, DevFest, FOSSASIA Summit and Mobile Developers Week, with dates, venues and sessions.' };
+    if (r.page === 'event') return { path: eventPath(r.ev), title: 'Dinoy Raj at ' + r.ev.name + ' ' + r.ev.when.split(' ')[1] + ' | ' + (r.ev.online ? 'Online' : r.ev.where) + ', ' + evDates(r.ev), desc: evSummary(r.ev) };
     if (r.page === 'app') return { path: '/' + a.slug, title: a.name + ': ' + a.store + (/android/i.test(a.store) ? '' : ' for Android') + ' | Dinoy Raj', desc: a.seo || a.desc }; // seo: a search-result version of desc, where desc leans on the page around it
     if (r.page === 'privacy') return { path: '/' + a.slug + '/privacypolicy', title: 'Privacy policy · ' + a.name, index: false,
       desc: 'Privacy policy for ' + a.name + ', an Android app by Dinoy Raj: what it collects, what it doesn\'t, and the permissions it uses.' };
@@ -1257,29 +1375,30 @@ window.__boot = function () {
     ...(a.status === 'wip' ? { releaseNotes: 'In development' } : {}),
   });
   // Speaking appearances as schema.org Events with Dinoy as performer (schema.org has no speaking-engagement type).
-  const eventId = ev => SITE + '/#event-' + slugify(ev.name + ' ' + ev.when);
+  const eventId = ev => SITE + eventPath(ev) + '#event';
   // Google wants startDate as a full YYYY-MM-DD date: give an event its exact day (date: '2026-11-14') once known. Until then the
   // month (YYYY-MM, valid ISO 8601) stands in, since startDate is required and an Event without one is worse than a coarse date.
   // endDate: the last day (end: 'YYYY-MM-DD') for multi-day events, else the start. organizer: who runs it (org: 'GDG Mumbai'),
   // else the event's own name. offers: only with a real ticket page (tickets: 'https://…'), never a made-up price.
   const eventNode = ev => {
     const start = ev.date || isoMonth(ev.when);
-    const talks = (ev.talks || []).map(k => TALKS.find(t => t.slug === k) || k), titles = talks.map(t => t.text || t);
+    const sessions = evSessions(ev);
     return {
       '@type': 'Event', '@id': eventId(ev), name: ev.name, startDate: start, endDate: ev.end || start,
-      description: 'Dinoy Raj ' + (titles.length ? 'presents ' + titles.map(x => '“' + x + '”').join(' and ') : 'speaks about Android and on-device AI') + ' at ' + ev.name + (ev.online ? ', online' : ' in ' + (ev.addr || ev.where)) + ', ' + ev.when + '.',
+      description: evSummary(ev),
       image: SITE + '/assets/og.jpg',
       eventAttendanceMode: 'https://schema.org/' + (ev.online ? 'Online' : 'Offline') + 'EventAttendanceMode', eventStatus: 'https://schema.org/EventScheduled',
       location: ev.online ? { '@type': 'VirtualLocation', url: ev.site || LINKS.sessionize } : { '@type': 'Place', name: ev.where, address: ev.addr || ev.where },
       performer: { '@id': SITE + '/#person' },
-      ...(talks.length ? { workPerformed: talks.map(t => t.slug ? { '@id': SITE + '/talks/' + t.slug + '#talk' } : { '@type': 'CreativeWork', name: t }) } : {}),
+      ...(sessions.length ? { workPerformed: sessions.map(x => x.t ? { '@id': SITE + '/talks/' + x.t.slug + '#talk' } : { '@type': 'CreativeWork', name: x.title }) } : {}),
       organizer: { '@type': 'Organization', name: ev.org || ev.name, ...(ev.site ? { url: ev.site } : {}) },
       ...(ev.tickets ? { offers: { '@type': 'Offer', url: ev.tickets, availability: 'https://schema.org/InStock', validFrom: start } } : {}),
-      url: ev.site || LINKS.sessionize,
+      url: SITE + eventPath(ev), ...(ev.site ? { sameAs: ev.site } : {}),
     };
   };
   const talkNode = t => ({ '@type': 'CreativeWork', '@id': SITE + '/talks/' + t.slug + '#talk', url: SITE + '/talks/' + t.slug, name: t.text, alternateName: t.title,
-    abstract: t.abstract.join(' '), author: { '@id': SITE + '/#person' }, inLanguage: 'en' });
+    abstract: t.abstract.join(' '), author: { '@id': SITE + '/#person' }, inLanguage: 'en',
+    ...(t.slides ? { subjectOf: { '@type': 'PresentationDigitalDocument', name: 'Slides: ' + t.text, url: t.slides } } : {}) });
   function routeJsonLd(r) {
     const h = routeHead(r), url = SITE + h.path;
     const page = (type, extra) => ({ '@type': type, '@id': url + '#page', url, name: h.title, description: h.desc, isPartOf: { '@id': SITE + '/#website' }, inLanguage: 'en', ...extra });
@@ -1301,6 +1420,10 @@ window.__boot = function () {
       mainEntity: { '@type': 'ItemList', itemListElement: TALKS.map((t, i) => ({ '@type': 'ListItem', position: i + 1, url: SITE + '/talks/' + t.slug, name: t.text })) } }));
     else if (r.page === 'talk') graph.push(page('WebPage', { breadcrumb: crumbs([['Talks', '/talks'], [r.talk.title, '/talks/' + r.talk.slug]]),
       mainEntity: { ...talkNode(r.talk), keywords: r.talk.sub.split(' · ').concat(r.talk.takeaways.map(k => k[1])).join(', ') } }));
+    else if (r.page === 'events') graph.push(...ALL_EVENTS.map(eventNode), page('CollectionPage', { breadcrumb: crumbs([['Events', '/events']]),
+      mainEntity: { '@type': 'ItemList', itemListElement: ALL_EVENTS.map((ev, i) => ({ '@type': 'ListItem', position: i + 1, url: SITE + eventPath(ev), name: ev.name + ' ' + ev.when.split(' ')[1] })) } }));
+    else if (r.page === 'event') graph.push(eventNode(r.ev), page('WebPage', { mainEntity: { '@id': eventId(r.ev) },
+      breadcrumb: crumbs([['Events', '/events'], [r.ev.name + ' ' + r.ev.when.split(' ')[1], eventPath(r.ev)]]) }));
     else if (r.page === 'app') graph.push(appNode(r.app), page('WebPage', { mainEntity: { '@id': SITE + '/' + r.app.slug + '#app' }, breadcrumb: crumbs([['Apps', '/apps'], [r.app.name, '/' + r.app.slug]]) }));
     else return null;
     return { '@context': 'https://schema.org', '@graph': graph };
@@ -1365,6 +1488,8 @@ window.__boot = function () {
         : route.page === 'about' ? html`<${AboutPage} enter=${enter} />`
         : route.page === 'talks' ? html`<${TalksPage} enter=${enter} />`
         : route.page === 'talk' ? html`<${TalkPage} key=${route.talk.slug} t=${route.talk} enter=${enter} />`
+        : route.page === 'events' ? html`<${EventsPage} enter=${enter} />`
+        : route.page === 'event' ? html`<${EventPage} key=${eventPath(route.ev)} ev=${route.ev} enter=${enter} />`
         : route.page === 'app' ? html`<${AppPage} key=${route.app.slug} a=${route.app} enter=${enter} />`
         : route.page === 'privacy' || route.page === 'terms' ? html`<${LegalPage} key=${route.page + route.app.slug} a=${route.app} doc=${route.page} enter=${enter} />`
         : route.page === 'missing' ? html`<${Missing} enter=${enter} />`
@@ -1438,11 +1563,11 @@ window.__boot = function () {
         <section class="how wrap" id="talks">
           <div class="how-head">
             <h2 class="sec-title">Talks</h2>
-            <a class="link-arrow" href=${LINKS.sessionize} target="_blank" rel="noopener">All talks on Sessionize<span class="ex-icon">arrow_outward</span></a>
+            <a class="link-arrow" href="/talks">View all talks<span class="ex-icon">arrow_forward</span></a>
           </div>
           <${TalksStage} />
           <div class="events">
-            <h3 class="events-title">Where I'm speaking</h3>
+            <div class="events-head"><h3 class="events-title">Where I'm speaking</h3><a class="link-arrow" href="/events">View all events<span class="ex-icon">arrow_forward</span></a></div>
             <div class="tix">${EVENTS.map(ev => html`<${EventTicket} key=${ev.name + ev.when} ev=${ev} />`)}</div>
           </div>
         </section>
@@ -1479,7 +1604,7 @@ window.__boot = function () {
           <div class="foot-grid">
             <h2>Small apps,<br/><span class="em">finished</span> properly.</h2>
             <div><h3>/ Quick links</h3><div class="foot-links">
-              ${[['Home', '#top'], ['About', '#about'], ['Services', '#services'], ['Apps', '#apps'], ['Talks', '#talks'], ['Blogs', '#blogs'], ['Contact', '#contact']].map(([l, h]) => html`<a key=${h} href=${h}>${l}</a>`)}
+              ${[['Home', '#top'], ['About', '#about'], ['Services', '#services'], ['Apps', '#apps'], ['Talks', '#talks'], ['Events', '/events'], ['Blogs', '#blogs'], ['Contact', '#contact']].map(([l, h]) => html`<a key=${h} href=${h}>${l}</a>`)}
             </div></div>
             <div><h3>/ Elsewhere</h3><div class="foot-links foot-ext">
               ${[['GitHub', LINKS.github], ['LinkedIn', LINKS.linkedin], ['Medium', LINKS.medium], ['Sessionize', LINKS.sessionize], ['Google Play', LINKS.play], ['All links', LINKS.linktree]].map(([l, h]) => html`<a key=${l} href=${h} target="_blank" rel="noopener">${l}</a>`)}
