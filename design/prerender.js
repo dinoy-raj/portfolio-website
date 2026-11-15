@@ -1,6 +1,6 @@
 // Renders every page of the site to static HTML, so each address paints before any script loads and search engines get the
 // full page with its own title, description, canonical URL and structured data. The routes, heads and JSON-LD come from the
-// app script in index.html (ROUTES, routeHead, routeJsonLd), exposed as window.__site.
+// app script, kit/app.js (ROUTES, routeHead, routeJsonLd), exposed as window.__site.
 // index.html is both the template and the home page; every other route is written next to it as <path>.html, which Vercel
 // serves at <path> (cleanUrls). React hydrates the markup in place: #root's data-route names the route it was rendered for.
 // Also rewrites sitemap.xml. Re-run after changing any page's content:
@@ -8,7 +8,7 @@
 // Needs Playwright (pre-installed in Claude Code cloud sessions; elsewhere: npm i -g playwright). Files are served straight from
 // disk through request interception, so no local server is needed; react-dom/server comes from cdnjs.
 const { chromium } = require('playwright');
-const fs = require('fs'), path = require('path');
+const fs = require('fs'), path = require('path'), crypto = require('crypto');
 const ROOT = path.join(__dirname, '..');
 const ORIGIN = 'http://site.test', SITE = 'https://dinoyraj.com';
 const SERVER = 'https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom-server-legacy.browser.production.min.js';
@@ -73,7 +73,10 @@ function between(src, start, end, body) {
 
 (async () => {
   const file = path.join(ROOT, 'index.html');
-  const template = fs.readFileSync(file, 'utf8');
+  // /kit/ is cached for a year (vercel.json), so each of its own files is requested as ?v=<first 8 hex digits of its sha256>:
+  // a changed file gets a new address and every visitor fetches it fresh.
+  const template = fs.readFileSync(file, 'utf8').replace(/'\/kit\/(bundle|app)\.js\?v=[0-9a-f]{8}'/g, (m, name) =>
+    `'/kit/${name}.js?v=${crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, 'kit', name + '.js'))).digest('hex').slice(0, 8)}'`);
   const b = await chromium.launch();
   const p = await b.newPage();
   await p.route(ORIGIN + '/**', route => {

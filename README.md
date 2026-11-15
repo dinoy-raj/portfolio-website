@@ -8,7 +8,7 @@ Built with [Expressive Kit](https://github.com/dinoy-raj/Material-3-expressive-d
 
 ## Pages
 
-Every page is pre-rendered to static HTML: `index.html` is the home page and the template, and every other route (`/apps`, `/about`, `/talks`, `/talks/<slug>`, `/<app>` and its legal pages) is written next to it as `<path>.html`, which Vercel serves without the extension (`cleanUrls`). Routes, titles, descriptions and structured data live in the app script in `index.html` (`ROUTES`, `routeHead`, `routeJsonLd`). After changing any content, regenerate every page and `sitemap.xml`:
+Every page is pre-rendered to static HTML: `index.html` is the home page and the template, and every other route (`/apps`, `/about`, `/talks`, `/talks/<slug>`, `/<app>` and its legal pages) is written next to it as `<path>.html`, which Vercel serves without the extension (`cleanUrls`). Routes, titles, descriptions and structured data live in the app script, `kit/app.js` (`ROUTES`, `routeHead`, `routeJsonLd`), which every page loads after its first paint and the browser caches across pages. After changing any content or `kit/app.js`, regenerate every page and `sitemap.xml` (this also updates the `?v=` hashes of `kit/app.js` and `kit/bundle.js`, which are cached for a year):
 
 ```sh
 node design/prerender.js
