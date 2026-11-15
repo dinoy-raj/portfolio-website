@@ -1425,24 +1425,24 @@ window.__boot = function () {
   // addr: the full place, for structured data only (the tickets show `where`). date: the exact day as YYYY-MM-DD, also for
   // structured data only (startDate); without it the JSON-LD falls back to the month, which Google flags as incomplete.
   const EVENTS = [
-    { name: 'droidcon India', when: 'Nov 2026', where: 'Bengaluru', addr: 'Bengaluru, India', up: true },
-    { name: 'DevFest Dar es Salaam', when: 'Nov 2026', where: 'Tanzania', addr: 'Dar es Salaam, Tanzania', up: true },
-    { name: 'Droidcon & Fluttercon Kenya', when: 'Nov 2026', where: 'Nairobi', addr: 'Nairobi, Kenya' },
-    { name: 'DevFest Atlanta', when: 'Oct 2026', where: 'Atlanta', addr: 'Atlanta, GA, United States' },
-    { name: 'droidcon Uganda', when: 'Oct 2026', where: 'Kampala', addr: 'Kampala, Uganda' },
-    { name: 'droidcon Lisbon', when: 'Oct 2026', where: 'Lisbon', addr: 'Lisbon, Portugal' },
-    { name: 'DevFest Vicenza', when: 'Jun 2026', where: 'Italy', addr: 'Vicenza, Italy' },
-    { name: 'FOSSASIA Summit', when: 'Mar 2026', where: 'Bangkok', addr: 'Bangkok, Thailand' },
-    { name: 'DevFest Mumbai', when: 'Dec 2025', where: 'Mumbai', addr: 'Mumbai, India' },
-    { name: 'Mobile Developers Week', when: 'Dec 2025', where: 'Abu Dhabi', addr: 'Abu Dhabi, United Arab Emirates' },
-    { name: 'DevFest Dubai', when: 'Dec 2025', where: 'Dubai', addr: 'Dubai, United Arab Emirates' },
+    { name: 'droidcon India', when: 'Nov 2026', where: 'Bengaluru', addr: 'Bengaluru, India', up: true, org: 'droidcon', site: 'https://india.droidcon.com/' },
+    { name: 'DevFest Dar es Salaam', when: 'Nov 2026', where: 'Tanzania', addr: 'Confucius Institute at UDSM, Dar es Salaam, Tanzania', up: true, date: '2026-11-07', org: 'GDG Dar es Salaam', site: 'https://gdg.community.dev/events/details/google-gdg-dar-es-salaam-presents-devfest-dar-es-salaam-2026-kickoff-workshop/' },
+    { name: 'Droidcon & Fluttercon Kenya', when: 'Nov 2026', where: 'Nairobi', addr: 'PrideInn Azure Hotel, Westlands, Nairobi, Kenya', date: '2026-11-05', end: '2026-11-06', org: 'droidcon Kenya', site: 'https://droidcon.co.ke/' },
+    { name: 'DevFest Atlanta', when: 'Oct 2026', where: 'Atlanta', addr: 'Morehouse College, 830 Westview Drive SW, Atlanta, GA 30314, United States', date: '2026-10-30', end: '2026-10-31', org: 'GDG Atlanta', site: 'https://gdg.community.dev/gdg-atlanta/' },
+    { name: 'droidcon Uganda', when: 'Oct 2026', where: 'Kampala', addr: 'National ICT & Innovation Hub, Nakawa, Kampala, Uganda', date: '2026-10-28', end: '2026-10-29', org: 'droidcon Uganda', site: 'https://www.uganda.droidcon.com/' },
+    { name: 'droidcon Lisbon', when: 'Oct 2026', where: 'Lisbon', addr: 'Lisbon, Portugal', org: 'FIKA IT Solutions', site: 'https://lisbon.droidcon.com/' },
+    { name: 'DevFest Vicenza', when: 'Jun 2026', where: 'Italy', addr: 'Vicenza, Italy', org: 'GDG Vicenza', site: 'https://devfestvicenza.it/' },
+    { name: 'FOSSASIA Summit', when: 'Mar 2026', where: 'Bangkok', addr: 'True Digital Park, Bangkok, Thailand', date: '2026-03-08', end: '2026-03-10', org: 'FOSSASIA', site: 'https://fossasia.org/' },
+    { name: 'DevFest Mumbai', when: 'Dec 2025', where: 'Mumbai', addr: 'Mumbai, India', org: 'GDG Mumbai' },
+    { name: 'Mobile Developers Week', when: 'Dec 2025', where: 'Abu Dhabi', addr: 'Abu Dhabi Energy Centre, Abu Dhabi, United Arab Emirates', org: 'Omnes Technologies', site: 'https://www.mobiledevelopersweek.com/' },
+    { name: 'DevFest Dubai', when: 'Dec 2025', where: 'Dubai', addr: 'Dubai, United Arab Emirates', date: '2025-12-13', end: '2025-12-15', org: 'GDG Dubai', site: 'https://gdg.community.dev/events/details/google-gdg-dubai-presents-devfest-dubai-2025-end-of-year-showdown/' },
   ];
   // Also on Sessionize; the talks page lists them with the ones above, newest first.
   const MORE_EVENTS = [
-    { name: 'TechMang', when: 'Jan 2026', where: 'Mangaluru', addr: 'Mangaluru, India' },
-    { name: 'DevFest Bujumbura', when: 'Dec 2025', where: 'Burundi', addr: 'Bujumbura, Burundi' },
-    { name: 'IndeHub Zoho Apptics', when: 'Nov 2025', where: 'Chennai', addr: 'Chennai, India' },
-    { name: 'droidcon Uganda', when: 'Nov 2025', where: 'Kampala', addr: 'Kampala, Uganda' },
+    { name: 'TechMang', when: 'Jan 2026', where: 'Mangaluru', addr: 'Mangaluru, India', org: 'Hackerspace Mangaluru', site: 'https://hackersmang.org/' },
+    { name: 'DevFest Bujumbura', when: 'Dec 2025', where: 'Burundi', addr: "King's Conference Center, Kinindo, Bujumbura, Burundi", date: '2025-12-20', org: 'GDG Bujumbura', site: 'https://gdg.community.dev/events/details/google-gdg-bujumbura-presents-devfest-bujumbura-2025/' },
+    { name: 'IndeHub Zoho Apptics', when: 'Nov 2025', where: 'Chennai', addr: 'Zoho Corporation, Estancia IT Park, Chengalpattu, Tamil Nadu, India', date: '2025-11-22', org: 'IndeHub', site: 'https://luma.com/w2y3tkr1' },
+    { name: 'droidcon Uganda', when: 'Nov 2025', where: 'Kampala', addr: 'Kampala, Uganda', date: '2025-11-10', org: 'droidcon Uganda', site: 'https://www.uganda.droidcon.com/' },
   ];
   const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const evTime = ev => { const [m, y] = ev.when.split(' '); return +y * 12 + MONTHS.indexOf(m); };
