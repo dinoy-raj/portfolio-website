@@ -214,7 +214,7 @@
   }
 
   function Snackbar(p) {
-    return h('div', { className: 'ex-snack', role: 'status' }, h('span', { className: 'msg' }, p.message), p.action ? h('button', { type: 'button', className: 'ex-press', onClick: p.onAction }, p.action) : null);
+    return h('div', { className: 'ex-snack', role: p.role !== undefined ? p.role : 'status' }, h('span', { className: 'msg' }, p.message), p.action ? h('button', { type: 'button', className: 'ex-press', onClick: p.onAction }, p.action) : null);
   }
 
   var api = { Button: Button, IconButton: IconButton, Fab: Fab, ButtonGroup: ButtonGroup, Chip: Chip, Badge: Badge, ValuePill: ValuePill, NavigationBar: NavigationBar, TopBar: TopBar, SearchBar: SearchBar, TextField: TextField, Switch: Switch, Slider: Slider, WavyProgress: WavyProgress, Card: Card, ListItem: ListItem, GroupedList: GroupedList, StatTile: StatTile, ShapeAvatar: ShapeAvatar, BottomSheet: BottomSheet, SummaryList: SummaryList, Snackbar: Snackbar };
