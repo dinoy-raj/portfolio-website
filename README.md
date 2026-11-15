@@ -13,3 +13,7 @@ Every page is pre-rendered to static HTML: `index.html` is the home page and the
 ```sh
 node design/prerender.js
 ```
+
+## Expressive Kit
+
+`/Material-3-expressive-design-system-skill` is not built here: `vercel.json` rewrites it to the kit's GitHub Pages site, which redeploys on every merge to that repository's `main`. Its pages and styles live in [Material-3-expressive-design-system-skill](https://github.com/dinoy-raj/Material-3-expressive-design-system-skill) (`scripts/build_site.py`, `scripts/site.css`).

@@ -10,6 +10,10 @@
     { "source": "/", "has": [{ "type": "host", "value": "www.dinoyraj.com" }], "destination": "https://dinoyraj.com/", "permanent": true },
     { "source": "/:path*", "has": [{ "type": "host", "value": "www.dinoyraj.com" }], "destination": "https://dinoyraj.com/:path*", "permanent": true }
   ],
+  "rewrites": [
+    { "source": "/Material-3-expressive-design-system-skill", "destination": "https://dinoy-raj.github.io/Material-3-expressive-design-system-skill/" },
+    { "source": "/Material-3-expressive-design-system-skill/:path*", "destination": "https://dinoy-raj.github.io/Material-3-expressive-design-system-skill/:path*" }
+  ],
   "headers": [
     {
       "source": "/(.*)",
