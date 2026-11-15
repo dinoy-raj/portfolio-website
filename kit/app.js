@@ -273,7 +273,7 @@ window.__boot = function () {
         ['speed', 'Prompt API in production', 'Designing and optimising prompts for an AI booking search, from 18 s to 3 s per answer.'],
         ['tune', 'Production considerations', 'Model size, device compatibility, privacy and performance lessons from shipping AI features at scale.'],
         ['stacks', 'Beyond Gemini', 'MediaPipe, LiteRT and custom models for specialised on-device tasks.']], app: 'nano' },
-    { slug: 'custom-android-launcher', home: true, text: 'Beyond the Grid: Crafting a Custom Android Launcher from Scratch', seoTitle: 'Crafting a Custom Android Launcher from Scratch', title: 'Custom launchers', sub: 'Jetpack Compose', shape: 'flower5', icon: 'apps', tone: 'tertiary-container',
+    { slug: 'custom-android-launcher', home: true, text: 'Beyond the Grid: Crafting a Custom Android Launcher from Scratch', seoTitle: 'Crafting a Custom Android Launcher from Scratch', title: 'Custom launchers', sub: 'Lightning talk · Jetpack Compose', shape: 'flower5', icon: 'apps', tone: 'tertiary-container',
       seo: 'How to build a custom Android launcher: a talk by Dinoy Raj, creator of Dino Minimalist Launcher, on PackageManager, broadcasts, permissions and OEM quirks.',
       abstract: [
         'As the creator of Dino Minimalist Launcher, a text-based launcher for Android, I have worked through the unusual challenges of replacing one of Android\'s most fundamental components. This talk demystifies building a custom launcher: the app that sits between the user and the Android system.',
@@ -321,12 +321,21 @@ window.__boot = function () {
       seo: 'Kotlin Multiplatform talk by Dinoy Raj: a shared GraphQL data layer with Apollo Kotlin for Android, iOS and desktop, with caching, auth and Flow.',
       abstract: [
         'As Kotlin Multiplatform grows, the challenge moves from sharing small utilities to sharing complex data layers across Android, iOS, desktop and web. GraphQL gives a type-safe, efficient API, and with Apollo Kotlin\'s multiplatform support all of the networking and data logic can be shared.',
-        'This session shows how to put Apollo GraphQL at the heart of a KMP architecture, carrying over what we learned building scalable Android apps with Jetpack Compose to a multiplatform setup. It is also available as a lightning talk, "Architecting the Shared Layer: GraphQL Best Practices in Kotlin Multiplatform", on Clean Architecture, a shared normalized cache and type-safe error boundaries.'],
+        'This session shows how to put Apollo GraphQL at the heart of a KMP architecture, carrying over what we learned building scalable Android apps with Jetpack Compose to a multiplatform setup. For the short version, see the lightning talk "Architecting the Shared Layer: GraphQL Best Practices in Kotlin Multiplatform".'],
       takeaways: [
         ['stacks', 'Architecture', 'A shared data module serving Android (Compose), iOS (SwiftUI) and desktop.'],
         ['code', 'Type safety', 'Apollo code generation as the single source of truth for the API schema on every platform.'],
         ['tune', 'Best practices', 'Caching, authentication headers and reactive queries with Kotlin Coroutines and Flow.'],
         ['bolt', 'Real-world hurdles', 'Platform-specific configuration and network performance for a consistent experience.']] },
+    { slug: 'graphql-kmp-shared-layer', text: 'Architecting the Shared Layer: GraphQL Best Practices in Kotlin Multiplatform', seoTitle: 'GraphQL Best Practices in Kotlin Multiplatform', title: 'KMP shared layer', sub: 'Lightning talk · Kotlin Multiplatform · Apollo', shape: 'clover4', icon: 'stacks', tone: 'tertiary-container',
+      seo: 'Lightning talk by Dinoy Raj on Clean Architecture for GraphQL in Kotlin Multiplatform: Apollo Kotlin in commonMain, a shared normalized cache and type-safe errors.',
+      abstract: [
+        'Clean Architecture in Kotlin Multiplatform needs a robust data layer that keeps complexity away from the UI. Bring GraphQL into the mix and the challenge becomes keeping a strict separation of concerns while still using the full power of the graph on Android and iOS.',
+        'This lightning talk explores patterns for integrating Apollo Kotlin directly into the commonMain source set, treating the shared KMP module as the single source of truth so that each platform\'s UI stays purely reactive. For the full setup, see the longer session "Write Once, Query Everywhere".'],
+      takeaways: [
+        ['stacks', 'Shared normalized cache', 'Apollo\'s cache in the shared data layer as one offline-first source of truth that keeps Android and iOS in sync.'],
+        ['category', 'Schema-driven modularity', 'Generated GraphQL models stay in the data layer; mappers expose pure domain entities, so API details never leak into business logic.'],
+        ['shield_lock', 'Type-safe error boundaries', 'A unified Result wrapper in the shared repository turns GraphQL partial failures into clean domain states for the UI.']] },
     { slug: 'storytale-compose-multiplatform-design-systems', text: 'Beyond @Preview: Building & Cataloging Compose Multiplatform Design Systems with Storytale', seoTitle: 'Compose Multiplatform Design Systems with Storytale', title: 'Storytale', sub: 'Compose Multiplatform · Design systems', icon: 'palette', tone: 'highlight',
       seo: 'Talk by Dinoy Raj on Storytale, the JetBrains Gradle plugin that brings a Storybook-style component gallery to Compose Multiplatform design systems.',
       abstract: [
