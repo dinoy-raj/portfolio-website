@@ -2193,11 +2193,21 @@ window.__boot = function () {
   const eventId = ev => SITE + '/#event-' + slugify(ev.name + ' ' + ev.when);
   // Google wants startDate as a full YYYY-MM-DD date: give an event its exact day (date: '2026-11-14') once known. Until then the
   // month (YYYY-MM, valid ISO 8601) stands in, since startDate is required and an Event without one is worse than a coarse date.
-  const eventNode = ev => ({
-    '@type': 'Event', '@id': eventId(ev), name: ev.name, startDate: ev.date || isoMonth(ev.when),
-    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode', eventStatus: 'https://schema.org/EventScheduled',
-    location: { '@type': 'Place', name: ev.where, address: ev.addr || ev.where }, performer: { '@id': SITE + '/#person' }, url: LINKS.sessionize,
-  });
+  // endDate: the last day (end: 'YYYY-MM-DD') for multi-day events, else the start. organizer: who runs it (org: 'GDG Mumbai'),
+  // else the event's own name. offers: only with a real ticket page (tickets: 'https://…'), never a made-up price.
+  const eventNode = ev => {
+    const start = ev.date || isoMonth(ev.when);
+    return {
+      '@type': 'Event', '@id': eventId(ev), name: ev.name, startDate: start, endDate: ev.end || start,
+      description: 'Dinoy Raj speaks about Android and on-device AI at ' + ev.name + ' in ' + (ev.addr || ev.where) + ', ' + ev.when + '.',
+      image: SITE + '/assets/og.jpg',
+      eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode', eventStatus: 'https://schema.org/EventScheduled',
+      location: { '@type': 'Place', name: ev.where, address: ev.addr || ev.where }, performer: { '@id': SITE + '/#person' },
+      organizer: { '@type': 'Organization', name: ev.org || ev.name, ...(ev.site ? { url: ev.site } : {}) },
+      ...(ev.tickets ? { offers: { '@type': 'Offer', url: ev.tickets, availability: 'https://schema.org/InStock', validFrom: start } } : {}),
+      url: ev.site || LINKS.sessionize,
+    };
+  };
   const talkNode = t => ({ '@type': 'CreativeWork', '@id': SITE + '/talks/' + t.slug + '#talk', url: SITE + '/talks/' + t.slug, name: t.text, alternateName: t.title,
     abstract: t.abstract.join(' '), author: { '@id': SITE + '/#person' }, inLanguage: 'en' });
   function routeJsonLd(r) {
