@@ -1352,8 +1352,7 @@ window.__boot = function () {
         ['auto_awesome', 'Getting started with Gemini Nano', 'Integrating Gemini Nano in a modern Android app through the ML Kit GenAI APIs and the Prompt API.'],
         ['speed', 'Prompt API in production', 'Designing and optimising prompts for an AI booking search, from 18 s to 3 s per answer.'],
         ['tune', 'Production considerations', 'Model size, device compatibility, privacy and performance lessons from shipping AI features at scale.'],
-        ['stacks', 'Beyond Gemini', 'MediaPipe, LiteRT and custom models for specialised on-device tasks.']],
-      presented: 'Presented at droidcon Uganda 2025, Kampala, on 10 November 2025.', app: 'nano' },
+        ['stacks', 'Beyond Gemini', 'MediaPipe, LiteRT and custom models for specialised on-device tasks.']], app: 'nano' },
     { slug: 'custom-android-launcher', home: true, text: 'Beyond the Grid: Crafting a Custom Android Launcher from Scratch', seoTitle: 'Crafting a Custom Android Launcher from Scratch', title: 'Custom launchers', sub: 'Jetpack Compose', shape: 'flower5', icon: 'apps', tone: 'tertiary-container',
       seo: 'How to build a custom Android launcher: a talk by Dinoy Raj, creator of Dino Minimalist Launcher, on PackageManager, broadcasts, permissions and OEM quirks.',
       abstract: [
@@ -1424,31 +1423,36 @@ window.__boot = function () {
 
   // addr: the full place, for structured data only (the tickets show `where`). date: the exact day as YYYY-MM-DD, also for
   // structured data only (startDate); without it the JSON-LD falls back to the month, which Google flags as incomplete.
+  // talks: what was presented there, as TALKS slugs (linked from the talk's page) or plain titles for sessions without a page.
+  // online: a virtual event (where: 'Online').
   const EVENTS = [
-    { name: 'droidcon India', when: 'Nov 2026', where: 'Bengaluru', addr: 'Bengaluru, India', up: true, org: 'droidcon', site: 'https://india.droidcon.com/' },
-    { name: 'DevFest Dar es Salaam', when: 'Nov 2026', where: 'Tanzania', addr: 'Confucius Institute at UDSM, Dar es Salaam, Tanzania', up: true, date: '2026-11-07', org: 'GDG Dar es Salaam', site: 'https://gdg.community.dev/events/details/google-gdg-dar-es-salaam-presents-devfest-dar-es-salaam-2026-kickoff-workshop/' },
-    { name: 'Droidcon & Fluttercon Kenya', when: 'Nov 2026', where: 'Nairobi', addr: 'PrideInn Azure Hotel, Westlands, Nairobi, Kenya', date: '2026-11-05', end: '2026-11-06', org: 'droidcon Kenya', site: 'https://droidcon.co.ke/' },
-    { name: 'DevFest Atlanta', when: 'Oct 2026', where: 'Atlanta', addr: 'Morehouse College, 830 Westview Drive SW, Atlanta, GA 30314, United States', date: '2026-10-30', end: '2026-10-31', org: 'GDG Atlanta', site: 'https://gdg.community.dev/gdg-atlanta/' },
-    { name: 'droidcon Uganda', when: 'Oct 2026', where: 'Kampala', addr: 'National ICT & Innovation Hub, Nakawa, Kampala, Uganda', date: '2026-10-28', end: '2026-10-29', org: 'droidcon Uganda', site: 'https://www.uganda.droidcon.com/' },
-    { name: 'droidcon Lisbon', when: 'Oct 2026', where: 'Lisbon', addr: 'Lisbon, Portugal', org: 'FIKA IT Solutions', site: 'https://lisbon.droidcon.com/' },
-    { name: 'DevFest Vicenza', when: 'Jun 2026', where: 'Italy', addr: 'Vicenza, Italy', org: 'GDG Vicenza', site: 'https://devfestvicenza.it/' },
+    { name: 'droidcon India', when: 'Nov 2026', where: 'Bengaluru', addr: 'Bengaluru, India', up: true, date: '2026-11-20', org: 'droidcon', site: 'https://india.droidcon.com/' },
+    { name: 'DevFest Dar es Salaam', when: 'Nov 2026', where: 'Tanzania', addr: 'Confucius Institute at UDSM, Dar es Salaam, Tanzania', up: true, date: '2026-11-07', org: 'GDG Dar es Salaam', talks: ['Bridge the Breakpoint Gap: Training Product Designers for Foldables, Postures, and Multi-Window UX'], site: 'https://gdg.community.dev/events/details/google-gdg-dar-es-salaam-presents-devfest-dar-es-salaam-2026-kickoff-workshop/' },
+    { name: 'Droidcon & Fluttercon Kenya', when: 'Nov 2026', where: 'Nairobi', addr: 'PrideInn Azure Hotel, Westlands, Nairobi, Kenya', date: '2026-11-05', end: '2026-11-06', org: 'droidcon Kenya', talks: ['agentic-android-app-functions'], site: 'https://droidcon.co.ke/' },
+    { name: 'DevFest Atlanta', when: 'Oct 2026', where: 'Atlanta', addr: 'Morehouse College, 830 Westview Drive SW, Atlanta, GA 30314, United States', date: '2026-10-30', end: '2026-10-31', org: 'GDG Atlanta', talks: ['mediapipe-llm-lora-android'], site: 'https://gdg.community.dev/gdg-atlanta/' },
+    { name: 'droidcon Uganda', when: 'Oct 2026', where: 'Kampala', addr: 'National ICT & Innovation Hub, Nakawa, Kampala, Uganda', date: '2026-10-28', end: '2026-10-29', org: 'droidcon Uganda', talks: ['custom-android-launcher', 'agentic-android-app-functions'], site: 'https://www.uganda.droidcon.com/' },
+    { name: 'droidcon Lisbon', when: 'Oct 2026', where: 'Lisbon', addr: 'Lisbon, Portugal', date: '2026-10-20', end: '2026-10-21', talks: ['storytale-compose-multiplatform-design-systems'], org: 'FIKA IT Solutions', site: 'https://lisbon.droidcon.com/' },
+    { name: 'DevFest Vicenza', when: 'Jun 2026', where: 'Italy', addr: 'Vicenza, Italy', date: '2026-06-06', talks: ['offline-rag-android-mediapipe'], org: 'GDG Vicenza', site: 'https://devfestvicenza.it/' },
     { name: 'FOSSASIA Summit', when: 'Mar 2026', where: 'Bangkok', addr: 'True Digital Park, Bangkok, Thailand', date: '2026-03-08', end: '2026-03-10', org: 'FOSSASIA', site: 'https://fossasia.org/' },
-    { name: 'DevFest Mumbai', when: 'Dec 2025', where: 'Mumbai', addr: 'Mumbai, India', org: 'GDG Mumbai' },
-    { name: 'Mobile Developers Week', when: 'Dec 2025', where: 'Abu Dhabi', addr: 'Abu Dhabi Energy Centre, Abu Dhabi, United Arab Emirates', org: 'Omnes Technologies', site: 'https://www.mobiledevelopersweek.com/' },
-    { name: 'DevFest Dubai', when: 'Dec 2025', where: 'Dubai', addr: 'Dubai, United Arab Emirates', date: '2025-12-13', end: '2025-12-15', org: 'GDG Dubai', site: 'https://gdg.community.dev/events/details/google-gdg-dubai-presents-devfest-dubai-2025-end-of-year-showdown/' },
+    { name: 'DevFest Mumbai', when: 'Dec 2025', where: 'Mumbai', addr: 'Mumbai, India', date: '2025-12-20', talks: ['custom-android-launcher'], org: 'GDG Mumbai' },
+    { name: 'Mobile Developers Week', when: 'Dec 2025', where: 'Abu Dhabi', addr: 'Abu Dhabi Energy Centre, Abu Dhabi, United Arab Emirates', date: '2025-12-13', end: '2025-12-15', talks: ['mediapipe-llm-lora-android'], org: 'Omnes Technologies', site: 'https://www.mobiledevelopersweek.com/' },
+    { name: 'DevFest Dubai', when: 'Dec 2025', where: 'Dubai', addr: 'Abu Dhabi Energy Centre, Abu Dhabi, United Arab Emirates', date: '2025-12-13', end: '2025-12-15', org: 'GDG Dubai', site: 'https://gdg.community.dev/events/details/google-gdg-dubai-presents-devfest-dubai-2025-end-of-year-showdown/' },
   ];
   // Also on Sessionize; the talks page lists them with the ones above, newest first.
   const MORE_EVENTS = [
-    { name: 'TechMang', when: 'Jan 2026', where: 'Mangaluru', addr: 'Mangaluru, India', org: 'Hackerspace Mangaluru', site: 'https://hackersmang.org/' },
-    { name: 'DevFest Bujumbura', when: 'Dec 2025', where: 'Burundi', addr: "King's Conference Center, Kinindo, Bujumbura, Burundi", date: '2025-12-20', org: 'GDG Bujumbura', site: 'https://gdg.community.dev/events/details/google-gdg-bujumbura-presents-devfest-bujumbura-2025/' },
+    { name: 'DevFest Chennai', when: 'Oct 2026', where: 'Chennai', addr: 'Chennai, India', date: '2026-10-17', talks: ['From Receipts to Smart Search: Productionizing Gemini Nano on Android'], org: 'GDG Chennai', site: 'https://gdg.community.dev/gdg-chennai/' },
+    { name: 'Made for Dev by Global AI', when: 'Jun 2026', where: 'Online', online: true, talks: ['mediapipe-llm-lora-android'], org: 'Global AI Community', site: 'https://github.com/GlobalAICommunity/made-for-dev' },
+    { name: 'TechMang', when: 'Jan 2026', where: 'Mangaluru', addr: 'Mangaluru, India', date: '2026-01-31', talks: ['on-device-ai-gemini-nano-prompt-api', 'mediapipe-llm-lora-android'], org: 'Hackerspace Mangaluru', site: 'https://hackersmang.org/' },
+    { name: 'DevFest Bujumbura', when: 'Dec 2025', where: 'Burundi', addr: "King's Conference Center, Kinindo, Bujumbura, Burundi", date: '2025-12-20', talks: ['mediapipe-llm-lora-android', 'on-device-ai-gemini-nano-prompt-api'], org: 'GDG Bujumbura', site: 'https://gdg.community.dev/events/details/google-gdg-bujumbura-presents-devfest-bujumbura-2025/' },
     { name: 'IndeHub Zoho Apptics', when: 'Nov 2025', where: 'Chennai', addr: 'Zoho Corporation, Estancia IT Park, Chengalpattu, Tamil Nadu, India', date: '2025-11-22', org: 'IndeHub', site: 'https://luma.com/w2y3tkr1' },
-    { name: 'droidcon Uganda', when: 'Nov 2025', where: 'Kampala', addr: 'Kampala, Uganda', date: '2025-11-10', org: 'droidcon Uganda', site: 'https://www.uganda.droidcon.com/' },
+    { name: 'droidcon Uganda', when: 'Nov 2025', where: 'Kampala', addr: 'Kampala, Uganda', date: '2025-11-10', end: '2025-11-11', talks: ['on-device-ai-gemini-nano-prompt-api'], org: 'droidcon Uganda', site: 'https://www.uganda.droidcon.com/' },
   ];
   const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const evTime = ev => { const [m, y] = ev.when.split(' '); return +y * 12 + MONTHS.indexOf(m); };
   const isoMonth = when => { const [m, y] = when.split(' '); return y + '-' + String(MONTHS.indexOf(m) + 1).padStart(2, '0'); };
   const slugify = t => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   const ALL_EVENTS = [...EVENTS, ...MORE_EVENTS].sort((x, y) => evTime(y) - evTime(x));
+  const talkEvents = t => ALL_EVENTS.filter(ev => (ev.talks || []).includes(t.slug));
 
 
   /* Talks as an accordion: the open card shows the full title in its tone; hover, focus or a first tap opens another, and a tap on the open card goes to Sessionize. */
@@ -1998,7 +2002,7 @@ window.__boot = function () {
 
   /* One talk: the abstract, its takeaways, and the app it grew from. */
   function TalkPage({ t, enter }) {
-    const app = t.app && APPS.find(a => a.id === t.app);
+    const app = t.app && APPS.find(a => a.id === t.app), events = talkEvents(t);
     const invite = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Talk: ' + t.text);
     return html`<main id="top" class="app-page wrap" data-enter=${enter}>
       <a class="link-arrow back" href="/talks"><span class="ex-icon" aria-hidden="true">arrow_back</span>All talks</a>
@@ -2012,7 +2016,6 @@ window.__boot = function () {
       <div class="ap-intro">
         <div class="ap-copy">
           ${t.abstract.map((p, i) => html`<p key=${i} class=${i ? 'muted' : 'ap-lede'}>${p}</p>`)}
-          ${t.presented && html`<p class="eyebrow muted">${t.presented}</p>`}
         </div>
         <div class="ap-side">
           <div class="tags">${t.sub.split(' · ').concat('Speaker: Dinoy Raj').map(x => html`<span key=${x}>${x}</span>`)}</div>
@@ -2024,6 +2027,11 @@ window.__boot = function () {
         <h2 id="tk-take">Key takeaways</h2>
         <${Features} items=${t.takeaways} />
       </section>
+
+      ${events.length > 0 && html`<section class="ap-sec" aria-labelledby="tk-at">
+        <h2 id="tk-at">Presented at</h2>
+        <div class="tix">${events.map(ev => html`<${EventTicket} key=${ev.name + ev.when} ev=${ev} />`)}</div>
+      </section>`}
 
       <${PageCards} cards=${[
         app ? ['/' + app.slug, 'android', app.name, 'The app behind the talk', 'bg-p'] : ['/talks', 'mic', 'More talks', 'Every session and event', 'bg-p'],
@@ -2327,12 +2335,15 @@ window.__boot = function () {
   // else the event's own name. offers: only with a real ticket page (tickets: 'https://…'), never a made-up price.
   const eventNode = ev => {
     const start = ev.date || isoMonth(ev.when);
+    const talks = (ev.talks || []).map(k => TALKS.find(t => t.slug === k) || k), titles = talks.map(t => t.text || t);
     return {
       '@type': 'Event', '@id': eventId(ev), name: ev.name, startDate: start, endDate: ev.end || start,
-      description: 'Dinoy Raj speaks about Android and on-device AI at ' + ev.name + ' in ' + (ev.addr || ev.where) + ', ' + ev.when + '.',
+      description: 'Dinoy Raj ' + (titles.length ? 'presents ' + titles.map(x => '“' + x + '”').join(' and ') : 'speaks about Android and on-device AI') + ' at ' + ev.name + (ev.online ? ', online' : ' in ' + (ev.addr || ev.where)) + ', ' + ev.when + '.',
       image: SITE + '/assets/og.jpg',
-      eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode', eventStatus: 'https://schema.org/EventScheduled',
-      location: { '@type': 'Place', name: ev.where, address: ev.addr || ev.where }, performer: { '@id': SITE + '/#person' },
+      eventAttendanceMode: 'https://schema.org/' + (ev.online ? 'Online' : 'Offline') + 'EventAttendanceMode', eventStatus: 'https://schema.org/EventScheduled',
+      location: ev.online ? { '@type': 'VirtualLocation', url: ev.site || LINKS.sessionize } : { '@type': 'Place', name: ev.where, address: ev.addr || ev.where },
+      performer: { '@id': SITE + '/#person' },
+      ...(talks.length ? { workPerformed: talks.map(t => t.slug ? { '@id': SITE + '/talks/' + t.slug + '#talk' } : { '@type': 'CreativeWork', name: t }) } : {}),
       organizer: { '@type': 'Organization', name: ev.org || ev.name, ...(ev.site ? { url: ev.site } : {}) },
       ...(ev.tickets ? { offers: { '@type': 'Offer', url: ev.tickets, availability: 'https://schema.org/InStock', validFrom: start } } : {}),
       url: ev.site || LINKS.sessionize,
