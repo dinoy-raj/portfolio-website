@@ -1509,7 +1509,7 @@ window.__boot = function () {
 
   const ALL_APPS = '#all-apps'; // the old address of the full list, now /apps
 
-  const NEEDS = [['Android app', 'android'], ['Redesign', 'auto_awesome'], ['Design system', 'category'], ['Icons', 'interests'], ['Talk or workshop', 'mic']];
+  const NEEDS = [['Android app'], ['Redesign'], ['Design system'], ['Icons'], ['Talk or workshop']];
 
   function Contact({ setMsg }) {
     const [copied, setCopied] = useState(false);
@@ -1545,22 +1545,20 @@ window.__boot = function () {
           </div>
         </div>
       </div>
-      <form class="form-card" onSubmit=${submit}>
-        <${MorphShape} className="corner" seq=${['flower8', 'cookie6', 'sunny', 'burst']} fill="var(--inverse-primary)" speed=${-14} hold=${1600} />
-        <${MorphShape} className="corner2" seq=${['clover4', 'pebble', 'cookie4']} fill="var(--highlight)" speed=${20} hold=${1400} />
-        <div class="top"><span class="step">New project</span></div>
+      <form class="form-rows" onSubmit=${submit}>
         <h3>Tell me about your <span class="em">app.</span></h3>
-        <div class="row2">
-          <${E.TextField} id="c-name" variant="filled" label="Name" placeholder="Your name" />
-          <${E.TextField} id="c-email" variant="filled" label="Email" placeholder="you@example.com" inputMode="email" />
-        </div>
-        <${E.TextField} id="c-project" variant="filled" label="Your project" multiline=${true} placeholder="What are you building, and where are you stuck?" />
-        <fieldset class="need">
-          <legend>What do you need?</legend>
-          <div class="opts">${NEEDS.map(([t, i]) => html`<button key=${t} type="button" aria-pressed=${need.includes(t)} onClick=${() => toggle(t)}><span class="ex-icon" aria-hidden="true" data-icon=${need.includes(t) ? 'check' : i}></span>${t}</button>`)}</div>
+        <label class="frow" for="c-name"><span class="n" aria-hidden="true">01</span><span class="k">Name</span><input id="c-name" name="name" autoComplete="name" placeholder="Your name" /></label>
+        <label class="frow" for="c-email"><span class="n" aria-hidden="true">02</span><span class="k">Email</span><input id="c-email" name="email" type="email" inputMode="email" autoComplete="email" placeholder="you@example.com" /></label>
+        <label class="frow tall" for="c-project"><span class="n" aria-hidden="true">03</span><span class="k">Project</span><textarea id="c-project" name="project" rows="4" placeholder="What are you building, and where are you stuck?"></textarea></label>
+        <fieldset class="frow need">
+          <span class="n" aria-hidden="true">04</span>
+          <legend class="k">What do you need?</legend>
+          <div class="opts">${NEEDS.map(([t]) => html`<button key=${t} type="button" aria-pressed=${need.includes(t)} onClick=${() => toggle(t)}>${t}</button>`)}</div>
         </fieldset>
-        <button type="submit" class="send">Send message<span class="go" aria-hidden="true"><span class="ex-icon" aria-hidden="true" data-icon="arrow_forward"></span></span></button>
-        <p class="fine-print">No newsletters, no spam. Just a reply from me.</p>
+        <div class="form-foot">
+          <p class="fine-print">No newsletters, no spam.<br />Just a reply from me.</p>
+          <button type="submit" class="send">Send message<span class="go" aria-hidden="true"><span class="ex-icon" aria-hidden="true" data-icon="arrow_forward"></span></span></button>
+        </div>
       </form>
     </section>`;
   }
