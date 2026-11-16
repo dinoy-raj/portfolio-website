@@ -456,7 +456,7 @@ window.__boot = function () {
     return html`<a class=${'tix-item t-' + tone} href=${eventPath(ev)} aria-label=${ev.name + ', ' + evDates(ev) + ', ' + ev.where}>
       <div class="main">
         <div class="row">${ev.up ? html`<span class="live">Upcoming</span>` : html`<span>Speaker</span>`}<span>Admit one</span></div>
-        <h3>${ev.name}</h3>
+        <h3><span>${ev.name}</span></h3>
         <div class="fields"><span>When</span><span>Where</span><b>${ev.when}</b><b>${ev.where}</b></div>
       </div>
       <div class="stub" aria-hidden="true"><span class="mon">${mon}</span><span class="yr">'${yr.slice(2)}</span><span class="bars"></span></div>
@@ -465,9 +465,34 @@ window.__boot = function () {
 
   // published: the exact day as YYYY-MM-DD, for structured data only (datePublished); left out when unknown.
   const BLOGS = [
-    { href: 'https://proandroiddev.com/android-adaptive-themed-icons-guide-8e690263f7aa', eyebrow: 'ProAndroidDev · Apr 2025', title: 'Crafting multi-tone themed app icons in Android', blurb: 'A step-by-step guide to adaptive and themed icons.' },
-    { href: 'https://proandroiddev.com/android-localization-list-formatter-in-android-05659d848a61', eyebrow: 'ProAndroidDev · Mar 2024', title: 'List Formatter in Android', blurb: 'Internationalization and localization, part 1.' },
+    { href: 'https://proandroiddev.com/android-adaptive-themed-icons-guide-8e690263f7aa', pub: 'ProAndroidDev', date: 'Apr 2025', title: 'Crafting multi-tone themed app icons in Android', blurb: 'A step-by-step guide to adaptive and themed icons.', art: 'icon' },
+    { href: 'https://proandroiddev.com/android-localization-list-formatter-in-android-05659d848a61', pub: 'ProAndroidDev', date: 'Mar 2024', title: 'List Formatter in Android', blurb: 'Internationalization and localization, part 1.', art: 'pair' },
   ];
+
+  /* An article as an Expressive Kit component card: a dotted stage holding live shapes, then a number, publication tag,
+     title, two-line blurb and an arrow button. Hovering tightens the corners, spins the arrow and lets a soft glow follow
+     the mouse (--mx, --my); the whole card is the link. */
+  const ARTICLE_ART = {
+    icon: html`<${LiveShape} shape="cookie9" tone="primary" size=${190} />
+      <span class="ex-icon" style=${{ position: 'relative', fontSize: '64px', color: 'var(--on-primary)' }} aria-hidden="true" data-icon="android"></span>`,
+    pair: html`<${LiveShape} shape="clover4" tone="secondary" size=${150} /><${LiveShape} shape="flower5" tone="highlight" size=${84} />`,
+  };
+  function spotlight(e) {
+    if (e.pointerType !== 'mouse') return;
+    const el = e.currentTarget, r = el.getBoundingClientRect();
+    el.style.setProperty('--mx', (e.clientX - r.left) + 'px'); el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  }
+  function ArticleCard({ b, i }) {
+    return html`<a class="ac" href=${b.href} target="_blank" rel="noopener" onPointerMove=${spotlight}>
+      <div class="ac-stage" aria-hidden="true">${ARTICLE_ART[b.art]}</div>
+      <div class="ac-body">
+        <div class="ac-top"><span class="ac-meta">${String(i + 1).padStart(2, '0')} · ${b.date}</span><span class="ac-tag">${b.pub}</span></div>
+        <h3><span>${b.title}</span></h3>
+        <p>${b.blurb}</p>
+        <span class="ac-go" aria-hidden="true"><span class="ex-icon" data-icon="arrow_outward"></span></span>
+      </div>
+    </a>`;
+  }
 
 
   const STATEMENT = 'From idea to Play Store. Small, focused apps that feel *alive* when you touch them, built with clear hierarchy, honest colour and springy motion.';
@@ -764,7 +789,7 @@ window.__boot = function () {
               </div>
               <div class="app-meta">
                 <img class="icon" src=${'/assets/apps/' + a.id + '-icon.webp'} alt="" width="56" height="56" loading="lazy" />
-                <div class="name"><h3 id=${'app-' + a.id}>${a.name}</h3><div class="store muted">${a.store}</div></div>
+                <div class="name"><h3 id=${'app-' + a.id}><span>${a.name}</span></h3><div class="store muted">${a.store}</div></div>
               </div>
               <p class="desc muted">${a.desc}</p>
               <div class="tags">${a.status && html`<span class=${'chip ' + a.status}>${a.status === 'live' ? 'On Google Play' : 'In development'}</span>`}${a.tags.map(t => html`<span key=${t}>${t}</span>`)}</div>
@@ -1018,7 +1043,7 @@ window.__boot = function () {
         <div class="ap-features">
           ${a.features.map(([icon, t, d], i) => html`<div class="feat" key=${t}>
             <${LiveShape} shape=${['cookie9', 'flower5', 'clover4', 'cookie6', 'sunny', 'cookie12'][i % 6]} icon=${icon} tone=${['primary-container', 'secondary-container', 'tertiary-container', 'highlight'][i % 4]} size=${48} />
-            <h3>${t}</h3>
+            <h3><span>${t}</span></h3>
             <p class="muted">${d}</p>
           </div>`)}
         </div>
@@ -1099,7 +1124,7 @@ window.__boot = function () {
     return html`<div class="ap-features">
       ${items.map(([icon, t, d], i) => html`<div class="feat" key=${t}>
         <${LiveShape} shape=${['cookie9', 'flower5', 'clover4', 'cookie6', 'sunny', 'cookie12'][i % 6]} icon=${icon} tone=${['primary-container', 'secondary-container', 'tertiary-container', 'highlight'][i % 4]} size=${48} />
-        <h3>${t}</h3>
+        <h3><span>${t}</span></h3>
         <p class="muted">${d}</p>
       </div>`)}
     </div>`;
@@ -1644,7 +1669,7 @@ window.__boot = function () {
         { '@type': 'ItemList', '@id': SITE + '/#talks', name: 'Talks by Dinoy Raj', url: SITE + '/talks', itemListElement: TALKS.map((t, i) => ({ '@type': 'ListItem', position: i + 1, item: talkNode(t) })) },
         { '@type': 'ItemList', '@id': SITE + '/#apps', name: 'Android apps by Dinoy Raj', url: SITE + '/apps', itemListElement: APPS.map((a, i) => ({ '@type': 'ListItem', position: i + 1, url: SITE + '/' + a.slug, item: appNode(a) })) },
         ...BLOGS.map(b => ({ '@type': 'BlogPosting', '@id': b.href, url: b.href, headline: b.title, description: b.blurb,
-          ...(b.published ? { datePublished: b.published } : {}), author: { '@id': SITE + '/#person' }, publisher: { '@type': 'Organization', name: b.eyebrow.split(' · ')[0] } })));
+          ...(b.published ? { datePublished: b.published } : {}), author: { '@id': SITE + '/#person' }, publisher: { '@type': 'Organization', name: b.pub } })));
     }
     else if (r.page === 'about') graph.push(page('AboutPage', { mainEntity: { '@id': SITE + '/#person' }, breadcrumb: crumbs([['About', '/about']]) }));
     else if (r.page === 'all') graph.push(page('CollectionPage', { breadcrumb: crumbs([['Apps', '/apps']]),
@@ -1774,7 +1799,7 @@ window.__boot = function () {
           <div class="services">
             ${SERVICES.map(s => html`<div class="svc" key=${s.name}>
               <${LiveShape} shape=${s.shape} icon=${s.icon} tone=${s.tone} size=${52} />
-              <h3>${s.name}</h3>
+              <h3><span>${s.name}</span></h3>
               <div class="tags">${s.tags.map(t => html`<span key=${t}>${t}</span>`)}</div>
             </div>`)}
           </div>
@@ -1808,20 +1833,7 @@ window.__boot = function () {
         <section class="notes wrap" id="blogs">
           <h2 class="sec-title">Blogs</h2>
           <div class="notes-grid">
-            <a class="note bg-p" href=${BLOGS[0].href} target="_blank" rel="noopener">
-              <div class="art" aria-hidden="true">
-                <${LiveShape} shape="cookie9" tone="primary" size=${230} />
-                <span class="ex-icon" style=${{ position: 'relative', fontSize: '72px', color: 'var(--on-primary)' }} aria-hidden="true" data-icon="android"></span>
-              </div>
-              <div class="txt"><span class="eyebrow muted">${BLOGS[0].eyebrow}</span><h3>${BLOGS[0].title}</h3><p class="muted">${BLOGS[0].blurb}</p></div>
-            </a>
-            <a class="note bg-s" href=${BLOGS[1].href} target="_blank" rel="noopener">
-              <div class="art" aria-hidden="true">
-                <${LiveShape} shape="clover4" tone="secondary" size=${160} />
-                <${LiveShape} shape="flower5" tone="highlight" size=${90} />
-              </div>
-              <div class="txt"><span class="eyebrow muted">${BLOGS[1].eyebrow}</span><h3>${BLOGS[1].title}</h3><p class="muted">${BLOGS[1].blurb}</p></div>
-            </a>
+            ${BLOGS.map((b, i) => html`<${ArticleCard} key=${b.href} b=${b} i=${i} />`)}
             <div class="note dark">
               <h3>Writing on Android, Kotlin and Jetpack Compose.</h3>
               <a class="link-arrow" href=${LINKS.medium} target="_blank" rel="noopener">Read all on Medium<span class="ex-icon" aria-hidden="true" data-icon="arrow_outward"></span></a>

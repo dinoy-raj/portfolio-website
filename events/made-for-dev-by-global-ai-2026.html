@@ -1228,13 +1228,52 @@ a.tix-item:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 .notes{padding-top:clamp(96px,12vw,160px)}
 .notes-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-3);margin-top:var(--space-8)}
 @media (max-width:900px){.notes-grid{grid-template-columns:minmax(0,1fr)}}
-.note{position:relative;min-height:380px;border-radius:var(--shape-xl);overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-6);gap:var(--space-2);text-decoration:none;color:inherit;transition:border-radius 300ms var(--spring)}
-.note:hover{border-radius:var(--shape-xxl)}
-.note:focus-visible{outline:2px solid var(--focus);outline-offset:4px}
-.note .art{position:absolute;inset:0 0 150px;display:grid;place-items:center}
-.note .art .ex-shape{position:absolute}
-.note .txt{position:relative;display:flex;flex-direction:column;gap:var(--space-2);background:var(--surface);border-radius:var(--shape-lg-increased);padding:var(--space-4) var(--space-5)}
+.note{position:relative;min-height:380px;border-radius:var(--shape-xxl);overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-6);gap:var(--space-2);text-decoration:none;color:inherit;transition:border-radius 400ms var(--spring)}
+.note:hover{border-radius:var(--shape-xl)}
 .note h3{font-size:24px;line-height:29px;font-weight:600;letter-spacing:-.02em}
+/* Article cards: the Expressive Kit component card (outer tone, dotted stage, numbered body, spinning arrow, pointer glow). */
+.ac{--stage-dot:color-mix(in srgb,var(--on-surface) 9%,transparent);position:relative;isolation:isolate;display:flex;flex-direction:column;min-width:0;padding:8px;border-radius:var(--shape-xxl);background:var(--surface-container-low);color:var(--on-surface);text-decoration:none;transition:border-radius 400ms var(--spring)}
+.ac:hover{border-radius:var(--shape-xl)}
+.ac:focus-visible{outline:2px solid var(--focus);outline-offset:4px}
+.ac::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity 300ms var(--ease);background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--primary) 12%,transparent),transparent 60%)}
+.ac:hover::after{opacity:1}
+.ac-stage{position:relative;height:260px;display:grid;place-items:center;overflow:hidden;border-radius:calc(var(--shape-xxl) - 8px);background-color:var(--surface);background-image:radial-gradient(var(--stage-dot) 1px,transparent 1.4px);background-size:16px 16px;background-position:center;transition:border-radius 400ms var(--spring)}
+.ac:hover .ac-stage{border-radius:calc(var(--shape-xl) - 4px)}
+.ac-stage>*{grid-area:1/1}
+.ac-body{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto 1fr;column-gap:var(--space-3);padding:var(--space-4) var(--space-3) var(--space-3);flex:1}
+.ac-top{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:var(--space-2);margin-bottom:var(--space-2)}
+.ac-meta{font-family:var(--font-mono);font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--on-surface-variant)}
+.ac-tag{font-family:var(--font-mono);font-size:11px;letter-spacing:.8px;text-transform:uppercase;padding:6px 12px;border-radius:var(--shape-full);background:var(--surface-container-high);color:var(--on-surface-variant);white-space:nowrap}
+.ac h3{grid-column:1/-1;margin:0;font-size:24px;line-height:1.2;font-weight:600;letter-spacing:-.02em}
+.ac h3 span{background:linear-gradient(var(--primary),var(--primary)) 0 100%/0% 2px no-repeat;transition:background-size 450ms var(--spring),color 200ms var(--ease)}
+.ac:hover h3 span{color:var(--primary);background-size:100% 2px}
+.ac-body p{grid-column:1;margin:var(--space-2) 0 0;color:var(--on-surface-variant);font-size:14px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:3em}
+.ac-go{grid-column:2;grid-row:3;align-self:end;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:var(--surface-container-high);color:var(--on-surface);transition:transform 500ms var(--spring),background-color 200ms var(--ease),color 200ms var(--ease),border-radius 400ms var(--spring)}
+.ac:hover .ac-go{background:var(--on-surface);color:var(--surface);transform:rotate(45deg);border-radius:14px}
+@media (prefers-reduced-motion:reduce){.ac,.ac-stage,.ac-go,.ac h3 span{transition:none}}
+/* The article card's hover, shared by the other cards: a glow that follows the pointer (--mx/--my, set by the pointer script at the end of the body),
+   a primary underline that slides under the title, and arrows that turn into squircles (outward arrows also rotate). */
+.svc,.feat,.legal-card,.acc-card,.note.dark{position:relative;isolation:isolate}
+:is(.svc,.feat,.legal-card,.acc-card,.note.dark)::after,.app .media::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity 300ms var(--ease);
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--glow,var(--primary)) 14%,transparent),transparent 60%)}
+.legal-card.bg-p,.legal-card.bg-s{--glow:var(--on-primary-container)}
+.note.dark{--glow:var(--inverse-primary)}
+.acc-card{--glow:currentColor}
+.app .media::after{z-index:1;--glow:#fff}
+@media (hover:hover){:is(.svc,.feat,.legal-card,.acc-card,.note.dark):hover::after,.app:hover .media::after{opacity:1}}
+:is(.svc,.feat,.app,.tix-item) h3 span,.legal-card b{background:linear-gradient(currentColor,currentColor) 0 100%/0% 2px no-repeat;transition:background-size 450ms var(--spring),color 200ms var(--ease)}
+:is(.svc,.feat,.app) h3 span{background-image:linear-gradient(var(--primary),var(--primary))}
+.legal-card>span:nth-child(2) b{align-self:flex-start}
+@media (hover:hover){
+  :is(.svc,.feat,.app,.tix-item):hover h3 span,.legal-card:hover b{background-size:100% 2px}
+  :is(.svc,.feat,.app):hover h3 span{color:var(--primary)}
+  .legal-card:hover .go{border-radius:14px}
+  .legal-card:hover .go[data-icon=arrow_outward]{transform:rotate(45deg)}
+  .note.dark:hover .link-arrow .ex-icon,.app:hover .links .open .ex-icon{border-radius:10px}
+}
+.legal-card .go{transition:transform 500ms var(--spring),border-radius 400ms var(--spring)}
+.note.dark .link-arrow .ex-icon,.app .links .open .ex-icon{transition:transform 400ms var(--spring),border-radius 400ms var(--spring)}
+@media (prefers-reduced-motion:reduce){:is(.svc,.feat,.app,.tix-item) h3 span,.legal-card b,.legal-card .go{transition:none}}
 .note.dark{background:var(--inverse-surface);color:var(--inverse-on-surface);justify-content:space-between}
 .note.dark h3{font-size:clamp(30px,3vw,38px);line-height:1.12;letter-spacing:-.025em;font-weight:600}
 .note.dark .link-arrow{background:var(--inverse-ghost);align-self:flex-start}
@@ -1412,6 +1451,92 @@ a.tix-item:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 .talk-list .legal-card b{font-size:17px;line-height:23px}
 .ap-sec .tix{margin-top:var(--space-8)}
 </style>
+<!-- Motion: a blurred reveal for the first screen on load, the same reveal for content as it scrolls in, and spring hovers.
+     Timing follows the kit's motion tokens (material-3-expressive-skill, docs/motion): movement rides the spatial-slow spring
+     (damping 0.8, stiffness 200: a 1.5% overshoot, sampled into linear()), opacity and blur ride an effects curve and never overshoot,
+     and siblings stagger. The reveal animates the individual translate/scale/filter properties, so it never fights a hover that
+     uses transform. With reduced motion only a short fade remains (the variables below drop the distance, scale and blur to nothing). -->
+<style>
+:root{
+  --rv-spring:cubic-bezier(.3,1.15,.5,1);
+  --rv-fade:cubic-bezier(.2,0,0,1);
+  --rv-dur:820ms; --rv-fade-dur:620ms; --rv-step:70ms;
+  --rv-dist:32px; --rv-scale:.965; --rv-blur:14px;
+}
+@supports (animation-timing-function:linear(0,1)){
+  :root{--rv-spring:linear(0,.027,.096,.188,.292,.398,.5,.594,.677,.75,.812,.863,.904,.936,.961,.98,.994,1.003,1.009,1.013,1.015,1.015,1.015,1.014,1.012,1.011,1.009,1.007,1.006,1.005,1.004,1.003,1)}
+}
+@media (prefers-reduced-motion: reduce){
+  :root{--rv-dist:0px;--rv-scale:1;--rv-blur:0px;--rv-dur:1ms;--rv-fade-dur:220ms;--rv-step:0ms}
+}
+/* No "to" keyframe: each animation settles on the element's own styles. */
+@keyframes rv-rise{from{translate:0 var(--rv-dist);scale:var(--rv-scale)}}
+@keyframes rv-drop{from{translate:0 calc(var(--rv-dist) * -.6)}}
+@keyframes rv-blur{from{opacity:0;filter:blur(var(--rv-blur))}}
+@keyframes rv-pop{from{opacity:0;scale:.6;filter:blur(var(--rv-blur))}}
+
+/* 1. Load: the first screen blurs into focus as soon as it paints (pure CSS, so it runs before any script and with none).
+      React mounts a new page's first screen on a page change, so the same reveal plays then too. */
+.nav{animation:rv-drop var(--rv-dur) var(--rv-spring) backwards,rv-blur var(--rv-fade-dur) var(--rv-fade) backwards}
+.hero h1 .l1,.hero h1 .l2,.hero-base>*,
+#top>.link-arrow.back,.ap-hero>*,.ap-intro>*,.legal-head>*,.all-apps>.apps-head{
+  animation:rv-rise var(--rv-dur) var(--rv-spring) backwards,rv-blur var(--rv-fade-dur) var(--rv-fade) backwards;
+  animation-delay:var(--rv-at,0ms)}
+.hero .float{animation:rv-pop 900ms var(--rv-spring) 520ms backwards}
+.hero-base>.portrait{--rv-at:60ms}
+.hero h1 .l1{--rv-at:120ms}
+.hero h1 .l2{--rv-at:200ms}
+.hero-base>.year{--rv-at:320ms}
+.hero-base>.hero-ctas{--rv-at:400ms}
+.ap-hero>:nth-child(1),.legal-head>:nth-child(1),.all-apps>.apps-head{--rv-at:60ms}
+.ap-hero>:nth-child(2),.legal-head>:nth-child(2){--rv-at:130ms}
+.legal-head>:nth-child(3){--rv-at:200ms}
+.ap-intro>:nth-child(1){--rv-at:220ms}
+.ap-intro>:nth-child(2){--rv-at:290ms}
+
+/* 2. Scroll: html.rv (set in the head, only where IntersectionObserver exists) hides these until the observer at the end of
+      the body marks each one data-rv="<stagger step>" as it comes into view. Without the class nothing is hidden. */
+html.rv :is(.intro>h2,.intro-grid>*,.statement>p,#services>.sec-title,.svc,.apps>.apps-head,.apps-grid>.app,.apps-end,
+  .how-head,.acc-card,.events-head,.tix-item,.notes>.sec-title,.note,.contact .left>*,.form-card,
+  .foot-grid>*,.wordmark,.fine,
+  .ap-media,.lb-wrap,.ap-sec>h2,.ap-sec>.sec-head,.ap-sub,.ap-sec .ap-copy,.feat,.ap-data-grid>*,.legal-card,.ap-social,
+  .legal-body>section,.legal-next):not([data-rv]){opacity:0}
+html.rv [data-rv]{
+  animation:rv-rise var(--rv-dur) var(--rv-spring) backwards,rv-blur var(--rv-fade-dur) var(--rv-fade) backwards;
+  animation-delay:calc(var(--rv-n,0) * var(--rv-step))}
+html.rv [data-rv="1"]{--rv-n:1} html.rv [data-rv="2"]{--rv-n:2} html.rv [data-rv="3"]{--rv-n:3}
+html.rv [data-rv="4"]{--rv-n:4} html.rv [data-rv="5"]{--rv-n:5}
+@media print{html.rv *{opacity:1!important;animation:none!important}}
+
+/* 3. Hover: springs on the cards and shapes that only changed colour or corners. Pointer devices only. */
+.feat,.note,.legal-card{transition:border-radius 300ms var(--spring),translate 450ms var(--spring),background-color 200ms var(--ease)}
+.feat .ex-shape svg,.note .art .ex-shape svg,.ap-hero>.ex-shape svg,.intro h2 .ex-shape svg{transition:transform 600ms var(--spring)}
+.feat .ex-shape .ex-shape-c,.legal-card>.ex-icon:first-child{transition:transform 450ms var(--spring)}
+.app-meta .icon,.ap-icon,.ap-shots img{transition:transform 500ms var(--spring),border-radius 400ms var(--spring),box-shadow 300ms var(--ease)}
+.ex-btn .ex-icon{transition:transform 400ms var(--spring)}
+.tags>span{transition:transform 350ms var(--spring),background-color 200ms var(--ease)}
+@media (hover:hover){
+  .feat:hover{translate:0 -6px;background:var(--surface-container)}
+  .feat:hover .ex-shape svg{transform:rotate(72deg) scale(1.08)}
+  .feat:hover .ex-shape .ex-shape-c{transform:scale(1.12)}
+  .note:hover{translate:0 -8px}
+  .note:hover .art .ex-shape svg{transform:rotate(45deg) scale(1.06)}
+  .legal-card:hover{translate:0 -3px}
+  .legal-card:hover>.ex-icon:first-child{transform:scale(1.15) rotate(-10deg)}
+  .app:hover .app-meta .icon{transform:rotate(-8deg) scale(1.06);border-radius:50%}
+  .ap-hero:hover .ap-icon{transform:rotate(-6deg) scale(1.04)}
+  .ap-hero:hover>.ex-shape svg,.intro h2:hover .ex-shape svg{transform:rotate(60deg) scale(1.06)}
+  .ap-shots img:hover{transform:translateY(-10px) scale(1.03);box-shadow:0 22px 44px rgba(20,12,8,.28)}
+  .ex-btn:hover .ex-icon{transform:scale(1.15) rotate(-8deg)}
+  .tags>span:hover{transform:translateY(-2px)}
+}
+@media (prefers-reduced-motion: reduce){
+  .feat:hover,.note:hover,.legal-card:hover{translate:none}
+  .feat,.note,.legal-card,.feat .ex-shape svg,.note .art .ex-shape svg,.ap-hero>.ex-shape svg,.intro h2 .ex-shape svg,.feat .ex-shape .ex-shape-c,
+  .legal-card>.ex-icon:first-child,.app-meta .icon,.ap-icon,.ap-shots img,.ex-btn .ex-icon,.tags>span{transition-duration:0ms}
+}
+</style>
+<script>(function(h){if('IntersectionObserver'in window)h.classList.add('rv')})(document.documentElement)</script>
 
 </head>
 <body>
@@ -1429,6 +1554,49 @@ window.__reveal = function (el) {
 };
 if (location.hash.length > 1) window.__reveal(document.getElementById(decodeURIComponent(location.hash.slice(1))));
 </script>
+<!-- Pointer glow: the cards that share the article card's hover get the pointer's position as --mx/--my, which their ::after glow follows.
+     One listener on the document, so it works before React hydrates and on pages React mounts later. Mouse only. -->
+<script>
+(function () {
+  var SEL = '.svc,.feat,.legal-card,.acc-card,.note.dark,.app';
+  document.addEventListener('pointermove', function (e) {
+    if (e.pointerType !== 'mouse' || !e.target.closest) return;
+    var el = e.target.closest(SEL);
+    if (!el) return;
+    var r = el.getBoundingClientRect();
+    el.style.setProperty('--mx', (e.clientX - r.left) + 'px'); el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  }, { passive: true });
+})();
+</script>
+<!-- Scroll reveal: watches the elements the motion styles hide (html.rv) and marks each one data-rv as it comes into view; elements that
+     arrive together stagger (data-rv="0".."5"). React adds a new page's elements on a page change, so a MutationObserver picks those up.
+     Keep the selector in step with the "2. Scroll" rule in the motion styles. -->
+<script>
+(function () {
+  var html = document.documentElement, root = document.getElementById('root');
+  if (!html.classList.contains('rv') || !root) return;
+  var SEL = '.intro>h2,.intro-grid>*,.statement>p,#services>.sec-title,.svc,.apps>.apps-head,.apps-grid>.app,.apps-end,' +
+    '.how-head,.acc-card,.events-head,.tix-item,.notes>.sec-title,.note,.contact .left>*,.form-card,' +
+    '.foot-grid>*,.wordmark,.fine,' +
+    '.ap-media,.lb-wrap,.ap-sec>h2,.ap-sec>.sec-head,.ap-sub,.ap-sec .ap-copy,.feat,.ap-data-grid>*,.legal-card,.ap-social,' +
+    '.legal-body>section,.legal-next';
+  var io = new IntersectionObserver(function (entries) {
+    var n = 0;
+    entries.filter(function (e) { return e.isIntersecting; })
+      .sort(function (a, b) { return a.target.compareDocumentPosition(b.target) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1; })
+      .forEach(function (e) { io.unobserve(e.target); e.target.setAttribute('data-rv', String(Math.min(n++, 5))); });
+  }, { rootMargin: '0px 0px -8% 0px' });
+  function watch(el) {
+    if (el.nodeType !== 1) return;
+    if (el.matches(SEL) && !el.hasAttribute('data-rv')) io.observe(el);
+    el.querySelectorAll(SEL).forEach(function (c) { if (!c.hasAttribute('data-rv')) io.observe(c); });
+  }
+  watch(root);
+  new MutationObserver(function (list) {
+    list.forEach(function (m) { m.addedNodes.forEach(watch); });
+  }).observe(root, { childList: true, subtree: true });
+})();
+</script>
 
 <!-- The pre-rendered page above paints with no script, so React, the kit and the Fraunces font (#late-fonts) are only requested after the first paint.
      Requested earlier, they share the slow connection with the hero portrait (the LCP element) and hold back the paint. They load in order, then the app script (kit/app.js, window.__boot) hydrates.
@@ -1443,7 +1611,7 @@ if (location.hash.length > 1) window.__reveal(document.getElementById(decodeURIC
     setTimeout(function () {
       var late = document.getElementById('late-fonts');
       if (late) document.head.appendChild(late.content.cloneNode(true));
-      ['/kit/vendor/react.production.min.js?v=18.3.1', '/kit/vendor/react-dom.production.min.js?v=18.3.1', '/kit/vendor/htm.umd.js?v=3.1.1', '/kit/bundle.js?v=d34dfc6d', '/kit/app.js?v=433fa109'].forEach(function (src, i, all) {
+      ['/kit/vendor/react.production.min.js?v=18.3.1', '/kit/vendor/react-dom.production.min.js?v=18.3.1', '/kit/vendor/htm.umd.js?v=3.1.1', '/kit/bundle.js?v=d34dfc6d', '/kit/app.js?v=508f07d3'].forEach(function (src, i, all) {
         var s = document.createElement('script');
         s.src = src; s.async = false; // run in order
         if (i === all.length - 1) s.onload = function () { window.__boot(); };
