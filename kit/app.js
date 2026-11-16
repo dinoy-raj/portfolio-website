@@ -15,10 +15,11 @@ window.__boot = function () {
   // Real apps, with copy from each app's README / Play Store listing and its own store screenshots (assets/apps).
   const PLAY = id => 'https://play.google.com/store/apps/details?id=' + id;
   const APPS = [
-    { id: 'launcher', name: 'Dino Minimalist Launcher', store: 'Minimalist launcher for Android', featured: true, status: 'live', bg: '#efe6d8',
+    { id: 'launcher', name: 'Simple Minimalist Launcher', store: 'Minimalist launcher for Android', featured: true, status: 'live', bg: '#efe6d8',
       desc: 'A minimalist Android launcher designed to help you reduce screen time and boost focus. A clean, text-based home screen with only the apps you pin, custom themes and palettes, fonts, layouts and widgets, and no ads. Several of the apps below began as tools inside it.',
-      tags: ['Launcher', 'Material You', 'Custom themes', 'Widgets'],
-      seo: 'A minimalist, text-based Android launcher by Dinoy Raj to reduce screen time and boost focus: only the apps you pin, custom themes, fonts, widgets and no ads.',
+      tags: ['Minimalist launcher', 'Material You', 'Custom themes', 'Widgets'],
+      alt: ['Minimalist Launcher', 'Simple Launcher', 'Dino Minimalist Launcher'], // other names people search for, for structured data
+      seo: 'Simple Minimalist Launcher is a free minimalist launcher for Android: a text-only home screen that cuts screen time, with focus tools, 250+ widgets, themes and no ads.',
       shots: ['Light theme with periodic table pinned apps', 'Dark home with the dot-matrix clock and only the pinned apps', 'Widgets: weather, battery, day progress, screen time and now playing', 'Orange theme in Urbanist with the day summary', 'Focus tools on home: to-do, focus timer, habits and meetings'],
       links: [['Google Play', PLAY('com.dino.simple')], ['Website', 'https://minimalistlauncher.com'], ['Roadmap', 'https://puzzle-kettle-30f.notion.site/Simple-Launcher-182b8c4aae1f80d8941df2086b1caf73']] },
     { id: 'nano', name: 'Nano Prompt Ground', store: 'Offline AI playground', status: 'live', bg: '#dcefe5',
@@ -85,7 +86,7 @@ window.__boot = function () {
   /* Detail pages: each app lives at /<slug>, with /<slug>/privacypolicy and /<slug>/termsofservice.
      features: [icon, title, text]. perms: [permission, why it is needed]. net: what, if anything, leaves the phone. */
   const DETAILS = {
-    launcher: { slug: 'simplelauncher', Bento: LauncherBento,
+    launcher: { slug: 'minimalistlauncher', Bento: LauncherBento,
       features: [
         ['format_list_bulleted', 'Text-only home screen', 'Only the apps you pin, as a clean list of names. No icon grid, no badges, nothing pulling at your attention.'],
         ['palette', 'Themes and palettes', 'Light, dark and colour themes with custom palettes, so the home screen matches your wallpaper or your mood.'],
@@ -297,9 +298,9 @@ window.__boot = function () {
         ['tune', 'Production considerations', 'Model size, device compatibility, privacy and performance lessons from shipping AI features at scale.'],
         ['stacks', 'Beyond Gemini', 'MediaPipe, LiteRT and custom models for specialised on-device tasks.']], app: 'nano' },
     { slug: 'custom-android-launcher', home: true, text: 'Beyond the Grid: Crafting a Custom Android Launcher from Scratch', seoTitle: 'Crafting a Custom Android Launcher from Scratch', title: 'Custom launchers', sub: 'Lightning talk · Jetpack Compose', shape: 'flower5', icon: 'apps', tone: 'tertiary-container',
-      seo: 'How to build a custom Android launcher: a talk by Dinoy Raj, creator of Dino Minimalist Launcher, on PackageManager, broadcasts, permissions and OEM quirks.',
+      seo: 'How to build a custom Android launcher: a talk by Dinoy Raj, creator of Simple Minimalist Launcher, on PackageManager, broadcasts, permissions and OEM quirks.',
       abstract: [
-        'As the creator of Dino Minimalist Launcher, a text-based launcher for Android, I have worked through the unusual challenges of replacing one of Android\'s most fundamental components. This talk demystifies building a custom launcher: the app that sits between the user and the Android system.',
+        'As the creator of Simple Minimalist Launcher, a text-based launcher for Android, I have worked through the unusual challenges of replacing one of Android\'s most fundamental components. This talk demystifies building a custom launcher: the app that sits between the user and the Android system.',
         'It cuts straight to the essentials: what a launcher is and where it sits, how to build one in Kotlin and Jetpack Compose, and what to consider when you build a custom home screen experience.'],
       takeaways: [
         ['grid_view', 'The core foundation', 'Using PackageManager to query and manage installed apps, with a clean architecture that keeps the launcher maintainable.'],
@@ -795,7 +796,7 @@ window.__boot = function () {
     return a.links ? a.links.map(([l, h]) => html`<a key=${h} class="link-arrow" href=${h} target="_blank" rel="noopener" aria-label=${a.name + ': ' + l}>${l}<span class="ex-icon" aria-hidden="true">arrow_outward</span></a>`) : null;
   }
 
-  /* Simple Launcher's feature bento, at the top of /simplelauncher. Every tile is drawn in HTML and CSS rather than shipped as an
+  /* Simple Minimalist Launcher's feature bento, on /minimalistlauncher below the title and description. Every tile is drawn in HTML and CSS rather than shipped as an
      image, so it stays sharp at any size and can move. Sizes are design pixels (--u, set from the container's width in index.html),
      and the grid re-flows from six columns to three and two. The clocks and counters tick once a second, only while the bento is
      on screen and only when the visitor hasn't asked for reduced motion; everything else is CSS animation. */
@@ -830,7 +831,7 @@ window.__boot = function () {
     }, []);
     const I = (name, c) => html`<span class=${'ex-icon' + (c ? ' ' + c : '')} aria-hidden="true">${name}</span>`;
     const ring = c => html`<svg class=${'lb-ring ' + c} viewBox="0 0 1 1"><path d=${LB_RING} /></svg>`;
-    return html`<div class="lb-wrap" ref=${ref} role="img" aria-label="Simple Launcher at a glance: a quiet text-only home screen, focus sessions, mindful pauses before distracting apps, a habit tracker, a day summary, meetings as sticky notes, a to-do list, a screen time detox chart, more than 250 widgets, app timers, a dynamic island, a reel blocker, a notification blocker, custom themes and fonts, and a layout you build yourself.">
+    return html`<div class="lb-wrap" ref=${ref} role="img" aria-label="Simple Minimalist Launcher at a glance: a quiet text-only home screen, focus sessions, mindful pauses before distracting apps, a habit tracker, a day summary, meetings as sticky notes, a to-do list, a screen time detox chart, more than 250 widgets, app timers, a dynamic island, a reel blocker, a notification blocker, custom themes and fonts, and a layout you build yourself.">
       <div class="lb" aria-hidden="true">
 
         <div class="lb-t lb-focus">
@@ -912,7 +913,7 @@ window.__boot = function () {
         </div>
 
         <div class="lb-t lb-hero">
-          <div class="in"><i class="ico"></i><b>Simple Launcher</b></div>
+          <div class="in"><i class="ico"></i><b>Simple Minimalist Launcher</b></div>
           <span>A minimalist launcher for Android</span>
         </div>
 
@@ -992,7 +993,6 @@ window.__boot = function () {
     const perms = a.perms || [];
     return html`<main id="top" class="app-page wrap" data-enter=${enter}>
       <a class="link-arrow back" href="/apps"><span class="ex-icon" aria-hidden="true">arrow_back</span>All apps</a>
-      ${a.Bento && html`<${a.Bento} />`}
       <header class="ap-hero">
         <img class="ap-icon" src=${'/assets/apps/' + a.id + '-icon.webp'} alt="" width="112" height="112" />
         <div class="ap-title">
@@ -1007,6 +1007,7 @@ window.__boot = function () {
           ${a.links && html`<div class="links"><${AppLinks} a=${a} /></div>`}
         </div>
       </div>
+      ${a.Bento && html`<${a.Bento} />`}
       <div class="ap-media" style=${{ background: a.bg, viewTransitionName: 'app-' + a.id }}>
         <div class="ap-shots" tabindex="0" aria-label=${a.name + ' screenshots'}>
           ${a.shots.map((alt, i) => html`<img key=${i} src=${appImg(a, i + 1)} alt=${a.name + ': ' + alt} width="540" height=${appH(a)} decoding="async" />`)}
@@ -1070,7 +1071,7 @@ window.__boot = function () {
   const ABOUT_DO = [
     ['android', 'Android apps', 'Product apps in Kotlin and Jetpack Compose, from the first sketch to the Play Store release. By day I\'m a senior Android developer at Strollby, building multi-module B2B and B2C travel apps on a unified design system.'],
     ['auto_awesome', 'On-device AI', 'I\'ve shipped Gemini Nano and the ML Kit Prompt API in production, for natural-language smart search and generative UI, and I built Nano Prompt Ground, an offline Gemini Nano playground for Android.'],
-    ['apps', 'Custom launchers', 'I build Dino Minimalist Launcher, a text-based Android launcher that helps people spend less time on their phones. Several of my other apps began as tools inside it.'],
+    ['apps', 'Custom launchers', 'I build Simple Minimalist Launcher, a text-based Android launcher that helps people spend less time on their phones. Several of my other apps began as tools inside it.'],
     ['category', 'Design systems', 'Every project starts from Expressive Kit, my own Material 3 Expressive design system, so shapes, colour and motion stay consistent from the first screen to the last.'],
   ];
   const SKILLS = ['Kotlin', 'Jetpack Compose', 'Kotlin Multiplatform', 'Material 3 Expressive', 'Gemini Nano', 'MediaPipe', 'Android launchers', 'App Functions'];
@@ -1600,7 +1601,7 @@ window.__boot = function () {
   const APP_CATEGORY = { nano: 'DeveloperApplication', habits: 'HealthApplication', mindful: 'HealthApplication', focus: 'ProductivityApplication', meetings: 'BusinessApplication', timeline: 'BusinessApplication', countdown: 'LifestyleApplication', links: 'ProductivityApplication' };
   const crumbs = list => ({ '@type': 'BreadcrumbList', itemListElement: [['Dinoy Raj', '/'], ...list].map(([name, path], i) => ({ '@type': 'ListItem', position: i + 1, name, item: SITE + path })) });
   const appNode = a => ({
-    '@type': 'MobileApplication', '@id': SITE + '/' + a.slug + '#app', name: a.name, alternateName: a.store, url: SITE + '/' + a.slug, description: a.seo || a.desc,
+    '@type': 'MobileApplication', '@id': SITE + '/' + a.slug + '#app', name: a.name, alternateName: a.alt ? [a.store, ...a.alt] : a.store, url: SITE + '/' + a.slug, description: a.seo || a.desc,
     operatingSystem: 'Android', applicationCategory: APP_CATEGORY[a.id] || 'UtilitiesApplication', image: SITE + '/assets/apps/' + a.id + '-icon.webp',
     screenshot: a.shots.map((_, i) => SITE + appImg(a, i + 1)), author: { '@id': SITE + '/#person' }, publisher: { '@id': SITE + '/#person' }, keywords: a.tags.join(', '),
     ...(a.links && a.links.find(([l]) => l === 'Google Play') ? { installUrl: a.links.find(([l]) => l === 'Google Play')[1] } : {}),
