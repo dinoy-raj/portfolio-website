@@ -443,7 +443,7 @@ window.__boot = function () {
         <div class="body">
           <span class="eyebrow">${t.sub}</span>
           <h3>${t.text}</h3>
-          <a class="meta" href=${'/talks/' + t.slug}><span class="go" aria-hidden="true"><span class="ex-icon">arrow_forward</span></span><span><b>${t.title}</b><span class="sub">Abstract, events and slides</span></span></a>
+          <a class="meta" href=${'/talks/' + t.slug}><span class="go" aria-hidden="true"><span class="ex-icon" aria-hidden="true" data-icon="arrow_forward"></span></span><span><b>${t.title}</b><span class="sub">Abstract, events and slides</span></span></a>
         </div>
       </details>`)}
     </div>`;
@@ -683,20 +683,20 @@ window.__boot = function () {
           <a class="nav-name" href="#top">${NAME}</a>
           <button ref=${btnRef} type="button" class="menu-btn" aria-expanded=${open} aria-controls="nav-panel" aria-label=${open ? 'Close menu' : 'Open menu'}>
             <${ShapeSvg} view=${1.15} seq=${open ? ['cookie9', 'flower8'] : ['cookie4', 'cookie6', 'clover4']} speed=${open ? 40 : 14} hold=${1500} morph=${800} kick=${open ? 90 : -90} />
-            <span class="ex-icon i-more" aria-hidden="true">more_horiz</span>
-            <span class="ex-icon i-close" aria-hidden="true">close</span>
+            <span class="ex-icon i-more" aria-hidden="true" data-icon="more_horiz"></span>
+            <span class="ex-icon i-close" aria-hidden="true" data-icon="close"></span>
           </button>
         </div>
         <div class="nav-panel" id="nav-panel" ref=${panelRef} inert=${open ? undefined : ''}>
           <nav aria-label="Sections">
             ${links.map(([l, h], i) => html`<a key=${h} class="lnk rv" style=${{ '--i': i }} href=${h} onClick=${close}>
-              <span><span class="num">0${i + 1}</span>${l}</span>
-              <span class="go"><${ShapeSvg} seq=${['cookie6', 'flower5', 'cookie9']} speed=${30} hold=${900} morph=${700} /><span class="ex-icon" aria-hidden="true">arrow_outward</span></span>
+              <span><span class="num" data-n=${'0' + (i + 1)} aria-hidden="true"></span>${l}</span>
+              <span class="go"><${ShapeSvg} seq=${['cookie6', 'flower5', 'cookie9']} speed=${30} hold=${900} morph=${700} /><span class="ex-icon" aria-hidden="true" data-icon="arrow_outward"></span></span>
             </a>`)}
           </nav>
           <div class="nav-foot rv" style=${{ '--i': links.length }}>
-            <span class="status"><span class="dot" aria-hidden="true"><span class="ring"><${ShapeSvg} seq=${['sunny', 'cookie12']} speed=${-24} hold=${900} morph=${700} /></span><${ShapeSvg} seq=${['cookie9', 'flower8', 'burst', 'clover4', 'cookie12']} fill="var(--live)" speed=${48} hold=${800} morph=${650} /><span class="ex-icon">bolt</span></span><span><b>Available</b> for <span class="em">work</span></span></span>
-            <a href="#contact" onClick=${close}>Say hello<span class="ex-icon" style=${{ fontSize: '18px' }} aria-hidden="true">waving_hand</span></a>
+            <span class="status"><span class="dot" aria-hidden="true"><span class="ring"><${ShapeSvg} seq=${['sunny', 'cookie12']} speed=${-24} hold=${900} morph=${700} /></span><${ShapeSvg} seq=${['cookie9', 'flower8', 'burst', 'clover4', 'cookie12']} fill="var(--live)" speed=${48} hold=${800} morph=${650} /><span class="ex-icon" aria-hidden="true" data-icon="bolt"></span></span><span><b>Available</b> for <span class="em">work</span></span></span>
+            <a href="#contact" onClick=${close}>Say hello<span class="ex-icon" style=${{ fontSize: '18px' }} aria-hidden="true" data-icon="waving_hand"></span></a>
           </div>
         </div>
       </header>
@@ -769,31 +769,31 @@ window.__boot = function () {
               </div>
               <p class="desc muted">${a.desc}</p>
               <div class="tags">${a.status && html`<span class=${'chip ' + a.status}>${a.status === 'live' ? 'On Google Play' : 'In development'}</span>`}${a.tags.map(t => html`<span key=${t}>${t}</span>`)}</div>
-              <div class="links"><a class="link-arrow open" href=${'/' + a.slug} aria-label=${a.name + ' details'}>Details<span class="ex-icon" aria-hidden="true">arrow_forward</span></a><${AppLinks} a=${a} /></div>
+              <div class="links"><a class="link-arrow open" href=${'/' + a.slug} aria-label=${a.name + ' details'}>Details<span class="ex-icon" aria-hidden="true" data-icon="arrow_forward"></span></a><${AppLinks} a=${a} /></div>
             </article>`;
   }
 
   function AllApps({ enter }) {
     return html`<main id="top" class="all-apps wrap" data-enter=${enter}>
-      <a class="link-arrow back" href="#apps"><span class="ex-icon" aria-hidden="true">arrow_back</span>Back to home</a>
+      <a class="link-arrow back" href="#apps"><span class="ex-icon" aria-hidden="true" data-icon="arrow_back"></span>Back to home</a>
       <div class="apps-head">
         <div>
           <h1 class="sec-title">All<br/> Apps</h1>
           <p class="muted">All ${APPS.length} Android apps I've designed and built in Kotlin and Jetpack Compose. Screenshots are the apps' own store screens.</p>
         </div>
-        <a class="link-arrow" href=${LINKS.play} target="_blank" rel="noopener">Google Play profile<span class="ex-icon">arrow_outward</span></a>
+        <a class="link-arrow" href=${LINKS.play} target="_blank" rel="noopener">Google Play profile<span class="ex-icon" aria-hidden="true" data-icon="arrow_outward"></span></a>
       </div>
       <h2 class="sr-only">Apps</h2>
       <div class="apps-grid">${APPS.map(a => html`<${AppCard} key=${a.id} a=${a} />`)}</div>
       <div class="apps-end">
         <p class="muted">Install them, read the reviews and get updates on Google Play.</p>
-        <a class="link-arrow" href=${LINKS.play} target="_blank" rel="noopener">See all on Google Play<span class="ex-icon">arrow_outward</span></a>
+        <a class="link-arrow" href=${LINKS.play} target="_blank" rel="noopener">See all on Google Play<span class="ex-icon" aria-hidden="true" data-icon="arrow_outward"></span></a>
       </div>
     </main>`;
   }
 
   function AppLinks({ a }) {
-    return a.links ? a.links.map(([l, h]) => html`<a key=${h} class="link-arrow" href=${h} target="_blank" rel="noopener" aria-label=${a.name + ': ' + l}>${l}<span class="ex-icon" aria-hidden="true">arrow_outward</span></a>`) : null;
+    return a.links ? a.links.map(([l, h]) => html`<a key=${h} class="link-arrow" href=${h} target="_blank" rel="noopener" aria-label=${a.name + ': ' + l}>${l}<span class="ex-icon" aria-hidden="true" data-icon="arrow_outward"></span></a>`) : null;
   }
 
   /* Simple Minimalist Launcher's feature bento, on /minimalistlauncher below the title and description. Every tile is drawn in HTML and CSS rather than shipped as an
@@ -829,7 +829,7 @@ window.__boot = function () {
       if (!matchMedia('(prefers-reduced-motion: reduce)').matches) id = setInterval(() => { if (seen && !document.hidden) setT(n => n + 1); }, 1000);
       return () => { clearInterval(id); io.disconnect(); };
     }, []);
-    const I = (name, c) => html`<span class=${'ex-icon' + (c ? ' ' + c : '')} aria-hidden="true">${name}</span>`;
+    const I = (name, c) => html`<span class=${'ex-icon' + (c ? ' ' + c : '')} aria-hidden="true" data-icon=${name}></span>`;
     const ring = c => html`<svg class=${'lb-ring ' + c} viewBox="0 0 1 1"><path d=${LB_RING} /></svg>`;
     return html`<div class="lb-wrap" ref=${ref} role="img" aria-label="Simple Minimalist Launcher at a glance: a quiet text-only home screen, focus sessions, mindful pauses before distracting apps, a habit tracker, a day summary, meetings as sticky notes, a to-do list, a screen time detox chart, more than 250 widgets, app timers, a dynamic island, a reel blocker, a notification blocker, custom themes and fonts, and a layout you build yourself.">
       <div class="lb" aria-hidden="true">
@@ -992,7 +992,7 @@ window.__boot = function () {
   function AppPage({ a, enter }) {
     const perms = a.perms || [];
     return html`<main id="top" class="app-page wrap" data-enter=${enter}>
-      <a class="link-arrow back" href="/apps"><span class="ex-icon" aria-hidden="true">arrow_back</span>All apps</a>
+      <a class="link-arrow back" href="/apps"><span class="ex-icon" aria-hidden="true" data-icon="arrow_back"></span>All apps</a>
       <header class="ap-hero">
         <img class="ap-icon" src=${'/assets/apps/' + a.id + '-icon.webp'} alt="" width="112" height="112" />
         <div class="ap-title">
@@ -1049,19 +1049,19 @@ window.__boot = function () {
 
       <section class="ap-legal" aria-label="Legal and support">
         <a class="legal-card bg-p" href=${'/' + a.slug + '/privacypolicy'}>
-          <span class="ex-icon" aria-hidden="true">shield_lock</span>
+          <span class="ex-icon" aria-hidden="true" data-icon="shield_lock"></span>
           <span><b>Privacy policy</b><span>What ${a.name} collects, and what it doesn't</span></span>
-          <span class="ex-icon go" aria-hidden="true">arrow_forward</span>
+          <span class="ex-icon go" aria-hidden="true" data-icon="arrow_forward"></span>
         </a>
         <a class="legal-card bg-s" href=${'/' + a.slug + '/termsofservice'}>
-          <span class="ex-icon" aria-hidden="true">gavel</span>
+          <span class="ex-icon" aria-hidden="true" data-icon="gavel"></span>
           <span><b>Terms of service</b><span>The terms for using ${a.name}</span></span>
-          <span class="ex-icon go" aria-hidden="true">arrow_forward</span>
+          <span class="ex-icon go" aria-hidden="true" data-icon="arrow_forward"></span>
         </a>
         <a class="legal-card" href=${'mailto:' + EMAIL + '?subject=' + encodeURIComponent(a.name)}>
-          <span class="ex-icon" aria-hidden="true">support_agent</span>
+          <span class="ex-icon" aria-hidden="true" data-icon="support_agent"></span>
           <span><b>Support</b><span>${EMAIL}</span></span>
-          <span class="ex-icon go" aria-hidden="true">arrow_outward</span>
+          <span class="ex-icon go" aria-hidden="true" data-icon="arrow_outward"></span>
         </a>
       </section>
     </main>`;
@@ -1080,9 +1080,9 @@ window.__boot = function () {
   function LinkCard({ c: [href, icon, title, sub, tone] }) {
     const ext = href.startsWith('http') || href.startsWith('mailto:'), web = href.startsWith('http');
     return html`<a class=${'legal-card' + (tone ? ' ' + tone : '')} href=${href} target=${web ? '_blank' : undefined} rel=${web ? 'noopener' : undefined}>
-      <span class="ex-icon" aria-hidden="true">${icon}</span>
+      <span class="ex-icon" aria-hidden="true" data-icon=${icon}></span>
       <span><b>${title}</b><span>${sub}</span></span>
-      <span class="ex-icon go" aria-hidden="true">${ext ? 'arrow_outward' : 'arrow_forward'}</span>
+      <span class="ex-icon go" aria-hidden="true" data-icon=${ext ? 'arrow_outward' : 'arrow_forward'}></span>
     </a>`;
   }
 
@@ -1093,7 +1093,7 @@ window.__boot = function () {
   }
 
   function ExtLinks({ links }) {
-    return links.map(([l, h]) => html`<a key=${h} class="link-arrow" href=${h} target=${h.startsWith('http') ? '_blank' : undefined} rel=${h.startsWith('http') ? 'noopener' : undefined}>${l}<span class="ex-icon" aria-hidden="true">${h[0] === '/' ? 'arrow_forward' : 'arrow_outward'}</span></a>`);
+    return links.map(([l, h]) => html`<a key=${h} class="link-arrow" href=${h} target=${h.startsWith('http') ? '_blank' : undefined} rel=${h.startsWith('http') ? 'noopener' : undefined}>${l}<span class="ex-icon" aria-hidden="true" data-icon=${h[0] === '/' ? 'arrow_forward' : 'arrow_outward'}></span></a>`);
   }
 
   function Features({ items }) {
@@ -1108,7 +1108,7 @@ window.__boot = function () {
 
   function AboutPage({ enter }) {
     return html`<main id="top" class="app-page wrap" data-enter=${enter}>
-      <a class="link-arrow back" href="/"><span class="ex-icon" aria-hidden="true">arrow_back</span>Back to home</a>
+      <a class="link-arrow back" href="/"><span class="ex-icon" aria-hidden="true" data-icon="arrow_back"></span>Back to home</a>
       <header class="ap-hero">
         <img class="ap-icon ap-portrait" src="/assets/dinoy-420.webp" alt="Dinoy Raj" width="112" height="112" />
         <div class="ap-title">
@@ -1151,7 +1151,7 @@ window.__boot = function () {
   /* Talks: every session, then every event. */
   function TalksPage({ enter }) {
     return html`<main id="top" class="app-page wrap" data-enter=${enter}>
-      <a class="link-arrow back" href="/#talks"><span class="ex-icon" aria-hidden="true">arrow_back</span>Back to home</a>
+      <a class="link-arrow back" href="/#talks"><span class="ex-icon" aria-hidden="true" data-icon="arrow_back"></span>Back to home</a>
       <header class="ap-hero">
         <${LiveShape} shape="cookie12" tone="highlight" icon="mic" size=${112} />
         <div class="ap-title">
@@ -1171,15 +1171,15 @@ window.__boot = function () {
         <h2 id="tk-sessions">Sessions</h2>
         <div class="talk-list">
           ${TALKS.map((t, i) => html`<a key=${t.slug} class=${'legal-card' + (i < 2 ? (i ? ' bg-s' : ' bg-p') : '')} href=${'/talks/' + t.slug}>
-            <span class="ex-icon" aria-hidden="true">${t.icon}</span>
+            <span class="ex-icon" aria-hidden="true" data-icon=${t.icon}></span>
             <span><b>${t.text}</b><span>${t.sub}</span></span>
-            <span class="ex-icon go" aria-hidden="true">arrow_forward</span>
+            <span class="ex-icon go" aria-hidden="true" data-icon="arrow_forward"></span>
           </a>`)}
         </div>
       </section>
 
       <section class="ap-sec" aria-labelledby="tk-events">
-        <div class="sec-head"><h2 id="tk-events">Where I've spoken</h2><a class="link-arrow" href="/events">View all events<span class="ex-icon">arrow_forward</span></a></div>
+        <div class="sec-head"><h2 id="tk-events">Where I've spoken</h2><a class="link-arrow" href="/events">View all events<span class="ex-icon" aria-hidden="true" data-icon="arrow_forward"></span></a></div>
         <div class="tix">${ALL_EVENTS.map(ev => html`<${EventTicket} key=${ev.name + ev.when} ev=${ev} />`)}</div>
       </section>
     </main>`;
@@ -1190,7 +1190,7 @@ window.__boot = function () {
     const app = t.app && APPS.find(a => a.id === t.app), events = talkEvents(t);
     const invite = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Talk: ' + t.text);
     return html`<main id="top" class="app-page wrap" data-enter=${enter}>
-      <a class="link-arrow back" href="/talks"><span class="ex-icon" aria-hidden="true">arrow_back</span>All talks</a>
+      <a class="link-arrow back" href="/talks"><span class="ex-icon" aria-hidden="true" data-icon="arrow_back"></span>All talks</a>
       <header class="ap-hero">
         <${LiveShape} shape=${t.shape} tone=${t.tone} icon=${t.icon} size=${112} />
         <div class="ap-title">
@@ -1214,7 +1214,7 @@ window.__boot = function () {
       </section>
 
       ${events.length > 0 && html`<section class="ap-sec" aria-labelledby="tk-at">
-        <div class="sec-head"><h2 id="tk-at">Presented at</h2><a class="link-arrow" href="/events">View all events<span class="ex-icon">arrow_forward</span></a></div>
+        <div class="sec-head"><h2 id="tk-at">Presented at</h2><a class="link-arrow" href="/events">View all events<span class="ex-icon" aria-hidden="true" data-icon="arrow_forward"></span></a></div>
         <div class="tix">${events.map(ev => html`<${EventTicket} key=${ev.name + ev.when} ev=${ev} />`)}</div>
       </section>`}
 
@@ -1235,7 +1235,7 @@ window.__boot = function () {
   function Slides({ t }) {
     return html`<div class="slides">
       ${t.slidesEmbed && html`<div class="slides-frame"><iframe src=${t.slidesEmbed} title=${'Slides: ' + t.text} loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`}
-      <a class="link-arrow" href=${t.slides} target="_blank" rel="noopener">Open the slides<span class="ex-icon" aria-hidden="true">arrow_outward</span></a>
+      <a class="link-arrow" href=${t.slides} target="_blank" rel="noopener">Open the slides<span class="ex-icon" aria-hidden="true" data-icon="arrow_outward"></span></a>
     </div>`;
   }
 
@@ -1244,7 +1244,7 @@ window.__boot = function () {
     const up = ALL_EVENTS.filter(ev => ev.up), past = ALL_EVENTS.filter(ev => !ev.up);
     const countries = new Set(ALL_EVENTS.filter(ev => !ev.online).map(ev => (ev.addr || ev.where).split(', ').pop())).size;
     return html`<main id="top" class="app-page wrap" data-enter=${enter}>
-      <a class="link-arrow back" href="/talks"><span class="ex-icon" aria-hidden="true">arrow_back</span>All talks</a>
+      <a class="link-arrow back" href="/talks"><span class="ex-icon" aria-hidden="true" data-icon="arrow_back"></span>All talks</a>
       <header class="ap-hero">
         <${LiveShape} shape="cookie9" tone="primary-container" icon="event" size=${112} />
         <div class="ap-title">
@@ -1276,7 +1276,7 @@ window.__boot = function () {
     const facts = [['calendar_month', 'When', evDates(ev)], ['event', 'Where', ev.online ? 'Online' : ev.addr || ev.where], ['support_agent', 'Organizer', ev.org || ev.name], ['mic', 'Format', ev.online ? 'Online' : 'In person']];
     const first = sessions.find(x => x.t) && sessions.find(x => x.t).t;
     return html`<main id="top" class="app-page wrap" data-enter=${enter}>
-      <a class="link-arrow back" href="/events"><span class="ex-icon" aria-hidden="true">arrow_back</span>All events</a>
+      <a class="link-arrow back" href="/events"><span class="ex-icon" aria-hidden="true" data-icon="arrow_back"></span>All events</a>
       <header class="ap-hero">
         <${LiveShape} shape=${ev.name.startsWith('droidcon') || ev.name.startsWith('Droidcon') ? 'cookie12' : 'flower5'} tone=${ev.up ? 'highlight' : 'primary-container'} icon="event" size=${112} />
         <div class="ap-title">
@@ -1294,15 +1294,15 @@ window.__boot = function () {
 
       <section class="ap-sec" aria-labelledby="ev-details">
         <h2 id="ev-details">Details</h2>
-        <dl class="ev-facts">${facts.map(([icon, k, v]) => html`<div key=${k}><dt><span class="ex-icon" aria-hidden="true">${icon}</span>${k}</dt><dd>${v}</dd></div>`)}</dl>
+        <dl class="ev-facts">${facts.map(([icon, k, v]) => html`<div key=${k}><dt><span class="ex-icon" aria-hidden="true" data-icon=${icon}></span>${k}</dt><dd>${v}</dd></div>`)}</dl>
       </section>
 
       ${sessions.length > 0 && html`<section class="ap-sec" aria-labelledby="ev-sessions">
         <h2 id="ev-sessions">${sessions.length > 1 ? 'My sessions' : 'My session'}</h2>
         <div class="talk-list">${sessions.map((x, i) => {
           const when = [x.day && fmtDay(x.day), x.room].filter(Boolean).join(' · ') || (x.t ? x.t.sub : 'Session');
-          const body = html`<span class="ex-icon" aria-hidden="true">${x.t ? x.t.icon : 'mic'}</span><span><b>${x.title}</b><span>${when}</span></span>`;
-          return x.t ? html`<a key=${x.title} class=${'legal-card' + (i ? ' bg-s' : ' bg-p')} href=${'/talks/' + x.t.slug}>${body}<span class="ex-icon go" aria-hidden="true">arrow_forward</span></a>`
+          const body = html`<span class="ex-icon" aria-hidden="true" data-icon=${x.t ? x.t.icon : 'mic'}></span><span><b>${x.title}</b><span>${when}</span></span>`;
+          return x.t ? html`<a key=${x.title} class=${'legal-card' + (i ? ' bg-s' : ' bg-p')} href=${'/talks/' + x.t.slug}>${body}<span class="ex-icon go" aria-hidden="true" data-icon="arrow_forward"></span></a>`
             : html`<div key=${x.title} class=${'legal-card' + (i ? ' bg-s' : ' bg-p')}>${body}</div>`;
         })}</div>
       </section>`}
@@ -1454,7 +1454,7 @@ window.__boot = function () {
     const sections = privacy ? privacyDoc(a) : termsDoc(a);
     const custom = (privacy ? PRIVACY : TERMS)[a.id];
     return html`<main id="top" class="legal wrap" data-enter=${enter}>
-      <a class="link-arrow back" href=${'/' + a.slug}><span class="ex-icon" aria-hidden="true">arrow_back</span>${a.name}</a>
+      <a class="link-arrow back" href=${'/' + a.slug}><span class="ex-icon" aria-hidden="true" data-icon="arrow_back"></span>${a.name}</a>
       <header class="legal-head">
         <div class="legal-app"><img src=${'/assets/apps/' + a.id + '-icon.webp'} alt="" width="40" height="40" /><span>${a.name}</span></div>
         <h1>${privacy ? 'Privacy policy' : 'Terms of service'}</h1>
@@ -1470,7 +1470,7 @@ window.__boot = function () {
         </section>`)}
       </article>
       <div class="legal-next">
-        <a class="link-arrow" href=${'/' + a.slug + (privacy ? '/termsofservice' : '/privacypolicy')}>${privacy ? 'Terms of service' : 'Privacy policy'}<span class="ex-icon">arrow_forward</span></a>
+        <a class="link-arrow" href=${'/' + a.slug + (privacy ? '/termsofservice' : '/privacypolicy')}>${privacy ? 'Terms of service' : 'Privacy policy'}<span class="ex-icon" aria-hidden="true" data-icon="arrow_forward"></span></a>
       </div>
     </main>`;
   }
@@ -1479,7 +1479,7 @@ window.__boot = function () {
     return html`<main id="top" class="all-apps wrap" data-enter=${enter}>
       <h1 class="sec-title">Not<br/> found</h1>
       <p class="muted" style=${{ margin: '24px 0 32px', fontSize: '16px' }}>There's no page at this address.</p>
-      <a class="link-arrow" href="/apps">See all apps<span class="ex-icon">arrow_forward</span></a>
+      <a class="link-arrow" href="/apps">See all apps<span class="ex-icon" aria-hidden="true" data-icon="arrow_forward"></span></a>
     </main>`;
   }
 
@@ -1500,7 +1500,7 @@ window.__boot = function () {
     return html`<section class="contact wrap" id="contact">
       <div class="left">
         <div>
-          <span class="avail"><span class="dot" aria-hidden="true"><span class="ring"><${ShapeSvg} seq=${['sunny', 'cookie12']} speed=${-24} hold=${900} morph=${700} /></span><${ShapeSvg} seq=${['cookie9', 'flower8', 'burst', 'clover4', 'cookie12']} fill="var(--positive)" speed=${48} hold=${800} morph=${650} /><span class="ex-icon">bolt</span></span><span><b>Available</b> for new projects</span></span>
+          <span class="avail"><span class="dot" aria-hidden="true"><span class="ring"><${ShapeSvg} seq=${['sunny', 'cookie12']} speed=${-24} hold=${900} morph=${700} /></span><${ShapeSvg} seq=${['cookie9', 'flower8', 'burst', 'clover4', 'cookie12']} fill="var(--positive)" speed=${48} hold=${800} morph=${650} /><span class="ex-icon" aria-hidden="true" data-icon="bolt"></span></span><span><b>Available</b> for new projects</span></span>
           <h2 class="talk-title">Let's <span class="l2"><span class="em">talk.</span><span class="badge" aria-hidden="true"><${MorphShape} seq=${['cookie9', 'flower8', 'burst', 'clover4', 'cookie12']} fill="var(--highlight)" speed=${18} hold=${1200} /><span class="ex-icon" data-icon="waving_hand"></span></span></span></h2>
           <p class="lede">Have an app idea or a design that needs to feel more <b>alive</b>? Tell me about it and I'll reply <b>within two days</b>.</p>
           <div class="mail">
@@ -1509,7 +1509,7 @@ window.__boot = function () {
               <a href=${'mailto:' + EMAIL}>${EMAIL}</a>
               <button type="button" class=${'copy-btn' + (copied ? ' done' : '')} onClick=${copy} aria-label=${copied ? 'Email address copied' : 'Copy email address'} title="Copy email address">
                 <${ShapeSvg} seq=${copied ? ['flower5', 'burst'] : ['cookie9', 'cookie12', 'sunny']} speed=${copied ? 60 : -16} hold=${copied ? 700 : 1600} morph=${800} kick=${copied ? 120 : -120} />
-                <span class="ex-icon" aria-hidden="true">${copied ? 'check' : 'content_copy'}</span>
+                <span class="ex-icon" aria-hidden="true" data-icon=${copied ? 'check' : 'content_copy'}></span>
               </button>
             </div>
           </div>
@@ -1517,7 +1517,7 @@ window.__boot = function () {
         <div class="socials-wrap">
           <span class="eyebrow">Find me elsewhere</span>
           <div class="socials">
-            ${SOCIALS.map(l => html`<a key=${l.label} class="soc" href=${l.href} target="_blank" rel="noopener" aria-label=${l.label}><span class="ex-icon" aria-hidden="true">${l.icon}</span><span class="tip" aria-hidden="true">${l.label}</span></a>`)}
+            ${SOCIALS.map(l => html`<a key=${l.label} class="soc" href=${l.href} target="_blank" rel="noopener" aria-label=${l.label}><span class="ex-icon" aria-hidden="true" data-icon=${l.icon}></span><span class="tip" aria-hidden="true">${l.label}</span></a>`)}
           </div>
         </div>
       </div>
@@ -1533,9 +1533,9 @@ window.__boot = function () {
         <${E.TextField} id="c-project" variant="filled" label="Your project" multiline=${true} placeholder="What are you building, and where are you stuck?" />
         <fieldset class="need">
           <legend>What do you need?</legend>
-          <div class="opts">${NEEDS.map(([t, i]) => html`<button key=${t} type="button" aria-pressed=${need.includes(t)} onClick=${() => toggle(t)}><span class="ex-icon" aria-hidden="true">${need.includes(t) ? 'check' : i}</span>${t}</button>`)}</div>
+          <div class="opts">${NEEDS.map(([t, i]) => html`<button key=${t} type="button" aria-pressed=${need.includes(t)} onClick=${() => toggle(t)}><span class="ex-icon" aria-hidden="true" data-icon=${need.includes(t) ? 'check' : i}></span>${t}</button>`)}</div>
         </fieldset>
-        <button type="submit" class="send">Send message<span class="go" aria-hidden="true"><span class="ex-icon">arrow_forward</span></span></button>
+        <button type="submit" class="send">Send message<span class="go" aria-hidden="true"><span class="ex-icon" aria-hidden="true" data-icon="arrow_forward"></span></span></button>
         <p class="fine-print">No newsletters, no spam. Just a reply from me.</p>
       </form>
     </section>`;
@@ -1750,7 +1750,7 @@ window.__boot = function () {
             </figure>
             <div class="hero-ctas">
               <div class="ex-row">
-                <a class="ex-press ex-btn v-filled size-sm" href="#apps"><span class="ex-icon" aria-hidden="true">arrow_downward</span>See my apps</a>
+                <a class="ex-press ex-btn v-filled size-sm" href="#apps"><span class="ex-icon" aria-hidden="true" data-icon="arrow_downward"></span>See my apps</a>
                 <a class="ex-press ex-btn v-outlined size-sm" href="#contact">Hire me</a>
               </div>
               <span class="eyebrow muted">/ Shipping calm apps</span>
@@ -1765,7 +1765,7 @@ window.__boot = function () {
             <div class="body muted">
               <p>I build focused Android apps in Kotlin and Jetpack Compose: timers, habit trackers, link managers, and blockers for the feeds that eat your evening.</p>
               <p>Every project starts from Expressive Kit, my own Material 3 Expressive design system, so the shapes, colours and motion stay consistent from the first screen to the last.</p>
-              <a class="link-arrow" href="#contact" style=${{ alignSelf: 'flex-start', marginTop: '8px' }}>Get started<span class="ex-icon">arrow_outward</span></a>
+              <a class="link-arrow" href="#contact" style=${{ alignSelf: 'flex-start', marginTop: '8px' }}>Get started<span class="ex-icon" aria-hidden="true" data-icon="arrow_outward"></span></a>
             </div>
           </div>
         </section>
@@ -1789,7 +1789,7 @@ window.__boot = function () {
               <h2 class="sec-title">My<br/> Apps</h2>
               <p class="muted">Android apps I design and build end to end in Kotlin and Jetpack Compose. Screenshots are the apps' own store screens.</p>
             </div>
-            <a class="link-arrow" href="/apps">View all apps<span class="ex-icon">arrow_forward</span></a>
+            <a class="link-arrow" href="/apps">View all apps<span class="ex-icon" aria-hidden="true" data-icon="arrow_forward"></span></a>
           </div>
           <div class="apps-grid">
             ${APPS.slice(0, 5).map(a => html`<${AppCard} key=${a.id} a=${a} />`)}
@@ -1799,11 +1799,11 @@ window.__boot = function () {
         <section class="how wrap" id="talks">
           <div class="how-head">
             <h2 class="sec-title">Talks</h2>
-            <a class="link-arrow" href="/talks">View all talks<span class="ex-icon">arrow_forward</span></a>
+            <a class="link-arrow" href="/talks">View all talks<span class="ex-icon" aria-hidden="true" data-icon="arrow_forward"></span></a>
           </div>
           <${TalksStage} />
           <div class="events">
-            <div class="events-head"><h3 class="events-title">Where I'm speaking</h3><a class="link-arrow" href="/events">View all events<span class="ex-icon">arrow_forward</span></a></div>
+            <div class="events-head"><h3 class="events-title">Where I'm speaking</h3><a class="link-arrow" href="/events">View all events<span class="ex-icon" aria-hidden="true" data-icon="arrow_forward"></span></a></div>
             <div class="tix">${EVENTS.map(ev => html`<${EventTicket} key=${ev.name + ev.when} ev=${ev} />`)}</div>
           </div>
         </section>
@@ -1814,7 +1814,7 @@ window.__boot = function () {
             <a class="note bg-p" href=${BLOGS[0].href} target="_blank" rel="noopener">
               <div class="art" aria-hidden="true">
                 <${LiveShape} shape="cookie9" tone="primary" size=${230} />
-                <span class="ex-icon" style=${{ position: 'relative', fontSize: '72px', color: 'var(--on-primary)' }}>android</span>
+                <span class="ex-icon" style=${{ position: 'relative', fontSize: '72px', color: 'var(--on-primary)' }} aria-hidden="true" data-icon="android"></span>
               </div>
               <div class="txt"><span class="eyebrow muted">${BLOGS[0].eyebrow}</span><h3>${BLOGS[0].title}</h3><p class="muted">${BLOGS[0].blurb}</p></div>
             </a>
@@ -1827,7 +1827,7 @@ window.__boot = function () {
             </a>
             <div class="note dark">
               <h3>Writing on Android, Kotlin and Jetpack Compose.</h3>
-              <a class="link-arrow" href=${LINKS.medium} target="_blank" rel="noopener">Read all on Medium<span class="ex-icon">arrow_outward</span></a>
+              <a class="link-arrow" href=${LINKS.medium} target="_blank" rel="noopener">Read all on Medium<span class="ex-icon" aria-hidden="true" data-icon="arrow_outward"></span></a>
             </div>
           </div>
         </section>
@@ -1852,7 +1852,7 @@ window.__boot = function () {
           </div>
           <${Wordmark} text=${NAME.toUpperCase()} />
         </div>
-        <div class="wrap fine"><span>© 2026 ${NAME}</span><a class="kit" href="https://github.com/dinoy-raj/material-3-expressive-skill" target="_blank" rel="noopener"><span class="kit-dot" aria-hidden="true"><${ShapeSvg} seq=${['cookie9', 'flower8', 'burst', 'clover4', 'cookie12']} speed=${36} hold=${900} morph=${700} /><span class="ex-icon">auto_awesome</span></span><span>Built with <b>Expressive</b> <span class="em">Kit</span></span><span class="ex-icon kit-go" aria-hidden="true">arrow_outward</span></a></div>
+        <div class="wrap fine"><span>© 2026 ${NAME}</span><a class="kit" href="https://github.com/dinoy-raj/material-3-expressive-skill" target="_blank" rel="noopener"><span class="kit-dot" aria-hidden="true"><${ShapeSvg} seq=${['cookie9', 'flower8', 'burst', 'clover4', 'cookie12']} speed=${36} hold=${900} morph=${700} /><span class="ex-icon" aria-hidden="true" data-icon="auto_awesome"></span></span><span>Built with <b>Expressive</b> <span class="em">Kit</span></span><span class="ex-icon kit-go" aria-hidden="true" data-icon="arrow_outward"></span></a></div>
       </footer>
       <div class="sr-only" role="status">${msg || ''}</div>
       ${msg && html`<div class="toast"><${E.Snackbar} role=${null} message=${msg} action="OK" onAction=${() => setMsg(null)} /></div>`}
