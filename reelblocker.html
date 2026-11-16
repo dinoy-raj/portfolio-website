@@ -1438,6 +1438,9 @@ a.tix-item:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
    The sizes are placeholders close to each section's height, so the scrollbar barely moves; once a section has been drawn the
    browser remembers its real size (auto). Skipped content stays in the accessibility tree and in find-in-page. */
 .statement,#services,.apps,.how,.notes,.contact,.footer,.ap-sec,.ap-legal{content-visibility:auto;contain-intrinsic-size:auto 700px}
+/* content-visibility:auto clips paint at the section's edge; leave room for hover lifts and tilts (the holo tickets at the bottom of
+   .how and .ap-sec) so they aren't cut flat. */
+.statement,#services,.apps,.how,.notes,.contact,.footer,.ap-sec,.ap-legal{overflow-clip-margin:40px}
 .statement{contain-intrinsic-size:auto 420px}
 .apps{contain-intrinsic-size:auto 2700px}
 .how{contain-intrinsic-size:auto 1300px}
