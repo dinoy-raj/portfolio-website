@@ -9,7 +9,7 @@ Based in Thiruvananthapuram, Kerala, India.
 
 - [Home](https://dinoyraj.com/): services, featured apps, talks, blogs and contact
 - [About Dinoy Raj](https://dinoyraj.com/about): background, what he works on, speaking
-- [All apps](https://dinoyraj.com/apps): every Android app, each with its own page (e.g. https://dinoyraj.com/simplelauncher, https://dinoyraj.com/nanopromptground)
+- [All apps](https://dinoyraj.com/apps): every Android app, each with its own page (e.g. https://dinoyraj.com/minimalistlauncher, https://dinoyraj.com/nanopromptground)
 - [Talks](https://dinoyraj.com/talks): every session with its abstract and takeaways, and every event
 Contact: dinoykraj@gmail.com
 

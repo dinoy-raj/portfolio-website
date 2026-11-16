@@ -9,6 +9,8 @@
   "redirects": [
     { "source": "/", "has": [{ "type": "host", "value": "www.dinoyraj.com" }], "destination": "https://dinoyraj.com/", "permanent": true },
     { "source": "/:path*", "has": [{ "type": "host", "value": "www.dinoyraj.com" }], "destination": "https://dinoyraj.com/:path*", "permanent": true },
+    { "source": "/simplelauncher", "destination": "/minimalistlauncher", "permanent": true },
+    { "source": "/simplelauncher/:path*", "destination": "/minimalistlauncher/:path*", "permanent": true },
     { "source": "/Material-3-expressive-design-system-skill", "destination": "/material-3-expressive-skill", "permanent": true },
     { "source": "/Material-3-expressive-design-system-skill/:path*", "destination": "/material-3-expressive-skill/:path*", "permanent": true }
   ],
