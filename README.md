@@ -4,7 +4,7 @@ Personal portfolio of Dinoy, Android developer: apps, talks, blogs and ways to g
 
 **Live:** [dinoyraj.com](https://dinoyraj.com)
 
-Built with [Expressive Kit](https://github.com/dinoy-raj/Material-3-expressive-design-system-skill), a Material 3 Expressive design system.
+Built with [Expressive Kit](https://github.com/dinoy-raj/material-3-expressive-skill), a Material 3 Expressive design system.
 
 ## Pages
 
@@ -16,4 +16,4 @@ node design/prerender.js
 
 ## Expressive Kit
 
-`/Material-3-expressive-design-system-skill` is not built here: `vercel.json` rewrites it to the kit's GitHub Pages site, which redeploys on every merge to that repository's `main`. Its pages and styles live in [Material-3-expressive-design-system-skill](https://github.com/dinoy-raj/Material-3-expressive-design-system-skill) (`scripts/build_site.py`, `scripts/site.css`).
+`/material-3-expressive-skill` is not built here: `vercel.json` rewrites it to the kit's GitHub Pages site, which redeploys on every merge to that repository's `main`. Its pages and styles live in [material-3-expressive-skill](https://github.com/dinoy-raj/material-3-expressive-skill) (`scripts/build_site.py`, `scripts/site.css`).
