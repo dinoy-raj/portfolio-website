@@ -449,17 +449,31 @@ window.__boot = function () {
     </div>`;
   }
 
+  /* Holo foil hover for the tickets: with a mouse, the ticket tilts toward the pointer and the sheen follows it (styles at
+     .tix-item .fx). Touch and pen leave it flat; reduced motion keeps the sheen and drops the tilt (in the CSS). */
+  const HOLO = {
+    onPointerEnter: e => { if (e.pointerType === 'mouse') e.currentTarget.classList.add('is-holo'); },
+    onPointerMove: e => {
+      if (e.pointerType !== 'mouse') return;
+      const el = e.currentTarget, r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      el.style.setProperty('--mx', (x * 100).toFixed(1) + '%'); el.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+      el.style.setProperty('--ry', ((x - .5) * 18).toFixed(2) + 'deg'); el.style.setProperty('--rx', ((.5 - y) * 14).toFixed(2) + 'deg');
+    },
+    onPointerLeave: e => { const el = e.currentTarget; el.classList.remove('is-holo'); el.style.removeProperty('--rx'); el.style.removeProperty('--ry'); },
+  };
+
   /* A speaking event as a conference ticket that opens the event's page; the stub carries the month and year. */
   function EventTicket({ ev }) {
     const [mon, yr] = ev.when.split(' ');
     const tone = ev.up ? (ev.name.startsWith('droidcon') ? 'highlight' : 'primary-container') : 'muted';
-    return html`<a class=${'tix-item t-' + tone} href=${eventPath(ev)} aria-label=${ev.name + ', ' + evDates(ev) + ', ' + ev.where}>
+    return html`<a class=${'tix-item t-' + tone} href=${eventPath(ev)} aria-label=${ev.name + ', ' + evDates(ev) + ', ' + ev.where} ...${HOLO}>
       <div class="main">
         <div class="row">${ev.up ? html`<span class="live">Upcoming</span>` : html`<span>Speaker</span>`}<span>Admit one</span></div>
         <h3><span>${ev.name}</span></h3>
         <div class="fields"><span>When</span><span>Where</span><b>${ev.when}</b><b>${ev.where}</b></div>
       </div>
       <div class="stub" aria-hidden="true"><span class="mon">${mon}</span><span class="yr">'${yr.slice(2)}</span><span class="bars"></span></div>
+      <span class="fx" aria-hidden="true"></span>
     </a>`;
   }
 
@@ -470,13 +484,14 @@ window.__boot = function () {
     const wide = ALL_EVENTS.length - HOME_TIX, narrow = ALL_EVENTS.length - 3;
     const years = ALL_EVENTS.map(ev => ev.when.split(' ')[1]), span = Math.min(...years) + '–' + Math.max(...years);
     const countries = new Set(ALL_EVENTS.filter(ev => !ev.online).map(ev => (ev.addr || ev.where).split(', ').pop())).size;
-    return html`<a class="tix-item tix-more t-ink" href="/events">
+    return html`<a class="tix-item tix-more t-ink" href="/events" ...${HOLO}>
       <div class="main">
         <div class="row"><span>All events</span><span>Admit all</span></div>
         <h3><span><span class="n-wide">+${wide} more</span><span class="n-narrow">+${narrow} more</span></span></h3>
         <div class="fields"><span>When</span><span>Where</span><b>${span}</b><b>${countries} countries</b></div>
       </div>
       <div class="stub" aria-hidden="true"><span class="go"><span class="ex-icon" data-icon="arrow_forward"></span></span></div>
+      <span class="fx" aria-hidden="true"></span>
     </a>`;
   }
 
