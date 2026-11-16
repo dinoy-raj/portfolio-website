@@ -85,7 +85,7 @@ window.__boot = function () {
   /* Detail pages: each app lives at /<slug>, with /<slug>/privacypolicy and /<slug>/termsofservice.
      features: [icon, title, text]. perms: [permission, why it is needed]. net: what, if anything, leaves the phone. */
   const DETAILS = {
-    launcher: { slug: 'simplelauncher',
+    launcher: { slug: 'simplelauncher', Bento: LauncherBento,
       features: [
         ['format_list_bulleted', 'Text-only home screen', 'Only the apps you pin, as a clean list of names. No icon grid, no badges, nothing pulling at your attention.'],
         ['palette', 'Themes and palettes', 'Light, dark and colour themes with custom palettes, so the home screen matches your wallpaper or your mood.'],
@@ -783,11 +783,204 @@ window.__boot = function () {
     return a.links ? a.links.map(([l, h]) => html`<a key=${h} class="link-arrow" href=${h} target="_blank" rel="noopener" aria-label=${a.name + ': ' + l}>${l}<span class="ex-icon" aria-hidden="true">arrow_outward</span></a>`) : null;
   }
 
+  /* Simple Launcher's feature bento, at the top of /simplelauncher. Every tile is drawn in HTML and CSS rather than shipped as an
+     image, so it stays sharp at any size and can move. Sizes are design pixels (--u, set from the container's width in index.html),
+     and the grid re-flows from six columns to three and two. The clocks and counters tick once a second, only while the bento is
+     on screen and only when the visitor hasn't asked for reduced motion; everything else is CSS animation. */
+  const LB_HABIT = '11011111110111011111011111111111100'; // 7 x 5 days, 1 = done
+  const LB_PINS = [['Phone', '12 M'], ['Messages', '48 M'], ['Camera', '6 M'], ['Music', '1 H 05 M']];
+  const LB_WEEK = [[87, 63], [67, 80], [80, 53], [50, 70], [73, 47], [100, 87], [60, 40]]; // bar heights, % of 3h: this week, this month
+  const LB_TODO = [
+    ['Send invoice', 'High', 'Work', 'Today', 'hi'],
+    ['Call mom', null, 'Home', null, 'swipe'],
+    ['Renew passport', 'Very high', null, 'Yesterday', 'vh'],
+    ['Plan weekend', null, 'Home', 'Sat', ''],
+  ];
+  const lbTime = s => String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+  // A scalloped "cookie" outline, like the launcher's badges: n bumps around a circle in a 0..1 box.
+  const lbCookie = (n, depth) => 'M' + Array.from({ length: 96 }, (_, i) => {
+    const a = i / 96 * Math.PI * 2, r = 0.5 - depth + depth * Math.cos(n * a);
+    return (0.5 + r * Math.cos(a)).toFixed(3) + ' ' + (0.5 + r * Math.sin(a)).toFixed(3);
+  }).join('L') + 'Z';
+  const LB_COOKIE = lbCookie(9, 0.045), LB_RING = lbCookie(8, 0.06);
+
+  function LauncherBento() {
+    const ref = useRef(null);
+    const [t, setT] = useState(0);
+    useEffect(() => {
+      const el = ref.current;
+      if (!el) return;
+      let seen = true, id = 0;
+      const io = new IntersectionObserver(([e]) => { seen = e.isIntersecting; el.classList.toggle('lb-off', !seen); });
+      io.observe(el);
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) id = setInterval(() => { if (seen && !document.hidden) setT(n => n + 1); }, 1000);
+      return () => { clearInterval(id); io.disconnect(); };
+    }, []);
+    const I = (name, c) => html`<span class=${'ex-icon' + (c ? ' ' + c : '')} aria-hidden="true">${name}</span>`;
+    const ring = c => html`<svg class=${'lb-ring ' + c} viewBox="0 0 1 1"><path d=${LB_RING} /></svg>`;
+    return html`<div class="lb-wrap" ref=${ref} role="img" aria-label="Simple Launcher at a glance: a quiet text-only home screen, focus sessions, mindful pauses before distracting apps, a habit tracker, a day summary, meetings as sticky notes, a to-do list, a screen time detox chart, more than 250 widgets, app timers, a dynamic island, a reel blocker, a notification blocker, custom themes and fonts, and a layout you build yourself.">
+      <div class="lb" aria-hidden="true">
+
+        <div class="lb-t lb-focus">
+          <div class="lb-pill"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7" /><circle class="arc" cx="10" cy="10" r="7" pathLength="100" /></svg><span>Focus ${lbTime(1500 - t % 1500)}</span></div>
+          <b class="lb-h">Focus sessions</b>
+        </div>
+
+        <div class="lb-t lb-mind">
+          <div class="lb-breathe"><i></i><i></i><span>BREATHE</span></div>
+          <b class="lb-h">Mindful pause</b>
+          <span class="lb-s">A breath before<br />the scroll opens</span>
+        </div>
+
+        <div class="lb-t lb-theme">
+          <div class="lb-float">
+            <i class="o"></i><span class="c c1">Aa</span><i class="bl"></i><span class="c c2">Aa</span><i class="sq"></i><i class="pk"></i><span class="c c3">Aa</span>
+          </div>
+          <b class="lb-h">Craft your theme</b>
+          <span class="lb-s">Bring your own font</span>
+        </div>
+
+        <div class="lb-t lb-home">
+          <div class="lb-ph">
+            <div class="lb-st"><span>9:41</span><i></i><span>100%</span></div>
+            <div class="lb-clock">
+              <div class="hm"><b>09</b><b>41</b></div>
+              <div class="side"><span>Mon,<br />16 Nov</span><div class="wheel"><div>${[22, 23, 24, 25, 26, 27].map(n => html`<span key=${n}>${n}</span>`)}</div></div></div>
+            </div>
+            <ul class="lb-pins">${LB_PINS.map(([n, m], i) => html`<li key=${n} style=${{ '--i': i }}><span>${n}</span><small>${m}</small></li>`)}</ul>
+            <div class="lb-month"><span><b>November</b><small>• 16 / 30</small></span><div class="dots">${Array.from({ length: 16 }, (_, i) => html`<i key=${i} class=${i === 0 ? 'on' : ''}></i>`)}</div></div>
+          </div>
+          <b class="lb-h">A quiet home</b>
+        </div>
+
+        <div class="lb-t lb-habit">
+          <div class="top"><b>12</b><span>day<br />streak</span><em>Morning run</em></div>
+          <div class="grid">${LB_HABIT.split('').map((c, i) => html`<i key=${i} class=${i === 33 ? 'today' : c === '1' ? 'on' : ''} style=${{ '--i': i }}></i>`)}</div>
+          <b class="lb-h">Habit tracker</b>
+          <span class="lb-s">Build habits or quit them</span>
+        </div>
+
+        <div class="lb-t lb-day">
+          <div class="top"><b>Mon<i></i></b><span>November 16<br /><small>2026</small></span></div>
+          <p>${[
+            ['Good morning,'], ['Dino.', 1], ['You have'], [html`${I('calendar_today')}2 meetings,`, 1], [html`${I('check_box')}4 tasks`, 1], ['and'],
+            [html`${I('repeat')}2 habits`, 1], ['left today. You’re free after'], ['4:30 PM.', 1], ['You finished'], [html`${I('filter_center_focus')}2 focus sessions.`, 1],
+          ].map(([text, b], i) => html`<span key=${i} class=${'lb-w' + (b ? ' b' : '')} style=${{ '--i': i }}>${text}${' '}</span>`)}</p>
+          <div class="stats">
+            <span>${I('smartphone', 'or')}2h 14m screen time</span><span>${I('filter_center_focus', 'gr')}50m focused</span>
+            <span>${I('bedtime', 'pu')}7.2 hr sleep</span><span>${I('directions_walk', 'bu')}6.4K steps</span>
+          </div>
+          <span class="lab">DAY SUMMARY</span>
+          <div class="badge"><svg viewBox="0 0 1 1"><path d=${LB_COOKIE} /></svg>${I('calendar_view_month')}<b>×2</b></div>
+        </div>
+
+        <div class="lb-t lb-meet">
+          <div class="stk"><div class="n back"></div><div class="n"><b>10:30</b><span>Design<br />review</span></div></div>
+          <div class="txt"><b class="lb-h">Meetings</b><span class="lb-s">Pinned up as sticky notes, with reminders</span></div>
+        </div>
+
+        <div class="lb-t lb-todo">
+          <b class="lb-h">To-do list</b>
+          <div class="lb-ph">
+            <div class="lb-st"><span>9:41</span><i></i><span>100%</span></div>
+            <div class="bar"><b>To-do</b><span><em>3/7</em><em>${I('local_fire_department', 'fi')}5</em></span></div>
+            <div class="chips"><span>All <small>7</small></span><span class="sel">Today <small>3</small></span><span><i class="dot bu"></i>Work <small>2</small></span></div>
+            ${LB_TODO.map(([n, p, tag, when, k]) => html`<div key=${n} class=${'row ' + k}>
+              ${k === 'swipe' && html`<span class="done">${I('check')}Done</span>`}
+              <div class="card">
+                ${ring(k)}
+                <span class="tx"><b>${n}</b><small>${p && html`<span class="pr">${I('flag', 'is-filled')}${p}</span>`}${tag && html`<span><i class=${'dot ' + (tag === 'Work' ? 'bu' : 'gr')}></i>${tag}</span>`}</small></span>
+                ${k === 'hi' && html`<em class="sub">◔ 1/3</em>`}
+                ${when && html`<em class=${'when' + (when === 'Yesterday' ? ' late' : '')}>• ${when}</em>`}
+              </div>
+            </div>`)}
+            <span class="cap">Completed · 1</span>
+            <div class="row fin"><div class="card">${I('check_circle', 'is-filled')}<span class="tx"><b>Buy groceries</b><small><span><i class="dot gr"></i>Home</span></small></span><em class="when">• Today</em></div></div>
+          </div>
+        </div>
+
+        <div class="lb-t lb-hero">
+          <div class="in"><i class="ico"></i><b>Simple Launcher</b></div>
+          <span>A minimalist launcher for Android</span>
+        </div>
+
+        <div class="lb-t lb-detox">
+          <div class="seg"><i class="thumb"></i><span>D</span><span>W</span><span>M</span><span>3M</span><span>Y</span></div>
+          <div class="cap"><b><span class="a">This week</span><span class="b">This month</span></b><span class="big">2h 12m <small>/ day avg</small></span></div>
+          <div class="chart">
+            <div class="lines"><span>3h</span><span>2h</span><span>1h</span></div>
+            <div class="bars">${LB_WEEK.map(([a, b], i) => html`<div key=${i}><i style=${{ '--a': a + '%', '--b': b + '%', '--i': i }}></i><small>${'MTWTFSS'[i]}</small></div>`)}</div>
+          </div>
+          <div class="foot"><b class="lb-h">Detox</b><em>${I('arrow_downward')}18% this week</em></div>
+        </div>
+
+        <div class="lb-t lb-wid">
+          <div class="txt"><b class="n">250+</b><b class="w">widgets</b><span class="lb-s">Clock, weather, music, screen time, quick tiles, nine games, or build your own</span></div>
+          <div class="lb-ph">
+            <div class="lb-st"><span>9:41</span><i></i><span>100%</span></div>
+            <div class="w-card st"><span><small>Screen time</small><b>1h 52m</b><em>−34m vs avg</em></span><div class="mini">${[40, 75, 55, 90, 30].map((h, i) => html`<i key=${i} style=${{ '--h': h + '%', '--i': i }}></i>`)}</div></div>
+            <div class="w-row">
+              <div class="w-card snake"><small>SNAKE</small><div class="pit"><i class="apple"></i>${[0, 1, 2, 3, 4].map(i => html`<i key=${i} class="seg" style=${{ '--i': i }}></i>`)}</div></div>
+              <div class="w-card batt"><small>BATTERY</small><b>82%</b><div class="lvl"><i></i></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lb-t lb-timer">
+          <div class="card">
+            <div class="hd"><span>Instagram · left today</span><em>On track</em></div>
+            <b>12m</b>
+            <div class="prog"><i></i></div>
+            <div class="meta"><span>18 of 30 min</span><span>3 opens left</span></div>
+            <div class="lock"><span>Locked until</span><b>Tomorrow</b></div>
+          </div>
+          <b class="lb-h">App timers</b>
+        </div>
+
+        <div class="lb-t lb-island">
+          <div class="txt"><b>Dynamic island</b><span>Music, focus and charging,<br />grown out of the camera</span></div>
+          <div class="ph"><div class="pill">
+            <span class="ring">${I('pause', 'is-filled')}</span>
+            <span class="tx"><small>Focus · Deep work</small><b>${lbTime(1452 - t % 1452)}</b></span>
+            <small class="of">2 of 4</small>
+          </div></div>
+        </div>
+
+        <div class="lb-t lb-reel">
+          <div class="mini">${I('arrow_upward', 'up')}<div class="scr">${I('lock', 'is-filled')}<small>BLOCKED</small></div></div>
+          <div class="txt"><span class="k"><b>${128 + Math.floor(t / 3)}</b> reels skipped</span><span class="lb-s">9 storeys of scrolling</span><b class="lb-h">Reel blocker</b></div>
+        </div>
+
+        <div class="lb-t lb-notif">
+          <div class="stack">
+            <div class="nt n3"><i class="pe"></i><span><b>Promo</b><small>50% off today</small></span></div>
+            <div class="nt n2"><i class="gn"></i><span><b>Group chat</b><small>12 new messages</small></span></div>
+            <div class="nt n1"><i></i><span><b>Held for later</b><small>Digest at 6 PM</small></span></div>
+          </div>
+          <div class="txt"><span class="k"><b>${23 + Math.floor(t / 5)}</b> held</span><b class="lb-h">Notification<br />blocker</b></div>
+        </div>
+
+        <div class="lb-t lb-layout">
+          <div class="frame">
+            <div class="clk">9:41</div>
+            <div class="split"><i class="a"></i><i class="b"><s></s><s></s></i></div>
+            <div class="list"><span>Phone</span><span>Messages</span><span>Camera</span></div>
+          </div>
+          <div class="chips"><span class="sel">Tiles</span><span>Free form</span></div>
+          <b class="lb-h">Build your own layout</b>
+          <span class="lb-s">Split, resize and swap tiles</span>
+        </div>
+
+      </div>
+    </div>`;
+  }
+
   /* One app's page: what it does, its features, what it needs on your phone, and its privacy policy and terms. */
   function AppPage({ a, enter }) {
     const perms = a.perms || [];
     return html`<main id="top" class="app-page wrap" data-enter=${enter}>
       <a class="link-arrow back" href="/apps"><span class="ex-icon" aria-hidden="true">arrow_back</span>All apps</a>
+      ${a.Bento && html`<${a.Bento} />`}
       <header class="ap-hero">
         <img class="ap-icon" src=${'/assets/apps/' + a.id + '-icon.webp'} alt="" width="112" height="112" />
         <div class="ap-title">
