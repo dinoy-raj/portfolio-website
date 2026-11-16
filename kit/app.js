@@ -456,7 +456,7 @@ window.__boot = function () {
     return html`<a class=${'tix-item t-' + tone} href=${eventPath(ev)} aria-label=${ev.name + ', ' + evDates(ev) + ', ' + ev.where}>
       <div class="main">
         <div class="row">${ev.up ? html`<span class="live">Upcoming</span>` : html`<span>Speaker</span>`}<span>Admit one</span></div>
-        <h3>${ev.name}</h3>
+        <h3><span>${ev.name}</span></h3>
         <div class="fields"><span>When</span><span>Where</span><b>${ev.when}</b><b>${ev.where}</b></div>
       </div>
       <div class="stub" aria-hidden="true"><span class="mon">${mon}</span><span class="yr">'${yr.slice(2)}</span><span class="bars"></span></div>
@@ -789,7 +789,7 @@ window.__boot = function () {
               </div>
               <div class="app-meta">
                 <img class="icon" src=${'/assets/apps/' + a.id + '-icon.webp'} alt="" width="56" height="56" loading="lazy" />
-                <div class="name"><h3 id=${'app-' + a.id}>${a.name}</h3><div class="store muted">${a.store}</div></div>
+                <div class="name"><h3 id=${'app-' + a.id}><span>${a.name}</span></h3><div class="store muted">${a.store}</div></div>
               </div>
               <p class="desc muted">${a.desc}</p>
               <div class="tags">${a.status && html`<span class=${'chip ' + a.status}>${a.status === 'live' ? 'On Google Play' : 'In development'}</span>`}${a.tags.map(t => html`<span key=${t}>${t}</span>`)}</div>
@@ -1043,7 +1043,7 @@ window.__boot = function () {
         <div class="ap-features">
           ${a.features.map(([icon, t, d], i) => html`<div class="feat" key=${t}>
             <${LiveShape} shape=${['cookie9', 'flower5', 'clover4', 'cookie6', 'sunny', 'cookie12'][i % 6]} icon=${icon} tone=${['primary-container', 'secondary-container', 'tertiary-container', 'highlight'][i % 4]} size=${48} />
-            <h3>${t}</h3>
+            <h3><span>${t}</span></h3>
             <p class="muted">${d}</p>
           </div>`)}
         </div>
@@ -1124,7 +1124,7 @@ window.__boot = function () {
     return html`<div class="ap-features">
       ${items.map(([icon, t, d], i) => html`<div class="feat" key=${t}>
         <${LiveShape} shape=${['cookie9', 'flower5', 'clover4', 'cookie6', 'sunny', 'cookie12'][i % 6]} icon=${icon} tone=${['primary-container', 'secondary-container', 'tertiary-container', 'highlight'][i % 4]} size=${48} />
-        <h3>${t}</h3>
+        <h3><span>${t}</span></h3>
         <p class="muted">${d}</p>
       </div>`)}
     </div>`;
@@ -1801,7 +1801,7 @@ window.__boot = function () {
           <div class="services">
             ${SERVICES.map(s => html`<div class="svc" key=${s.name}>
               <${LiveShape} shape=${s.shape} icon=${s.icon} tone=${s.tone} size=${52} />
-              <h3>${s.name}</h3>
+              <h3><span>${s.name}</span></h3>
               <div class="tags">${s.tags.map(t => html`<span key=${t}>${t}</span>`)}</div>
             </div>`)}
           </div>
