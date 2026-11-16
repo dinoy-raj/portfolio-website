@@ -1189,7 +1189,7 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
 .t-tertiary-container{--bg:var(--tertiary-container);--fg:var(--on-tertiary-container);--acc:var(--tertiary)}
 .t-secondary-container{--bg:var(--secondary-container);--fg:var(--on-secondary-container);--acc:var(--secondary)}
 .t-muted{--bg:var(--surface-container-high);--fg:var(--on-surface);--acc:var(--outline)}
-.acc{display:flex;gap:var(--space-3);height:420px;margin-top:var(--space-8)}
+.acc{display:flex;gap:var(--space-3);height:420px;margin-top:var(--space-8);container-type:inline-size}
 /* Each card is a <details name="talks">: the summary is the closed rail and covers the card, the body is the open content.
    Every card wears its talk's tone, open or closed, in the light set below; its shape sits small under the closed rail and grows into the corner when it opens. */
 .acc .t-highlight{--bg:#ffd8a3;--fg:var(--on-highlight);--acc:#ffc477}
@@ -1201,13 +1201,13 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
 /* Keep closed content rendered (it is still hidden by .body's visibility), so the body can fade in and out. */
 .acc-card::details-content{content-visibility:visible}
 .acc-card:has(> summary:focus-visible){outline:2px solid var(--focus);outline-offset:4px}
-.acc-card .rail{position:absolute;inset:0;padding:var(--space-6);display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;list-style:none;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;transition:opacity 250ms}
+.acc-card .rail{position:absolute;inset:0;padding:var(--space-6);display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;list-style:none;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;transition:opacity 300ms var(--ease) 320ms}
 .acc-card .rail::-webkit-details-marker{display:none}
 .acc-card .rail b{writing-mode:vertical-rl;transform:rotate(180deg);font-size:22px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;margin-bottom:88px}
 .acc-card .rail .eyebrow{opacity:.7}
-.acc-card[open] .rail{opacity:0;pointer-events:none}
-.acc-card .body{position:absolute;inset:0;padding:var(--space-8);width:min(560px,100%);display:flex;flex-direction:column;justify-content:space-between;gap:var(--space-6);opacity:0;transform:translateY(16px);visibility:hidden;transition:opacity 300ms var(--ease),transform 500ms var(--spring),visibility 0s 300ms}
-.acc-card[open] .body{opacity:1;transform:none;visibility:visible;transition-delay:180ms,180ms,0s}
+.acc-card[open] .rail{opacity:0;pointer-events:none;transition:opacity 120ms var(--ease)}
+.acc-card .body{position:absolute;inset:0 auto 0 0;padding:var(--space-8);width:min(560px,calc((100cqw - 3 * var(--space-3)) * 3.4 / 6.4));display:flex;flex-direction:column;justify-content:space-between;gap:var(--space-6);opacity:0;transform:translateY(12px);visibility:hidden;transition:opacity 160ms var(--ease),transform 160ms var(--ease),visibility 0s 160ms}
+.acc-card[open] .body{opacity:1;transform:none;visibility:visible;transition:opacity 420ms var(--ease) 260ms,transform 650ms var(--spring) 260ms,visibility 0s}
 .acc-card .body .eyebrow{opacity:.75}
 .acc-card .body h3{font-size:clamp(26px,2.8vw,40px);line-height:1.08;font-weight:600;letter-spacing:-.03em}
 .acc-card .body .meta{display:flex;align-items:center;gap:var(--space-3);color:inherit;text-decoration:none;border-radius:var(--shape-full);outline:none}
@@ -1217,17 +1217,17 @@ html[data-nav=back]::view-transition-new(root){animation:vt-grow 620ms cubic-bez
 .acc-card .body .meta span.sub{font-size:13px;opacity:.75}
 .acc-card .go{flex:none;width:56px;height:56px;border-radius:50%;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-size:26px;transition:transform 300ms var(--spring)}
 .acc-card:hover .go,.acc-card .meta:focus-visible .go{transform:rotate(45deg)}
-.acc-card .bigshape{position:absolute;left:calc(50% - 32px);bottom:var(--space-6);width:64px;height:64px;transition:transform 1200ms var(--spring);pointer-events:none}
+.acc-card .bigshape{position:absolute;left:calc(50% - 32px);top:calc(100% - 64px - var(--space-6));width:64px;height:64px;transition:left 650ms var(--spring),top 650ms var(--spring),width 650ms var(--spring),height 650ms var(--spring),transform 1200ms var(--spring);pointer-events:none}
 .acc-card .bigshape path{fill:var(--acc)}
-.acc-card[open] .bigshape{left:auto;bottom:auto;right:-80px;top:-80px;width:340px;height:340px;transform:rotate(45deg)}
+.acc-card[open] .bigshape{left:calc(100% - 260px);top:-80px;width:340px;height:340px;transform:rotate(45deg)}
 @media (max-width:760px){
   .acc{flex-direction:column;height:auto}
   .acc-card{flex:none;height:88px;transition:height 550ms var(--spring),background-color 400ms var(--ease),color 400ms var(--ease),border-radius 400ms var(--spring)}
   .acc-card[open]{height:360px}
   .acc-card .rail{flex-direction:row-reverse;justify-content:flex-end;align-items:center;gap:var(--space-4);padding:0 var(--space-6);height:88px;bottom:auto}
   .acc-card .rail b{writing-mode:horizontal-tb;transform:none;font-size:19px;white-space:normal;margin-bottom:0}
-  .acc-card:not([open]) .bigshape{left:auto;right:var(--space-6);bottom:auto;top:22px;width:44px;height:44px}
-  .acc-card .body{padding:var(--space-6)}
+  .acc-card:not([open]) .bigshape{left:calc(100% - 44px - var(--space-6));top:22px;width:44px;height:44px}
+  .acc-card .body{padding:var(--space-6);width:100%}
 }
 
 /* Where I'm speaking: conference tickets with notched edges and a perforated stub. Upcoming events in colour, past ones in sand. */
