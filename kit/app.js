@@ -463,6 +463,23 @@ window.__boot = function () {
     </a>`;
   }
 
+  /* The home page keeps the tickets to two rows and ends them with a ticket to /events counting the rest: five plus this one
+     in three columns, three plus this one in two columns or one (the fourth and fifth are hidden there, see .tix-home). */
+  const HOME_TIX = 5;
+  function MoreTicket() {
+    const wide = ALL_EVENTS.length - HOME_TIX, narrow = ALL_EVENTS.length - 3;
+    const years = ALL_EVENTS.map(ev => ev.when.split(' ')[1]), span = Math.min(...years) + '–' + Math.max(...years);
+    const countries = new Set(ALL_EVENTS.filter(ev => !ev.online).map(ev => (ev.addr || ev.where).split(', ').pop())).size;
+    return html`<a class="tix-item tix-more t-ink" href="/events">
+      <div class="main">
+        <div class="row"><span>All events</span><span>Admit all</span></div>
+        <h3><span><span class="n-wide">+${wide} more</span><span class="n-narrow">+${narrow} more</span></span></h3>
+        <div class="fields"><span>When</span><span>Where</span><b>${span}</b><b>${countries} countries</b></div>
+      </div>
+      <div class="stub" aria-hidden="true"><span class="go"><span class="ex-icon" data-icon="arrow_forward"></span></span></div>
+    </a>`;
+  }
+
   // published: the exact day as YYYY-MM-DD, for structured data only (datePublished); left out when unknown.
   const BLOGS = [
     { href: 'https://proandroiddev.com/android-adaptive-themed-icons-guide-8e690263f7aa', pub: 'ProAndroidDev', date: 'Apr 2025', title: 'Crafting multi-tone themed app icons in Android', blurb: 'A step-by-step guide to adaptive and themed icons.', art: 'icon' },
@@ -1826,7 +1843,7 @@ window.__boot = function () {
           <${TalksStage} />
           <div class="events">
             <div class="events-head"><h3 class="events-title">Where I'm speaking</h3><a class="link-arrow" href="/events">View all events<span class="ex-icon" aria-hidden="true" data-icon="arrow_forward"></span></a></div>
-            <div class="tix">${EVENTS.map(ev => html`<${EventTicket} key=${ev.name + ev.when} ev=${ev} />`)}</div>
+            <div class="tix tix-home">${EVENTS.slice(0, HOME_TIX).map(ev => html`<${EventTicket} key=${ev.name + ev.when} ev=${ev} />`)}<${MoreTicket} /></div>
           </div>
         </section>
 
