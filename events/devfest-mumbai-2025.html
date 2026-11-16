@@ -1250,6 +1250,29 @@ a.tix-item:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 .ac-go{grid-column:2;grid-row:3;align-self:end;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:var(--surface-container-high);color:var(--on-surface);transition:transform 500ms var(--spring),background-color 200ms var(--ease),color 200ms var(--ease),border-radius 400ms var(--spring)}
 .ac:hover .ac-go{background:var(--on-surface);color:var(--surface);transform:rotate(45deg);border-radius:14px}
 @media (prefers-reduced-motion:reduce){.ac,.ac-stage,.ac-go,.ac h3 span{transition:none}}
+/* The article card's hover, shared by the other cards: a glow that follows the pointer (--mx/--my, set by the pointer script at the end of the body),
+   a primary underline that slides under the title, and arrows that turn into squircles (outward arrows also rotate). */
+.svc,.feat,.legal-card,.acc-card,.note.dark{position:relative;isolation:isolate}
+:is(.svc,.feat,.legal-card,.acc-card,.note.dark)::after,.app .media::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity 300ms var(--ease);
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--glow,var(--primary)) 14%,transparent),transparent 60%)}
+.legal-card.bg-p,.legal-card.bg-s{--glow:var(--on-primary-container)}
+.note.dark{--glow:var(--inverse-primary)}
+.acc-card{--glow:currentColor}
+.app .media::after{z-index:1;--glow:#fff}
+@media (hover:hover){:is(.svc,.feat,.legal-card,.acc-card,.note.dark):hover::after,.app:hover .media::after{opacity:1}}
+:is(.svc,.feat,.app,.tix-item) h3 span,.legal-card b{background:linear-gradient(currentColor,currentColor) 0 100%/0% 2px no-repeat;transition:background-size 450ms var(--spring),color 200ms var(--ease)}
+:is(.svc,.feat,.app) h3 span{background-image:linear-gradient(var(--primary),var(--primary))}
+.legal-card>span:nth-child(2) b{align-self:flex-start}
+@media (hover:hover){
+  :is(.svc,.feat,.app,.tix-item):hover h3 span,.legal-card:hover b{background-size:100% 2px}
+  :is(.svc,.feat,.app):hover h3 span{color:var(--primary)}
+  .legal-card:hover .go{border-radius:14px}
+  .legal-card:hover .go[data-icon=arrow_outward]{transform:rotate(45deg)}
+  .note.dark:hover .link-arrow .ex-icon,.app:hover .links .open .ex-icon{border-radius:10px}
+}
+.legal-card .go{transition:transform 500ms var(--spring),border-radius 400ms var(--spring)}
+.note.dark .link-arrow .ex-icon,.app .links .open .ex-icon{transition:transform 400ms var(--spring),border-radius 400ms var(--spring)}
+@media (prefers-reduced-motion:reduce){:is(.svc,.feat,.app,.tix-item) h3 span,.legal-card b,.legal-card .go{transition:none}}
 .note.dark{background:var(--inverse-surface);color:var(--inverse-on-surface);justify-content:space-between}
 .note.dark h3{font-size:clamp(30px,3vw,38px);line-height:1.12;letter-spacing:-.025em;font-weight:600}
 .note.dark .link-arrow{background:var(--inverse-ghost);align-self:flex-start}
@@ -1522,6 +1545,20 @@ window.__reveal = function (el) {
 };
 if (location.hash.length > 1) window.__reveal(document.getElementById(decodeURIComponent(location.hash.slice(1))));
 </script>
+<!-- Pointer glow: the cards that share the article card's hover get the pointer's position as --mx/--my, which their ::after glow follows.
+     One listener on the document, so it works before React hydrates and on pages React mounts later. Mouse only. -->
+<script>
+(function () {
+  var SEL = '.svc,.feat,.legal-card,.acc-card,.note.dark,.app';
+  document.addEventListener('pointermove', function (e) {
+    if (e.pointerType !== 'mouse' || !e.target.closest) return;
+    var el = e.target.closest(SEL);
+    if (!el) return;
+    var r = el.getBoundingClientRect();
+    el.style.setProperty('--mx', (e.clientX - r.left) + 'px'); el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  }, { passive: true });
+})();
+</script>
 <!-- Scroll reveal: watches the elements the motion styles hide (html.rv) and marks each one data-rv as it comes into view; elements that
      arrive together stagger (data-rv="0".."5"). React adds a new page's elements on a page change, so a MutationObserver picks those up.
      Keep the selector in step with the "2. Scroll" rule in the motion styles. -->
@@ -1565,7 +1602,7 @@ if (location.hash.length > 1) window.__reveal(document.getElementById(decodeURIC
     setTimeout(function () {
       var late = document.getElementById('late-fonts');
       if (late) document.head.appendChild(late.content.cloneNode(true));
-      ['/kit/vendor/react.production.min.js?v=18.3.1', '/kit/vendor/react-dom.production.min.js?v=18.3.1', '/kit/vendor/htm.umd.js?v=3.1.1', '/kit/bundle.js?v=d34dfc6d', '/kit/app.js?v=4800f2c6'].forEach(function (src, i, all) {
+      ['/kit/vendor/react.production.min.js?v=18.3.1', '/kit/vendor/react-dom.production.min.js?v=18.3.1', '/kit/vendor/htm.umd.js?v=3.1.1', '/kit/bundle.js?v=d34dfc6d', '/kit/app.js?v=24477ab8'].forEach(function (src, i, all) {
         var s = document.createElement('script');
         s.src = src; s.async = false; // run in order
         if (i === all.length - 1) s.onload = function () { window.__boot(); };
