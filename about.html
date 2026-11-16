@@ -749,14 +749,10 @@ section[id]{scroll-margin-top:96px}
 @media (max-width:700px){.ap-links{grid-template-columns:minmax(0,1fr)}}
 /* lb:start */
 /* Simple Launcher bento (/simplelauncher). Sizes are design pixels: --u is one of them, from the container's width, so the whole
-   board scales as one picture. Six columns from 1100px of container, three from 560px, two below. */
+   board scales as one picture, keeping the same six-column layout on every screen. */
 .lb-wrap{container-type:inline-size;position:relative;left:50%;translate:-50% 0;width:min(1760px,calc(100vw - 32px));margin-bottom:clamp(56px,7vw,96px)}
-.lb{--u:calc(100cqw/700);--ink:#0b0b0c;--mute:#8a8a90;--card:#fff;--dk:#121214;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:calc(var(--u)*160);gap:calc(var(--u)*20);padding:calc(var(--u)*33);border-radius:calc(var(--u)*44);background:var(--surface-container);color:var(--ink);font-family:var(--font-sans);line-height:1.25;-webkit-font-smoothing:antialiased;
-  grid-template-areas:"hero hero" "hero hero" "day day" "day day" "home focus" "home meet" "home detox" "home detox" "mind theme" "mind reel" "habit timer" "habit timer" "todo layout" "todo layout" "todo notif" "isl isl" "wid wid" "wid wid"}
-@container (min-width:560px){.lb{--u:calc(100cqw/1027);grid-template-columns:repeat(3,minmax(0,1fr));
-  grid-template-areas:"hero hero focus" "hero hero meet" "day day detox" "day day detox" "isl isl theme" "wid wid timer" "wid wid timer" "home todo mind" "home todo mind" "home todo habit" "home layout habit" "reel layout notif"}}
-@container (min-width:1100px){.lb{--u:calc(100cqw/2000);grid-template-columns:repeat(6,minmax(0,1fr));
-  grid-template-areas:"focus home habit day day meet" "mind home habit day day todo" "mind home hero hero detox todo" "theme home hero hero detox todo" "wid wid timer isl isl layout" "wid wid timer reel notif layout"}}
+.lb{--u:calc(100cqw/2000);--ink:#0b0b0c;--mute:#8a8a90;--card:#fff;--dk:#121214;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:calc(var(--u)*160);gap:calc(var(--u)*20);padding:calc(var(--u)*33);border-radius:calc(var(--u)*44);background:var(--surface-container);color:var(--ink);font-family:var(--font-sans);line-height:1.25;-webkit-font-smoothing:antialiased;
+  grid-template-areas:"focus home habit day day meet" "mind home habit day day todo" "mind home hero hero detox todo" "theme home hero hero detox todo" "wid wid timer isl isl layout" "wid wid timer reel notif layout"}
 .lb-focus{grid-area:focus}.lb-mind{grid-area:mind}.lb-theme{grid-area:theme}.lb-home{grid-area:home}.lb-habit{grid-area:habit}.lb-day{grid-area:day}.lb-meet{grid-area:meet}.lb-todo{grid-area:todo}.lb-hero{grid-area:hero}.lb-detox{grid-area:detox}.lb-wid{grid-area:wid}.lb-timer{grid-area:timer}.lb-island{grid-area:isl}.lb-reel{grid-area:reel}.lb-notif{grid-area:notif}.lb-layout{grid-area:layout}
 .lb-off *,.lb-off *::before,.lb-off *::after{animation-play-state:paused!important}
 .lb *{box-sizing:border-box}
