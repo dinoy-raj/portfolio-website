@@ -1228,13 +1228,29 @@ a.tix-item:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 .notes{padding-top:clamp(96px,12vw,160px)}
 .notes-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-3);margin-top:var(--space-8)}
 @media (max-width:900px){.notes-grid{grid-template-columns:minmax(0,1fr)}}
-.note{position:relative;min-height:380px;border-radius:var(--shape-xl);overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-6);gap:var(--space-2);text-decoration:none;color:inherit;transition:border-radius 300ms var(--spring)}
-.note:hover{border-radius:var(--shape-xxl)}
-.note:focus-visible{outline:2px solid var(--focus);outline-offset:4px}
-.note .art{position:absolute;inset:0 0 150px;display:grid;place-items:center}
-.note .art .ex-shape{position:absolute}
-.note .txt{position:relative;display:flex;flex-direction:column;gap:var(--space-2);background:var(--surface);border-radius:var(--shape-lg-increased);padding:var(--space-4) var(--space-5)}
+.note{position:relative;min-height:380px;border-radius:var(--shape-xxl);overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-6);gap:var(--space-2);text-decoration:none;color:inherit;transition:border-radius 400ms var(--spring)}
+.note:hover{border-radius:var(--shape-xl)}
 .note h3{font-size:24px;line-height:29px;font-weight:600;letter-spacing:-.02em}
+/* Article cards: the Expressive Kit component card (outer tone, dotted stage, numbered body, spinning arrow, pointer glow). */
+.ac{--stage-dot:color-mix(in srgb,var(--on-surface) 9%,transparent);position:relative;isolation:isolate;display:flex;flex-direction:column;min-width:0;padding:8px;border-radius:var(--shape-xxl);background:var(--surface-container-low);color:var(--on-surface);text-decoration:none;transition:border-radius 400ms var(--spring)}
+.ac:hover{border-radius:var(--shape-xl)}
+.ac:focus-visible{outline:2px solid var(--focus);outline-offset:4px}
+.ac::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity 300ms var(--ease);background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--primary) 12%,transparent),transparent 60%)}
+.ac:hover::after{opacity:1}
+.ac-stage{position:relative;height:260px;display:grid;place-items:center;overflow:hidden;border-radius:calc(var(--shape-xxl) - 8px);background-color:var(--surface);background-image:radial-gradient(var(--stage-dot) 1px,transparent 1.4px);background-size:16px 16px;background-position:center;transition:border-radius 400ms var(--spring)}
+.ac:hover .ac-stage{border-radius:calc(var(--shape-xl) - 4px)}
+.ac-stage>*{grid-area:1/1}
+.ac-body{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto 1fr;column-gap:var(--space-3);padding:var(--space-4) var(--space-3) var(--space-3);flex:1}
+.ac-top{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:var(--space-2);margin-bottom:var(--space-2)}
+.ac-meta{font-family:var(--font-mono);font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--on-surface-variant)}
+.ac-tag{font-family:var(--font-mono);font-size:11px;letter-spacing:.8px;text-transform:uppercase;padding:6px 12px;border-radius:var(--shape-full);background:var(--surface-container-high);color:var(--on-surface-variant);white-space:nowrap}
+.ac h3{grid-column:1/-1;margin:0;font-size:24px;line-height:1.2;font-weight:600;letter-spacing:-.02em}
+.ac h3 span{background:linear-gradient(var(--primary),var(--primary)) 0 100%/0% 2px no-repeat;transition:background-size 450ms var(--spring),color 200ms var(--ease)}
+.ac:hover h3 span{color:var(--primary);background-size:100% 2px}
+.ac-body p{grid-column:1;margin:var(--space-2) 0 0;color:var(--on-surface-variant);font-size:14px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:3em}
+.ac-go{grid-column:2;grid-row:3;align-self:end;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:var(--surface-container-high);color:var(--on-surface);transition:transform 500ms var(--spring),background-color 200ms var(--ease),color 200ms var(--ease),border-radius 400ms var(--spring)}
+.ac:hover .ac-go{background:var(--on-surface);color:var(--surface);transform:rotate(45deg);border-radius:14px}
+@media (prefers-reduced-motion:reduce){.ac,.ac-stage,.ac-go,.ac h3 span{transition:none}}
 .note.dark{background:var(--inverse-surface);color:var(--inverse-on-surface);justify-content:space-between}
 .note.dark h3{font-size:clamp(30px,3vw,38px);line-height:1.12;letter-spacing:-.025em;font-weight:600}
 .note.dark .link-arrow{background:var(--inverse-ghost);align-self:flex-start}
@@ -1435,7 +1451,7 @@ if (location.hash.length > 1) window.__reveal(document.getElementById(decodeURIC
     setTimeout(function () {
       var late = document.getElementById('late-fonts');
       if (late) document.head.appendChild(late.content.cloneNode(true));
-      ['/kit/vendor/react.production.min.js?v=18.3.1', '/kit/vendor/react-dom.production.min.js?v=18.3.1', '/kit/vendor/htm.umd.js?v=3.1.1', '/kit/bundle.js?v=d34dfc6d', '/kit/app.js?v=0a885be2'].forEach(function (src, i, all) {
+      ['/kit/vendor/react.production.min.js?v=18.3.1', '/kit/vendor/react-dom.production.min.js?v=18.3.1', '/kit/vendor/htm.umd.js?v=3.1.1', '/kit/bundle.js?v=d34dfc6d', '/kit/app.js?v=4800f2c6'].forEach(function (src, i, all) {
         var s = document.createElement('script');
         s.src = src; s.async = false; // run in order
         if (i === all.length - 1) s.onload = function () { window.__boot(); };
