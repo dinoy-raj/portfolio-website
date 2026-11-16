@@ -449,17 +449,49 @@ window.__boot = function () {
     </div>`;
   }
 
+  /* Holo foil hover for the tickets: with a mouse, the ticket tilts toward the pointer and the sheen follows it (styles at
+     .tix-item .fx). Touch and pen leave it flat; reduced motion keeps the sheen and drops the tilt (in the CSS). */
+  const HOLO = {
+    onPointerEnter: e => { if (e.pointerType === 'mouse') e.currentTarget.classList.add('is-holo'); },
+    onPointerMove: e => {
+      if (e.pointerType !== 'mouse') return;
+      const el = e.currentTarget, r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      el.style.setProperty('--mx', (x * 100).toFixed(1) + '%'); el.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+      el.style.setProperty('--ry', ((x - .5) * 18).toFixed(2) + 'deg'); el.style.setProperty('--rx', ((.5 - y) * 14).toFixed(2) + 'deg');
+    },
+    onPointerLeave: e => { const el = e.currentTarget; el.classList.remove('is-holo'); el.style.removeProperty('--rx'); el.style.removeProperty('--ry'); },
+  };
+
   /* A speaking event as a conference ticket that opens the event's page; the stub carries the month and year. */
   function EventTicket({ ev }) {
     const [mon, yr] = ev.when.split(' ');
     const tone = ev.up ? (ev.name.startsWith('droidcon') ? 'highlight' : 'primary-container') : 'muted';
-    return html`<a class=${'tix-item t-' + tone} href=${eventPath(ev)} aria-label=${ev.name + ', ' + evDates(ev) + ', ' + ev.where}>
+    return html`<a class=${'tix-item t-' + tone} href=${eventPath(ev)} aria-label=${ev.name + ', ' + evDates(ev) + ', ' + ev.where} ...${HOLO}>
       <div class="main">
         <div class="row">${ev.up ? html`<span class="live">Upcoming</span>` : html`<span>Speaker</span>`}<span>Admit one</span></div>
         <h3><span>${ev.name}</span></h3>
         <div class="fields"><span>When</span><span>Where</span><b>${ev.when}</b><b>${ev.where}</b></div>
       </div>
       <div class="stub" aria-hidden="true"><span class="mon">${mon}</span><span class="yr">'${yr.slice(2)}</span><span class="bars"></span></div>
+      <span class="fx" aria-hidden="true"></span>
+    </a>`;
+  }
+
+  /* The home page keeps the tickets to two rows and ends them with a ticket to /events counting the rest: five plus this one
+     in three columns, three plus this one in two columns or one (the fourth and fifth are hidden there, see .tix-home). */
+  const HOME_TIX = 5;
+  function MoreTicket() {
+    const wide = ALL_EVENTS.length - HOME_TIX, narrow = ALL_EVENTS.length - 3;
+    const years = ALL_EVENTS.map(ev => ev.when.split(' ')[1]), span = Math.min(...years) + '–' + Math.max(...years);
+    const countries = new Set(ALL_EVENTS.filter(ev => !ev.online).map(ev => (ev.addr || ev.where).split(', ').pop())).size;
+    return html`<a class="tix-item tix-more t-ink" href="/events" ...${HOLO}>
+      <div class="main">
+        <div class="row"><span>All events</span><span>Admit all</span></div>
+        <h3><span><span class="n-wide">+${wide} more</span><span class="n-narrow">+${narrow} more</span></span></h3>
+        <div class="fields"><span>When</span><span>Where</span><b>${span}</b><b>${countries} countries</b></div>
+      </div>
+      <div class="stub" aria-hidden="true"><span class="go"><span class="ex-icon" data-icon="arrow_forward"></span></span></div>
+      <span class="fx" aria-hidden="true"></span>
     </a>`;
   }
 
@@ -1509,7 +1541,7 @@ window.__boot = function () {
 
   const ALL_APPS = '#all-apps'; // the old address of the full list, now /apps
 
-  const NEEDS = [['Android app', 'android'], ['Redesign', 'auto_awesome'], ['Design system', 'category'], ['Icons', 'interests'], ['Talk or workshop', 'mic']];
+  const NEEDS = [['Android app'], ['Redesign'], ['Design system'], ['Icons'], ['Talk or workshop']];
 
   function Contact({ setMsg }) {
     const [copied, setCopied] = useState(false);
@@ -1545,22 +1577,20 @@ window.__boot = function () {
           </div>
         </div>
       </div>
-      <form class="form-card" onSubmit=${submit}>
-        <${MorphShape} className="corner" seq=${['flower8', 'cookie6', 'sunny', 'burst']} fill="var(--inverse-primary)" speed=${-14} hold=${1600} />
-        <${MorphShape} className="corner2" seq=${['clover4', 'pebble', 'cookie4']} fill="var(--highlight)" speed=${20} hold=${1400} />
-        <div class="top"><span class="step">New project</span></div>
+      <form class="form-rows" onSubmit=${submit}>
         <h3>Tell me about your <span class="em">app.</span></h3>
-        <div class="row2">
-          <${E.TextField} id="c-name" variant="filled" label="Name" placeholder="Your name" />
-          <${E.TextField} id="c-email" variant="filled" label="Email" placeholder="you@example.com" inputMode="email" />
-        </div>
-        <${E.TextField} id="c-project" variant="filled" label="Your project" multiline=${true} placeholder="What are you building, and where are you stuck?" />
-        <fieldset class="need">
-          <legend>What do you need?</legend>
-          <div class="opts">${NEEDS.map(([t, i]) => html`<button key=${t} type="button" aria-pressed=${need.includes(t)} onClick=${() => toggle(t)}><span class="ex-icon" aria-hidden="true" data-icon=${need.includes(t) ? 'check' : i}></span>${t}</button>`)}</div>
+        <label class="frow" for="c-name"><span class="n" aria-hidden="true">01</span><span class="k">Name</span><input id="c-name" name="name" autoComplete="name" placeholder="Your name" /></label>
+        <label class="frow" for="c-email"><span class="n" aria-hidden="true">02</span><span class="k">Email</span><input id="c-email" name="email" type="email" inputMode="email" autoComplete="email" placeholder="you@example.com" /></label>
+        <label class="frow tall" for="c-project"><span class="n" aria-hidden="true">03</span><span class="k">Project</span><textarea id="c-project" name="project" rows="4" placeholder="What are you building, and where are you stuck?"></textarea></label>
+        <fieldset class="frow need">
+          <span class="n" aria-hidden="true">04</span>
+          <legend class="k">What do you need?</legend>
+          <div class="opts">${NEEDS.map(([t]) => html`<button key=${t} type="button" aria-pressed=${need.includes(t)} onClick=${() => toggle(t)}>${t}</button>`)}</div>
         </fieldset>
-        <button type="submit" class="send">Send message<span class="go" aria-hidden="true"><span class="ex-icon" aria-hidden="true" data-icon="arrow_forward"></span></span></button>
-        <p class="fine-print">No newsletters, no spam. Just a reply from me.</p>
+        <div class="form-foot">
+          <p class="fine-print">No newsletters, no spam.<br />Just a reply from me.</p>
+          <button type="submit" class="send">Send message<span class="go" aria-hidden="true"><span class="ex-icon" aria-hidden="true" data-icon="arrow_forward"></span></span></button>
+        </div>
       </form>
     </section>`;
   }
@@ -1828,7 +1858,7 @@ window.__boot = function () {
           <${TalksStage} />
           <div class="events">
             <div class="events-head"><h3 class="events-title">Where I'm speaking</h3><a class="link-arrow" href="/events">View all events<span class="ex-icon" aria-hidden="true" data-icon="arrow_forward"></span></a></div>
-            <div class="tix">${EVENTS.map(ev => html`<${EventTicket} key=${ev.name + ev.when} ev=${ev} />`)}</div>
+            <div class="tix tix-home">${EVENTS.slice(0, HOME_TIX).map(ev => html`<${EventTicket} key=${ev.name + ev.when} ev=${ev} />`)}<${MoreTicket} /></div>
           </div>
         </section>
 
