@@ -2,12 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://dinoyraj.com/</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-16</lastmod>
     <image:image><image:loc>https://dinoyraj.com/assets/dinoy.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://dinoyraj.com/apps</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-16</lastmod>
   </url>
   <url>
     <loc>https://dinoyraj.com/about</loc>
@@ -127,7 +127,7 @@
   </url>
   <url>
     <loc>https://dinoyraj.com/simplelauncher</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-16</lastmod>
   </url>
   <url>
     <loc>https://dinoyraj.com/nanopromptground</loc>

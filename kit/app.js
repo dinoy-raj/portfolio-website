@@ -20,7 +20,7 @@ window.__boot = function () {
       tags: ['Launcher', 'Material You', 'Custom themes', 'Widgets'],
       seo: 'A minimalist, text-based Android launcher by Dinoy Raj to reduce screen time and boost focus: only the apps you pin, custom themes, fonts, widgets and no ads.',
       shots: ['Light theme with periodic table pinned apps', 'Dark home with the dot-matrix clock and only the pinned apps', 'Widgets: weather, battery, day progress, screen time and now playing', 'Orange theme in Urbanist with the day summary', 'Focus tools on home: to-do, focus timer, habits and meetings'],
-      links: [['Google Play', PLAY('com.dino.simple')], ['Website', 'https://minimalistlauncher.com']] },
+      links: [['Google Play', PLAY('com.dino.simple')], ['Website', 'https://minimalistlauncher.com'], ['Roadmap', 'https://puzzle-kettle-30f.notion.site/Simple-Launcher-182b8c4aae1f80d8941df2086b1caf73']] },
     { id: 'nano', name: 'Nano Prompt Ground', store: 'Offline AI playground', status: 'live', bg: '#dcefe5',
       desc: 'Prompt Gemini Nano right on your phone. Private, offline AI with no API key: every answer is generated on the device, with live streaming and the speed of each reply.',
       tags: ['Gemini Nano', 'ML Kit Prompt API', 'On-device AI'],
@@ -95,7 +95,18 @@ window.__boot = function () {
         ['block', 'No ads', 'No ads and no tracking SDKs. The launcher is there to help you use your phone less, not to keep you on it.'],
       ],
       perms: [['See installed apps', 'to list the apps you can pin and search'], ['Usage access (optional)', 'for the screen time widget'], ['Notification access (optional)', 'for the now playing widget'], ['Location (optional)', 'for the weather widget'], ['Calendar (optional)', 'to show today\'s meetings']],
-      net: 'If you turn on the weather widget, your approximate location is sent to a weather service to fetch the forecast. Everything else stays on your phone.' },
+      net: 'If you turn on the weather widget, your approximate location is sent to a weather service to fetch the forecast. Everything else stays on your phone.',
+      // Links from the launcher's Linktree (linktr.ee/simple.launcher). cards: [href, icon, title, subtitle, tone]; social: [label, href].
+      community: {
+        intro: 'See what is coming next, talk to other people who use the launcher, and follow its design.',
+        cards: [
+          ['https://puzzle-kettle-30f.notion.site/Simple-Launcher-182b8c4aae1f80d8941df2086b1caf73', 'map', 'Product roadmap', 'What is planned, in progress and shipped', 'bg-p'],
+          [PLAY('com.dino.simple'), 'shop', 'Download on Google Play', 'Free, with no ads', 'bg-s'],
+          ['https://chat.whatsapp.com/ERy3ceWpRhF7puEcDteQZf', 'groups', 'Join the community', 'Ideas, feedback and help on WhatsApp'],
+          ['https://buymeacoffee.com/simplelauncher', 'coffee', 'Buy me a coffee', 'Support the launcher\'s development'],
+        ],
+        social: [['X', 'https://x.com/LauncherSi56353'], ['Pinterest', 'https://pin.it/wIbSe1Bq9'], ['Behance', 'https://www.behance.net/simplelauncher'], ['Dribbble', 'https://dribbble.com/simplelauncher/shots']],
+      } },
     nano: { slug: 'nanopromptground',
       features: [
         ['edit_note', 'Prompt anything', 'Write any prompt and get an answer from Gemini Nano, the model built into your phone.'],
@@ -823,6 +834,13 @@ window.__boot = function () {
         </div>
       </section>
 
+      ${a.community && html`<section class="ap-sec" aria-labelledby="ap-community">
+        <h2 id="ap-community">Community</h2>
+        <p class="ap-sub muted">${a.community.intro}</p>
+        <div class="ap-links">${a.community.cards.map(c => html`<${LinkCard} key=${c[0]} c=${c} />`)}</div>
+        <div class="ap-social"><span class="eyebrow muted">Follow</span><div class="links"><${ExtLinks} links=${a.community.social} /></div></div>
+      </section>`}
+
       <section class="ap-legal" aria-label="Legal and support">
         <a class="legal-card bg-p" href=${'/' + a.slug + '/privacypolicy'}>
           <span class="ex-icon" aria-hidden="true">shield_lock</span>
@@ -852,16 +870,19 @@ window.__boot = function () {
   ];
   const SKILLS = ['Kotlin', 'Jetpack Compose', 'Kotlin Multiplatform', 'Material 3 Expressive', 'Gemini Nano', 'MediaPipe', 'Android launchers', 'App Functions'];
 
+  // One big link card: [href, icon, title, subtitle, tone].
+  function LinkCard({ c: [href, icon, title, sub, tone] }) {
+    const ext = href.startsWith('http') || href.startsWith('mailto:'), web = href.startsWith('http');
+    return html`<a class=${'legal-card' + (tone ? ' ' + tone : '')} href=${href} target=${web ? '_blank' : undefined} rel=${web ? 'noopener' : undefined}>
+      <span class="ex-icon" aria-hidden="true">${icon}</span>
+      <span><b>${title}</b><span>${sub}</span></span>
+      <span class="ex-icon go" aria-hidden="true">${ext ? 'arrow_outward' : 'arrow_forward'}</span>
+    </a>`;
+  }
+
   function PageCards({ cards }) {
     return html`<section class="ap-legal" aria-label="More">
-      ${cards.map(([href, icon, title, sub, tone], i) => {
-        const ext = href.startsWith('http') || href.startsWith('mailto:');
-        return html`<a key=${href} class=${'legal-card' + (tone ? ' ' + tone : '')} href=${href} target=${ext && href.startsWith('http') ? '_blank' : undefined} rel=${ext && href.startsWith('http') ? 'noopener' : undefined}>
-          <span class="ex-icon" aria-hidden="true">${icon}</span>
-          <span><b>${title}</b><span>${sub}</span></span>
-          <span class="ex-icon go" aria-hidden="true">${ext ? 'arrow_outward' : 'arrow_forward'}</span>
-        </a>`;
-      })}
+      ${cards.map(c => html`<${LinkCard} key=${c[0]} c=${c} />`)}
     </section>`;
   }
 
