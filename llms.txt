@@ -28,6 +28,7 @@ Contact: dinoykraj@gmail.com
 
 ## Talks
 
+- [Training product designers for foldables, postures and multi-window UX](https://dinoyraj.com/talks/adaptive-ux-foldables-multi-window-design)
 - [Agentic Android with App Functions](https://dinoyraj.com/talks/agentic-android-app-functions)
 - [On-device AI with Gemini Nano and the Prompt API](https://dinoyraj.com/talks/on-device-ai-gemini-nano-prompt-api)
 - [Crafting a custom Android launcher from scratch](https://dinoyraj.com/talks/custom-android-launcher)
