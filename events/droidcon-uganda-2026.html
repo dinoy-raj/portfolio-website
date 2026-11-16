@@ -589,12 +589,8 @@ section[id]{scroll-margin-top:96px}
 .top-blur i:nth-child(6){backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);mask:linear-gradient(to top,transparent 67%,#000 83%);-webkit-mask:linear-gradient(to top,transparent 67%,#000 83%)}
 /* Only a faint wash on top, so content stays visible through the blur instead of fading into a flat gradient. */
 .top-blur::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,color-mix(in srgb,var(--surface) 38%,transparent),color-mix(in srgb,var(--surface) 12%,transparent) 40%,transparent 75%)}
-/* Where the browser supports scroll-driven animations, the blur fades in over the first 40px of scroll, run by the compositor
-   rather than a scroll listener (TopBlur skips its listener then). */
-@supports (animation-timeline: scroll()){
-  .top-blur{transition:none;animation:top-blur-in linear both;animation-timeline:scroll(root block);animation-range:0px 40px}
-}
-@keyframes top-blur-in{from{opacity:0}to{opacity:1}}
+/* The fade-in stays a class toggle (.on), not a scroll-driven animation: a running opacity animation turns .top-blur into a
+   backdrop root, which leaves the bands nothing to blur. */
 @media (prefers-reduced-motion: reduce){.nav,.nav.open,.nav-panel .rv,.nav.open .nav-panel .rv{transition-duration:0ms!important;transition-delay:0ms!important}}
 
 /* Hero poster */
@@ -1443,7 +1439,7 @@ if (location.hash.length > 1) window.__reveal(document.getElementById(decodeURIC
     setTimeout(function () {
       var late = document.getElementById('late-fonts');
       if (late) document.head.appendChild(late.content.cloneNode(true));
-      ['/kit/vendor/react.production.min.js?v=18.3.1', '/kit/vendor/react-dom.production.min.js?v=18.3.1', '/kit/vendor/htm.umd.js?v=3.1.1', '/kit/bundle.js?v=d34dfc6d', '/kit/app.js?v=75473927'].forEach(function (src, i, all) {
+      ['/kit/vendor/react.production.min.js?v=18.3.1', '/kit/vendor/react-dom.production.min.js?v=18.3.1', '/kit/vendor/htm.umd.js?v=3.1.1', '/kit/bundle.js?v=d34dfc6d', '/kit/app.js?v=0a885be2'].forEach(function (src, i, all) {
         var s = document.createElement('script');
         s.src = src; s.async = false; // run in order
         if (i === all.length - 1) s.onload = function () { window.__boot(); };
