@@ -1766,6 +1766,13 @@ a.tix-item:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 .tix-item .fields b{font-size:13px;font-weight:600}
 .tix-item .mon{font-family:var(--font-mono);font-size:11px;letter-spacing:1.2px;text-transform:uppercase;opacity:.75}
 .tix-item .yr{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:34px;line-height:1}
+/* Home: two rows, then a dark ticket counting the rest (MoreTicket). Two columns or one show three tickets before it. */
+.t-ink{--bg:var(--inverse-surface);--fg:var(--inverse-on-surface);--acc:var(--inverse-primary)}
+.tix-more .n-narrow{display:none}
+@media (max-width:1000px){.tix-home>.tix-item:nth-child(n+4):not(.tix-more){display:none}.tix-more .n-wide{display:none}.tix-more .n-narrow{display:inline}}
+.tix-more .go{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--fg);color:var(--bg);transition:transform 400ms var(--spring)}
+.tix-more .go .ex-icon{font-size:22px}
+.tix-more:hover .go{transform:rotate(-45deg)}
 .tix-item .bars{width:56px;height:22px;margin-top:var(--space-2);background:repeating-linear-gradient(90deg,var(--fg) 0 2px,transparent 2px 4px,var(--fg) 4px 7px,transparent 7px 9px,var(--fg) 9px 10px,transparent 10px 13px);opacity:.85}
 @media (prefers-reduced-motion: reduce){.acc-card,.acc-card *,.tix-item{transition-duration:1ms!important}}
 
@@ -2156,7 +2163,7 @@ if (location.hash.length > 1) window.__reveal(document.getElementById(decodeURIC
     setTimeout(function () {
       var late = document.getElementById('late-fonts');
       if (late) document.head.appendChild(late.content.cloneNode(true));
-      ['/kit/vendor/react.production.min.js?v=18.3.1', '/kit/vendor/react-dom.production.min.js?v=18.3.1', '/kit/vendor/htm.umd.js?v=3.1.1', '/kit/bundle.js?v=d34dfc6d', '/kit/app.js?v=508f07d3'].forEach(function (src, i, all) {
+      ['/kit/vendor/react.production.min.js?v=18.3.1', '/kit/vendor/react-dom.production.min.js?v=18.3.1', '/kit/vendor/htm.umd.js?v=3.1.1', '/kit/bundle.js?v=d34dfc6d', '/kit/app.js?v=28df50d8'].forEach(function (src, i, all) {
         var s = document.createElement('script');
         s.src = src; s.async = false; // run in order
         if (i === all.length - 1) s.onload = function () { window.__boot(); };
