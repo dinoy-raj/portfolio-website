@@ -138,7 +138,7 @@ html.fl .ex-icon{color:transparent}
    "name": "droidcon India",
    "startDate": "2026-11-20",
    "endDate": "2026-11-20",
-   "description": "Dinoy Raj speaks at droidcon India in Bengaluru, India, 20 November 2026.",
+   "description": "Dinoy Raj speaks at droidcon India in Bengaluru, India, 20 November 2026. Session: “Bridge the Breakpoint Gap: Training Product Designers for Foldables, Postures, and Multi-Window UX”.",
    "image": "https://dinoyraj.com/assets/og.jpg",
    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
    "eventStatus": "https://schema.org/EventScheduled",
@@ -150,6 +150,11 @@ html.fl .ex-icon{color:transparent}
    "performer": {
     "@id": "https://dinoyraj.com/#person"
    },
+   "workPerformed": [
+    {
+     "@id": "https://dinoyraj.com/talks/adaptive-ux-foldables-multi-window-design#talk"
+    }
+   ],
    "organizer": {
     "@type": "Organization",
     "name": "droidcon",
@@ -178,8 +183,7 @@ html.fl .ex-icon{color:transparent}
    },
    "workPerformed": [
     {
-     "@type": "CreativeWork",
-     "name": "Bridge the Breakpoint Gap: Training Product Designers for Foldables, Postures, and Multi-Window UX"
+     "@id": "https://dinoyraj.com/talks/adaptive-ux-foldables-multi-window-design#talk"
     }
    ],
    "organizer": {
@@ -1190,7 +1194,6 @@ section[id]{scroll-margin-top:96px}
 .sw-probe{position:absolute;left:0;top:0;visibility:hidden;pointer-events:none;white-space:nowrap;font-stretch:64%;animation:none}
 /* Icons drawn from data-icon stay out of headings' indexed text (e.g. no "Hey! waving_hand"). */
 .ex-icon[data-icon]::before{content:attr(data-icon)}
-.num[data-n]::before{content:attr(data-n)}
 .glyph-o{display:inline-block;box-sizing:border-box;width:.78em;height:.72em;border:.13em solid currentColor;border-radius:999px;margin:0 .015em -.012em .005em;vertical-align:baseline;animation:sw-o 12.8s var(--ease) infinite;animation-delay:calc(var(--d,0s) - 3.4s)}
 @keyframes sw-squash{0%,30%,62%,100%{font-stretch:100%}40%,54%{font-stretch:64%}}
 @keyframes sw-o{
@@ -1507,12 +1510,12 @@ section[id]{scroll-margin-top:96px}
 .lb-todo .fin .ex-icon{font-size:calc(var(--u)*17);color:#9a9aa0}
 
 /* Hero */
-.lb-hero{background:radial-gradient(120% 110% at 30% 0%,#c4471c 0%,#a8330f 45%,#6e1f07 100%);color:#fff;isolation:isolate}
+.lb-hero{background:#000;color:#fff;isolation:isolate;padding:calc(var(--u)*48)}
 .lb-hero::before{content:"";position:absolute;inset:-40%;z-index:-1;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.07) 50%,transparent 60%);animation:lb-sheen 7s ease-in-out infinite}
-.lb-hero .in{display:flex;align-items:center;gap:calc(var(--u)*20)}
-.lb-hero .ico{width:calc(var(--u)*61);height:calc(var(--u)*61);border-radius:calc(var(--u)*18);background:#fff;flex:none;animation:lb-morph 6s ease-in-out infinite}
-.lb-hero .in b{font-size:calc(var(--u)*62);font-weight:700;letter-spacing:-.035em;line-height:1}
-.lb-hero>span{margin-top:calc(var(--u)*22);font-size:calc(var(--u)*20);color:#a1a1a6;letter-spacing:.01em}
+.lb-hero .in{display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*16);max-width:100%}
+.lb-hero .ico{width:calc(var(--u)*44);height:calc(var(--u)*44);border-radius:calc(var(--u)*13);background:#fff;flex:none;animation:lb-morph 6s ease-in-out infinite}
+.lb-hero .in b{font-size:calc(var(--u)*44);font-weight:700;letter-spacing:-.035em;line-height:1.05;text-align:center}
+.lb-hero>span{margin-top:calc(var(--u)*14);font-size:calc(var(--u)*17);color:#a1a1a6;letter-spacing:.01em}
 
 /* Detox */
 .lb-detox{align-items:stretch;justify-content:flex-start;text-align:left;padding:calc(var(--u)*20) calc(var(--u)*20) calc(var(--u)*18)}
@@ -2023,7 +2026,7 @@ if (location.hash.length > 1) window.__reveal(document.getElementById(decodeURIC
     setTimeout(function () {
       var late = document.getElementById('late-fonts');
       if (late) document.head.appendChild(late.content.cloneNode(true));
-      ['/kit/vendor/react.production.min.js?v=18.3.1', '/kit/vendor/react-dom.production.min.js?v=18.3.1', '/kit/vendor/htm.umd.js?v=3.1.1', '/kit/bundle.js?v=d34dfc6d', '/kit/app.js?v=6cd50fe3'].forEach(function (src, i, all) {
+      ['/kit/vendor/react.production.min.js?v=18.3.1', '/kit/vendor/react-dom.production.min.js?v=18.3.1', '/kit/vendor/htm.umd.js?v=3.1.1', '/kit/bundle.js?v=d34dfc6d', '/kit/app.js?v=75473927'].forEach(function (src, i, all) {
         var s = document.createElement('script');
         s.src = src; s.async = false; // run in order
         if (i === all.length - 1) s.onload = function () { window.__boot(); };
