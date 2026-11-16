@@ -637,15 +637,14 @@ window.__boot = function () {
     return () => ro.disconnect();
   }
 
-  /* Browsers with CSS scroll-driven animations run the top blur and the statement from CSS, off the main thread (see .top-blur and
-     .statement in the page styles). Older ones fall back to the scroll listeners below. */
+  /* Browsers with CSS scroll-driven animations run the statement from CSS, off the main thread (see .statement in the page
+     styles). Older ones fall back to the scroll listener below. */
   const scrollDriven = () => typeof CSS !== 'undefined' && CSS.supports('animation-timeline: scroll()');
 
   /* Shows the progressive top blur once the page has scrolled. */
   function TopBlur() {
     const [on, setOn] = useState(false);
     useEffect(() => {
-      if (scrollDriven()) return;
       const f = () => setOn(scrollY > 8);
       const stop = afterLayout(f); addEventListener('scroll', f, { passive: true });
       return () => { stop(); removeEventListener('scroll', f); };
