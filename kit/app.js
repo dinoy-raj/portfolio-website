@@ -1625,7 +1625,7 @@ window.__boot = function () {
           </div>
           <${Wordmark} text=${NAME.toUpperCase()} />
         </div>
-        <div class="wrap fine"><span>© 2026 ${NAME}</span><a class="kit" href="https://github.com/dinoy-raj/Material-3-expressive-design-system-skill" target="_blank" rel="noopener"><span class="kit-dot" aria-hidden="true"><${ShapeSvg} seq=${['cookie9', 'flower8', 'burst', 'clover4', 'cookie12']} speed=${36} hold=${900} morph=${700} /><span class="ex-icon">auto_awesome</span></span><span>Built with <b>Expressive</b> <span class="em">Kit</span></span><span class="ex-icon kit-go" aria-hidden="true">arrow_outward</span></a></div>
+        <div class="wrap fine"><span>© 2026 ${NAME}</span><a class="kit" href="https://github.com/dinoy-raj/material-3-expressive-skill" target="_blank" rel="noopener"><span class="kit-dot" aria-hidden="true"><${ShapeSvg} seq=${['cookie9', 'flower8', 'burst', 'clover4', 'cookie12']} speed=${36} hold=${900} morph=${700} /><span class="ex-icon">auto_awesome</span></span><span>Built with <b>Expressive</b> <span class="em">Kit</span></span><span class="ex-icon kit-go" aria-hidden="true">arrow_outward</span></a></div>
       </footer>
       <div class="sr-only" role="status">${msg || ''}</div>
       ${msg && html`<div class="toast"><${E.Snackbar} role=${null} message=${msg} action="OK" onAction=${() => setMsg(null)} /></div>`}
