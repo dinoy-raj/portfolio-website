@@ -1,0 +1,55 @@
+<section id="width-classes">
+<div class="tagwrap"><p class="tag">The 5 Width Size Classes</p></div>
+<x-embed style="position:absolute;left:128px;top:180px;width:1664px;height:640px"><!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box}
+html,body{margin:0;background:transparent;overflow:hidden;font-family:"Google Sans","Roboto",system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+#st{position:relative;width:1664px;height:640px}
+#lab{position:absolute;left:0;top:0;height:64px;display:flex;align-items:baseline;gap:20px}
+#cls{font-size:48px;font-weight:700;color:#000}
+#dp{font-size:36px;font-weight:500;color:#4285f4}
+#nav{font-size:28px;color:#595959}
+#win{position:absolute;left:0;top:84px;height:380px;border:6px solid #1d262f;border-radius:22px;background:#fff;overflow:hidden;display:flex}
+#rail{width:52px;background:#34a853;flex:none}
+#bd{flex:1;display:flex;flex-direction:column;min-width:0}
+#pn{flex:1;display:flex;gap:12px;padding:16px;min-width:0}
+.p{flex:1;border-radius:12px;min-width:0}
+#p1{background:#e9f0fe}#p2{background:#e9f4ec}#p3{background:#f7f7f7}
+#bar{height:52px;background:#34a853;flex:none}
+#rul{position:absolute;left:0;top:500px;width:1600px;height:64px;display:flex;border-radius:16px;overflow:hidden}
+.sg{height:64px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:600;color:#434343;transition:background-color .3s}
+#tk{position:absolute;left:0;top:576px;width:1600px;height:40px}
+.t{position:absolute;top:0;font-size:24px;color:#595959;transform:translateX(-50%)}
+#mk{position:absolute;top:490px;width:6px;height:84px;background:#1d262f;border-radius:3px}
+</style></head><body><div id="st">
+<div id="lab"><span id="cls">Compact</span><span id="dp">412 dp</span><span id="nav">One pane · navigation bar</span></div>
+<div id="win"><div id="rail"></div><div id="bd"><div id="pn"><div class="p" id="p1"></div><div class="p" id="p2"></div><div class="p" id="p3"></div></div><div id="bar"></div></div></div>
+<div id="rul"></div><div id="tk"></div><div id="mk"></div>
+</div><script>
+var S=1600/1800;
+var C=[["Compact",0,600,"#e5ebf7","One pane · navigation bar"],["Medium",600,840,"#f7f7f7","One or two panes · rail"],["Expanded",840,1200,"#e5ebf7","Two panes · rail"],["Large",1200,1600,"#f7f7f7","Multiple panes · rail"],["Extra-large",1600,1800,"#e5ebf7","Multiple panes · rail"]];
+var g=function(i){return document.getElementById(i)};
+var rul=g("rul"),tk=g("tk"),sg=[];
+C.forEach(function(c,i){var d=document.createElement("div");d.className="sg";d.style.width=((c[2]-c[1])*S)+"px";d.style.backgroundColor=c[3];d.textContent=c[0];rul.appendChild(d);sg.push(d);
+if(i>0){var t=document.createElement("div");t.className="t";t.style.left=(c[1]*S)+"px";t.textContent=c[1]+" dp";tk.appendChild(t);}});
+var last=-1;
+function f(ms){
+var p=(ms/1000%20)/20;
+var dp=Math.round((380+1380*(0.5-0.5*Math.cos(2*Math.PI*p)))/10)*10;
+var ci=0;for(var i=0;i<C.length;i++){if(dp>=C[i][1])ci=i;}
+g("win").style.width=(dp*S)+"px";
+g("mk").style.left=(dp*S-3)+"px";
+g("dp").textContent=dp+" dp";
+if(ci!==last){
+g("cls").textContent=C[ci][0];g("nav").textContent=C[ci][4];
+sg.forEach(function(d,i){d.style.backgroundColor=i===ci?"#e5fb79":C[i][3];d.style.color=i===ci?"#3b401f":"#434343";});
+g("rail").style.display=ci===0?"none":"block";
+g("bar").style.display=ci===0?"block":"none";
+last=ci;}
+g("p2").style.display=dp>=720?"block":"none";
+g("p3").style.display=ci>=3?"block":"none";
+requestAnimationFrame(f);}
+requestAnimationFrame(f);
+</script></body></html></x-embed>
+<p style="position:absolute;left:128px;top:860px;width:1664px;font-size:36px;line-height:56px">Watch the <span class="hb">structure</span> change at each breakpoint, not just the <span class="hg">width</span></p>
+<aside>⏱ 40s<br><br>Now let’s talk about breakpoints. Material 3 gives us five width size classes: Compact up to 600dp, Medium up to 840dp, Expanded up to 1200dp, and Large and Extra-large for desktops and external displays.<br><br>Below 600dp we’re in Compact: one pane and a bottom navigation bar. Watch how the structure itself transforms as we cross each threshold, not just the pixel width.<br><br>A foldable might be Compact when folded and Expanded when unfolded. A tablet might be Expanded in landscape but Medium in portrait. The important point: our app should respond to the available window, not the device model.<br><br>→ NEXT: Adaptive Strategies to Specify</aside>
+</section>

@@ -263,6 +263,7 @@ window.__boot = function () {
      Abstracts and takeaways follow the sessions on Sessionize. takeaways: [icon, title, text]. app: the related app's id. */
   const TALKS = [
     { slug: 'adaptive-ux-foldables-multi-window-design', text: 'Bridge the Breakpoint Gap: Training Product Designers for Foldables, Postures, and Multi-Window UX', seoTitle: 'Training Product Designers for Foldables and Multi-Window UX', title: 'Breakpoint gap', sub: 'Adaptive UX · Foldables & large screens', icon: 'open_in_full', tone: 'primary-container',
+      slides: '/talks/adaptive-ux-foldables-multi-window-design/slides', slidesEmbed: '/talks/adaptive-ux-foldables-multi-window-design/slides',
       seo: 'Talk by Dinoy Raj on training product designers for adaptive Android UX: window size classes, multi-pane layouts, foldable postures, hinges and desktop windowing.',
       abstract: [
         'For years, product designers have relied on static mockups built around standard mobile breakpoints. The rise of foldables, tablets and desktop windowing has broken fixed-frame design for good. Designing for modern form factors is no longer about stretching a single-pane layout to fill a larger screen: it means shifting the whole design team\'s mindset from responsive pages to adaptive behaviours.',
@@ -1287,10 +1288,10 @@ window.__boot = function () {
     </main>`;
   }
 
-  /* A talk's deck: the SlideShare player when slidesEmbed is set, loaded only when scrolled near, and a link to the deck. */
+  /* A talk's deck: the embedded player when slidesEmbed is set (a SlideShare player, or the site's own deck at /talks/<slug>/slides), loaded only when scrolled near, and a link to the deck. */
   function Slides({ t }) {
     return html`<div class="slides">
-      ${t.slidesEmbed && html`<div class="slides-frame"><iframe src=${t.slidesEmbed} title=${'Slides: ' + t.text} loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`}
+      ${t.slidesEmbed && html`<div class="slides-frame"><iframe src=${t.slidesEmbed} title=${'Slides: ' + t.text} loading="lazy" allowFullScreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`}
       <a class="link-arrow" href=${t.slides} target="_blank" rel="noopener">Open the slides<span class="ex-icon" aria-hidden="true" data-icon="arrow_outward"></span></a>
     </div>`;
   }
@@ -1688,7 +1689,7 @@ window.__boot = function () {
   };
   const talkNode = t => ({ '@type': 'CreativeWork', '@id': SITE + '/talks/' + t.slug + '#talk', url: SITE + '/talks/' + t.slug, name: t.text, alternateName: t.title,
     abstract: t.abstract.join(' '), author: { '@id': SITE + '/#person' }, inLanguage: 'en',
-    ...(t.slides ? { subjectOf: { '@type': 'PresentationDigitalDocument', name: 'Slides: ' + t.text, url: t.slides } } : {}) });
+    ...(t.slides ? { subjectOf: { '@type': 'PresentationDigitalDocument', name: 'Slides: ' + t.text, url: (t.slides.startsWith('/') ? SITE : '') + t.slides } } : {}) });
   function routeJsonLd(r) {
     const h = routeHead(r), url = SITE + h.path;
     const page = (type, extra) => ({ '@type': type, '@id': url + '#page', url, name: h.title, description: h.desc, isPartOf: { '@id': SITE + '/#website' }, inLanguage: 'en', ...extra });

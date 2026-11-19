@@ -1,0 +1,119 @@
+{
+  "v": 5,
+  "attachments": {},
+  "cover": "cover",
+  "createdOnFiles": {
+    "at": "2026-11-19T07:05:00Z",
+    "v": 1
+  },
+  "designSystems": [
+    {
+      "artifact": "https://claude.ai/artifact/YN26RYEVkMxBCxRT3MHofP",
+      "copiedAt": "2026-11-19T07:05:00Z",
+      "namespace": "dinoy-raj-talks",
+      "title": "Dinoy Raj Talks",
+      "version": "1794894404-f289"
+    }
+  ],
+  "faces": {
+    "google-sans-flex": {
+      "family": "Google Sans Flex",
+      "href": "https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400..700&display=swap"
+    },
+    "source-code-pro": {
+      "family": "Source Code Pro",
+      "href": "https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&display=swap"
+    }
+  },
+  "format": {
+    "shared": [
+      "project/deck.css"
+    ],
+    "v": 1
+  },
+  "lists": "css",
+  "order": [
+    "cover",
+    "about-me",
+    "agenda",
+    "terms",
+    "width-classes",
+    "strategies",
+    "constraint",
+    "versus",
+    "component-level",
+    "sec-tiers",
+    "tiers",
+    "tier3",
+    "t3-letterbox",
+    "t3-designer-1",
+    "t3-designer-2",
+    "t3-developer",
+    "sec-optimised",
+    "canonical",
+    "adaptive-nav",
+    "dont-stretch",
+    "travel",
+    "t2-designer-1",
+    "t2-developer",
+    "sec-differentiated",
+    "postures",
+    "tabletop",
+    "cover-screen",
+    "hinge-video",
+    "tier1",
+    "t1-designer-1",
+    "t1-developer",
+    "sec-extras",
+    "until-hinge",
+    "hinge-types",
+    "hinge-checklist",
+    "design-system",
+    "input",
+    "edge-to-edge",
+    "sec-why",
+    "platform",
+    "milestones",
+    "badge",
+    "references",
+    "days",
+    "closing"
+  ],
+  "sections": {
+    "s0": {
+      "description": "Opening: who is speaking and where we are going",
+      "start": "cover"
+    },
+    "s1": {
+      "before": null,
+      "description": "Foldable vocabulary, the window as the new constraint, and adaptive thinking",
+      "start": "terms"
+    },
+    "s2": {
+      "description": "Tier 3, adaptive ready: fill the window, keep state, work in multi-window",
+      "start": "sec-tiers"
+    },
+    "s3": {
+      "before": null,
+      "description": "Tier 2, adaptive optimised: adaptive layouts, navigation and no stretching",
+      "start": "sec-optimised"
+    },
+    "s4": {
+      "description": "Tier 1, adaptive differentiated: postures and the Large Screen Badge",
+      "start": "sec-differentiated"
+    },
+    "s4b": {
+      "description": "Also worth bothering about: the hinge, the design system, input and edge-to-edge",
+      "start": "sec-extras"
+    },
+    "s5": {
+      "description": "Why now: platform features and Google Play milestones",
+      "start": "sec-why"
+    },
+    "s6": {
+      "description": "References and thank you",
+      "start": "references"
+    }
+  },
+  "title": "Bridge the Breakpoint Gap 2"
+}

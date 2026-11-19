@@ -1,0 +1,16 @@
+<section id="t1-developer" style="padding:196px 160px 128px;gap:36px">
+<div class="tagwrap"><p class="tag">Tier 1 · What Developers Own</p></div>
+<div class="tbl">
+<div class="th"><p class="ch" style="width:520px">Do this</p><p class="ch" style="width:700px">How</p><p class="ch" style="flex:1">Guideline</p></div>
+<div class="tr rb"><p class="c" style="width:520px">React to tabletop and book</p><p class="c mono" style="width:700px">WindowInfoTracker → FoldingFeature</p><p class="c" style="flex:1">Postures</p></div>
+<div class="tr rg"><p class="c" style="width:520px">Preview on the outer screen</p><p class="c mono" style="width:700px">WindowAreaController, CameraX</p><p class="c" style="flex:1">Camera</p></div>
+<div class="tr rb"><p class="c" style="width:520px">Interactive PiP</p><p class="c mono" style="width:700px">PictureInPictureParams, RemoteAction</p><p class="c" style="flex:1">PiP</p></div>
+<div class="tr rg"><p class="c" style="width:520px">Open in an adjacent window</p><p class="c mono" style="width:700px">FLAG_ACTIVITY_LAUNCH_ADJACENT</p><p class="c" style="flex:1">Multitasking</p></div>
+<div class="tr rb"><p class="c" style="width:520px">Several instances</p><p class="c mono" style="width:700px">FLAG_ACTIVITY_MULTIPLE_TASK</p><p class="c" style="flex:1">Multi-Instance</p></div>
+<div class="tr rg"><p class="c" style="width:520px">Drag and drop between apps</p><p class="c mono" style="width:700px">dragAndDropSource / Target, DropHelper</p><p class="c" style="flex:1">Drag_Drop</p></div>
+<div class="tr rb"><p class="c" style="width:520px">Cursors and full screen</p><p class="c mono" style="width:700px">PointerIcon, requestFullscreenMode()</p><p class="c" style="flex:1">Desktop</p></div>
+<div class="tr rg last"><p class="c" style="width:520px">Low-latency stylus ink</p><p class="c mono" style="width:700px">Jetpack Ink, pressure and tilt input</p><p class="c" style="flex:1">Stylus</p></div>
+</div>
+<p class="body">Meet <span class="hb">Tier 2 + Tier 1</span> and apply for the <span class="hg">Large Screen Badge</span></p>
+<aside>⏱ 40s<br><br>Now let’s connect those experiences to the implementation. We can use WindowInfoTracker to observe folding information. FoldingFeature tells us the fold’s orientation, state and bounds. For camera scenarios, we can use CameraX.<br><br>For picture-in-picture, Android provides PictureInPictureParams, and RemoteAction exposes custom actions. For launching content in an adjacent window, Android provides launch options and activity flags. We can support drag and drop through Compose APIs or platform helpers.<br><br>The important point: the platform provides the building blocks, but the product team still has to decide which experiences are meaningful.<br><br>→ NEXT: Passed every tier? A few things still bite</aside>
+</section>
