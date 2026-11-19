@@ -263,6 +263,7 @@ window.__boot = function () {
      Abstracts and takeaways follow the sessions on Sessionize. takeaways: [icon, title, text]. app: the related app's id. */
   const TALKS = [
     { slug: 'adaptive-ux-foldables-multi-window-design', text: 'Bridge the Breakpoint Gap: Training Product Designers for Foldables, Postures, and Multi-Window UX', seoTitle: 'Training Product Designers for Foldables and Multi-Window UX', title: 'Breakpoint gap', sub: 'Adaptive UX · Foldables & large screens', icon: 'open_in_full', tone: 'primary-container',
+      slides: 'https://claude.ai/artifact/RTouSXNsvx4AGFLrZqkSYL',
       seo: 'Talk by Dinoy Raj on training product designers for adaptive Android UX: window size classes, multi-pane layouts, foldable postures, hinges and desktop windowing.',
       abstract: [
         'For years, product designers have relied on static mockups built around standard mobile breakpoints. The rise of foldables, tablets and desktop windowing has broken fixed-frame design for good. Designing for modern form factors is no longer about stretching a single-pane layout to fill a larger screen: it means shifting the whole design team\'s mindset from responsive pages to adaptive behaviours.',
