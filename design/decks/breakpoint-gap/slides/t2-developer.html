@@ -1,0 +1,16 @@
+<section id="t2-developer" style="padding:196px 160px 128px;gap:36px">
+<div class="tagwrap"><p class="tag">Tier 2 · What Developers Own</p></div>
+<div class="tbl">
+<div class="th"><p class="ch" style="width:540px">Do this</p><p class="ch" style="width:640px">How</p><p class="ch" style="flex:1">Guideline</p></div>
+<div class="tr rb"><p class="c" style="width:540px">Multi-pane layouts</p><p class="c mono" style="width:640px">ListDetailPaneScaffold, SupportingPaneScaffold</p><p class="c" style="flex:1">Responsive_adaptive</p></div>
+<div class="tr rg"><p class="c" style="width:540px">Bar to rail to expanded rail</p><p class="c mono" style="width:640px">NavigationSuiteScaffold</p><p class="c" style="flex:1">UI_Secondary</p></div>
+<div class="tr rb"><p class="c" style="width:540px">Grids that add columns</p><p class="c mono" style="width:640px">LazyVerticalGrid, GridCells.Adaptive</p><p class="c" style="flex:1">Responsive_adaptive</p></div>
+<div class="tr rg"><p class="c" style="width:540px">Max width on sheets, buttons, fields</p><p class="c mono" style="width:640px">Modifier.widthIn(max = …)</p><p class="c" style="flex:1">UI_Secondary</p></div>
+<div class="tr rb"><p class="c" style="width:540px">Focus on custom components</p><p class="c mono" style="width:640px">Modifier.focusable(), focusProperties</p><p class="c" style="flex:1">Drawable_Focus</p></div>
+<div class="tr rg"><p class="c" style="width:540px">Keys and shortcuts</p><p class="c mono" style="width:640px">onKeyEvent, onPreviewKeyEvent</p><p class="c" style="flex:1">Keyboard_*</p></div>
+<div class="tr rb"><p class="c" style="width:540px">Right-click context menus</p><p class="c mono" style="width:640px">PointerEvent.buttons.isSecondaryPressed</p><p class="c" style="flex:1">Context_Menus</p></div>
+<div class="tr rg last"><p class="c" style="width:540px">Hover, cursors and zoom</p><p class="c mono" style="width:640px">hoverable, pointerHoverIcon, transformable</p><p class="c" style="flex:1">Hover · Zoom</p></div>
+</div>
+<p class="body">Test with a <span class="hb">keyboard and mouse</span> on the <span class="hg">Desktop emulator</span></p>
+<aside>⏱ 40s<br><br>Here’s where developers translate those design decisions into the actual Android implementation. For multi-pane layouts, we can use the Material 3 Adaptive library or the appropriate Navigation 3 scene strategies.<br><br>For adaptive grids, Compose provides LazyVerticalGrid with GridCells.Adaptive. For constrained layouts, we can use widthIn. For keyboard focus and shortcuts, we have focusable, focusProperties and key event handlers.<br><br>And for mouse and trackpad, we can use hover interactions and pointer input APIs. The important thing is that developers shouldn’t invent the adaptive behaviour on their own.<br><br>They should implement the behaviour defined during product design.<br><br>→ NEXT: What if the app was designed for this device?</aside>
+</section>

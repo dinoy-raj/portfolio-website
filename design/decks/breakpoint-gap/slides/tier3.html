@@ -1,0 +1,14 @@
+<section id="tier3" style="padding:200px 200px 128px;gap:48px">
+<div class="tagwrap"><p class="tag">Tier 3 · Adaptive Ready</p></div>
+<div class="tbl">
+<div class="th"><p class="ch" style="width:420px">Requirement</p><p class="ch" style="flex:1">What the design must cover</p></div>
+<div class="tr rb"><p class="c" style="width:420px">Fill the window</p><p class="c" style="flex:1">No letterboxing, no compatibility mode, no content overflow</p></div>
+<div class="tr rg"><p class="c" style="width:420px">Keep state</p><p class="c" style="flex:1">Scroll, typed text and playback survive fold, rotate and resize</p></div>
+<div class="tr rb"><p class="c" style="width:420px">Combined changes</p><p class="c" style="flex:1">Resize then rotate, rotate then fold</p></div>
+<div class="tr rg"><p class="c" style="width:420px">Multi-window</p><p class="c" style="flex:1">Fully usable when split; keeps updating when not focused</p></div>
+<div class="tr rb"><p class="c" style="width:420px">Camera and media</p><p class="c" style="flex:1">Preview upright and in proportion, folded or unfolded</p></div>
+<div class="tr rg last"><p class="c" style="width:420px">Basic input</p><p class="c" style="flex:1">Keyboard typing, mouse click and scroll, stylus tap and handwriting</p></div>
+</div>
+<div style="display:flex;gap:24px;align-items:center"><p class="badgel">Google Play baseline from April 2027</p><p class="body">Miss it and you <span class="hb">can’t publish updates</span></p></div>
+<aside>⏱ 50s<br><br>Tier 3 is about reliability. We don’t want an app to become unusable just because someone unfolds their phone or resizes a window. The app should fill the available area: neither overflowing nor letterboxed.<br><br>It should preserve user state, including scroll position, text input and media playback. We also need to think beyond individual configuration changes. A user might resize the window, rotate the device and then fold it.<br><br>The app has to survive folding, rotating and resizing, even rapid combinations like resize-then-rotate, without losing the user’s work. In multi-window, your app must keep updating even when the other window has focus.<br><br>And finally, the basic experience needs to work with external input devices.<br><br>→ NEXT: Fill the Window, Not a Letterbox</aside>
+</section>

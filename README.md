@@ -14,6 +14,16 @@ Every page is pre-rendered to static HTML: `index.html` is the home page and the
 node design/prerender.js
 ```
 
+## Talk slides
+
+A talk's deck can be hosted on the site at `/talks/<slug>/slides`: a single static page with the slides inlined and a small viewer (arrow keys, click or swipe, `N` for speaker notes, `F` for full screen, `#slide-N` links). The deck source sits in `design/decks/<name>/` as exported from a Claude Slides artifact (`deck.json`, `deck.css`, `slides/<id>.html`), its images in `assets/talks/<name>/`. After changing a deck, rebuild its page:
+
+```sh
+node design/build-deck.js
+```
+
+Point the talk's `slides` and `slidesEmbed` in `kit/app.js` at `/talks/<slug>/slides` to link and embed it on the talk page.
+
 ## Expressive Kit
 
 `/material-3-expressive-skill` is not built here: `vercel.json` rewrites it to the kit's GitHub Pages site, which redeploys on every merge to that repository's `main`. Its pages and styles live in [material-3-expressive-skill](https://github.com/dinoy-raj/material-3-expressive-skill) (`scripts/build_site.py`, `scripts/site.css`).

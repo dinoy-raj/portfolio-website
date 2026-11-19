@@ -1,0 +1,16 @@
+<section id="t3-developer" style="padding:196px 160px 128px;gap:36px">
+<div class="tagwrap"><p class="tag">Tier 3 · What Developers Own</p></div>
+<div class="tbl">
+<div class="th"><p class="ch" style="width:560px">Do this</p><p class="ch" style="width:620px">How</p><p class="ch" style="flex:1">Guideline</p></div>
+<div class="tr rb"><p class="c" style="width:560px">Drop orientation and resize locks</p><p class="c mono" style="width:620px">screenOrientation, resizeableActivity</p><p class="c" style="flex:1">Config_Changes</p></div>
+<div class="tr rg"><p class="c" style="width:560px">Keep state across config changes</p><p class="c mono" style="width:620px">ViewModel, rememberSaveable</p><p class="c" style="flex:1">Config_Changes</p></div>
+<div class="tr rb"><p class="c" style="width:560px">Survive combined and rapid changes</p><p class="c" style="width:620px">Test resize → rotate → fold, fast</p><p class="c" style="flex:1">Config_Combinations</p></div>
+<div class="tr rg"><p class="c" style="width:560px">Branch on window size, not device</p><p class="c mono" style="width:620px">currentWindowAdaptiveInfo()</p><p class="c" style="flex:1">Multi-Window</p></div>
+<div class="tr rb"><p class="c" style="width:560px">Keep updating when not focused</p><p class="c mono" style="width:620px">onTopResumedActivityChanged</p><p class="c" style="flex:1">Multi-Resume</p></div>
+<div class="tr rg"><p class="c" style="width:560px">Upright camera and screen capture</p><p class="c" style="width:620px">CameraX, media projection</p><p class="c" style="flex:1">Camera_Preview</p></div>
+<div class="tr rb"><p class="c" style="width:560px">Physical keyboard without a restart</p><p class="c mono" style="width:620px">configChanges="keyboard|keyboardHidden"</p><p class="c" style="flex:1">Keyboard_Input</p></div>
+<div class="tr rg last"><p class="c" style="width:560px">Mouse, trackpad, stylus, system back</p><p class="c" style="width:620px">Standard components, predictive back</p><p class="c" style="flex:1">Mouse · Stylus · Back</p></div>
+</div>
+<p class="body">Test on the <span class="hb">resizable emulator</span>, Pixel Fold, Medium Tablet and <span class="hg">Desktop</span></p>
+<aside>⏱ 50s<br><br>Now let’s move to the developer side. The first responsibility is to stop assuming the app will always run in one orientation or one fixed window size. Second, we need to preserve state.<br><br>In Compose, rememberSaveable is useful for small UI state, while ViewModels help us retain screen state across configuration changes. For more important data, we should rely on repositories and persistent storage.<br><br>Third, we must test combinations of configuration changes. Don’t just test folding and unfolding on their own: try resizing, rotating and folding in different sequences. We should also base layout decisions on the current window size rather than hardcoding device-specific logic.<br><br>And finally, we need to understand multi-window lifecycle behaviour, and support keyboard, mouse and stylus input.<br><br>→ NEXT: It doesn’t break. Is it adaptive yet?</aside>
+</section>
