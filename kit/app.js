@@ -389,7 +389,7 @@ window.__boot = function () {
     { name: 'droidcon Lisbon', when: 'Oct 2026', where: 'Lisbon', addr: 'Lisbon, Portugal', date: '2026-10-20', end: '2026-10-21', talks: [['storytale-compose-multiplatform-design-systems', '2026-10-20', 'Track 3']], org: 'FIKA IT Solutions', site: 'https://lisbon.droidcon.com/' },
     { name: 'DevFest Vicenza', when: 'Jun 2026', where: 'Italy', addr: 'Vicenza, Italy', date: '2026-06-06', talks: ['offline-rag-android-mediapipe'], org: 'GDG Vicenza', site: 'https://devfestvicenza.it/' },
     { name: 'FOSSASIA Summit', when: 'Mar 2026', where: 'Bangkok', addr: 'True Digital Park, Bangkok, Thailand', date: '2026-03-08', end: '2026-03-10', org: 'FOSSASIA', site: 'https://fossasia.org/' },
-    { name: 'DevFest Mumbai', when: 'Dec 2025', where: 'Mumbai', addr: 'Mumbai, India', date: '2025-12-20', talks: ['custom-android-launcher'], org: 'GDG Mumbai' },
+    { name: 'DevFest Mumbai', when: 'Dec 2025', where: 'Mumbai', addr: 'Mumbai, India', date: '2025-12-20', talks: ['custom-android-launcher'], org: 'GDG Mumbai', site: 'https://gdg.community.dev/gdg-mumbai/' },
     { name: 'Mobile Developers Week', when: 'Dec 2025', where: 'Abu Dhabi', addr: 'Abu Dhabi Energy Centre, Abu Dhabi, United Arab Emirates', date: '2025-12-13', end: '2025-12-15', talks: [['mediapipe-llm-lora-android', '2025-12-15', 'Vertex']], org: 'Omnes Technologies', site: 'https://www.mobiledevelopersweek.com/' },
     { name: 'DevFest Dubai', when: 'Dec 2025', where: 'Dubai', addr: 'Abu Dhabi Energy Centre, Abu Dhabi, United Arab Emirates', date: '2025-12-13', end: '2025-12-15', org: 'GDG Dubai', site: 'https://gdg.community.dev/events/details/google-gdg-dubai-presents-devfest-dubai-2025-end-of-year-showdown/' },
   ];
