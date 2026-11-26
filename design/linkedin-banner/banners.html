@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>LinkedIn banners</title>
+<!-- Five LinkedIn profile banners (1584 x 396, LinkedIn's recommended size), one per .slide, in the site's Expressive Kit look.
+     render.js screenshots each slide at 2x. Add ?overlay to the URL to see where LinkedIn's profile photo covers the banner
+     (desktop: smaller circle; phone app: larger circle). Keep text right of x = 520 so neither covers it. -->
+<style>
+@font-face {font-family: 'Google Sans Flex'; font-weight: 400 700; font-stretch: 62% 100%; src: url(../../assets/fonts/google-sans-flex-latin-075c1628.woff2) format('woff2'); unicode-range: U+0020-007E, U+00A0-00FF, U+2013-2014, U+2018-201E, U+2022, U+2026;}
+@font-face {font-family: 'Google Sans Flex'; font-weight: 400 700; font-stretch: 62% 100%; src: url(../../assets/fonts/google-sans-flex-symbols-18806419.woff2) format('woff2'); unicode-range: U+2190-21FF, U+2500-27BF;}
+@font-face {font-family: 'Google Sans Flex'; font-weight: 400 700; font-stretch: 62% 100%; src: url(../../assets/fonts/google-sans-flex-math-616d663b.woff2) format('woff2'); unicode-range: U+2190-2199, U+2200-22FF;}
+@font-face {font-family: 'Fraunces'; font-style: italic; font-weight: 600; src: url(../../assets/fonts/fraunces-latin-4fe6160b.woff2) format('woff2');}
+@font-face {font-family: 'Fraunces'; font-style: normal; font-weight: 600; src: url(../../assets/fonts/fraunces-latin-bffe30c6.woff2) format('woff2');}
+@font-face {font-family: 'Google Sans Code'; font-weight: 400 500; src: url(../../assets/fonts/google-sans-code-latin-d17c2804.woff2) format('woff2'); unicode-range: U+0020-007E, U+00A0-00FF, U+2013-2014, U+2022;}
+@font-face {font-family: 'Google Sans Code'; font-weight: 400 500; src: url(../../assets/fonts/google-sans-code-symbols-a4371a95.woff2) format('woff2'); unicode-range: U+2190-21FF, U+25A0-27BF;}
+@font-face {font-family: 'Material Symbols Rounded'; src: url(../../assets/fonts/material-symbols-rounded-icons-e2393dc2.woff2) format('woff2');}
+
+:root {
+  --surface: #fbf6ee; --surface-container: #f1e9df; --surface-container-high: #ebe2d6; --on-surface: #1f1a16; --on-surface-variant: #54463d;
+  --outline-variant: #d9c7bc;
+  --primary: #a8330f; --on-primary: #ffffff; --primary-container: #ffdbcf; --on-primary-container: #3b0900; --inverse-primary: #ffb59c;
+  --secondary: #2c6765; --secondary-container: #bdeeea; --on-secondary-container: #00201f;
+  --tertiary: #7a4e8f; --tertiary-container: #f3daff;
+  --highlight: #fc9500; --live: #7fd9a3; --island: #141110; --island-ink: #fbf6ee; --island-muted: #b8aaa1; --island-line: #2f2925;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #ddd; }
+body { width: 1584px; font-family: 'Google Sans Flex', system-ui, sans-serif; color: var(--on-surface); -webkit-font-smoothing: antialiased; }
+.slide { position: relative; width: 1584px; height: 396px; overflow: hidden; background: var(--surface); margin-bottom: 24px; }
+.shape { position: absolute; display: block; }
+.ic { font-family: 'Material Symbols Rounded'; font-weight: 400; font-style: normal; line-height: 1; letter-spacing: normal; white-space: nowrap; font-feature-settings: 'liga'; font-variation-settings: 'FILL' 1; text-transform: none; display: inline-block; }
+
+/* Text column: starts at x = 520, clear of the profile photo on desktop and in the phone app. */
+.copy { position: absolute; left: 540px; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; gap: 18px; }
+.eyebrow { font-family: 'Google Sans Code', monospace; font-size: 19px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+.eyebrow .ic { font-size: 22px; }
+h1 { margin: 0; font-size: 52px; line-height: 1.06; font-weight: 650; font-stretch: 92%; letter-spacing: -.015em; }
+h1 em, .big em { font-family: 'Fraunces', serif; font-style: italic; font-weight: 600; color: var(--primary); letter-spacing: -.01em; }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; max-width: 700px; }
+.chip { font-size: 20px; font-weight: 550; padding: 8px 16px; border-radius: 999px; background: var(--surface-container-high); color: var(--on-surface-variant); }
+.url { font-size: 20px; font-weight: 600; display: flex; align-items: center; gap: 6px; color: var(--on-surface); }
+.url .ic { font-size: 22px; color: var(--primary); }
+.sub { margin: 0; font-size: 22px; line-height: 1.35; color: var(--on-surface-variant); max-width: 680px; }
+
+.phone { position: absolute; width: 196px; border-radius: 30px; border: 7px solid #1f1a16; background: #1f1a16; box-shadow: 0 24px 48px rgba(43, 29, 16, .28), 0 4px 10px rgba(43, 29, 16, .18); }
+.phone img { display: block; width: 100%; border-radius: 23px; }
+
+/* 1 — who */
+.s1 .phone { left: 1330px; top: 46px; transform: rotate(-7deg); }
+
+/* 2 — launcher */
+.s2 { background: var(--primary-container); }
+.s2 .eyebrow { color: var(--on-primary-container); }
+.stats { display: flex; gap: 44px; align-items: flex-end; }
+.stat b { display: block; font-family: 'Fraunces', serif; font-weight: 600; font-size: 104px; line-height: .92; letter-spacing: -.03em; color: var(--primary); }
+.stat span { display: block; margin-top: 8px; font-size: 21px; font-weight: 600; color: var(--on-primary-container); }
+.s2 .sub { color: var(--on-primary-container); font-size: 21px; }
+.s2 .phone { width: 168px; }
+
+/* 3 — on-device AI (dark) */
+.s3 { background: var(--island); color: var(--island-ink); }
+.s3 .eyebrow { color: var(--inverse-primary); }
+.big { font-size: 92px; font-weight: 700; font-stretch: 88%; line-height: 1; letter-spacing: -.02em; display: flex; align-items: baseline; gap: 22px; }
+.big .from { color: var(--island-muted); }
+.big .arrow { font-size: 64px; color: var(--highlight); }
+.big .to { color: var(--live); }
+.s3 .sub { color: var(--island-muted); }
+.s3 .sub b { color: var(--island-ink); font-weight: 600; }
+.bars { position: absolute; left: 1250px; top: 96px; width: 270px; display: flex; flex-direction: column; gap: 26px; }
+.bar label { display: flex; justify-content: space-between; font-family: 'Google Sans Code', monospace; font-size: 16px; color: var(--island-muted); margin-bottom: 9px; letter-spacing: .04em; }
+.bar label b { color: var(--island-ink); font-weight: 500; }
+.track { height: 30px; border-radius: 999px; background: var(--island-line); overflow: hidden; }
+.fill { height: 100%; border-radius: 999px; }
+.bar.before .fill { width: 100%; background: #6b5d55; }
+.bar.after .fill { width: 5.3%; min-width: 16px; background: var(--live); }
+.bar.after label b { color: var(--live); }
+.note { font-family: 'Google Sans Code', monospace; font-size: 14px; color: #8d7f77; letter-spacing: .03em; line-height: 1.5; }
+
+/* 4 — speaking */
+.s4 { background: var(--secondary-container); }
+.s4 .eyebrow { color: var(--secondary); }
+.s4 h1 { color: var(--on-secondary-container); font-size: 62px; }
+.s4 h1 em { color: var(--secondary); }
+.tix { display: flex; flex-wrap: wrap; gap: 8px; max-width: 1000px; }
+.tix span { font-size: 17px; font-weight: 600; padding: 6px 12px; border-radius: 10px; background: rgba(255, 255, 255, .62); color: var(--on-secondary-container); border: 1.5px dashed rgba(44, 103, 101, .38); }
+.s4 .sub { color: var(--on-secondary-container); font-size: 20px; }
+
+/* 5 — open to roles */
+.s5 { background: var(--primary); color: var(--on-primary); }
+.s5 .eyebrow { color: var(--primary-container); }
+.s5 h1 { font-size: 60px; }
+.s5 h1 em { color: var(--primary-container); }
+.s5 .sub { color: rgba(255, 255, 255, .86); }
+.btns { display: flex; gap: 14px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; font-size: 21px; font-weight: 650; padding: 13px 24px; border-radius: 999px; }
+.btn .ic { font-size: 22px; }
+.btn.fill-btn { background: var(--surface); color: var(--primary); }
+.btn.tonal { background: rgba(255, 255, 255, .14); color: #fff; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .5); }
+
+/* ?overlay: LinkedIn profile-photo footprints (estimates) */
+.ov { position: absolute; border-radius: 50%; pointer-events: none; z-index: 10; }
+.ov.desk { left: 47px; top: 246px; width: 300px; height: 300px; background: rgba(0, 120, 255, .28); outline: 2px solid #0078ff; }
+.ov.mob { left: 67px; top: 177px; width: 440px; height: 440px; background: rgba(255, 0, 90, .16); outline: 2px dashed #ff005a; }
+</style>
+</head>
+<body>
+
+<!-- 1 · who I am -->
+<section class="slide s1" id="s1">
+  <svg class="shape" data-shape="cookie9" data-rot="12" style="left:-110px;top:-150px;width:520px;height:520px" viewBox="-1 -1 2 2"><path fill="var(--primary)"/></svg>
+  <svg class="shape" data-shape="flower5" data-rot="-8" style="left:330px;top:26px;width:110px;height:110px" viewBox="-1 -1 2 2"><path fill="var(--highlight)"/></svg>
+  <svg class="shape" data-shape="clover4" data-rot="20" style="left:1150px;top:180px;width:300px;height:300px" viewBox="-1 -1 2 2"><path fill="var(--tertiary-container)"/></svg>
+  <svg class="shape" data-shape="cookie12" style="left:1440px;top:-40px;width:150px;height:150px" viewBox="-1 -1 2 2"><path fill="var(--secondary-container)"/></svg>
+  <div class="copy">
+    <div class="eyebrow"><span class="ic">android</span>Android Engineer · Developer Advocate</div>
+    <h1>Android apps that feel <em>alive,</em><br>and the talks that teach them.</h1>
+    <div class="chips"><span class="chip">Kotlin</span><span class="chip">Jetpack Compose</span><span class="chip">Material 3</span><span class="chip">On-device AI</span></div>
+    <div class="url">dinoyraj.com<span class="ic">arrow_outward</span></div>
+  </div>
+  <div class="phone"><img src="../../assets/apps/launcher-1.webp" alt=""></div>
+</section>
+
+<!-- 2 · the launcher -->
+<section class="slide s2" id="s2">
+  <svg class="shape" data-shape="flower5" data-rot="6" style="left:-120px;top:-110px;width:500px;height:500px" viewBox="-1 -1 2 2"><path fill="var(--primary)"/></svg>
+  <svg class="shape" data-shape="cookie6" style="left:320px;top:30px;width:120px;height:120px" viewBox="-1 -1 2 2"><path fill="var(--surface)"/></svg>
+  <svg class="shape" data-shape="burst" data-rot="10" style="left:1130px;top:-60px;width:460px;height:460px" viewBox="-1 -1 2 2"><path fill="#ffc1ac"/></svg>
+  <div class="copy" style="gap:16px">
+    <div class="eyebrow"><span class="ic">smartphone</span>Simple Minimalist Launcher</div>
+    <div class="stats">
+      <div class="stat"><b>50K+</b><span>downloads on Google Play</span></div>
+      <div class="stat"><b>4.8★</b><span>average rating</span></div>
+    </div>
+    <p class="sub">Built solo in Kotlin &amp; Jetpack Compose: a text-first home screen<br>with Material You theming, 250+ widgets and focus tools.</p>
+  </div>
+  <div class="phone" style="left:1218px;top:84px;transform:rotate(-9deg)"><img src="../../assets/apps/launcher-3.webp" alt=""></div>
+  <div class="phone" style="left:1392px;top:46px;transform:rotate(5deg)"><img src="../../assets/apps/launcher-2.webp" alt=""></div>
+</section>
+
+<!-- 3 · on-device AI in production -->
+<section class="slide s3" id="s3">
+  <svg class="shape" data-shape="burst" data-rot="4" style="left:-120px;top:-120px;width:500px;height:500px" viewBox="-1 -1 2 2"><path fill="#3b0900"/></svg>
+  <svg class="shape" data-shape="cookie9" style="left:120px;top:-30px;width:250px;height:250px" viewBox="-1 -1 2 2"><path fill="var(--primary)"/></svg>
+  <svg class="shape" data-shape="sunny" style="left:340px;top:40px;width:90px;height:90px" viewBox="-1 -1 2 2"><path fill="var(--highlight)"/></svg>
+  <div class="copy">
+    <div class="eyebrow"><span class="ic">auto_awesome</span>Gemini Nano · ML Kit Prompt API</div>
+    <div class="big"><span class="from">18.3 s</span><span class="arrow">→</span><span class="to">&lt;1 s</span></div>
+    <p class="sub"><b>AI smart search, shipped in a production travel app:</b><br>natural-language queries in, booking filters out, all on-device.</p>
+  </div>
+  <div class="bars">
+    <div class="bar before"><label>first version <b>18.3 s</b></label><div class="track"><div class="fill"></div></div></div>
+    <div class="bar after"><label>shipped <b>&lt; 1 s</b></label><div class="track"><div class="fill"></div></div></div>
+    <div class="note">structured prompts<br>prefix caching<br>Kotlin Flow streaming</div>
+  </div>
+</section>
+
+<!-- 4 · speaking -->
+<section class="slide s4" id="s4">
+  <svg class="shape" data-shape="cookie12" style="left:-100px;top:-130px;width:480px;height:480px" viewBox="-1 -1 2 2"><path fill="var(--secondary)"/></svg>
+  <svg class="shape" data-shape="clover4" data-rot="30" style="left:320px;top:22px;width:120px;height:120px" viewBox="-1 -1 2 2"><path fill="var(--highlight)"/></svg>
+  <svg class="shape" data-shape="flower8" style="left:1420px;top:250px;width:260px;height:260px" viewBox="-1 -1 2 2"><path fill="#a5e0db"/></svg>
+  <div class="copy" style="gap:15px">
+    <div class="eyebrow"><span class="ic">mic</span>Speaker · top 3% worldwide on Sessionize (2025)</div>
+    <h1>17 events. <em>10 countries.</em></h1>
+    <div class="tix">
+      <span>droidcon Lisbon</span><span>droidcon India</span><span>droidcon Uganda</span><span>Droidcon Kenya</span><span>DevFest Atlanta</span><span>DevFest Vicenza</span>
+      <span>DevFest Mumbai</span><span>DevFest Dar es Salaam</span><span>FOSSASIA Summit</span><span>Mobile Developers Week Abu Dhabi</span>
+    </div>
+    <p class="sub">On-device AI · Gemini Nano · MediaPipe · App Functions · Adaptive UX</p>
+  </div>
+</section>
+
+<!-- 5 · open to roles -->
+<section class="slide s5" id="s5">
+  <svg class="shape" data-shape="flower8" data-rot="8" style="left:-120px;top:-120px;width:500px;height:500px" viewBox="-1 -1 2 2"><path fill="#8a2608"/></svg>
+  <svg class="shape" data-shape="cookie9" style="left:310px;top:26px;width:120px;height:120px" viewBox="-1 -1 2 2"><path fill="var(--highlight)"/></svg>
+  <svg class="shape" data-shape="cookie6" data-rot="14" style="left:1300px;top:-90px;width:340px;height:340px" viewBox="-1 -1 2 2"><path fill="#bf4320"/></svg>
+  <svg class="shape" data-shape="clover4" style="left:1430px;top:250px;width:180px;height:180px" viewBox="-1 -1 2 2"><path fill="var(--primary-container)"/></svg>
+  <div class="copy">
+    <div class="eyebrow"><span class="ic">work</span>Open to full-time roles · available immediately</div>
+    <h1>Android Engineer<br><em>&amp; Developer Relations</em></h1>
+    <p class="sub">Kotlin · Jetpack Compose · Material 3 · On-device AI</p>
+    <div class="btns"><span class="btn fill-btn">dinoyraj.com<span class="ic">arrow_outward</span></span><span class="btn tonal"><span class="ic">code</span>github.com/dinoy-raj</span></div>
+  </div>
+</section>
+
+<script>
+/* Expressive Kit shapes (same polar radius functions as kit/app.js), drawn once as static SVG paths. */
+const SHAPES = {
+  cookie6: t => 1 + 0.12 * Math.cos(6 * t), cookie9: t => 1 + 0.075 * Math.cos(9 * t), cookie12: t => 1 + 0.05 * Math.cos(12 * t),
+  clover4: t => 0.9 + 0.22 * Math.pow(Math.abs(Math.cos(2 * t)), 1.6), flower5: t => 1 + 0.16 * Math.cos(5 * t),
+  flower8: t => 1 + 0.17 * Math.cos(8 * t), sunny: t => 1 + 0.04 * Math.cos(8 * t + 0.4), burst: t => 1 + 0.13 * Math.cos(10 * t),
+};
+document.querySelectorAll('[data-shape]').forEach(svg => {
+  const f = SHAPES[svg.dataset.shape], rot = (+svg.dataset.rot || 0) * Math.PI / 180, N = 240, r = [];
+  for (let i = 0; i < N; i++) r.push(f(i / N * 2 * Math.PI));
+  const m = Math.max(...r);
+  let d = '';
+  for (let i = 0; i < N; i++) { const t = i / N * 2 * Math.PI - Math.PI / 2 + rot; d += (i ? 'L' : 'M') + (r[i] / m * Math.cos(t)).toFixed(4) + ' ' + (r[i] / m * Math.sin(t)).toFixed(4); }
+  svg.querySelector('path').setAttribute('d', d + 'Z');
+});
+if (location.search.includes('overlay')) document.querySelectorAll('.slide').forEach(s => s.insertAdjacentHTML('beforeend', '<i class="ov mob"></i><i class="ov desk"></i>'));
+</script>
+</body>
+</html>
